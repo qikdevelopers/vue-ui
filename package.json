@@ -1,0 +1,48 @@
+{
+  "name": "@qikdev/vue-ui",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Vue UI component library",
+  "scripts": {
+    "build": "webpack --mode=production && npm run test",
+    "dev": "webpack --mode=development --progress --colors --watch",
+    "test": "mocha  --colors ./test/*.spec.js",
+    "test:watch": "mocha  --colors -w ./test/*.spec.js",
+    "document": "jsdoc -r  . -d docs -c jsdoc.conf README.md"
+  },
+  "exports": "./src/index.js",
+  "homepage": "https://qik.dev",
+  "bugs": {
+    "url": "https://support.qik.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/qikdevelopers/vue-ui.git"
+  },
+  "keywords": [
+    "qik",
+    "vue",
+    "ui"
+  ],
+  "author": "qik.dev",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.2.0",
+    "docdash": "^1.1.1",
+    "jsdoc": "^3.6.3",
+    "jsdom": "^14.1.0",
+    "mocha": "^9.2.0",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "vue": "^3.2.21"
+  },
+  "directories": {
+    "test": "test"
+  }
+}
