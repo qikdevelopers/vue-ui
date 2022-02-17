@@ -4,11 +4,12 @@
     </div>
 </template>
 <script>
-export default {}
+export default {
+}
 </script>
 
 
-<style lang="scss">
+<style scoped lang="scss">
 .flex-column-body {
     overflow-y: auto;
     overflow-x: hidden;

@@ -10,7 +10,7 @@
     "test:watch": "mocha  --colors -w ./test/*.spec.js",
     "document": "jsdoc -r  . -d docs -c jsdoc.conf README.md"
   },
-  "exports": "./src/index.js",
+  "exports": "./src/components.js",
   "homepage": "https://qik.dev",
   "bugs": {
     "url": "https://support.qik.dev"

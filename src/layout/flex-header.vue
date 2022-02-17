@@ -4,9 +4,10 @@
     </div>
 </template>
 <script>
-export default {}
+export default {
+}
 </script>
-<style lang="scss">
+<style scoped lang="scss">
 .flex-column-header {
     flex: none;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-column">
+    <div class="flex-row">
         <slot></slot>
     </div>
 </template>
@@ -10,15 +10,19 @@ export default {
 
 </script>
 <style scoped lang="scss">
-.flex-column {
+.flex-row {
     display: flex;
     overflow: hidden;
     flex: 1;
-    flex-direction: column;
+    flex-direction: row;
 
     &[center] {
-    	align-items: center;
-    	justify-content: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &[vcenter] {
+        align-items: center;
     }
 }
 
