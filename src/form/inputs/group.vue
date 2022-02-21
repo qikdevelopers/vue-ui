@@ -17,7 +17,7 @@
                 <ux-form v-model="model[index]" :flex="sameLine" :fields="field.fields" />
             </panel-body>
         </panel>
-        <ux-button v-if="canAddValue" @click="add()">{{addLabel}}</ux-button>
+        <ux-button v-if="canAddValue" @click="add()">{{addLabel}}<ux-icon icon="fa-plus" right/></ux-button>
     </div>
     <template v-else>
         <ux-form v-model="model" :flex="sameLine" :fields="field.fields" />
@@ -182,6 +182,6 @@ export default {
 
 
 .ux-multi-group {
-    margin-bottom: 3em;
+    margin-bottom: 1em;
 }
 </style>

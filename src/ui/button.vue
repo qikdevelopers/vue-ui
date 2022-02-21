@@ -7,15 +7,17 @@
     </component>
 </template>
 <script>
-
 import Spinner from './spinner.vue';
 export default {
     components: {
-       Spinner,
+        Spinner,
     },
     props: {
         to: {
             type: [Object, String],
+        },
+        icon: {
+            type: Boolean,
         },
         color: {
             type: String,
@@ -29,7 +31,7 @@ export default {
         },
         tag: {
             type: String,
-            default:'button',
+            default: 'button',
         },
         href: {
             type: String,
@@ -74,6 +76,10 @@ export default {
                 array.push(`ux-btn-loading`);
             }
 
+            if (this.icon) {
+                array.push(`ux-btn-icon`);
+            }
+
 
 
             if (this.color == 'primary') {
@@ -96,7 +102,7 @@ export default {
                     return 'button';
                     break;
                 default:
-                    if(this.to || this.href) {
+                    if (this.to || this.href) {
                         return 'ux-link';
                     }
 
@@ -113,14 +119,18 @@ export default {
 .ux-btn {
     padding: 0.5em 1em;
     background: rgba(#000, 0.1);
-    border-radius: 0.2em;
+    border-radius: 2em;
     text-decoration: none;
     color: inherit;
-    display:inline-block;
-    position:relative;
+    display: inline-block;
+    position: relative;
     border: 1px solid transparent;
-    flex:none;
-    margin-right:0.5em;
+    flex: none;
+    margin-right: 0.5em;
+    text-align: center;
+    line-height: 1;
+    cursor: pointer;
+    overflow: hidden;
 
     &:hover {
         opacity: 0.9;
@@ -128,14 +138,14 @@ export default {
 
 
     .ux-spinner {
-		position:absolute;
-		left:50%;
-		top:50%;
-		transform: translateX(-50%) translateY(-50%);
-	}
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
 
     &:last-child {
-        margin-right:0;
+        margin-right: 0;
     }
 }
 
@@ -149,7 +159,7 @@ export default {
     pointer-events: none;
 
     .ux-btn-text {
-    	opacity: 0 !important;
+        opacity: 0 !important;
     }
 }
 
@@ -183,6 +193,25 @@ export default {
     font-size: 1.5em;
 }
 
+.ux-btn-icon {
+    border-radius: 50%;
+    
+
+    position:relative;
+    width:2em;
+    height:0;
+    overflow: hidden;
+    padding: 0 0 2em;
+    text-align: center;
+    line-height: 2em;
+
+    .ux-button-text {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
 
 .ux-btn-disabled {
     cursor: none;

@@ -13,8 +13,9 @@ export default {
 .panel {
     border-radius: 0.3em;
     border:1px solid rgba(#000,0.1);
-    margin-bottom: 2em;
-    box-shadow: 0 3px 20px 2px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1em;
+    box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.02);
+
 }
 
 

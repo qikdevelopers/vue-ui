@@ -25,7 +25,13 @@ export { default as Spinner } from './ui/spinner.vue';
 export { default as UXForm } from './form/form.vue';
 export { default as UXFormField } from './form/field.vue';
 
+////////////////////////////////////////////
 
+export { default as QikModal } from './modal/Modal.vue';
+export { default as QikConfirmModal } from './modal/ConfirmModal.vue';
+export { default as QikOptionsModal } from './modal/OptionsModal.vue';
+export { default as QikPromptModal } from './modal/PromptModal.vue';
+export { default as QikContentModal } from './modal/ContentModal.vue';
 
 ////////////////////////////////////////////
 
@@ -50,6 +56,13 @@ import UXForm from './form/form.vue';
 import UXFormField from './form/field.vue';
 
 
+import QikModal from './modal/Modal.vue';
+import QikConfirmModal from './modal/ConfirmModal.vue';
+import QikOptionsModal from './modal/OptionsModal.vue';
+import QikPromptModal from './modal/PromptModal.vue';
+import QikContentModal from './modal/ContentModal.vue';
+
+
 const defaultComponents = {
     FlexColumn,
     FlexBody,
@@ -67,13 +80,101 @@ const defaultComponents = {
     UxButton: UXButton,
     UxLink: UXLink,
     Spinner,
+    QikModal,
 }
+
 
 ////////////////////////////////////////////
 
+import { reactive, watchEffect } from 'vue'
+
 export default {
-    install(Vue) {
+    install(Vue, qik) {
         console.log(versionName)
+
+        //////////////////////////////
+
+        //Create an array for our modal stack
+        qik.modals = reactive([]);
+
+        //Base modal function
+        qik.modal = function(modal) {
+
+            return new Promise(function(resolve, reject) {
+                modal.id = qik.modals.length;
+                modal.resolve = resolve;
+                modal.reject = reject;
+
+                //Add our modal to the stack
+                qik.modals.splice(modal.id, 0, modal);
+            });
+
+        }
+
+        //Quick function for asking the user to select an option
+        qik.browse = function(type, options) {
+            options = options || {}
+            options.type = type;
+
+            return qik.modal({
+                component: QikContentModal,
+                options,
+            })
+
+        }
+
+        //Quick function for asking the user to select an option
+        qik.options = function(choices, title, description) {
+
+            return qik.modal({
+                component: QikOptionsModal,
+                options: {
+                    title,
+                    description,
+                    choices,
+                }
+            })
+
+        }
+
+        //Prompt the user to input data into a form
+        qik.prompt = function(fields, options) {
+            options = options || {};
+            options.model = options.model || {}
+
+
+            //Append the fields
+            options.fields = fields;
+
+            return qik.modal({
+                component: QikPromptModal,
+                options,
+            })
+
+        }
+
+        //Prompt the user to confirm an action
+        qik.confirm = function(title, options) {
+            options = options || {};
+
+            return qik.modal({
+                component: QikConfirmModal,
+                options,
+            })
+        }
+
+        qik.closeModal = function(id) {
+            var modal = qik.modals.find(function(modal) {
+                return modal.id == id;
+            })
+
+            var index = qik.modals.indexOf(modal);
+            qik.modals.splice(index, 1);
+        }
+
+        //////////////////////////////
+
+        //Add all of the UI Library components
         for (const prop in defaultComponents) {
             const component = defaultComponents[prop];
             Vue.component(prop, component)

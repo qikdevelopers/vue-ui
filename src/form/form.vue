@@ -1,9 +1,7 @@
 <template>
     <div class="ux-form" :class="formClass">
         <slot name="form" :fields="fields">
-            <div class="ux-form-field" :class="fieldClass" :key="`ux-form-field-${field.key}-${index}`" v-for="(field, index) in renderFields">
-                <ux-field :field="field" v-model="formModel" />
-            </div>
+            <ux-field :field="field" v-model="formModel" :class="fieldClass" :key="`ux-form-field-${field.key}-${index}`" v-for="(field, index) in renderFields" />
         </slot>
     </div>
 </template>
@@ -82,6 +80,12 @@ export default {
 
     .ux-field-flex {
         flex: 1;
+        // display: flex;
+        // align-items: flex-end;
+
+        // & > .ux-field {
+        // flex:1;
+        // }
     }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <label class="ux-field-title" v-if="showLabel">{{label}}</label>
     <div class="ux-field-description" v-if="showDescription">{{description}}</div>
-    <div v-if="multiValue">
+    <!-- <div v-if="multiValue">
         <flex-row class="ux-text-row" :key="index" v-for="(entry, index) in model">
             <flex-cell>
                 <input class="ux-field-focus ux-text-input-multiple" ref="input" @keydown.enter.stop.prevent="addEntry()" v-model="model[index]" />
@@ -16,9 +16,11 @@
         </flex-row>
         <ux-button v-if="canAddValue" @click="add()">{{addLabel}}</ux-button>
     </div>
-    <template v-else>
-        <input class="ux-field-focus ux-text-input-single" v-model="model" />
-    </template>
+    <template v-else> -->
+
+        <ux-button @click="open">{{summary}}</ux-button>
+        <!-- <input class="ux-field-focus ux-text-input-single" v-model="model" /> -->
+    <!-- </template> -->
 </template>
 <script>
 import FieldMixin from '../field-mixin';
@@ -26,7 +28,7 @@ import FieldMixin from '../field-mixin';
 export default {
     props: {
         modelValue: {
-            type: [String, Array],
+            type: [Object, Array],
         },
     },
     mixins: [FieldMixin],
@@ -45,15 +47,35 @@ export default {
         }
     },
     methods: {
-        addEntry() {
-            this.add();
-            var elements = this.$refs.input;
-            this.$nextTick(function() {
-                var input = elements[elements.length - 1];
-                input.focus();
+        open() {
+            console.log('Open', this.$qik);
+           
+            this.$qik.browse(this.field.referenceType, {
+                field:this.field,
+                model:[],
             })
 
+            // ({
+            //     component:ContentBrowser,
+            //     options:{
+            //         field:this.field,
+            //     },
+            //     style:{
+            //         width:`90vw`,
+            //         minHeight:`80vh`,
+            //     }
+            // })
+
         },
+        // addEntry() {
+        //     this.add();
+        //     var elements = this.$refs.input;
+        //     this.$nextTick(function() {
+        //         var input = elements[elements.length - 1];
+        //         input.focus();
+        //     })
+
+        // },
         dispatch() {
             this.$emit('update:modelValue', this.value);
         },
@@ -96,8 +118,26 @@ export default {
         }
     },
     computed: {
+        summary() {
+            if(this.multiValue) {
+                if(this.model && this.model.length) {
+                    return this.model.map(function(item) {
+                        return item.title;
+                    }).join(', ');
+
+                } else {
+                    return `Click to select`;
+                }
+            } else {
+                if(this.model) {
+                    return this.model.title;
+                } else {
+                    return `Click to select`;
+                }
+            }
+        },
         defaultValue() {
-            return ''
+            return;
         },
         numValues() {
             if (!this.multiValue) {
