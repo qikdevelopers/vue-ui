@@ -26,8 +26,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    .wrapper {
-min-width:80vw;
-min-height:80vh;
+.wrapper {
+    min-width: 80vw;
+    min-height: 80vh;
+    border-radius:0.5em;
+    overflow: hidden;
 }
 </style>

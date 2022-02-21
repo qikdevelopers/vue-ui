@@ -12,6 +12,7 @@ export { default as FlexHeader } from './layout/flex-header.vue';
 export { default as FlexFooter } from './layout/flex-footer.vue';
 export { default as FlexCell } from './layout/flex-cell.vue';
 export { default as FlexRow } from './layout/flex-row.vue';
+export { default as FlexSpacer } from './layout/flex-spacer.vue';
 export { default as Panel } from './layout/panel.vue';
 export { default as PanelBody } from './layout/panel-body.vue';
 export { default as PanelHeader } from './layout/panel-header.vue';
@@ -42,6 +43,7 @@ import FlexHeader from './layout/flex-header.vue';
 import FlexFooter from './layout/flex-footer.vue';
 import FlexRow from './layout/flex-row.vue';
 import FlexCell from './layout/flex-cell.vue';
+import FlexSpacer from './layout/flex-spacer.vue';
 import Panel from './layout/panel.vue';
 import PanelBody from './layout/panel-body.vue';
 import PanelHeader from './layout/panel-header.vue';
@@ -69,6 +71,7 @@ const defaultComponents = {
     FlexHeader,
     FlexFooter,
     FlexCell,
+    FlexSpacer,
     FlexRow,
     Panel,
     PanelBody,

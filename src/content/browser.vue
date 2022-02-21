@@ -6,10 +6,11 @@
                     <flex-cell shrink>
                         Select content
                     </flex-cell>
+                    <flex-spacer/>
                     <flex-cell>
-                        <input v-model="search" placeholder="Search" />
-                        <!-- <search v-model="search"/> -->
+                        <search v-model="search" :loading="searching" :debounce="500" placeholder="Search"/>
                     </flex-cell>
+                    <flex-spacer/>
                     <flex-cell shrink>
                         <ux-button @click="$emit('done')">Done</ux-button>
                     </flex-cell>
@@ -22,7 +23,7 @@
             </flex-column>
             <flex-footer>
                 <div class="footer">
-                    <flex-row>
+                    <flex-row center>
                         <flex-cell shrink>
                             <native-select v-model="perPage" :options="perPageOptions">
                                 {{startIndex+1}} to {{endIndex}} of {{totalItems}} total {{plural}}
@@ -31,7 +32,7 @@
                         <flex-cell>
                         </flex-cell>
                         <flex-cell shrink>
-                            <flex-row>
+                            <flex-row center>
                                 <flex-cell shrink>
                                     <div>
                                         <native-select v-model="currentPage" :options="pageOptions">
@@ -61,9 +62,9 @@
     </flex-column>
 </template>
 <script>
-import debounce from 'lodash/debounce';
 import NativeSelect from '../form/inputs/native-select.vue';
 import NativeTable from '../table/Table.vue';
+import Search from '../form/inputs/search.vue';
 
 
 export default {
@@ -82,20 +83,23 @@ export default {
     components: {
         NativeSelect,
         NativeTable,
+        Search,
     },
     async created() {
         this.dataSource = await this.load();
     },
     watch: {
         async change() {
-            console.log('change');
             this.dataSource = await this.load();
         },
-        search: debounce(function(keywords) {
-            this.debouncedSearch = keywords;
-        }, 500)
+        totalPages() {
+            this.currentPage = 0;
+        }
     },
     computed: {
+        searching() {
+            return this.loading && this.search.length;
+        },
         definition() {
             return {}
         },
@@ -135,10 +139,10 @@ export default {
             return columns;
         },
         pageOptions() {
-            return Array(10).fill(1).map((x, y) => x + y);
+            return Array(this.totalPages).fill(1).map((x, y) => x + y);
         },
         change() {
-            return JSON.stringify([this.page, this.sort, this.debouncedSearch, this.select, this.type]);
+            return JSON.stringify([this.page, this.sort, this.search, this.select, this.type]);
         },
         startIndex() {
             return (this.currentPage - 1) * this.page.size;
@@ -169,7 +173,8 @@ export default {
             return this.dataSource.total;
         },
         totalPages() {
-            return this.dataSource.page.total;
+            return this.dataSource ?  this.dataSource.page.total : 1;
+
         },
     },
     methods: {
@@ -183,7 +188,7 @@ export default {
 
             var self = this;
             var sort = self.sort;
-            var search = self.debouncedSearch;
+            var search = self.search;
             var select = self.select;
             var page = self.page;
 
@@ -228,11 +233,21 @@ export default {
             })
 
             promise.then(function(res) {
+               
+
+
                 self.loading = false;
+               
             })
             promise.catch(function(err) {
+             
+
+                
                 self.loading = false;
+           
             });
+
+            
 
             return promise;
 
@@ -245,11 +260,15 @@ export default {
         return {
             loading: true,
             search: '',
-            debouncedSearch: '',
+            // sort: {
+            //     key: 'meta.updated',
+            //     direction: 'dsc',
+            //     type: 'date',
+            // },
             sort: {
-                key: 'meta.updated',
-                direction: 'dsc',
-                type: 'date',
+                key: 'lastName',
+                direction: 'asc',
+                type: 'string',
             },
             page: {
                 size: 50,
