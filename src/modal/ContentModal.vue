@@ -1,6 +1,6 @@
 <template>
     <flex-column class="wrapper">
-        <content-browser @done="selectionComplete" :type="options.type" :options="browserOptions">
+        <content-browser @done="selectionComplete" :maximum="options.maximum" v-model="model" :type="options.type" :options="browserOptions">
         </content-browser>
     </flex-column>
 </template>
@@ -16,11 +16,16 @@ export default {
     computed: {
         browserOptions() {
             return {}
+        },
+    },
+    data() {
+        return {
+            model:this.options.model.slice(),
         }
     },
     methods: {
         selectionComplete(data) {
-            this.dismiss();
+            this.close(this.model);
         }
     }
 }

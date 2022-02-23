@@ -4,24 +4,22 @@
     <div v-if="multiValue">
         <flex-row class="ux-text-row" :key="index" v-for="(entry, index) in model">
             <flex-cell>
-                <input class="ux-field-focus ux-text-input-multiple" ref="input" @keydown.enter.stop.prevent="addEntry()" v-model="model[index]" />
+                <input class="ux-field-focus ux-text-input-multiple" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model="model[index]" />
             </flex-cell>
             <flex-cell shrink vcenter>
-                
-                    <ux-button tag="a" icon v-if="canRemoveValue" @click="remove(entry)">
-                        <ux-icon icon="fa-times" />
-                    </ux-button>
-               
+                <ux-button tag="a" icon v-if="canRemoveValue" @click="remove(entry)">
+                    <ux-icon icon="fa-times" />
+                </ux-button>
             </flex-cell>
         </flex-row>
         <ux-button v-if="canAddValue" @click="add()">{{addLabel}}</ux-button>
     </div>
     <template v-else>
-        <input class="ux-field-focus ux-text-input-single" v-model="model" />
+        <input class="ux-field-focus ux-text-input-single" @focus="touch" v-model="model" />
     </template>
 </template>
 <script>
-import FieldMixin from '../field-mixin';
+import InputMixin from './input-mixin';
 
 export default {
     props: {
@@ -29,93 +27,12 @@ export default {
             type: [String, Array],
         },
     },
-    mixins: [FieldMixin],
-    created() {
-        this.value = this.cleanInput(this.value, true);
-        this.dispatch();
-    },
-    data() {
-        return {
-            value: this.modelValue,
-        }
-    },
-    watch: {
-        modelValue(val, old) {
-            this.value = this.cleanInput(this.value);
-        }
-    },
+    mixins: [InputMixin],
     methods: {
-        addEntry() {
-            this.add();
-            var elements = this.$refs.input;
-            this.$nextTick(function() {
-                var input = elements[elements.length - 1];
-                input.focus();
-            })
-
+        getNewDefaultEntry() {
+            return '';
         },
-        dispatch() {
-            this.$emit('update:modelValue', this.value);
-        },
-        cleanOutput(model) {
-            return model;
-        },
-        cleanInput(model, setDefaults) {
-            if (this.multiValue) {
-                if (!model) {
-                    model = [];
-                }
-
-                if (!Array.isArray(model)) {
-                    model = [model];
-                }
-
-                /////////////////////////////////
-
-                if (this.maximum) {
-                    if (model.length > this.maximum) {
-                        model.length = this.maximum;
-                    }
-                }
-
-                var min = setDefaults ? this.ask : this.minimum;
-
-                while (model.length < min) {
-                    model.push('')
-                }
-
-            } else {
-                if (!model) {
-                    model = '';
-                }
-            }
-
-            ///////////////////////////
-
-            return model;
-        }
     },
-    computed: {
-        defaultValue() {
-            return ''
-        },
-        numValues() {
-            if (!this.multiValue) {
-                return 1;
-            }
-
-            return this.value.length;
-        },
-        model: {
-            get() {
-                return this.value;
-            },
-            set(value) {
-                this.value = value;
-                this.dispatch();
-            }
-        }
-    }
 }
 </script>
 <style lang="scss" scoped>

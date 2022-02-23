@@ -1,15 +1,28 @@
 <template>
-    <label class="ux-field-title" v-if="showLabel">
-        <input class="ux-field-focus" type="checkbox" v-model="model" /> {{label}}
-    </label>
-    <div class="ux-field-description" v-if="showDescription">{{description}}</div>
+    <flex-row @click="touch()">
+        <flex-cell vcenter shrink>
+            <ux-checkbox  :value="model" @click="model = !model" />
+        </flex-cell>
+        <flex-spacer />
+        <flex-cell vcenter>
+            <div>
+                <label class="ux-field-title" v-if="showLabel">
+                    {{label}}
+                </label>
+                <div class="ux-field-description" v-if="showDescription">{{description}}</div>
+            </div>
+        </flex-cell>
+    </flex-row>
 </template>
 <script>
-
-import FieldMixin from '../field-mixin';
+import NativeCheckbox from '../../ui/checkbox.vue';
+import InputMixin from './input-mixin';
 
 export default {
-    mixins: [FieldMixin],
+    computed: {
+        NativeCheckbox,
+    },
+    mixins: [InputMixin],
     props: {
         modelValue: {
             type: Boolean,
@@ -25,16 +38,21 @@ export default {
     },
     watch: {
         modelValue(val, old) {
-            this.value = this.val;
+            this.value = val;
+            this.model = val;
+
         }
     },
     computed: {
+        longDescription() {
+            return String(this.description).length > 2;
+        },
         defaultValue() {
             return false;
         },
         model: {
             get() {
-                return this.value;
+                return !!this.value;
             },
             set(value) {
                 this.value = !!value;
@@ -45,4 +63,25 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.ux-checkbox {
+    margin-right: 0.5em;
+    line-height: 1;
+    height: 1.5em;
+    width: 1.5em;
+    padding: 0;
+
+    &:hover {
+        border-color: $primary;
+    }
+
+    &.ux-checkbox-true {
+        background: $primary;
+        border-color: $primary;
+        color: #fff;
+    }
+}
+
+.ux-field-description-long {
+    margin-top: 0.5em;
+}
 </style>

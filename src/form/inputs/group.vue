@@ -9,83 +9,67 @@
                         </div>
                     </flex-cell>
                     <flex-cell vcenter shrink>
-                        <ux-button icon tag="a" v-if="canRemoveValue" @click="remove(entry)"><ux-icon icon="fa-times"/></ux-button>
+                        <ux-button icon tag="a" v-if="canRemoveValue" @click="remove(entry)">
+                            <ux-icon icon="fa-times" />
+                        </ux-button>
                     </flex-cell>
                 </flex-row>
             </panel-header>
             <panel-body @keydown.enter="enterPress($event)">
-                <ux-form v-model="model[index]" :flex="sameLine" :fields="field.fields" />
+                <ux-form :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
             </panel-body>
         </panel>
-        <ux-button v-if="canAddValue" @click="add()">{{addLabel}}<ux-icon icon="fa-plus" right/></ux-button>
+        <ux-button v-if="canAddValue" @click="add()">{{addLabel}}
+            <ux-icon icon="fa-plus" right />
+        </ux-button>
     </div>
     <template v-else>
-        <ux-form v-model="model" :flex="sameLine" :fields="field.fields" />
+        <ux-form :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
     </template>
 </template>
 <script>
-// import UXForm from '../form.vue';
-import FieldMixin from '../field-mixin';
+import InputMixin from './input-mixin';
 
 
 export default {
-    mixins: [FieldMixin],
+    mixins: [InputMixin],
     props: {
         modelValue: {
             type: [Object, Array],
         },
     },
-    data() {
-        return {
-            value: this.modelValue,
-        }
-    },
     created() {
         this.value = this.cleanInput(this.value, true);
-        this.dispatch();
-    },
-    watch: {
-        modelValue(val, old) {
-            console.log('CJHANGE', val);
-            this.value = this.cleanInput(val);
-            this.dispatch();
-        }
+        // this.dispatch();
     },
     methods: {
         multiLabel(entry, index) {
 
-            if(entry.name) {
+            if (entry.name) {
                 return entry.name;
             }
 
-            if(entry.title) {
+            if (entry.title) {
                 return entry.title;
             }
 
-            if(entry.firstName) {
+            if (entry.firstName) {
                 return entry.firstName;
             }
 
-
             return `${this.label} ${index+1}`
         },
+        getNewDefaultEntry() {
+            return {};
+        },
         enterPress(event) {
-
             if (this.canAddValue) {
                 event.stopImmediatePropagation();
                 event.preventDefault();
                 this.add();
             }
-
         },
-        dispatch() {
-            this.$emit('update:modelValue', this.value);
-        },
-        add() {
-            this.model.push({})
-            this.dispatch();
-
-
+        refocus() {
             this.$nextTick(function() {
 
                 //Find the last row
@@ -103,84 +87,51 @@ export default {
                 input.focus();
             })
         },
-        remove(entry) {
-            var index = this.model.indexOf(entry);
-            this.model.splice(index, 1);
-            this.dispatch();
+        getNewDefaultEntry() {
+            return {};
         },
-        cleanOutput(model) {
-            return model;
-        },
-        cleanInput(model, setDefaults) {
-            if (this.multiValue) {
-                if (!model) {
-                    model = [];
-                }
+        // cleanInput(model) {
 
-                if (!Array.isArray(model)) {
-                    model = [model];
-                }
+        //     var self = this;
+        //     var setDefaults = true;
 
-                /////////////////////////////////
+        //     if (self.multiValue) {
+        //         if (!model) {
+        //             model = [];
+        //         }
 
-                if (this.maximum) {
-                    if (model.length > this.maximum) {
-                        model.length = this.maximum;
-                    }
-                }
+        //         if (!Array.isArray(model)) {
+        //             model = [model];
+        //         }
 
-                var min = setDefaults ? this.ask : this.minimum;
+        //         /////////////////////////////////
 
-                while (model.length < min) {
-                    model.push({})
-                }
+        //         if (self.maximum) {
+        //             if (model.length > self.maximum) {
+        //                 model.length = self.maximum;
+        //             }
+        //         }
 
-            } else {
-                if (!model) {
-                    model = {};
-                }
-            }
+        //         var min = setDefaults ? self.ask : self.minimum;
+        //         while (model.length < min) {
+        //             model.push(self.getNewDefaultEntry())
+        //         }
 
-            ///////////////////////////
+        //     } else {
+        //         if (!model) {
+        //             model = self.getNewDefaultEntry();
+        //         }
+        //     }
+
+        //     ///////////////////////////
 
 
-            return model;
-        }
-    },
-    computed: {
-        defaultValue() {
-            return {}
-        },
-        numValues() {
-            if (!this.multiValue) {
-                return 1;
-            }
-
-            return this.value.length;
-        },
-        sameLine() {
-            return this.field.sameLine;
-        },
-        fields() {
-            return this.field.fields;
-        },
-        model: {
-            get() {
-                return this.cleanOutput(this.value);
-            },
-            set(value) {
-                this.value = this.cleanInput(value);
-                this.dispatch()
-
-            }
-        }
+        //     return model;
+        // }
     }
 }
 </script>
 <style lang="scss" scoped>
-
-
-
 .ux-multi-group {
     margin-bottom: 1em;
 }

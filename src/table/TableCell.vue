@@ -31,8 +31,6 @@ export default {
 
 <style scoped lang="scss">
 
-.table-cell {
 
-}
 
 </style>

@@ -19,6 +19,7 @@ export { default as PanelHeader } from './layout/panel-header.vue';
 export { default as PanelFooter } from './layout/panel-footer.vue';
 
 export { default as UXButton } from './ui/button.vue';
+export { default as UXCheckbox } from './ui/checkbox.vue';
 export { default as UXLink } from './ui/link.vue';
 export { default as UXIcon } from './ui/icon.vue';
 export { default as Spinner } from './ui/spinner.vue';
@@ -50,6 +51,7 @@ import PanelHeader from './layout/panel-header.vue';
 import PanelFooter from './layout/panel-footer.vue';
 
 import UXButton from './ui/button.vue';
+import UXCheckbox from './ui/checkbox.vue';
 import UXIcon from './ui/icon.vue';
 import UXLink from './ui/link.vue';
 import Spinner from './ui/spinner.vue';
@@ -81,6 +83,7 @@ const defaultComponents = {
     UxFormField: UXFormField,
     UxIcon: UXIcon,
     UxButton: UXButton,
+    UxCheckbox: UXCheckbox,
     UxLink: UXLink,
     Spinner,
     QikModal,
@@ -118,6 +121,7 @@ export default {
         qik.browse = function(type, options) {
             options = options || {}
             options.type = type;
+            options.model = options.model || [];
 
             return qik.modal({
                 component: QikContentModal,

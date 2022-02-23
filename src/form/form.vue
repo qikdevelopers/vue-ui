@@ -1,7 +1,7 @@
 <template>
     <div class="ux-form" :class="formClass">
         <slot name="form" :fields="fields">
-            <ux-field :field="field" v-model="formModel" :class="fieldClass" :key="`ux-form-field-${field.key}-${index}`" v-for="(field, index) in renderFields" />
+            <ux-field :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="fieldClass" :key="`ux-form-field-${field.key}-${index}`" v-for="(field, index) in renderFields" />
         </slot>
     </div>
 </template>
@@ -10,6 +10,9 @@ import UXField from './field.vue';
 
 export default {
     props: {
+        parentModel:{
+            type:Object,
+        },
         fields: {
             type: Array,
             default () {

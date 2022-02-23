@@ -3,7 +3,9 @@
         <input v-model="model" :placeholder="placeholder" />
         <div @click="clear()" class="icon">
         <ux-icon :icon="icon"/>
+       
     </div>
+
     </div>
 </template>
 <script>
@@ -44,7 +46,7 @@ export default {
     methods:{
         clear() {
             this.value = '';
-            self.$emit('update:modelValue', self.value);
+            this.$emit('update:modelValue', this.value);
         }
     },
     watch: {

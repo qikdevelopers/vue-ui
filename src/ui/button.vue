@@ -21,7 +21,7 @@ export default {
         },
         color: {
             type: String,
-            default: 'primary',
+            default: 'default',
         },
         bgColor: {
             type: String,
@@ -81,6 +81,10 @@ export default {
             }
 
 
+
+            if (this.color == 'default') {
+                array.push('ux-btn-color-default')
+            }
 
             if (this.color == 'primary') {
                 array.push('ux-btn-color-primary')
@@ -152,6 +156,16 @@ export default {
 .ux-btn-color-primary {
     background: $primary;
     color: #fff;
+}
+
+
+.ux-btn-color-default {
+    background: rgba(#000,0.05);
+    color: #555;
+
+    &:hover {
+        background: rgba(#000, 0.1);
+    }
 }
 
 .ux-btn-loading {

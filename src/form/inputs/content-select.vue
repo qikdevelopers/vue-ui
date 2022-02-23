@@ -1,126 +1,108 @@
 <template>
     <label class="ux-field-title" v-if="showLabel">{{label}}</label>
     <div class="ux-field-description" v-if="showDescription">{{description}}</div>
-    <!-- <div v-if="multiValue">
-        <flex-row class="ux-text-row" :key="index" v-for="(entry, index) in model">
-            <flex-cell>
-                <input class="ux-field-focus ux-text-input-multiple" ref="input" @keydown.enter.stop.prevent="addEntry()" v-model="model[index]" />
-            </flex-cell>
-            <flex-cell shrink vcenter>
-                
-                    <ux-button tag="a" icon v-if="canRemoveValue" @click="remove(entry)">
+    <template v-if="multiValue">
+        <div class="items" v-if="model && model.length">
+            <item :key="item._id" :item="item" v-for="(item, index) in model">
+                <template #actions>
+                    <ux-button icon @click="remove(item)">
                         <ux-icon icon="fa-times" />
                     </ux-button>
-               
-            </flex-cell>
-        </flex-row>
-        <ux-button v-if="canAddValue" @click="add()">{{addLabel}}</ux-button>
-    </div>
-    <template v-else> -->
-
-        <ux-button @click="open">{{summary}}</ux-button>
-        <!-- <input class="ux-field-focus ux-text-input-single" v-model="model" /> -->
-    <!-- </template> -->
+                </template>
+            </item>
+        </div>
+    </template>
+    <template v-else-if="model">
+        <div class="items">
+            <item :item="model">
+                <template #actions>
+                    <ux-button icon @click="clear">
+                        <ux-icon icon="fa-times" />
+                    </ux-button>
+                </template>
+            </item>
+        </div>
+    </template>
+    <ux-button @click="open">{{summary}}</ux-button>
 </template>
 <script>
-import FieldMixin from '../field-mixin';
+import Item from '../../content/item.vue';
+import InputMixin from './input-mixin';
 
 export default {
+    components: {
+        Item,
+    },
     props: {
         modelValue: {
             type: [Object, Array],
         },
     },
-    mixins: [FieldMixin],
+    mixins: [InputMixin],
     created() {
         this.value = this.cleanInput(this.value, true);
         this.dispatch();
     },
-    data() {
-        return {
-            value: this.modelValue,
-        }
-    },
-    watch: {
-        modelValue(val, old) {
-            this.value = this.cleanInput(this.value);
-        }
-    },
     methods: {
-        open() {
-            console.log('Open', this.$qik);
-           
-            this.$qik.browse(this.field.referenceType, {
-                field:this.field,
-                model:[],
-            })
-
-            // ({
-            //     component:ContentBrowser,
-            //     options:{
-            //         field:this.field,
-            //     },
-            //     style:{
-            //         width:`90vw`,
-            //         minHeight:`80vh`,
-            //     }
-            // })
-
+        clear() {
+            this.model = undefined;
+            this.touch();
         },
-        // addEntry() {
-        //     this.add();
-        //     var elements = this.$refs.input;
-        //     this.$nextTick(function() {
-        //         var input = elements[elements.length - 1];
-        //         input.focus();
-        //     })
-
+        // remove(index) {
+        //     if (this.maximum == 1) {
+        //         this.model = null
+        //     } else {
+        //         this.model.splice(index, 1);
+        //     }
         // },
-        dispatch() {
-            this.$emit('update:modelValue', this.value);
+        open() {
+            var self = this;
+            self.touch();
+
+            self.$qik.browse(this.field.referenceType, {
+                    field: self.field,
+                    model: self.multiValue ? self.value : [self.value].filter(Boolean),
+                    maximum: self.field.maximum,
+                })
+                .then(function(newSelection) {
+                    self.model = self.multiValue ? newSelection : newSelection[0];
+                })
+                .catch(function(err) {
+                    console.log('Error', err);
+                })
         },
-        cleanOutput(model) {
-            return model;
-        },
-        cleanInput(model, setDefaults) {
-            if (this.multiValue) {
-                if (!model) {
-                    model = [];
+        cleanInput(val) {
+
+            var self = this;
+            if (self.multiValue) {
+                if (!val) {
+                    val = [];
                 }
 
-                if (!Array.isArray(model)) {
-                    model = [model];
+                if (!Array.isArray(val)) {
+                    val = [];
                 }
 
                 /////////////////////////////////
 
-                if (this.maximum) {
-                    if (model.length > this.maximum) {
-                        model.length = this.maximum;
+                if (self.maximum) {
+                    if (val.length > self.maximum) {
+                        val.length = self.maximum;
                     }
                 }
-
-                var min = setDefaults ? this.ask : this.minimum;
-
-                while (model.length < min) {
-                    model.push('')
-                }
-
             } else {
-                if (!model) {
-                    model = '';
+                if (Array.isArray(val)) {
+                    val = val[0]
                 }
             }
 
-            ///////////////////////////
-
-            return model;
-        }
+            return val;
+        },
     },
     computed: {
         summary() {
-            if(this.multiValue) {
-                if(this.model && this.model.length) {
+            if (this.multiValue) {
+                if (this.model && this.model.length) {
                     return this.model.map(function(item) {
                         return item.title;
                     }).join(', ');
@@ -129,32 +111,13 @@ export default {
                     return `Click to select`;
                 }
             } else {
-                if(this.model) {
-                    return this.model.title;
+                if (this.model) {
+                    return 'Click to select';
                 } else {
                     return `Click to select`;
                 }
             }
         },
-        defaultValue() {
-            return;
-        },
-        numValues() {
-            if (!this.multiValue) {
-                return 1;
-            }
-
-            return this.value.length;
-        },
-        model: {
-            get() {
-                return this.value;
-            },
-            set(value) {
-                this.value = value;
-                this.dispatch();
-            }
-        }
     }
 }
 </script>
@@ -192,5 +155,19 @@ input {
 .ux-text-input-single {
     width: calc(100% - 0.5em);
     margin: 0 0.5em 0 0;
+}
+
+.items {
+    border: 1px solid rgba(#000, 0.1);
+    border-radius: 0.3em;
+    overflow: hidden;
+    margin-bottom: 0.5em;
+
+    .content-item {
+
+        border: none;
+        border-bottom: 1px solid rgba(#000, 0.1);
+
+    }
 }
 </style>

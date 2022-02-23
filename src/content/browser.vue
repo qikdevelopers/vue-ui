@@ -1,44 +1,44 @@
 <template>
-    <flex-column class="content-browser">
+    <flex-column class="content-browser" v-if="definition">
+        <spinner large v-if="loading" />
         <flex-header>
             <div class="header">
                 <flex-row center>
                     <flex-cell shrink>
-                        Select content
+                        Select {{maximum == 1 ? title : plural}}
                     </flex-cell>
-                    <flex-spacer/>
+                    <flex-spacer />
                     <flex-cell>
-                        <search v-model="search" :loading="searching" :debounce="500" placeholder="Search"/>
+                        <search v-model="search" :loading="searching" :debounce="500" placeholder="Search" />
                     </flex-cell>
-                    <flex-spacer/>
+                    <flex-spacer />
                     <flex-cell shrink>
-                        <ux-button @click="$emit('done')">Done</ux-button>
+                        <ux-button color="primary" @click="$emit('done')">Done</ux-button>
                     </flex-cell>
                 </flex-row>
             </div>
         </flex-header>
         <template v-if="dataSource">
-            <flex-column>
-                <native-table :rows="items" :columns="columns" />
+            <flex-column class="body" :class="{loading}">
+                <native-table :actions="false" :selection="selection" @click:row="rowClicked" :rows="items" :columns="columns">
+                </native-table>
             </flex-column>
             <flex-footer>
                 <div class="footer">
                     <flex-row center>
-                        <flex-cell shrink>
+                        <flex-cell shrink class="text">
                             <native-select v-model="perPage" :options="perPageOptions">
-                                {{startIndex+1}} to {{endIndex}} of {{totalItems}} total {{plural}}
+                                {{displayStartIndex}} to {{endIndex}} of {{totalItems}} total
                             </native-select>
                         </flex-cell>
                         <flex-cell>
                         </flex-cell>
                         <flex-cell shrink>
                             <flex-row center>
-                                <flex-cell shrink>
-                                    <div>
-                                        <native-select v-model="currentPage" :options="pageOptions">
-                                            Page {{currentPage}} of {{totalPages}}
-                                        </native-select>
-                                    </div>
+                                <flex-cell shrink class="text">
+                                    <native-select v-model="currentPage" :options="pageOptions">
+                                        Page {{currentPage}} of {{totalPages}}
+                                    </native-select>
                                 </flex-cell>
                                 <flex-cell shrink>
                                     <ux-button icon @click="previousPage()">
@@ -56,10 +56,8 @@
                 </div>
             </flex-footer>
         </template>
-        <template v-else>
-            Loading
-        </template>
     </flex-column>
+    <pre>{{selection}}</pre>
 </template>
 <script>
 import NativeSelect from '../form/inputs/native-select.vue';
@@ -79,6 +77,18 @@ export default {
                 return {}
             }
         },
+        modelValue: {
+            type: Array,
+            default () {
+                return [];
+            }
+        },
+        maximum: {
+            type: Number,
+            default () {
+                return 0;
+            }
+        }
     },
     components: {
         NativeSelect,
@@ -86,7 +96,27 @@ export default {
         Search,
     },
     async created() {
-        this.dataSource = await this.load();
+
+        var self = this;
+
+        //Get the type details
+        await Promise.all([
+            new Promise(async function(resolve, reject) {
+                var glossary = await self.$qik.content.glossary({ hash: true });
+                var definition = glossary[self.type]
+                self.definition = definition;
+
+
+                if (!definition) {
+                    return reject();
+                }
+                resolve();
+            }),
+            new Promise(async function(resolve, reject) {
+                self.dataSource = await self.load();
+                resolve();
+            }),
+        ]);
     },
     watch: {
         async change() {
@@ -94,7 +124,7 @@ export default {
         },
         totalPages() {
             this.currentPage = 0;
-        }
+        },
     },
     computed: {
         searching() {
@@ -102,6 +132,9 @@ export default {
         },
         definition() {
             return {}
+        },
+        title() {
+            return this.definition.title;
         },
         plural() {
             return this.definition.plural;
@@ -116,8 +149,7 @@ export default {
             }
 
         },
-        select() {
-
+        selectFields() {
             return this.columns.map(function(column) {
                 return column.key;
             })
@@ -127,13 +159,8 @@ export default {
             let columns = [];
 
             columns.push({
-                title: 'First Name',
-                key: 'firstName',
-            })
-
-            columns.push({
-                title: 'Last Name',
-                key: 'lastName',
+                title: 'Title',
+                key: 'title',
             })
 
             return columns;
@@ -142,10 +169,13 @@ export default {
             return Array(this.totalPages).fill(1).map((x, y) => x + y);
         },
         change() {
-            return JSON.stringify([this.page, this.sort, this.search, this.select, this.type]);
+            return JSON.stringify([this.page, this.sort, this.search, this.selectFields, this.type]);
         },
         startIndex() {
             return (this.currentPage - 1) * this.page.size;
+        },
+        displayStartIndex() {
+            return this.totalItems ? this.startIndex + 1 : 0;
         },
         endIndex() {
             return Math.min(this.startIndex + this.page.size, this.totalItems);
@@ -173,11 +203,78 @@ export default {
             return this.dataSource.total;
         },
         totalPages() {
-            return this.dataSource ?  this.dataSource.page.total : 1;
+            return this.dataSource ? this.dataSource.page.total : 1;
 
         },
+        selectionHash() {
+            var self = this;
+            return this.selection.reduce(function(set, item) {
+                if (!item) {
+                    return set;
+                }
+
+                var id = self.$qik.utils.id(item);
+                set[id] = true;
+                return set;
+            }, {});
+
+        }
     },
     methods: {
+        select(row) {
+            if (this.maximum) {
+                if (this.selection.length >= this.maximum) {
+                    //We're already full
+                    if (this.maximum == 1) {
+                        //Switch the selection to the new row we clicked
+                        this.selection.length = 0;
+                    } else {
+                        return;
+                    }
+
+                }
+            }
+
+            this.selection.push(row);
+        },
+        deselect(row) {
+
+
+            var self = this;
+
+            if (self.maximum == 1) {
+                this.selection.length = 0;
+            } else {
+
+                var rowID = self.$qik.utils.id(row);
+                var index = self.selection.findIndex(function(item) {
+                    var id = self.$qik.utils.id(item);
+                    return id == rowID;
+                });
+
+                console.log('deselect row splice', row, index, self.selection);
+                self.selection.splice(index, 1);
+            }
+        },
+        isSelected(row) {
+            var self = this;
+            var rowID = self.$qik.utils.id(row);
+
+            return self.selectionHash[rowID];
+        },
+        toggle(row) {
+
+
+            if (this.isSelected(row)) {
+                this.deselect(row)
+            } else {
+                this.select(row);
+            }
+        },
+        rowClicked(row) {
+
+            this.toggle(row);
+        },
         previousPage() {
             this.currentPage--;
         },
@@ -189,7 +286,7 @@ export default {
             var self = this;
             var sort = self.sort;
             var search = self.search;
-            var select = self.select;
+            var select = self.selectFields;
             var page = self.page;
 
             self.loading = true;
@@ -233,21 +330,14 @@ export default {
             })
 
             promise.then(function(res) {
-               
-
-
                 self.loading = false;
-               
             })
             promise.catch(function(err) {
-             
-
-                
                 self.loading = false;
-           
+
             });
 
-            
+
 
             return promise;
 
@@ -258,6 +348,8 @@ export default {
     },
     data() {
         return {
+            definition: null,
+            selection: this.modelValue,
             loading: true,
             search: '',
             // sort: {
@@ -266,10 +358,11 @@ export default {
             //     type: 'date',
             // },
             sort: {
-                key: 'lastName',
+                key: 'title',
                 direction: 'asc',
                 type: 'string',
             },
+
             page: {
                 size: 50,
                 index: 1,
@@ -299,6 +392,13 @@ export default {
 <style lang="scss" scoped>
 .content-browser {
     background: #fff;
+    position: relative;
+}
+
+.body {
+    &.loading {
+        opacity: 0.5;
+    }
 }
 
 .header {
@@ -309,5 +409,10 @@ export default {
 .footer {
     padding: 1em;
     border-top: 1px solid rgba(#000, 0.1);
+
+    .text {
+        opacity: 0.5;
+        font-size: 0.8em;
+    }
 }
 </style>

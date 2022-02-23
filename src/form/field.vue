@@ -1,22 +1,25 @@
 <template>
     <div class="ux-field" v-if="visible" :class="classes">
         <template v-if="widget == 'checkbox'">
-            <checkbox :field="field" v-model="fieldModel" />
+            <checkbox @touched="touch" :field="field" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'group'">
             <template v-if="asObject">
-                <field-group :field="field" v-model="fieldModel" />
+                <field-group @touched="touch" :field="field" :parentModel="parentModel" v-model="fieldModel" />
             </template>
             <template v-else>
-                <field-group :field="field" v-model="sourceModel" />
+                <field-group @touched="touch" :field="field" :parentModel="parentModel" v-model="sourceModel" />
             </template>
         </template>
         <template v-if="widget == 'textfield'">
-            <textfield :field="field" v-model="fieldModel" />
+            <textfield @touched="touch" :field="field" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'content-select'">
-            <content-select :field="field" v-model="fieldModel" />
+            <content-select @touched="touch" :field="field" v-model="fieldModel" />
         </template>
+        <div v-if="error" class="ux-field-message">
+            {{validateData.message}}
+        </div>
     </div>
 </template>
 <script>
@@ -27,10 +30,31 @@ import ContentSelect from './inputs/content-select.vue';
 import Textfield from './inputs/textfield.vue';
 import Checkbox from './inputs/checkbox.vue';
 import FieldGroup from './inputs/group.vue';
-import FieldMixin from './field-mixin';
+import Expressions from './expressions';
+import getDefaultValue from './getDefaultValue';
+import parseBoolean from './parseBoolean';
+
+////////////////////////////////////////
+
+function computedExpression(key) {
+    return function() {
+        var self = this;
+        if (!self.expressions) {
+            return;
+        }
+
+        let expression = self.expressions[key];
+        if (!expression) {
+            return;
+        }
+
+        let context = self.expressionsContext;
+        return Expressions.evaluateExpression(expression, context);
+    }
+}
+
 
 export default {
-    mixins: [FieldMixin],
     components: {
         Textfield,
         Checkbox,
@@ -38,6 +62,13 @@ export default {
         ContentSelect,
     },
     props: {
+        field: {
+            type: Object,
+            required: true,
+        },
+        parentModel: {
+            type: Object,
+        },
         modelValue: {
             type: Object,
             required: true,
@@ -45,18 +76,159 @@ export default {
     },
     data() {
         return {
+            defaultValue: null,
             model: this.modelValue,
+            touched: false,
+        }
+    },
+    created() {
+        var currentValue = this.fieldModel
+
+
+        if (!currentValue) {
+            var defaultValue = this.fieldModel || this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.field);
+
+            // console.log(this.field.key, this.field.title, defaultValue);
+            if (this.fieldModel != defaultValue) {
+                this.fieldModel = defaultValue;
+            }
+        }
+    },
+    methods: {
+        reset() {
+            this.touched = false;
+        },
+        touch() {
+            this.touched = true;
+        },
+        cleanInput(val) {
+            return val;
+        },
+        cleanOutput(val) {
+            return val;
         }
     },
     watch: {
         modelValue(val, old) {
             this.model = val;
-        }
+        },
+
+        getExpressionHide(result) {
+
+        },
+        getExpressionRequired(result) {
+
+        },
+        getExpressionDefaultValue(result) {
+            console.log('expression default change');
+            if (!this.touched) {
+                this.fieldModel = result;
+            }
+
+        },
+        getExpressionValue(result) {
+            console.log('expression value change');
+            this.fieldModel = result;
+
+        },
     },
     computed: {
-        classes() {
-            var array = [];
-            return array;
+        validateData() {
+            return this.$qik.content.validateField(this.fieldModel, this.field);
+        },
+        valid() {
+            return this.validateData.valid;
+        },
+        error() {
+            return this.touched && this.invalid;
+        },
+        invalid() {
+            return !this.valid;
+        },
+        dirty() {
+            if (typeof this.fieldModel === 'undefined') {
+                return false;
+            }
+
+            if (this.multiValue) {
+                if (!this.fieldModel || !this.fieldModel.length) {
+                    return false;
+                }
+            }
+
+            if (this.fieldModel == '') {
+                return false;
+            }
+
+
+
+            return true;
+        },
+        getExpressionHide() {
+            if (!this.expressions) {
+                return;
+            }
+
+            let showExpression = this.expressions.show;
+            let hideExpression = this.expressions.hide;
+            let context = this.expressionsContext;
+
+            if (showExpression) {
+                return !!!Expressions.evaluateExpression(showExpression, context);
+            } else if (hideExpression) {
+                return Expressions.evaluateExpression(hideExpression, context);
+            }
+        },
+        getExpressionRequired: computedExpression('required'),
+        getExpressionDefaultValue: computedExpression('defaultValue'),
+        getExpressionValue: computedExpression('value'),
+        expressions() {
+            return this.field.expressions;
+        },
+        expressionsContext() {
+            return {
+                this: this.model,
+                model: this.model,
+                data: this.parentModel,
+            }
+        },
+        hidden() {
+            if (this.widget == 'value') {
+                return true;
+            }
+
+            if (this.field.readOnly) {
+                return true;
+            }
+
+            return this.getExpressionHide;
+        },
+        visible() {
+            return !this.hidden;
+        },
+        type() {
+            return this.field.type || 'string';
+        },
+        key() {
+            return this.field.key;
+        },
+        isGroup() {
+            return this.type === 'group'
+        },
+        asObject() {
+            return this.isGroup && this.field.asObject;
+        },
+        layoutGroup() {
+            return this.isGroup && !this.field.asObject;
+        },
+        fieldModel: {
+            get() {
+                return this.cleanOutput(this.model[this.key]);
+            },
+            set(value) {
+                this.model[this.key] = this.cleanInput(value);
+                this.$emit('update:modelValue', this.model);
+            }
         },
         sourceModel: {
             get() {
@@ -67,14 +239,30 @@ export default {
                 this.$emit('update:modelValue', this.model);
             }
         },
-        fieldModel: {
-            get() {
-                return this.model[this.key];
-            },
-            set(value) {
-                this.model[this.key] = value;
-                this.$emit('update:modelValue', this.model);
+        classes() {
+            var array = [];
+
+            if (this.touched) {
+                array.push('ux-field-touched');
             }
+
+            if (this.dirty) {
+                array.push('ux-field-dirty');
+            }
+
+            if (this.valid) {
+                array.push('ux-field-valid');
+            }
+
+            if (this.invalid) {
+                array.push('ux-field-invalid');
+            }
+
+            if (this.error) {
+                array.push('ux-field-error');
+            }
+
+            return array;
         },
         widget() {
             if (this.type == 'group') {
@@ -82,40 +270,27 @@ export default {
             }
 
             var widget = this.field.widget;
-            switch(this.field.widget) {
+            switch (this.field.widget) {
                 case 'input':
                 default:
-                    switch(this.type) {
+                    switch (this.type) {
                         case 'reference':
                             return 'content-select';
-                        break;
+                            break;
                         case 'boolean':
                             return 'checkbox';
-                        break;
+                            break;
                         default:
-                             return 'textfield';
-                        break;
+                            return 'textfield';
+                            break;
                     }
-                break;
+                    break;
             }
 
             return widget || 'textfield';
         },
-        hidden() {
-            if (this.widget == 'value') {
-                return true;
-            }
+    },
 
-            if(this.field.readOnly) {
-                return true;
-            }
-
-            return false;
-        },
-        visible() {
-            return !this.hidden;
-        }
-    }
 }
 </script>
 <style lang="scss" scoped>
@@ -125,11 +300,28 @@ export default {
     &:last-child {
         margin-bottom: 0;
     }
+
+
+
+
+    .ux-field-message {
+        border: red;
+        background: rgba(red, 0.1);
+        color: red;
+        font-size: 0.8em;
+        padding: 0.3em 1em;
+        border-radius: 1em;
+        margin: 1em 0;
+    }
+}
+
+:deep(.ux-field-error > .ux-field-title) {
+    color: red;
 }
 
 :deep(.ux-field-title) {
-// .ux-field-title {
-    margin-top:0.5em;
+    // .ux-field-title {
+    margin-top: 0.5em;
     font-weight: 600;
     display: block;
     margin-bottom: 0.2em;
@@ -140,15 +332,14 @@ export default {
 
 
 :deep(.ux-field-description) {
-// .ux-field-description {
+    // .ux-field-description {
     font-size: 0.8em;
     opacity: 0.5;
     margin-bottom: 0.5em;
-   
+
 }
 
 :deep(.ux-form-flex .ux-field-description) {
-     min-height: 2.6em;
+    min-height: 2.6em;
 }
-
 </style>
