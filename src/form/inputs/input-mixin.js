@@ -37,7 +37,7 @@ export default {
             return this.type === 'group'
         },
         asObject() {
-            return this.isGroup && this.field.asObject;
+            return this.isGroup && !!this.field.asObject;
         },
         layoutGroup() {
             return this.isGroup && !this.field.asObject;
@@ -82,7 +82,15 @@ export default {
             return (this.value || []).length;
         },
         minimum() {
-            var int = parseInt(this.field.minimum);
+
+            if (this.layoutGroup) {
+                return 1;
+            }
+            
+            var int = parseInt(this.field.minimum || 0);
+            if(isNaN(int)) {
+                int = 0;
+            }
             int = Math.max(int, 0)
             return int;
         },
@@ -135,7 +143,9 @@ export default {
                 return;
             }
 
-            this.model.push(this.getNewDefaultEntry());
+            var defaultEntry =this.getNewDefaultEntry();
+            
+            this.value.push(defaultEntry);
             this.dispatch();
 
             this.$nextTick(function() {
@@ -146,7 +156,7 @@ export default {
         },
         remove(entry) {
             var index = this.model.indexOf(entry);
-            this.model.splice(index, 1);
+            this.value.splice(index, 1);
             this.dispatch();
             this.touch();
         },
@@ -190,6 +200,10 @@ export default {
         },
         refocus() {
             var elements = this.$refs.input;
+            if(!elements) {
+                return;
+            }
+
             var input = elements[elements.length - 1];
             input.focus();
         },

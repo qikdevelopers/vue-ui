@@ -1,5 +1,6 @@
 <template>
-    <div class="ux-field" v-if="visible" :class="classes">
+    <div class="ux-field" @focusin="focus" @focusout="blur" v-if="visible" :class="classes">
+        
         <template v-if="widget == 'checkbox'">
             <checkbox @touched="touch" :field="field" v-model="fieldModel" />
         </template>
@@ -12,7 +13,10 @@
             </template>
         </template>
         <template v-if="widget == 'textfield'">
-            <textfield @touched="touch" :field="field" v-model="fieldModel" />
+            <text-field @touched="touch" :field="field" v-model="fieldModel" />
+        </template>
+        <template v-if="widget == 'datefield'">
+            <date-field @touched="touch" :field="field" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'content-select'">
             <content-select @touched="touch" :field="field" v-model="fieldModel" />
@@ -20,6 +24,7 @@
         <div v-if="error" class="ux-field-message">
             {{validateData.message}}
         </div>
+        
     </div>
 </template>
 <script>
@@ -27,7 +32,8 @@
 // import UXField from './field.vue';
 
 import ContentSelect from './inputs/content-select.vue';
-import Textfield from './inputs/textfield.vue';
+import TextField from './inputs/textfield.vue';
+import DateField from './inputs/datefield.vue';
 import Checkbox from './inputs/checkbox.vue';
 import FieldGroup from './inputs/group.vue';
 import Expressions from './expressions';
@@ -56,7 +62,8 @@ function computedExpression(key) {
 
 export default {
     components: {
-        Textfield,
+        DateField,
+        TextField,
         Checkbox,
         FieldGroup,
         ContentSelect,
@@ -79,6 +86,7 @@ export default {
             defaultValue: null,
             model: this.modelValue,
             touched: false,
+            focussed: false,
         }
     },
     created() {
@@ -95,6 +103,16 @@ export default {
         }
     },
     methods: {
+        focus() {
+            this.focussed = true;
+        },
+        blur() {
+            this.focussed = false;
+            if(this.expressions &&  this.expressions.value) {
+                //Reset the value after we blur out
+                this.fieldModel = this.getExpressionValue;
+            }
+        },
         reset() {
             this.touched = false;
         },
@@ -120,14 +138,12 @@ export default {
 
         },
         getExpressionDefaultValue(result) {
-            console.log('expression default change');
             if (!this.touched) {
                 this.fieldModel = result;
             }
 
         },
         getExpressionValue(result) {
-            console.log('expression value change');
             this.fieldModel = result;
 
         },
@@ -140,7 +156,7 @@ export default {
             return this.validateData.valid;
         },
         error() {
-            return this.touched && this.invalid;
+            return !this.focussed && this.touched && this.invalid;
         },
         invalid() {
             return !this.valid;
@@ -265,15 +281,22 @@ export default {
             return array;
         },
         widget() {
+
+            //We're a group
             if (this.type == 'group') {
                 return this.type;
             }
 
+            //Get the widget
             var widget = this.field.widget;
+
             switch (this.field.widget) {
                 case 'input':
                 default:
                     switch (this.type) {
+                        case 'date':
+                            return 'datefield';
+                        break;
                         case 'reference':
                             return 'content-select';
                             break;
@@ -304,20 +327,30 @@ export default {
 
 
 
+
+
     .ux-field-message {
         border: red;
         background: rgba(red, 0.1);
         color: red;
-        font-size: 0.8em;
-        padding: 0.3em 1em;
-        border-radius: 1em;
-        margin: 1em 0;
+        font-size: 0.7em;
+        padding: 0.3em 0.5em;
+        border-radius: 0 1em 1em;
+        margin: 0.3em 0;
+        display: inline-block;
     }
+
+    // &.ux-field-error {
+        // .ux-field-message {
+            // visibility: visible;
+        // }
+    // }
+
+
+
 }
 
-:deep(.ux-field-error > .ux-field-title) {
-    color: red;
-}
+
 
 :deep(.ux-field-title) {
     // .ux-field-title {
@@ -337,6 +370,10 @@ export default {
     opacity: 0.5;
     margin-bottom: 0.5em;
 
+}
+
+.ux-field.ux-field-error> :deep(.ux-field-title) {
+    color: red;
 }
 
 :deep(.ux-form-flex .ux-field-description) {

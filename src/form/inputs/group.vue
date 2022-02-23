@@ -42,6 +42,11 @@ export default {
         this.value = this.cleanInput(this.value, true);
         // this.dispatch();
     },
+    computed:{
+        sameLine() {
+            return this.field.sameLine;
+        }
+    },
     methods: {
         multiLabel(entry, index) {
 
