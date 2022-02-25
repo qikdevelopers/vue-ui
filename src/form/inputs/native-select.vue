@@ -1,68 +1,188 @@
 <template>
-    <div class="native-select">
-        <select v-model="model">
-            <option :value="option.value" v-for="option in selectableOptions">{{option.label}}</option>
+    <div class="native-select" :class="classes">
+        <label class="ux-field-title" v-if="showLabel">{{label}} <span class="ux-required-marker" v-if="required">*</span></label>
+        <div class="ux-field-description" v-if="showDescription">{{description}}</div>
+        <div class="ui-select-button" v-if="singleValue">
+            <slot>
+                <ux-button tag="div">
+                    {{summary}}
+                </ux-button>
+            </slot>
+        </div>
+        <select @focus="touch" :multiple="multiValue" v-model="model">
+            <option value="" v-if="singleValue && !minimum">None</option>
+            <option :value="option.value" v-for="option in selectableOptions">{{option.title}}</option>
         </select>
-        <slot/>
     </div>
 </template>
 <script>
+import InputMixin from './input-mixin';
+
+
+
+function isUndefined(entry) {
+    return entry === undefined || typeof entry === 'undefined' || entry === null || String(entry) === 'null' || String(entry) === 'undefined';
+}
+
+//////////////////////////
 
 export default {
     props: {
         modelValue: {
-        },
-        options:{
-            type:Array,
-            required:true,
+            // type: [Object, Array],
         },
     },
-    data() {
-        return {
-            value: this.modelValue,
-        }
+    mixins: [InputMixin],
+    created() {
+        this.model = this.model;
     },
-    watch: {
-        modelValue(val, old) {
-            this.value = this.val;
-        }
+    methods: {
+        cleanOutput(val) {
+            var self = this;
+
+            if (isUndefined(val)) {
+                if (self.multiValue) {
+                    val = [];
+                } else {
+                    val = undefined;
+                }
+            } else {
+                if (self.multiValue) {
+                    val = (val || []).filter(Boolean).map(function(i) {
+                        return self.getValue(i);
+                    })
+                } else {
+                    val = self.getValue(val);
+                }
+            }
+
+            return val;
+        },
+        cleanInput(val) {
+
+            var self = this;
+
+            if (self.multiValue) {
+                if (!val) {
+                    val = [];
+                }
+
+                if (!Array.isArray(val)) {
+                    val = [val];
+                }
+
+                /////////////////////////////////
+
+                if (self.maximum) {
+                    if (val.length > self.maximum) {
+                        val.length = self.maximum;
+                    }
+                }
+
+
+                val = val.filter(Boolean).map(function(v) {
+                    var valueKey = self.getValue(v);
+                    return self.returnObject ? self.optionLookup[valueKey] : valueKey;
+                })
+
+            } else {
+                var valueKey = self.getValue(val);
+                val = self.returnObject ? self.optionLookup[valueKey] : valueKey;
+            }
+
+            return val;
+        },
     },
     computed: {
-        selectableOptions() {
-            return this.options.map(function(option) {
-                const value = option.value || option;
-                const label = option.title || option.name || option.label || value;
-
-                return {
-                    label,
-                    value,
-                }
-            })
+        returnObject() {
+            return this.type == 'reference';
         },
-        model: {
-            get() {
-                return this.value;
-            },
-            set(value) {
-                this.value = value;
-                this.$emit('update:modelValue', this.value);
+        classes() {
+            var array = []
+
+            if (this.multiValue) {
+                array.push('multiple');
+            } else {
+                array.push('single');
             }
-        }
+
+            return array;
+        },
+        // model: {
+        //     get() {
+        //         let val = this.cleanOutput(this.value);
+        //         return val;
+        //     },
+        //     set(val) {
+        //         val = this.cleanInput(val);
+        //         // // var val = this.cleanOutput(newValue);
+        //         // // var existing = this.cleanOutput(this.value);
+
+        //         // if (newValue != existing) {
+        //         //     newValue = this.cleanInput(val);
+        //         //     this.value = newValue;
+        //         //     this.dispatch();
+        //         // }
+
+        //         this.value = val;
+        //         this.dispatch();
+
+        //     }
+        // },
+        optionLookup() {
+            var self = this;
+            return self.options.reduce(function(set, option) {
+                const key = self.getValue(option);
+                set[key] = option;
+                return set;
+            }, {})
+        },
+        summary() {
+            return this.getLabel(this.optionLookup[this.model]) || 'Click to select';
+        },
+
+        selectableOptions() {
+            return this.options;
+            // if(this.type == 'reference') {
+
+            // } else {
+
+            // }
+
+        },
     }
 }
 </script>
 <style lang="scss" scoped>
+.native-select {
 
-    .native-select {
-        position:relative;
-        
+    cursor: pointer;
 
+    &.multiple {
         select {
-            opacity: 0;
-            appearance:none;
-            width:100%;
-            height:100%;
-            position:absolute;
+            width: 100%;
         }
     }
+
+    &.single {
+        position: relative;
+
+        .ui-select-button {
+            position: relative;
+        }
+
+        select {
+            cursor: pointer;
+            opacity: 0;
+            appearance: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    }
+}
 </style>

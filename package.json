@@ -38,7 +38,8 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "expression-eval": "^5.0.0"
+    "expression-eval": "^5.0.0",
+    "maska": "^1.5.0"
   },
   "peerDependencies": {
     "vue": "^3.2.21"

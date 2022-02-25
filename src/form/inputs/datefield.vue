@@ -1,10 +1,10 @@
 <template>
-    <label class="ux-field-title" v-if="showLabel">{{label}}</label>
+    <label class="ux-field-title" v-if="showLabel">{{label}} <span class="ux-required-marker" v-if="required">*</span></label>
     <div class="ux-field-description" v-if="showDescription">{{description}}</div>
     <div v-if="multiValue">
         <flex-row class="ux-text-row" :key="index" v-for="(entry, index) in model">
             <flex-cell>
-                <input type="datetime-local" class="ux-field-focus ux-text-input-multiple" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model="model[index]" />
+                <input type="datetime-local" class="ux-field-focus ux-text-input-multiple" @focus="touch" ref="input"  @keydown.enter.stop.prevent="add()" v-model="model[index]" />
             </flex-cell>
             <flex-cell shrink vcenter>
                 <ux-button tag="a" icon v-if="canRemoveValue" @click="remove(entry)">
@@ -22,13 +22,9 @@
 import InputMixin from './input-mixin';
 
 
-function isUndefined(entry) {
-    return entry === undefined || typeof entry === 'undefined' || entry === null || entry.toString && entry.toString() === 'Invalid Date';
-}
+
 
 //////////////////////////
-
-
 
 function zero(input) {
     if (String(input).length < 2) {
@@ -37,21 +33,7 @@ function zero(input) {
     return input
 }
 
-function getLocalString(d) {
-    
-    d = d ? new Date(d) : new Date();
-    return `${d.getFullYear()}-${zero(d.getMonth() + 1)}-${zero(d.getDate())}T${zero(d.getHours())}:${zero(d.getMinutes())}`;
-}
-
-function toISO(d) {
-    let dt = new Date(d);
-    if(dt.toString() == 'Invalid Date') {
-        console.log('INVALID DATE',d);
-        return 'invalid';
-    }
-    return dt.toISOString();
-}
-
+//////////////////////////
 
 export default {
     props: {
@@ -67,20 +49,18 @@ export default {
                 return val;
             },
             set(newValue) {
-
-                if(!newValue){
+                if (!newValue) {
                     this.value = undefined;
                     this.dispatch()
                     return;
-                } 
+                }
 
                 //Invalid date so no change here
-                if(newValue === 'invalid') {
+                if (newValue === 'invalid') {
                     return;
                 }
 
                 ////////////////////////
-
 
                 var val = this.cleanOutput(newValue);
                 var existing = this.cleanOutput(this.value);
@@ -95,67 +75,19 @@ export default {
         },
     },
     methods: {
+        cleanOutputValue(d) {
+            d = d ? new Date(d) : new Date();
+            return `${d.getFullYear()}-${zero(d.getMonth() + 1)}-${zero(d.getDate())}T${zero(d.getHours())}:${zero(d.getMinutes())}`;
+        },
+        cleanInputValue(d) {
+            let dt = new Date(d);
+            if (dt.toString() == 'Invalid Date') {
+                return 'invalid';
+            }
+            return dt.toISOString();
+        },
         getNewDefaultEntry() {
-            return getLocalString(new Date());
-        },
-        cleanOutput(val) {
-            var self = this;
-
-            if (isUndefined(val)) {
-                if (self.multiValue) {
-                    val = [];
-                } else {
-                    val = undefined;
-                }
-            } else {
-                if (self.multiValue) {
-                    val = val.map(function(i) {
-                        return getLocalString(i);
-                    })
-                } else {
-                    val = getLocalString(val);
-                }
-            }
-
-            return val;
-        },
-        cleanInput(val) {
-
-            var self = this;
-
-            if (self.multiValue) {
-                if (!val) {
-                    val = [];
-                }
-
-                if (!Array.isArray(val)) {
-                    val = [val];
-                }
-
-                /////////////////////////////////
-
-                if (self.maximum) {
-                    if (val.length > self.maximum) {
-                        val.length = self.maximum;
-                    }
-                }
-
-                while (val.length < self.minimum) {
-                    val.push(self.getNewDefaultEntry())
-                }
-
-                val.map(function(v) {
-                    var d = toISO(v)
-                    return d;
-                })
-
-            } else {
-                if (val) {
-                    val = toISO(val)
-                }
-            }
-
-            return val;
+            return new Date();
         },
     },
 }
@@ -192,7 +124,8 @@ input {
 }
 
 .ux-text-input-single {
-    width: calc(100% - 0.5em);
-    margin: 0 0.5em 0 0;
+    width:100%;
+    // width: calc(100% - 0.5em);
+    // margin: 0 0.5em 0 0;
 }
 </style>

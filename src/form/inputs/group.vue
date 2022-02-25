@@ -1,4 +1,5 @@
 <template>
+   
     <div class="ux-multi-group" v-if="multiValue">
         <panel ref="row" :key="entry" v-for="(entry, index) in model">
             <panel-header>
@@ -16,7 +17,7 @@
                 </flex-row>
             </panel-header>
             <panel-body @keydown.enter="enterPress($event)">
-                <ux-form :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
+                <ux-form ref="form" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
             </panel-body>
         </panel>
         <ux-button v-if="canAddValue" @click="add()">{{addLabel}}
@@ -24,7 +25,7 @@
         </ux-button>
     </div>
     <template v-else>
-        <ux-form :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+        <ux-form ref="form" @form:state="stateChange"  :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
     </template>
 </template>
 <script>
@@ -38,16 +39,18 @@ export default {
             type: [Object, Array],
         },
     },
-    created() {
-        this.value = this.cleanInput(this.value, true);
-        // this.dispatch();
-    },
-    computed:{
+    // created() {
+    //     // this.value = this.cleanInput(this.value, true);
+    // },
+    computed: {
         sameLine() {
             return this.field.sameLine;
         }
     },
     methods: {
+        stateChange(details) {
+            this.$emit('form:state', details);
+        },
         multiLabel(entry, index) {
 
             if (entry.name) {

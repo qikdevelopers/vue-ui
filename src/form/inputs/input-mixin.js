@@ -1,10 +1,20 @@
+function isUndefined(v, type) {
+    return v === undefined ||
+        v === null ||
+        (type == 'date' && v.toString && (v.toString() === 'Invalid Date'));
+}
+
+
 export default {
     props: {
         field: {
             type: Object,
+            default () {
+                return {}
+            },
         },
-        parentModel:{
-            type:Object,
+        parentModel: {
+            type: Object,
         },
     },
     data() {
@@ -18,7 +28,10 @@ export default {
         },
     },
     computed: {
-        model:{
+        required() {
+            return this.minimum;
+        },
+        model: {
             get() {
                 return this.cleanOutput(this.value);
             },
@@ -27,7 +40,41 @@ export default {
                 this.dispatch();
             }
         },
+        options() {
+            var self = this;
+            return (this.field.options || []).reduce(function(set, option) {
+                if (!option) {
+                    return set;
+                }
+                const value = self.getValue(option);
+                const title = option.title || option.name || option.label || value;
+
+
+                var output = {
+                    title,
+                    value,
+                    source: option,
+                }
+
+                if (self.field.type == 'reference') {
+                    output._id = value;
+                }
+
+                set.push(output);
+
+                return set;
+            }, [])
+        },
+        prefix() {
+            return this.field.suffix;
+        },
+        suffix() {
+            return this.field.suffix;
+        },
         type() {
+            if (!this.field) {
+                console.log('TYPE', this.field)
+            }
             return this.field.type || 'string';
         },
         key() {
@@ -81,19 +128,7 @@ export default {
 
             return (this.value || []).length;
         },
-        minimum() {
 
-            if (this.layoutGroup) {
-                return 1;
-            }
-            
-            var int = parseInt(this.field.minimum || 0);
-            if(isNaN(int)) {
-                int = 0;
-            }
-            int = Math.max(int, 0)
-            return int;
-        },
         showLabel() {
             return this.field.title;
         },
@@ -107,19 +142,31 @@ export default {
                 return subFields;
             }
         },
-        maximum() {
-
+        minimum() {
             if (this.layoutGroup) {
                 return 1;
             }
 
-            var int = parseInt(this.field.maximum);
-            int = Math.max(int, 0)
-
-            if (this.maximum) {
-                int = Math.min(int, this.maximum);
+            var int = parseInt(this.field.minimum || 0);
+            if (isNaN(int)) {
+                int = 0;
             }
-            return int;
+
+            int = Math.max(int, 0)
+            int = this.maximum ? Math.min(int, this.maximum) : int;
+            return parseInt(int);
+        },
+        maximum() {
+            if (this.layoutGroup) {
+                return 1;
+            }
+
+            var int = parseInt(this.field.maximum || 0);
+            if (isNaN(int)) {
+                int = 0;
+            }
+            int = Math.max(int, 0)
+            return parseInt(int);
         },
         ask() {
             var int = parseInt(this.field.ask);
@@ -132,6 +179,20 @@ export default {
         },
     },
     methods: {
+        getValue(option) {
+            if (!option) {
+                return;
+            }
+
+            return option._id || option.value || option;
+        },
+        getLabel(option) {
+            if (!option) {
+                return;
+            }
+
+            return option.title || option.name || option.label || option;
+        },
         touch() {
             this.$emit('touched');
         },
@@ -143,8 +204,8 @@ export default {
                 return;
             }
 
-            var defaultEntry =this.getNewDefaultEntry();
-            
+            var defaultEntry = this.cleanInputValue(this.getNewDefaultEntry());
+
             this.value.push(defaultEntry);
             this.dispatch();
 
@@ -163,9 +224,59 @@ export default {
         dispatch() {
             this.$emit('update:modelValue', this.value);
         },
-        cleanInput(val) {
+
+        cleanInputValue(val) {
+            // if (!isUndefined(val, this.type)) {
+            //     switch (this.type) {
+            //         case 'integer':
+            //             val = parseInt(val);
+            //             break;
+            //         case 'float':
+            //         case 'decimal':
+            //         case 'number':
+            //             val = Number(val);
+            //             break;
+            //     }
+            // }
+
+            return val;
+        },
+        cleanOutputValue(val) {
+            return val;
+        },
+        cleanOutput(val) {
 
             var self = this;
+
+
+
+
+            if (isUndefined(val, self.field.type)) {
+                if (self.multiValue) {
+                    val = [];
+                } else {
+                    val = undefined;
+                }
+            } else {
+                if (self.multiValue) {
+                    val.forEach(function(v, i) {
+                        val[i] = self.cleanOutputValue(v);
+                    });
+                    // val = val.map(function(i) {
+                    //     return self.cleanOutputValue(i)
+                    // })
+                } else {
+                    val = self.cleanOutputValue(val)
+                }
+            }
+
+            return val;
+        },
+        cleanInput(val) {
+            var input = val;
+
+            var self = this;
+
             if (self.multiValue) {
                 if (!val) {
                     val = [];
@@ -184,23 +295,31 @@ export default {
                 }
 
                 while (val.length < self.minimum) {
-                    val.push(self.getNewDefaultEntry())
+                    val.push(self.cleanInputValue(self.getNewDefaultEntry()));
                 }
 
+                val = val.map(function(v) {
+                    var d = self.cleanInputValue(v)
+                    // toISO(v)
+                    return d;
+                })
             } else {
-                if (!val) {
-                    val = self.getNewDefaultEntry();
+                if (val) {
+                    // val = toISO(val)
+                    val = self.cleanInputValue(val)
                 }
             }
 
+
+            var out = val;
             return val;
         },
-        cleanOutput(val) {
-            return val;
-        },
+
+
+
         refocus() {
             var elements = this.$refs.input;
-            if(!elements) {
+            if (!elements) {
                 return;
             }
 

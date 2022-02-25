@@ -1,5 +1,26 @@
 import parseBoolean from './parseBoolean';
 
+
+function ensureMinimum(field, array, min, max, func) {
+
+    array = array || [];
+
+    var length = array.length;
+    var meetsMinimum = length >= min;
+    var meetsMaximum = length <= max;
+
+    if (!meetsMinimum) {
+        var difference = min - length;
+        var extras = Array(difference).fill().map(func);
+        return [...array, ...extras];
+    }
+
+    return array;
+
+}
+
+//////////////
+
 export default function getDefaultValue(fieldData, currentValue) {
 
     if (currentValue) {
@@ -23,23 +44,7 @@ export default function getDefaultValue(fieldData, currentValue) {
 
     var output;
 
-    function ensureMinimum(array, min, max, func) {
 
-        array = array || [];
-
-        var length = array.length;
-        var meetsMinimum = length >= min;
-        var meetsMaximum = length <= max;
-
-        if (!meetsMinimum) {
-            var difference = min - length;
-            var extras = Array(difference).fill().map(func);
-            return [...array, ...extras];
-        }
-
-        return array;
-
-    }
 
     switch (fieldData.type) {
         case 'date':
@@ -68,7 +73,7 @@ export default function getDefaultValue(fieldData, currentValue) {
                     }
                 }
 
-                output = ensureMinimum(output, minimum, maximum, function() {
+                output = ensureMinimum(fieldData, output, minimum, maximum, function() {
                     return getDate(new Date());
                 })
             } else {
@@ -77,28 +82,28 @@ export default function getDefaultValue(fieldData, currentValue) {
 
             break;
         case 'integer':
-            if (multiValue) {
+            // if (multiValue) {
 
-                if (defaultValues.length) {
-                    if (maximum) {
-                        output = defaultValues.slice(0, maximum).map(function(val) {
-                            return parseInt(val);
-                        });
+            //     if (defaultValues.length) {
+            //         if (maximum) {
+            //             output = defaultValues.slice(0, maximum).map(function(val) {
+            //                 return parseInt(val);
+            //             });
 
-                    } else {
-                        output = defaultValues.slice().map(function(val) {
-                            return parseInt(val);
-                        });
-                    }
-                }
+            //         } else {
+            //             output = defaultValues.slice().map(function(val) {
+            //                 return parseInt(val);
+            //             });
+            //         }
+            //     }
 
-                output = ensureMinimum(output, minimum, maximum, function() {
-                    return;
-                })
-            } else {
-                output = isUndefined(firstDefaultValue) ? undefined : parseInt(firstDefaultValue);
-            }
-            break;
+            //     output = ensureMinimum(fieldData, output, minimum, maximum, function() {
+            //         return 0;
+            //     })
+            // } else {
+            //     output = isUndefined(firstDefaultValue) ? undefined : parseInt(firstDefaultValue);
+            // }
+            // break;
         case 'decimal':
         case 'number':
         case 'float':
@@ -115,25 +120,11 @@ export default function getDefaultValue(fieldData, currentValue) {
                     }
                 }
 
-                output = ensureMinimum(output, minimum, maximum, function() {
-                    return;
+                output = ensureMinimum(fieldData, output, minimum, maximum, function() {
+                    return '';
                 })
             } else {
-                output = isUndefined(firstDefaultValue) ? undefined : parseInt(firstDefaultValue);
-            }
-            break;
-        case 'string':
-
-            if (multiValue) {
-                if (defaultValues.length) {
-                    output = defaultValues.slice(0, maximum);
-                }
-
-                output = ensureMinimum(output, minimum, maximum, function() {
-                    return;
-                })
-            } else {
-                output = isUndefined(firstDefaultValue) ? '' : firstDefaultValue;
+                output = isUndefined(firstDefaultValue) ? undefined : Number(firstDefaultValue);
             }
             break;
         case 'group':
@@ -150,13 +141,26 @@ export default function getDefaultValue(fieldData, currentValue) {
             }
             break;
         case 'boolean':
-            if (multiValue) {
-                output = Array(maximum).fill(false);
-            }
 
-            output = ensureMinimum(output, minimum, maximum, function() {
-                return false;
-            })
+            if (multiValue) {
+                if (defaultValues.length) {
+                    if (maximum) {
+                        output = defaultValues.slice(0, maximum).map(function(val) {
+                            return parseBoolean(val);
+                        });
+                    } else {
+                        output = defaultValues.slice().map(function(val) {
+                            return parseBoolean(val);
+                        });
+                    }
+                }
+
+                output = ensureMinimum(fieldData, output, minimum, maximum, function() {
+                    return;
+                })
+            } else {
+                output = isUndefined(firstDefaultValue) ? false : parseBoolean(firstDefaultValue);
+            }
 
             break;
         case 'reference':
@@ -170,13 +174,26 @@ export default function getDefaultValue(fieldData, currentValue) {
                 output = isUndefined(firstDefaultValue) ? undefined : firstDefaultValue;
             }
             break;
+        case 'string':
+            if (multiValue) {
+                if (defaultValues.length) {
+                    output = defaultValues.slice(0, maximum);
+                }
+
+                output = ensureMinimum(fieldData, output, minimum, maximum, function() {
+                    return '';
+                })
+            } else {
+                output = isUndefined(firstDefaultValue) ? '' : firstDefaultValue;
+            }
+            break;
         default:
             if (multiValue) {
                 if (defaultValues.length) {
                     output = defaultValues.slice(0, maximum);
                 }
 
-                output = ensureMinimum(output, minimum, maximum, function() {
+                output = ensureMinimum(fieldData, output, minimum, maximum, function() {
                     return;
                 })
             } else {

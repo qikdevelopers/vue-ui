@@ -1,41 +1,57 @@
 <template>
     <div class="ux-field" @focusin="focus" @focusout="blur" v-if="visible" :class="classes">
-        
         <template v-if="widget == 'checkbox'">
-            <checkbox @touched="touch" :field="field" v-model="fieldModel" />
+            <checkbox @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'group'">
             <template v-if="asObject">
-                <field-group @touched="touch" :field="field" :parentModel="parentModel" v-model="fieldModel" />
+                <field-group @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
             </template>
             <template v-else>
-                <field-group @touched="touch" :field="field" :parentModel="parentModel" v-model="sourceModel" />
+                <field-group @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="sourceModel" />
             </template>
         </template>
+        <template v-if="widget == 'select'">
+            <native-select @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <template v-if="widget == 'textfield'">
-            <text-field @touched="touch" :field="field" v-model="fieldModel" />
+            <text-field @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
+        <template v-if="widget == 'currency'">
+            <currency-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'datefield'">
-            <date-field @touched="touch" :field="field" v-model="fieldModel" />
+            <date-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'content-select'">
-            <content-select @touched="touch" :field="field" v-model="fieldModel" />
+            <content-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
-        <div v-if="error" class="ux-field-message">
-            {{validateData.message}}
+        <template v-if="widget == 'richtext'">
+            <text-area @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
+        <template v-if="widget == 'longtext'">
+            <text-area @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
+        <template v-if="widget == 'value'">
+        </template>
+        <div v-if="error && validateResults.message" class="ux-field-message">
+            {{validateResults.message}}
         </div>
-        
     </div>
 </template>
 <script>
-//Figure out how to recursively include
-// import UXField from './field.vue';
-
+//Inputs
 import ContentSelect from './inputs/content-select.vue';
+import CurrencyField from './inputs/currency.vue';
 import TextField from './inputs/textfield.vue';
+import TextArea from './inputs/textarea.vue';
 import DateField from './inputs/datefield.vue';
 import Checkbox from './inputs/checkbox.vue';
 import FieldGroup from './inputs/group.vue';
+import NativeSelect from './inputs/native-select.vue';
+
+////////////////
+
 import Expressions from './expressions';
 import getDefaultValue from './getDefaultValue';
 import parseBoolean from './parseBoolean';
@@ -62,8 +78,11 @@ function computedExpression(key) {
 
 export default {
     components: {
+        NativeSelect,
         DateField,
         TextField,
+        CurrencyField,
+        TextArea,
         Checkbox,
         FieldGroup,
         ContentSelect,
@@ -87,33 +106,48 @@ export default {
             model: this.modelValue,
             touched: false,
             focussed: false,
+            validateResults: { valid: true },
+            mounted: false,
+            subFormState: {},
         }
     },
     created() {
-        var currentValue = this.fieldModel
 
-
-        if (!currentValue) {
-            var defaultValue = this.fieldModel || this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.field);
-
-            // console.log(this.field.key, this.field.title, defaultValue);
-            if (this.fieldModel != defaultValue) {
-                this.fieldModel = defaultValue;
+        if (this.visible) {
+            var currentValue = this.fieldModel;
+            var defaultValue = this.fieldModel || this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField);
+            if (!currentValue) {
+                // console.log(this.actualField.key, this.actualField.title, defaultValue);
+                if (this.fieldModel != defaultValue) {
+                    this.fieldModel = defaultValue;
+                }
             }
         }
+
+    },
+    mounted() {
+        this.mounted = true;
+    },
+    beforeUnmount() {
+        this.mounted = false;
     },
     methods: {
+        groupStateAltered(details) {
+            this.subFormState = details;
+        },
         focus() {
             this.focussed = true;
         },
         blur() {
             this.focussed = false;
-            if(this.expressions &&  this.expressions.value) {
+            if (this.expressions && this.expressions.value) {
                 //Reset the value after we blur out
                 this.fieldModel = this.getExpressionValue;
             }
         },
         reset() {
+            var defaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField);
+            this.fieldModel = defaultValue;
             this.touched = false;
         },
         touch() {
@@ -127,14 +161,50 @@ export default {
         }
     },
     watch: {
+        mounted(val) {
+            if (val) {
+                this.$emit('field:mount', this);
+            } else {
+                this.$emit('field:unmount', this);
+            }
+        },
+        visible(now) {
+            //Remove and clear all data
+            if (!now) {
+                this.fieldModel = undefined;
+            } else {
+                this.reset();
+            }
+        },
+        focussed(val) {
+            if (val) {
+                this.$emit('field:focus', this);
+            } else {
+                this.$emit('field:blur', this);
+            }
+        },
+        invalid(val) {
+            this.$emit('field:invalid', this);
+        },
+        valid(val) {
+            this.$emit('field:valid', this);
+        },
+        error(val) {
+            this.$emit('field:error', this);
+        },
+        touched(val) {
+            this.$emit('field:touched', this);
+        },
+        dirty(val) {
+            this.$emit('field:dirty', this);
+        },
+        changeString(v) {
+            this.validateResults = this.$qik.content.validateField(this.fieldModel, this.actualField);
+        },
         modelValue(val, old) {
             this.model = val;
         },
-
         getExpressionHide(result) {
-
-        },
-        getExpressionRequired(result) {
 
         },
         getExpressionDefaultValue(result) {
@@ -145,21 +215,40 @@ export default {
         },
         getExpressionValue(result) {
             this.fieldModel = result;
-
         },
     },
     computed: {
-        validateData() {
-            return this.$qik.content.validateField(this.fieldModel, this.field);
+        title() {
+            return this.field.title;
+        },
+        actualField() {
+
+            var field = this.field;
+            if (this.getExpressionRequired) {
+                return Object.assign({}, field, { minimum: 1 });
+            }
+
+            return field;
+        },
+        changeString() {
+            return `${JSON.stringify(this.fieldModel)}-${this.actualField.minimum}`;
         },
         valid() {
-            return this.validateData.valid;
+            return !this.invalid;
         },
         error() {
             return !this.focussed && this.touched && this.invalid;
         },
         invalid() {
-            return !this.valid;
+            //Check the subform
+            var invalidSubForm = this.subFormState && this.subFormState.invalid;
+            if (invalidSubForm) {
+                return { invalidSubForm: this.subFormState, mounted: this.mounted };
+            }
+
+            //Check if our validator says this field is valid
+            var isInvalid = !this.validateResults.valid;
+            return isInvalid;
         },
         dirty() {
             if (typeof this.fieldModel === 'undefined') {
@@ -209,33 +298,28 @@ export default {
             }
         },
         hidden() {
-            if (this.widget == 'value') {
+            if (this.actualField.readOnly) {
                 return true;
             }
-
-            if (this.field.readOnly) {
-                return true;
-            }
-
             return this.getExpressionHide;
         },
         visible() {
-            return !this.hidden;
+            return this.mounted && !this.hidden;
         },
         type() {
-            return this.field.type || 'string';
+            return this.actualField.type || 'string';
         },
         key() {
-            return this.field.key;
+            return this.actualField.key;
         },
         isGroup() {
             return this.type === 'group'
         },
         asObject() {
-            return this.isGroup && this.field.asObject;
+            return this.isGroup && this.actualField.asObject;
         },
         layoutGroup() {
-            return this.isGroup && !this.field.asObject;
+            return this.isGroup && !this.actualField.asObject;
         },
         fieldModel: {
             get() {
@@ -288,29 +372,51 @@ export default {
             }
 
             //Get the widget
-            var widget = this.field.widget;
+            var widget = this.actualField.widget;
 
-            switch (this.field.widget) {
-                case 'input':
-                default:
-                    switch (this.type) {
-                        case 'date':
-                            return 'datefield';
+            ///////////////////////////////
+
+            if (!widget) {
+                switch (this.type) {
+                    case 'date':
+                        widget = 'datefield';
                         break;
-                        case 'reference':
-                            return 'content-select';
-                            break;
-                        case 'boolean':
-                            return 'checkbox';
-                            break;
-                        default:
-                            return 'textfield';
-                            break;
-                    }
+                    case 'reference':
+                        widget = 'content-select';
+                        break;
+                    case 'boolean':
+                        widget = 'checkbox';
+                        break;
+                    case 'string':
+                        widget = 'textfield';
+                        break;
+                }
+            }
+
+            ///////////////////////////////
+
+            switch (widget) {
+                case 'content-select':
+                case 'select':
+                case 'checkbox':
+                case 'datefield':
+                case 'richtext':
+                case 'longtext':
+
+                case 'buttons':
+                case 'switch':
+                case 'yesno':
+                case 'email':
+                case 'url':
+                case 'timezone':
+                case 'currency':
+                    return widget;
+                    break;
+                default:
+                    return 'textfield';
                     break;
             }
 
-            return widget || 'textfield';
         },
     },
 
@@ -341,9 +447,9 @@ export default {
     }
 
     // &.ux-field-error {
-        // .ux-field-message {
-            // visibility: visible;
-        // }
+    // .ux-field-message {
+    // visibility: visible;
+    // }
     // }
 
 

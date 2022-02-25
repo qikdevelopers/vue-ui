@@ -1,7 +1,7 @@
 <template>
-    <div class="ux-checkbox" :class="classes">
+    <button class="ux-checkbox" :class="classes">
         <ux-icon class="icon" icon="fa-check" />
-    </div>
+    </button>
 </template>
 <script>
 export default {
@@ -44,27 +44,29 @@ export default {
     padding: 0 0 $size;
     text-align: center;
     line-height: 2em;
+    appearance:none;
+    font-size: inherit;
 
     .icon {
         opacity: 0;
         position:absolute;
         top:50%;
         left:50%;
-        transform: scale(0) translate3d(-50%, -50%, 0);
+        transform: scale(0) translate(-50%, -50%);
         transition: all 0.2s;
     }
 
     &.ux-checkbox-true {
         .icon {
             opacity: 1;
-            transform: scale(1) translate3d(-50%, -50%, 0);
+            transform: scale(1) translate(-50%, -50%);
         }
     }
 
     &:hover {
         .icon {
             opacity: 0.5 !important;
-            transform: scale(1) translate3d(-50%, -50%, 0);
+            transform: scale(1) translate(-50%, -50%);
         }
     }
 }

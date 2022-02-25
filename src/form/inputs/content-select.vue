@@ -1,5 +1,5 @@
 <template>
-    <label class="ux-field-title" v-if="showLabel">{{label}}</label>
+    <label class="ux-field-title" v-if="showLabel">{{label}} <span class="ux-required-marker" v-if="required">*</span></label>
     <div class="ux-field-description" v-if="showDescription">{{description}}</div>
     <template v-if="multiValue">
         <div class="items" v-if="model && model.length">
@@ -60,7 +60,7 @@ export default {
             self.touch();
 
             self.$qik.browse(this.field.referenceType, {
-                    field: self.field,
+                    field:self.field,
                     model: self.multiValue ? self.value : [self.value].filter(Boolean),
                     maximum: self.field.maximum,
                 })
@@ -103,9 +103,21 @@ export default {
         summary() {
             if (this.multiValue) {
                 if (this.model && this.model.length) {
-                    return this.model.map(function(item) {
-                        return item.title;
+
+                    var length = this.model.length;
+                    var difference = length - 3;
+
+                    var summary;
+                    var cropped = this.model.slice(0, 3);
+                    summary = cropped.map(function(item) {
+                        return item.firstName || item.name || item.title;
                     }).join(', ');
+
+                    if (difference) {
+                        summary = `${summary}... +${difference} more...`
+                    }
+                    
+                    return summary;
 
                 } else {
                     return `Click to select`;

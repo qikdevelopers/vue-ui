@@ -27,7 +27,7 @@
                 <div class="footer">
                     <flex-row center>
                         <flex-cell shrink class="text">
-                            <native-select v-model="perPage" :options="perPageOptions">
+                            <native-select v-model="perPage" :field="perPageField">
                                 {{displayStartIndex}} to {{endIndex}} of {{totalItems}} total
                             </native-select>
                         </flex-cell>
@@ -36,7 +36,7 @@
                         <flex-cell shrink>
                             <flex-row center>
                                 <flex-cell shrink class="text">
-                                    <native-select v-model="currentPage" :options="pageOptions">
+                                    <native-select v-model="currentPage" :field="pageField">
                                         Page {{currentPage}} of {{totalPages}}
                                     </native-select>
                                 </flex-cell>
@@ -57,13 +57,11 @@
             </flex-footer>
         </template>
     </flex-column>
-    <pre>{{selection}}</pre>
 </template>
 <script>
 import NativeSelect from '../form/inputs/native-select.vue';
 import NativeTable from '../table/Table.vue';
 import Search from '../form/inputs/search.vue';
-
 
 export default {
     props: {
@@ -165,8 +163,13 @@ export default {
 
             return columns;
         },
-        pageOptions() {
-            return Array(this.totalPages).fill(1).map((x, y) => x + y);
+        pageField() {
+            return {
+                type: 'integer',
+                maximum: 1,
+                minimum: 1,
+                options: Array(this.totalPages).fill(1).map((x, y) => x + y),
+            }
         },
         change() {
             return JSON.stringify([this.page, this.sort, this.search, this.selectFields, this.type]);
@@ -291,7 +294,7 @@ export default {
 
             self.loading = true;
 
-            var promise = self.$qik.content.list(`profile`, {
+            var promise = self.$qik.content.list(self.type, {
                 sort,
                 search,
                 select,
@@ -368,23 +371,28 @@ export default {
                 index: 1,
             },
             dataSource: null,
-            perPageOptions: [{
-                    title: '50 per page',
-                    value: 50,
-                },
-                {
-                    title: '100 per page',
-                    value: 100,
-                },
-                {
-                    title: '250 per page',
-                    value: 250,
-                },
-                {
-                    title: '500 per page',
-                    value: 500,
-                },
-            ]
+            perPageField: {
+                minimum:1,
+                maximum: 1,
+                options: [
+                    {
+                        title: '50 per page',
+                        value: 50,
+                    },
+                    {
+                        title: '100 per page',
+                        value: 100,
+                    },
+                    {
+                        title: '250 per page',
+                        value: 250,
+                    },
+                    {
+                        title: '500 per page',
+                        value: 500,
+                    },
+                ]
+            }
         }
     },
 }
