@@ -13,6 +13,8 @@
             <option value="" v-if="singleValue && !minimum">None</option>
             <option :value="option.value" v-for="option in selectableOptions">{{option.title}}</option>
         </select>
+
+
     </div>
 </template>
 <script>
@@ -161,14 +163,27 @@ export default {
     &.multiple {
         select {
             width: 100%;
+            font-size:1em;
+            border:1px solid rgba(#000, 0.1);
+            appearance:none;
+
+            &:focus {
+            border:1px solid $primary;
+            }
         }
     }
 
     &.single {
         position: relative;
 
-        .ui-select-button {
+       .ui-select-button {
             position: relative;
+            width:100%;
+
+            & > .ux-btn {
+                display: block;
+                text-align: left;
+            }
         }
 
         select {
@@ -184,5 +199,8 @@ export default {
             right: 0;
         }
     }
+
+    
 }
+
 </style>

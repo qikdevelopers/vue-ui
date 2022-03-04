@@ -1,7 +1,14 @@
 <template>
     <div class="ux-field" @focusin="focus" @focusout="blur" v-if="visible" :class="classes">
+        
         <template v-if="widget == 'checkbox'">
             <checkbox @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
+        <template v-if="widget == 'switch'">
+            <boolean-switch @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
+        <template v-if="widget == 'upload'">
+            <upload @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'group'">
             <template v-if="asObject">
@@ -13,6 +20,9 @@
         </template>
         <template v-if="widget == 'select'">
             <native-select @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
+        <template v-if="widget == 'buttons'">
+            <button-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'textfield'">
             <text-field @touched="touch" :field="actualField" v-model="fieldModel" />
@@ -32,6 +42,12 @@
         <template v-if="widget == 'longtext'">
             <text-area @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
+        <template v-if="widget == 'timezone'">
+            <timezone-select @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
+        <template v-if="widget == 'phone'">
+            <phone-number-input @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <template v-if="widget == 'value'">
         </template>
         <div v-if="error && validateResults.message" class="ux-field-message">
@@ -41,14 +57,19 @@
 </template>
 <script>
 //Inputs
+import PhoneNumberInput from './inputs/phone-number-input.vue';
+import TimezoneSelect from './inputs/timezone.vue';
 import ContentSelect from './inputs/content-select.vue';
 import CurrencyField from './inputs/currency.vue';
 import TextField from './inputs/textfield.vue';
 import TextArea from './inputs/textarea.vue';
 import DateField from './inputs/datefield.vue';
 import Checkbox from './inputs/checkbox.vue';
+import Switch from './inputs/switch.vue';
+import Upload from './inputs/upload/upload.vue';
 import FieldGroup from './inputs/group.vue';
-import NativeSelect from './inputs/native-select.vue';
+import NativeSelect from './inputs/select.vue';
+import ButtonSelect from './inputs/button-select.vue';
 
 ////////////////
 
@@ -78,14 +99,19 @@ function computedExpression(key) {
 
 export default {
     components: {
+        ButtonSelect,
         NativeSelect,
         DateField,
         TextField,
         CurrencyField,
         TextArea,
         Checkbox,
+        BooleanSwitch: Switch,
         FieldGroup,
         ContentSelect,
+        TimezoneSelect,
+        PhoneNumberInput,
+        Upload,
     },
     props: {
         field: {
@@ -101,6 +127,8 @@ export default {
         },
     },
     data() {
+
+
         return {
             defaultValue: null,
             model: this.modelValue,
@@ -113,16 +141,21 @@ export default {
     },
     created() {
 
-        if (this.visible) {
-            var currentValue = this.fieldModel;
-            var defaultValue = this.fieldModel || this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField);
-            if (!currentValue) {
-                // console.log(this.actualField.key, this.actualField.title, defaultValue);
-                if (this.fieldModel != defaultValue) {
-                    this.fieldModel = defaultValue;
-                }
-            }
+
+        // if (this.visible) {
+        var currentValue = this.fieldModel;
+        var defaultValue = currentValue || this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField);
+        if (!currentValue) {
+            currentValue = defaultValue;
         }
+        // }
+
+        var cleaned = this.cleanInput(currentValue)
+        if (this.fieldModel != cleaned) {
+            this.fieldModel = cleaned;
+        }
+
+        // console.log('FIELD VALUE', this.key, this.fieldModel);
 
     },
     mounted() {
@@ -146,8 +179,9 @@ export default {
             }
         },
         reset() {
-            var defaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField);
-            this.fieldModel = defaultValue;
+            console.log('RESET FIELD');
+            // var defaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField);
+            // this.fieldModel = defaultValue;
             this.touched = false;
         },
         touch() {
@@ -243,11 +277,18 @@ export default {
             //Check the subform
             var invalidSubForm = this.subFormState && this.subFormState.invalid;
             if (invalidSubForm) {
+
                 return { invalidSubForm: this.subFormState, mounted: this.mounted };
             }
 
             //Check if our validator says this field is valid
             var isInvalid = !this.validateResults.valid;
+            // if (isInvalid) {
+
+            // }
+
+
+
             return isInvalid;
         },
         dirty() {
@@ -323,6 +364,7 @@ export default {
         },
         fieldModel: {
             get() {
+
                 return this.cleanOutput(this.model[this.key]);
             },
             set(value) {
@@ -341,6 +383,11 @@ export default {
         },
         classes() {
             var array = [];
+            array.push(`ux-field-${this.type}`)
+
+            if (this.layoutGroup) {
+                array.push('ux-layout-only');
+            }
 
             if (this.touched) {
                 array.push('ux-field-touched');
@@ -376,22 +423,6 @@ export default {
 
             ///////////////////////////////
 
-            if (!widget) {
-                switch (this.type) {
-                    case 'date':
-                        widget = 'datefield';
-                        break;
-                    case 'reference':
-                        widget = 'content-select';
-                        break;
-                    case 'boolean':
-                        widget = 'checkbox';
-                        break;
-                    case 'string':
-                        widget = 'textfield';
-                        break;
-                }
-            }
 
             ///////////////////////////////
 
@@ -402,20 +433,43 @@ export default {
                 case 'datefield':
                 case 'richtext':
                 case 'longtext':
-
                 case 'buttons':
                 case 'switch':
-                case 'yesno':
                 case 'email':
                 case 'url':
-                case 'timezone':
+
                 case 'currency':
-                    return widget;
+
+                case 'timezone':
+                case 'country':
+                case 'typeselect':
+                case 'upload':
                     break;
+                case 'phone':
+                case 'phonenumber':
+                    return 'phone'
+                    break;
+
                 default:
-                    return 'textfield';
+                    switch (this.type) {
+                        case 'date':
+                            widget = 'datefield';
+                            break;
+                        case 'reference':
+                            widget = 'content-select';
+                            break;
+                        case 'boolean':
+                            widget = 'checkbox';
+                            break;
+                        default:
+                        case 'string':
+                            widget = 'textfield';
+                            break;
+                    }
                     break;
             }
+
+            return widget;
 
         },
     },
@@ -426,14 +480,9 @@ export default {
 .ux-field {
     margin-bottom: 1.5em;
 
-    &:last-child {
+    &.ux-layout-only {
         margin-bottom: 0;
     }
-
-
-
-
-
 
     .ux-field-message {
         border: red;
@@ -461,12 +510,10 @@ export default {
 :deep(.ux-field-title) {
     // .ux-field-title {
     margin-top: 0.5em;
-    font-weight: 600;
     display: block;
     margin-bottom: 0.2em;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     font-size: 0.9em;
+    font-weight: bold;
 }
 
 
@@ -483,6 +530,6 @@ export default {
 }
 
 :deep(.ux-form-flex .ux-field-description) {
-    min-height: 2.6em;
+    // min-height: 2.6em;
 }
 </style>

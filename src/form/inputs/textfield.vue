@@ -6,8 +6,8 @@
             <flex-cell>
                 <div class="ux-text-wrap">
                     <span class="ux-text-prefix" v-if="prefix">{{prefix}}</span>
-                    <input v-if="lazy" class="ux-field-focus ux-text-input-multiple" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model.lazy="model[index]" />
-                    <input v-if="!lazy" class="ux-field-focus ux-text-input-multiple" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model="model[index]" />
+                    <input v-if="lazy" class="ux-field-focus ux-text-input-multiple" :placeholder="actualPlaceholder" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model.lazy="model[index]" />
+                    <input v-if="!lazy" class="ux-field-focus ux-text-input-multiple" :placeholder="actualPlaceholder" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model="model[index]" />
                     <span class="ux-text-suffix" v-if="suffix">{{suffix}}</span>
                 </div>
             </flex-cell>
@@ -17,13 +17,13 @@
                 </ux-button>
             </flex-cell>
         </flex-row>
-        <ux-button v-if="canAddValue" @click="add()">{{addLabel}}</ux-button>
+        <ux-button v-if="canAddValue" @click="add()">{{addLabel}} <ux-icon icon="fa-plus" right/></ux-button>
     </div>
     <template v-else>
         <div class="ux-text-wrap">
             <span class="ux-text-prefix" v-if="prefix">{{prefix}}</span>
-            <input v-if="lazy" class="ux-field-focus ux-text-input-single" @focus="touch" v-model.lazy="model" />
-            <input v-if="!lazy" class="ux-field-focus ux-text-input-single" @focus="touch" v-model="model" />
+            <input v-if="lazy" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model.lazy="model" />
+            <input v-if="!lazy" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model="model" />
             <span class="ux-text-suffix" v-if="suffix">{{suffix}}</span>
         </div>
     </template>
@@ -32,8 +32,11 @@
 import InputMixin from './input-mixin';
 
 
-function cleanNumber(val, type) {
+function cleanInput(val, type, instance) {
     switch (type) {
+        case 'url':
+            val = instance.$qik.utils.parseURL(val);
+        break;
         case 'integer':
             val = parseInt(String(val).replace(/[^0-9-]/g, ''));
             if (isNaN(val)) {
@@ -67,17 +70,39 @@ export default {
                 case 'number':
                 case 'decimal':
                 case 'float':
+                case 'url':
                     return true;
                     break;
+            }
+        },
+        actualPlaceholder() {
+            if(this.field.placeholder) {
+                return this.field.placeholder;
+            }
+
+            switch(this.type) {
+                case 'integer':
+                case 'number':
+                case 'decimal':
+                case 'float':
+                    return '0';
+                    break;
+                case 'url':
+                    return 'https://www.website.com'
+                break;
+                case 'email':
+                    return 'you@youremail.com'
+                break;
             }
         }
     },
     methods: {
         cleanOutputValue(v) {
-            return String(cleanNumber(v, this.type));
+            var cleaned = cleanInput(v, this.type, this);
+            return cleaned ? String(cleaned) : '';
         },
         cleanInputValue(v) {
-            return cleanNumber(v, this.type);
+            return cleanInput(v, this.type, this);
         },
         getNewDefaultEntry() {
             return '';

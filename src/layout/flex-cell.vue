@@ -11,7 +11,6 @@ export default {
 </script>
 <style scoped lang="scss">
 .flex-cell {
-    
     overflow: hidden;
     flex: 1;
     flex-direction: row;

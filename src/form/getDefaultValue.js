@@ -1,15 +1,21 @@
 import parseBoolean from './parseBoolean';
 
 
-function ensureMinimum(field, array, min, max, func) {
+function ensureMinimum(field, array, min, ask, max, func) {
 
     array = array || [];
+
+
+    min = Math.max(min, ask);
 
     var length = array.length;
     var meetsMinimum = length >= min;
     var meetsMaximum = length <= max;
 
     if (!meetsMinimum) {
+        if (field.key == 'multiNumber') {
+            console.log(field.key, min)
+        }
         var difference = min - length;
         var extras = Array(difference).fill().map(func);
         return [...array, ...extras];
@@ -35,6 +41,13 @@ export default function getDefaultValue(fieldData, currentValue) {
 
     var minimum = parseInt(fieldData.minimum);
     var maximum = parseInt(fieldData.maximum);
+    var ask = parseInt(fieldData.ask || 0);
+
+    //Ensure that the ask is always at least the minimum
+    ask = Math.max(ask, minimum);
+    //Ensure that if there is a maximum set it's never more than the maximum
+    ask = maximum ? Math.min(ask, maximum) : ask;
+
     var singleValue = (maximum == 1);
     var multiValue = !singleValue;
     var defaultValues = (fieldData.type === 'reference' ? fieldData.defaultReferences : fieldData.defaultValues) || [];
@@ -73,7 +86,7 @@ export default function getDefaultValue(fieldData, currentValue) {
                     }
                 }
 
-                output = ensureMinimum(fieldData, output, minimum, maximum, function() {
+                output = ensureMinimum(fieldData, output, minimum, ask, maximum, function() {
                     return getDate(new Date());
                 })
             } else {
@@ -97,7 +110,7 @@ export default function getDefaultValue(fieldData, currentValue) {
             //         }
             //     }
 
-            //     output = ensureMinimum(fieldData, output, minimum, maximum, function() {
+            //     output = ensureMinimum(fieldData, output, minimum, ask, maximum, function() {
             //         return 0;
             //     })
             // } else {
@@ -120,7 +133,7 @@ export default function getDefaultValue(fieldData, currentValue) {
                     }
                 }
 
-                output = ensureMinimum(fieldData, output, minimum, maximum, function() {
+                output = ensureMinimum(fieldData, output, minimum, ask, maximum, function() {
                     return '';
                 })
             } else {
@@ -129,8 +142,7 @@ export default function getDefaultValue(fieldData, currentValue) {
             break;
         case 'group':
             if (fieldData.asObject) {
-                var number = fieldData.maximum || fieldData.ask;
-
+                var number = ask;
                 if (multiValue) {
                     output = Array(number).fill().map(function() {
                         return {}
@@ -155,7 +167,7 @@ export default function getDefaultValue(fieldData, currentValue) {
                     }
                 }
 
-                output = ensureMinimum(fieldData, output, minimum, maximum, function() {
+                output = ensureMinimum(fieldData, output, minimum, ask, maximum, function() {
                     return;
                 })
             } else {
@@ -180,7 +192,7 @@ export default function getDefaultValue(fieldData, currentValue) {
                     output = defaultValues.slice(0, maximum);
                 }
 
-                output = ensureMinimum(fieldData, output, minimum, maximum, function() {
+                output = ensureMinimum(fieldData, output, minimum, ask, maximum, function() {
                     return '';
                 })
             } else {
@@ -193,7 +205,7 @@ export default function getDefaultValue(fieldData, currentValue) {
                     output = defaultValues.slice(0, maximum);
                 }
 
-                output = ensureMinimum(fieldData, output, minimum, maximum, function() {
+                output = ensureMinimum(fieldData, output, minimum, ask, maximum, function() {
                     return;
                 })
             } else {

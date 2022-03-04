@@ -105,6 +105,7 @@ input {
     border: 1px solid rgba(#000, 0.1);
     font-size: inherit;
     // appearance: none;
+    font-family:inherit;
     line-height: 1;
     height: 2.5em;
 

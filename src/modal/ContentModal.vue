@@ -1,6 +1,6 @@
 <template>
     <flex-column class="wrapper">
-        <content-browser @done="selectionComplete" :maximum="options.maximum" v-model="model" :type="options.type" :options="browserOptions">
+        <content-browser ref="browser" @done="selectionComplete" @click:row="rowClicked" :maximum="options.maximum" v-model="model" :type="options.type" :options="browserOptions">
         </content-browser>
     </flex-column>
 </template>
@@ -24,6 +24,9 @@ export default {
         }
     },
     methods: {
+        rowClicked(row) {
+            this.$refs.browser.toggle(row);
+        },
         selectionComplete(data) {
             this.close(this.model);
         }

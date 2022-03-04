@@ -1,11 +1,14 @@
 <template>
     <div class="ux-form" :class="formClass">
         <slot name="form" :fields="fields">
-           
+            <!-- <div v-for="(field, index) in renderFields"> -->
+                <!-- <pre>{{field.title}} {{model[field.key]}}</pre> -->
+            <!-- </div> -->
             <ux-field ref="field" @field:mount="fieldMounted" @field:unmount="fieldUnmounted" @field:dirty="fieldDirty" @field:invalid="fieldInvalid" @field:valid="fieldValid" @field:error="fieldError" @field:focus="fieldFocus" @field:blur="fieldBlur" @field:touched="fieldTouch" :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="fieldClass" :key="`ux-form-field-${field.key}-${index}`" v-for="(field, index) in renderFields" />
-           
         </slot>
-        
+
+
+
     </div>
 </template>
 <script>
@@ -40,6 +43,9 @@ export default {
         },
     },
     data() {
+
+        // console.log('start', JSON.parse(JSON.stringify(this.modelValue)));
+
         return {
             mounted: false,
             model: this.modelValue,
@@ -58,6 +64,9 @@ export default {
     },
 
     methods: {
+        reset() {
+
+        },
         fieldUnmounted(field) {
             this.fieldStateChange(field, 'unmount');
             this.$emit('field:unmount', this);
@@ -96,12 +105,15 @@ export default {
         },
         fieldStateChange(triggerField, event) {
             var self = this;
+
+
             self.$nextTick(function() {
                 var dirty = false;
                 var invalid = false;
                 var error = false;
                 var touched = false;
                 var focussed = false;
+                var invalidFields = [];
 
                 //If we are actually on the screen
 
@@ -113,6 +125,10 @@ export default {
 
                     if (field.invalid) {
                         invalid = true;
+                        invalidFields.push({
+                            title:field.field.title,
+                            key:field.field.key,
+                        });
                     }
 
                     if (field.error) {
@@ -143,6 +159,7 @@ export default {
                     touched,
                     invalid,
                     valid: !invalid,
+                    invalidFields,
                 });
             })
 

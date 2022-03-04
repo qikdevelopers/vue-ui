@@ -28,7 +28,7 @@
                     <flex-row center>
                         <flex-cell shrink class="text">
                             <native-select v-model="perPage" :field="perPageField">
-                                {{displayStartIndex}} to {{endIndex}} of {{totalItems}} total
+                                Showing {{displayStartIndex}} to {{endIndex}} of {{totalItems}} total
                             </native-select>
                         </flex-cell>
                         <flex-cell>
@@ -59,9 +59,13 @@
     </flex-column>
 </template>
 <script>
-import NativeSelect from '../form/inputs/native-select.vue';
+import NativeSelect from '../form/inputs/select.vue';
 import NativeTable from '../table/Table.vue';
 import Search from '../form/inputs/search.vue';
+
+
+let cancelInflight;
+
 
 export default {
     props: {
@@ -224,6 +228,9 @@ export default {
         }
     },
     methods: {
+        rowClicked(row) {
+            this.$emit('click:row', row);
+        },
         select(row) {
             if (this.maximum) {
                 if (this.selection.length >= this.maximum) {
@@ -274,10 +281,7 @@ export default {
                 this.select(row);
             }
         },
-        rowClicked(row) {
 
-            this.toggle(row);
-        },
         previousPage() {
             this.currentPage--;
         },
@@ -294,7 +298,13 @@ export default {
 
             self.loading = true;
 
-            var promise = self.$qik.content.list(self.type, {
+
+            if (cancelInflight) {
+                cancelInflight();
+                cancelInflight = null;
+            }
+
+            const { promise, cancel } = await self.$qik.content.list(self.type, {
                 sort,
                 search,
                 select,
@@ -330,19 +340,20 @@ export default {
                 //         },
                 //     ]
                 // },
-            })
+            }, { cancellable: true })
+
+            cancelInflight = cancel;
 
             promise.then(function(res) {
                 self.loading = false;
             })
             promise.catch(function(err) {
-                self.loading = false;
-
+                // self.loading = false;
             });
 
 
-
-            return promise;
+            const { data } = await promise;
+            return data;
 
 
 
@@ -372,10 +383,9 @@ export default {
             },
             dataSource: null,
             perPageField: {
-                minimum:1,
+                minimum: 1,
                 maximum: 1,
-                options: [
-                    {
+                options: [{
                         title: '50 per page',
                         value: 50,
                     },

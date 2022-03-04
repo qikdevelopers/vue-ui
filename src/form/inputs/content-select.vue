@@ -105,7 +105,9 @@ export default {
                 if (this.model && this.model.length) {
 
                     var length = this.model.length;
-                    var difference = length - 3;
+
+
+                    var difference = Math.max(length - 3, 0);
 
                     var summary;
                     var cropped = this.model.slice(0, 3);

@@ -1,5 +1,6 @@
 <template>
-    <component :is="element" :loading="loading" :type="nativeType" :to="to" :href="href" :target="target" :style="style" :class="classes" :disabled="disabled" class="ux-btn">
+    <!-- :type="nativeType" -->
+    <component :is="element" :loading="loading" :to="to" :href="href" :target="target" :style="style" :class="classes" :disabled="disabled" class="ux-btn">
         <spinner v-if="loading" />
         <span class="ux-btn-text">
             <slot />

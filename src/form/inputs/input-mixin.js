@@ -1,7 +1,6 @@
 function isUndefined(v, type) {
     return v === undefined ||
-        v === null ||
-        (type == 'date' && v.toString && (v.toString() === 'Invalid Date'));
+        v === null || (type == 'date' && v.toString && (v.toString() === 'Invalid Date'));
 }
 
 
@@ -24,10 +23,28 @@ export default {
     },
     watch: {
         modelValue(val, old) {
-            this.model = this.cleanInput(val);
+
+            var cleanedValue = this.cleanInput(val);
+            var cleanedModel = this.cleanInput(this.model);
+
+            if(JSON.stringify(cleanedValue) != JSON.stringify(cleanedModel)) {
+                this.model = cleanedValue
+            }
+            
         },
     },
     computed: {
+        optionLookup() {
+            var self = this;
+            return self.options.reduce(function(set, option) {
+                const key = self.getValue(option);
+                set[key] = option;
+                return set;
+            }, {})
+        },
+        selectableOptions() {
+            return this.options;
+        },
         required() {
             return this.minimum;
         },
@@ -206,6 +223,10 @@ export default {
 
             var defaultEntry = this.cleanInputValue(this.getNewDefaultEntry());
 
+            if(!this.value) {
+                this.value = []
+            }
+
             this.value.push(defaultEntry);
             this.dispatch();
 
@@ -272,6 +293,7 @@ export default {
 
             return val;
         },
+
         cleanInput(val) {
             var input = val;
 

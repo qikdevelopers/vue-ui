@@ -16,7 +16,7 @@
                 </ux-button>
             </flex-cell>
         </flex-row>
-        <ux-button v-if="canAddValue" @click="add()">{{addLabel}}</ux-button>
+        <ux-button v-if="canAddValue" @click="add()">{{addLabel}} <ux-icon icon="fa-plus" right/></ux-button>
     </div>
     <template v-else>
         <div class="ux-text-wrap" :class="{prefixed:prefix, suffixed:suffix}">

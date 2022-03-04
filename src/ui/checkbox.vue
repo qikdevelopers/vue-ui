@@ -46,6 +46,7 @@ export default {
     line-height: 2em;
     appearance:none;
     font-size: inherit;
+    vertical-align: top;
 
     .icon {
         opacity: 0;

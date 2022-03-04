@@ -1,7 +1,7 @@
 <template>
     <flex-row @click="touch()">
         <flex-cell vcenter shrink>
-            <ux-checkbox  :value="model" @click="model = !model" />
+            <ux-switch :value="model" @click="model = !model" />
         </flex-cell>
         <flex-spacer />
         <flex-cell vcenter>
@@ -15,13 +15,9 @@
     </flex-row>
 </template>
 <script>
-import NativeCheckbox from '../../ui/checkbox.vue';
 import InputMixin from './input-mixin';
 
 export default {
-    computed: {
-        NativeCheckbox,
-    },
     mixins: [InputMixin],
     props: {
         modelValue: {

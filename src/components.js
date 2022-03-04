@@ -20,12 +20,22 @@ export { default as PanelFooter } from './layout/panel-footer.vue';
 
 export { default as UXButton } from './ui/button.vue';
 export { default as UXCheckbox } from './ui/checkbox.vue';
+export { default as UXSwitch } from './ui/switch.vue';
 export { default as UXLink } from './ui/link.vue';
 export { default as UXIcon } from './ui/icon.vue';
 export { default as Spinner } from './ui/spinner.vue';
+export { default as ProgressBar } from './ui/progressbar.vue';
 
 export { default as UXForm } from './form/form.vue';
 export { default as UXFormField } from './form/field.vue';
+
+
+export { default as UXRender } from './content/render/render.vue';
+export { default as UXRenderField } from './content/render/field.vue';
+
+////////////////////////////////////////////
+
+export { default as ContentBrowser } from './content/browser.vue';
 
 ////////////////////////////////////////////
 
@@ -51,21 +61,26 @@ import PanelHeader from './layout/panel-header.vue';
 import PanelFooter from './layout/panel-footer.vue';
 
 import UXButton from './ui/button.vue';
+import UXSwitch from './ui/switch.vue';
 import UXCheckbox from './ui/checkbox.vue';
 import UXIcon from './ui/icon.vue';
 import UXLink from './ui/link.vue';
 import Spinner from './ui/spinner.vue';
+import ProgressBar from './ui/progressbar.vue';
 
 import UXForm from './form/form.vue';
 import UXFormField from './form/field.vue';
 
+import UXRender from './content/render/render.vue';
+import UXRenderField from './content/render/field.vue';
 
+
+//Modals
 import QikModal from './modal/Modal.vue';
 import QikConfirmModal from './modal/ConfirmModal.vue';
 import QikOptionsModal from './modal/OptionsModal.vue';
 import QikPromptModal from './modal/PromptModal.vue';
 import QikContentModal from './modal/ContentModal.vue';
-
 
 const defaultComponents = {
     FlexColumn,
@@ -81,11 +96,15 @@ const defaultComponents = {
     PanelFooter,
     UxForm: UXForm,
     UxFormField: UXFormField,
+    UxRender: UXRender,
+    UxRenderField: UXRenderField,
     UxIcon: UXIcon,
     UxButton: UXButton,
     UxCheckbox: UXCheckbox,
+    UxSwitch: UXSwitch,
     UxLink: UXLink,
     Spinner,
+    ProgressBar,
     QikModal,
 }
 

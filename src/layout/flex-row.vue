@@ -24,6 +24,10 @@ export default {
     &[vcenter] {
         align-items: center;
     }
+
+    &[wrap] {
+        flex-wrap: wrap;
+    }
 }
 
 

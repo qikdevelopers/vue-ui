@@ -11,7 +11,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .panel-header {
-    padding:0.5em 1em;
+    padding:0.5em 0.5em 0.5em 1em;
     border-bottom:1px solid rgba(#000,0.1);
 }
 
