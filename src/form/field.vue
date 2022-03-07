@@ -179,7 +179,6 @@ export default {
             }
         },
         reset() {
-            console.log('RESET FIELD');
             // var defaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField);
             // this.fieldModel = defaultValue;
             this.touched = false;

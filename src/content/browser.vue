@@ -1,27 +1,23 @@
 <template>
     <flex-column class="content-browser" v-if="definition">
+        <!-- <pre>{{definition}}</pre> -->
         <spinner large v-if="loading" />
-        <flex-header>
-            <div class="header">
-                <flex-row center>
-                    <flex-cell shrink>
-                        Select {{maximum == 1 ? title : plural}}
-                    </flex-cell>
-                    <flex-spacer />
-                    <flex-cell>
-                        <search v-model="search" :loading="searching" :debounce="500" placeholder="Search" />
-                    </flex-cell>
-                    <flex-spacer />
-                    <flex-cell shrink>
-                        <ux-button color="primary" @click="$emit('done')">Done</ux-button>
-                    </flex-cell>
-                </flex-row>
-            </div>
-        </flex-header>
         <template v-if="dataSource">
             <flex-column class="body" :class="{loading}">
-                <native-table :actions="false" :selection="selection" @click:row="rowClicked" :rows="items" :columns="columns">
-                </native-table>
+                <flex-row>
+                    <flex-cell flex>
+                       
+                        <native-table :actions="false" :selection="selection" @click:row="rowClicked" @click:select="rowSelected" :rows="items" :columns="columns">
+                        </native-table>
+                    
+                    </flex-cell>
+                    <flex-column style="max-width: 600px;">
+                        <flex-header>
+                            Filters
+                        </flex-header>
+                        <filter-builder :definition="definition" v-model="filter" />
+                    </flex-column>
+                </flex-row>
             </flex-column>
             <flex-footer>
                 <div class="footer">
@@ -61,8 +57,9 @@
 <script>
 import NativeSelect from '../form/inputs/select.vue';
 import NativeTable from '../table/Table.vue';
-import Search from '../form/inputs/search.vue';
 
+import FilterBuilder from '../filter/FilterBuilder.vue';
+// import FilterRule from '../filter/FilterRule.vue';
 
 let cancelInflight;
 
@@ -73,11 +70,17 @@ export default {
             type: String,
             required: true,
         },
+        search: {
+            type: String,
+        },
         options: {
             type: Object,
             default () {
                 return {}
             }
+        },
+        cacheKey:{
+            type:String,
         },
         modelValue: {
             type: Array,
@@ -95,7 +98,8 @@ export default {
     components: {
         NativeSelect,
         NativeTable,
-        Search,
+        FilterBuilder,
+        // FilterRule,
     },
     async created() {
 
@@ -124,16 +128,20 @@ export default {
         async change() {
             this.dataSource = await this.load();
         },
+        loading() {
+            this.$emit('loading', this.loading)
+        },
         totalPages() {
             this.currentPage = 0;
         },
     },
     computed: {
+        activeFilters() {
+            var activeFilters = this.$qik.filter.activeFilters(this.filter);
+            return activeFilters;
+        },
         searching() {
             return this.loading && this.search.length;
-        },
-        definition() {
-            return {}
         },
         title() {
             return this.definition.title;
@@ -165,6 +173,15 @@ export default {
                 key: 'title',
             })
 
+
+            var activeFilters = this.activeFilters;
+            activeFilters.forEach(function(filter) {
+                columns.push({
+                    title: filter.key,
+                    key: filter.key,
+                })
+            })
+
             return columns;
         },
         pageField() {
@@ -175,8 +192,12 @@ export default {
                 options: Array(this.totalPages).fill(1).map((x, y) => x + y),
             }
         },
+        filterChangeString() {
+            var string = this.$qik.filter.filterChangeString(this.filter);
+            return string;
+        },
         change() {
-            return JSON.stringify([this.page, this.sort, this.search, this.selectFields, this.type]);
+            return `${JSON.stringify([this.page, this.sort, this.search, this.selectFields, this.type, this.filterChangeString])}-${this.cacheKey}`;
         },
         startIndex() {
             return (this.currentPage - 1) * this.page.size;
@@ -228,6 +249,9 @@ export default {
         }
     },
     methods: {
+        rowSelected(row) {
+            this.toggle(row);
+        },
         rowClicked(row) {
             this.$emit('click:row', row);
         },
@@ -295,6 +319,7 @@ export default {
             var search = self.search;
             var select = self.selectFields;
             var page = self.page;
+            var filter = self.filter;
 
             self.loading = true;
 
@@ -309,37 +334,7 @@ export default {
                 search,
                 select,
                 page,
-                // filter: {
-                //     operator: 'and',
-                //     filters: [{
-                //             operator: 'or',
-                //             filters: [
-                //                 {
-                //                     key: 'gender',
-                //                     comparator: 'equals',
-                //                     value: 'male',
-                //                 },
-                //                 {
-                //                     key: 'gender',
-                //                     comparator: 'empty',
-                //                 },
-                //                 {
-                //                     key: 'gender',
-                //                     comparator: 'equals',
-                //                     value: 'female',
-                //                 },
-                //             ]
-                //         },
-                //         {
-                //             operator: 'and',
-                //             filters: [{
-                //                 key: 'firstName',
-                //                 comparator: 'contains',
-                //                 value: 'a',
-                //             }]
-                //         },
-                //     ]
-                // },
+                filter,
             }, { cancellable: true })
 
             cancelInflight = cancel;
@@ -365,7 +360,6 @@ export default {
             definition: null,
             selection: this.modelValue,
             loading: true,
-            search: '',
             // sort: {
             //     key: 'meta.updated',
             //     direction: 'dsc',
@@ -380,6 +374,10 @@ export default {
             page: {
                 size: 50,
                 index: 1,
+            },
+            filter: {
+                operator: 'and',
+                filters: [],
             },
             dataSource: null,
             perPageField: {
@@ -419,10 +417,6 @@ export default {
     }
 }
 
-.header {
-    padding: 1em;
-    border-bottom: 1px solid rgba(#000, 0.1);
-}
 
 .footer {
     padding: 1em;

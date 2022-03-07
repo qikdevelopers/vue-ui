@@ -15,6 +15,10 @@ export default {
     flex: 1;
     flex-direction: row;
 
+    &[flex] {
+        display: flex;
+    }
+
     &[center] {
         display: flex;
         align-items: center;

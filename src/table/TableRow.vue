@@ -58,7 +58,7 @@ export default {
         },
         clickSelect() {
             this.$emit('click:select', this.row);
-            this.$emit('click:row', this.row);
+            // this.$emit('click:row', this.row);
         },
     },
     computed: {

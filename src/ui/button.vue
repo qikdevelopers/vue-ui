@@ -32,7 +32,6 @@ export default {
         },
         tag: {
             type: String,
-            default: 'button',
         },
         href: {
             type: String,
@@ -99,7 +98,6 @@ export default {
         },
         element() {
             switch (this.tag) {
-                case 'button':
                 case 'span':
                     return this.tag;
                     break;
@@ -111,7 +109,7 @@ export default {
                         return 'ux-link';
                     }
 
-                    return this.tag;
+                    return this.tag || 'button';
                     break;
             }
 
@@ -136,6 +134,7 @@ export default {
     line-height: 1;
     cursor: pointer;
     overflow: hidden;
+    vertical-align: top;
 
     &:hover {
         opacity: 0.9;

@@ -28,6 +28,7 @@ export { default as ProgressBar } from './ui/progressbar.vue';
 
 export { default as UXForm } from './form/form.vue';
 export { default as UXFormField } from './form/field.vue';
+export { default as Search } from './form/inputs/search.vue';
 
 
 export { default as UXRender } from './content/render/render.vue';

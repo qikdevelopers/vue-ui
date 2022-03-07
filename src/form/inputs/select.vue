@@ -30,6 +30,9 @@ function isUndefined(entry) {
 
 export default {
     props: {
+        title:{
+            type:String,
+        },
         modelValue: {
             // type: [Object, Array],
         },
@@ -140,7 +143,7 @@ export default {
             }, {})
         },
         summary() {
-            return this.getLabel(this.optionLookup[this.model]) || 'Click to select';
+            return this.model ? this.getLabel(this.optionLookup[this.model]) : this.title || 'Click to select';
         },
 
         selectableOptions() {

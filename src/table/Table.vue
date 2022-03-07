@@ -1,6 +1,6 @@
 <template>
     <div class="table-wrapper">
-        <div class="table-scroll">
+        <div class="table-scroll" ref="scroll">
             <table>
                 <thead>
                     <tr>
@@ -30,6 +30,14 @@ export default {
     components: {
         TableRow,
         TableCell,
+    },
+    watch:{
+        rows() {
+            this.$refs.scroll.scroll({
+                top:0,
+                left:0,
+            });
+        }
     },
     props: {
         selection: {
