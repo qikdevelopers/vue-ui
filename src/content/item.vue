@@ -1,5 +1,5 @@
 <template>
-    <div class="content-item">
+    <div class="content-item" @click="clicked">
         <flex-row>
             <flex-cell shrink>
             </flex-cell>
@@ -25,6 +25,11 @@ export default {
     computed: {
         title() {
             return this.item.title || this.item.name || this.item.label;
+        }
+    },
+    methods:{
+        clicked() {
+            this.$qik.dispatch('item:view', this.item);
         }
     }
 }
