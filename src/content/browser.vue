@@ -1,15 +1,11 @@
 <template>
     <flex-column class="content-browser" v-if="definition">
-        <!-- <pre>{{definition}}</pre> -->
         <spinner large v-if="loading" />
         <template v-if="dataSource">
             <flex-column class="body" :class="{loading}">
                 <flex-row>
                     <flex-cell flex>
-                       
-                        <native-table :actions="false" :selection="selection" @click:row="rowClicked" @click:select="rowSelected" :rows="items" :columns="columns">
-                        </native-table>
-                    
+                        <native-table :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :actions="false" :selection="manager.items" @click:row="rowClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns" />
                     </flex-cell>
                     <flex-column style="max-width: 600px;">
                         <flex-header>
@@ -59,6 +55,9 @@ import NativeSelect from '../form/inputs/select.vue';
 import NativeTable from '../table/Table.vue';
 
 import FilterBuilder from '../filter/FilterBuilder.vue';
+import Selection from '../services/selection.js';
+
+
 // import FilterRule from '../filter/FilterRule.vue';
 
 let cancelInflight;
@@ -79,8 +78,8 @@ export default {
                 return {}
             }
         },
-        cacheKey:{
-            type:String,
+        cacheKey: {
+            type: String,
         },
         modelValue: {
             type: Array,
@@ -93,6 +92,9 @@ export default {
             default () {
                 return 0;
             }
+        },
+        selectionManager: {
+            type: Object,
         }
     },
     components: {
@@ -119,7 +121,9 @@ export default {
                 resolve();
             }),
             new Promise(async function(resolve, reject) {
-                self.dataSource = await self.load();
+
+                var dataSource = await self.load();
+                self.dataSource = dataSource;
                 resolve();
             }),
         ]);
@@ -134,8 +138,18 @@ export default {
         totalPages() {
             this.currentPage = 0;
         },
+        selectedItems(items) {
+            this.$emit('update:modelValue', items);
+        },
     },
     computed: {
+        deselectAllFunction() {
+            return this.manager.items.length ? this.deselectAll : null;
+        },
+
+        selectedItems() {
+            return this.manager.items.slice();
+        },
         activeFilters() {
             var activeFilters = this.$qik.filter.activeFilters(this.filter);
             return activeFilters;
@@ -161,12 +175,24 @@ export default {
         },
         selectFields() {
             return this.columns.map(function(column) {
+                if (column.fields) {
+                    return [column.key, ...column.fields];
+                }
                 return column.key;
-            })
+
+            }).flat()
         },
         columns() {
 
             let columns = [];
+
+            columns.push({
+                title: '',
+                key: '_id',
+                renderer: 'thumbnail',
+                shrink: true,
+                fields: ['width', 'height', 'fileMeta.colors.colors[0]'],
+            })
 
             columns.push({
                 title: 'Title',
@@ -234,85 +260,10 @@ export default {
             return this.dataSource ? this.dataSource.page.total : 1;
 
         },
-        selectionHash() {
-            var self = this;
-            return this.selection.reduce(function(set, item) {
-                if (!item) {
-                    return set;
-                }
-
-                var id = self.$qik.utils.id(item);
-                set[id] = true;
-                return set;
-            }, {});
-
-        }
-    },
-    methods: {
-        rowSelected(row) {
-            this.toggle(row);
+        basicType() {
+            return this.definition.definesType || this.definition.key;
         },
-        rowClicked(row) {
-            this.$emit('click:row', row);
-        },
-        select(row) {
-            if (this.maximum) {
-                if (this.selection.length >= this.maximum) {
-                    //We're already full
-                    if (this.maximum == 1) {
-                        //Switch the selection to the new row we clicked
-                        this.selection.length = 0;
-                    } else {
-                        return;
-                    }
-
-                }
-            }
-
-            this.selection.push(row);
-        },
-        deselect(row) {
-
-
-            var self = this;
-
-            if (self.maximum == 1) {
-                this.selection.length = 0;
-            } else {
-
-                var rowID = self.$qik.utils.id(row);
-                var index = self.selection.findIndex(function(item) {
-                    var id = self.$qik.utils.id(item);
-                    return id == rowID;
-                });
-
-                console.log('deselect row splice', row, index, self.selection);
-                self.selection.splice(index, 1);
-            }
-        },
-        isSelected(row) {
-            var self = this;
-            var rowID = self.$qik.utils.id(row);
-
-            return self.selectionHash[rowID];
-        },
-        toggle(row) {
-
-
-            if (this.isSelected(row)) {
-                this.deselect(row)
-            } else {
-                this.select(row);
-            }
-        },
-
-        previousPage() {
-            this.currentPage--;
-        },
-        nextPage() {
-            this.currentPage++;
-        },
-        async load() {
+        loadCriteria() {
 
             var self = this;
             var sort = self.sort;
@@ -321,21 +272,93 @@ export default {
             var page = self.page;
             var filter = self.filter;
 
-            self.loading = true;
-
-
-            if (cancelInflight) {
-                cancelInflight();
-                cancelInflight = null;
-            }
-
-            const { promise, cancel } = await self.$qik.content.list(self.type, {
+            return {
                 sort,
                 search,
                 select,
                 page,
                 filter,
-            }, { cancellable: true })
+            }
+        },
+    },
+    methods: {
+        ensureMeta(row) {
+            if (!row.meta) {
+                row.meta = {}
+            }
+
+            row.meta.type = this.basicType;
+            row.meta.definition = this.definition.key;
+            return row;
+        },
+        deselectAll() {
+            this.manager.deselectAll();
+        },
+        async selectAll() {
+
+            //Load all items
+            var self = this;
+
+            //Load all the item ids and 
+            self.dataSource = await self.load(true);
+
+            //Create rows for all of them
+            var allItems = this.dataSource.all.map(function(_id) {
+                var row = self.ensureMeta({ _id });
+                return row;
+            });
+
+            //Set the selection to all items
+            console.log('Set Selection ALL', allItems)
+            self.manager.setSelection(allItems);
+        },
+        selectMultiple(rows) {
+            rows = rows.map(this.ensureMeta);
+            this.manager.selectMultiple(rows);
+        },
+        deselectMultiple(rows) {
+            rows = rows.map(this.ensureMeta);
+            this.manager.deselectMultiple(rows);
+        },
+        rowToggled(row) {
+            this.toggle(row);
+        },
+        rowClicked(row) {
+            this.$emit('click:row', row);
+        },
+        select(row) {
+            this.ensureMeta(row);
+            this.manager.select(row);
+        },
+        deselect(row) {
+            this.manager.deselect(row);
+        },
+        isSelected(row) {
+            return this.manager.isSelected(row);
+        },
+        toggle(row) {
+            this.ensureMeta(row);
+            this.manager.toggle(row);
+        },
+        previousPage() {
+            this.currentPage--;
+        },
+        nextPage() {
+            this.currentPage++;
+        },
+        async load(includeAll) {
+            var self = this;
+            self.loading = true;
+            if (cancelInflight) {
+                cancelInflight();
+                cancelInflight = null;
+            }
+
+            var loadCriteria = Object.assign({}, self.loadCriteria);
+            loadCriteria.includeAll = true;
+
+
+            const { promise, cancel } = await self.$qik.content.list(self.type, loadCriteria, { cancellable: true })
 
             cancelInflight = cancel;
 
@@ -348,6 +371,17 @@ export default {
 
 
             const { data } = await promise;
+
+
+            data.items.forEach(self.ensureMeta);
+            // function(item) {
+            //     if (!item.meta) {
+            //         item.meta = {}
+            //     }
+            //     item.meta.type = self.definition.definesType || self.definition.key;
+            //     item.meta.definition = self.definition.definesType ? self.definition.key : null;
+            // })
+
             return data;
 
 
@@ -356,9 +390,22 @@ export default {
         },
     },
     data() {
+
+        var manager = this.selectionManager;
+        if (!manager) {
+            manager = new Selection({ minimum: this.minimum, maximum: this.maximum });
+        }
+
+        //Set the initial selection
+        if (this.modelValue) {
+            manager.setSelection(this.modelValue);
+        }
+
+        ////////////////////////////////////
+
         return {
             definition: null,
-            selection: this.modelValue,
+            manager,
             loading: true,
             // sort: {
             //     key: 'meta.updated',

@@ -23,7 +23,7 @@
             </item>
         </div>
     </template> -->
-    <div class="files">
+    <div class="files" v-if="files && files.length">
         <div class="file-item" :key="index" v-for="(file, index) in files">
             <flex-row>
                 <flex-cell>

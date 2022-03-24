@@ -45,6 +45,9 @@ export default {
         disabled: {
             type: Boolean,
         },
+        block:{
+            type:Boolean,
+        },
         size: {
             type: String,
             default: 'md',
@@ -71,6 +74,10 @@ export default {
 
 
             array.push(`ux-btn-${this.size}`);
+
+            if (this.block) {
+                array.push(`ux-btn-block`);
+            }
 
             if (this.loading) {
                 array.push(`ux-btn-loading`);
@@ -151,6 +158,12 @@ export default {
     &:last-child {
         margin-right: 0;
     }
+
+    &.ux-btn-block {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
 }
 
 .ux-btn-color-primary {
@@ -180,15 +193,15 @@ export default {
 
 
 .ux-btn-xxs {
-    font-size: 0.7em;
+    font-size: 0.6em;
 }
 
 .ux-btn-xs {
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 
 .ux-btn-sm {
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .ux-btn-md {

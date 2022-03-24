@@ -27,6 +27,15 @@
     <template v-else>
         <ux-form ref="form" @form:state="stateChange"  :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
     </template>
+
+    <!-- <pre><strong>{{field.title}}</strong>
+
+    Should be single: {{singleValue}}, {{asObject}}, {{minimum == 1}} {{maximum == 1}}
+    Multi: {{multiValue}};
+    Can Add Value: {{canAddValue}}
+    Number Values: {{numValues}}
+    Model: {{model}}
+</pre> -->
 </template>
 <script>
 import InputMixin from './input-mixin';

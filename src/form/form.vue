@@ -1,14 +1,8 @@
 <template>
     <div class="ux-form" :class="formClass">
-        <slot name="form" :fields="fields">
-            <!-- <div v-for="(field, index) in renderFields"> -->
-                <!-- <pre>{{field.title}} {{model[field.key]}}</pre> -->
-            <!-- </div> -->
+        <slot name="fields" :fields="renderFields" :hash="fieldHash">
             <ux-field ref="field" @field:mount="fieldMounted" @field:unmount="fieldUnmounted" @field:dirty="fieldDirty" @field:invalid="fieldInvalid" @field:valid="fieldValid" @field:error="fieldError" @field:focus="fieldFocus" @field:blur="fieldBlur" @field:touched="fieldTouch" :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="fieldClass" :key="`ux-form-field-${field.key}-${index}`" v-for="(field, index) in renderFields" />
         </slot>
-
-
-
     </div>
 </template>
 <script>
@@ -171,6 +165,12 @@ export default {
         UxField: UXField,
     },
     computed: {
+        fieldHash() {
+            return this.renderFields.reduce(function(set,field) {
+                set[field.key] = field;
+                return set;
+            }, {});
+        },
         valid() {
             return !this.invalid;
         },

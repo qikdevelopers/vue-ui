@@ -1,6 +1,5 @@
 <template>
     <div class="native-select">
-        TESTING
         <select v-model="model">
             <option :value="option.value" v-for="option in selectableOptions">{{option.label}}</option>
         </select>

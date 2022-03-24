@@ -4,6 +4,9 @@ function isUndefined(v, type) {
 }
 
 
+
+
+
 export default {
     props: {
         field: {
@@ -27,11 +30,14 @@ export default {
             var cleanedValue = this.cleanInput(val);
             var cleanedModel = this.cleanInput(this.model);
 
-            if(JSON.stringify(cleanedValue) != JSON.stringify(cleanedModel)) {
+            if (JSON.stringify(cleanedValue) != JSON.stringify(cleanedModel)) {
                 this.model = cleanedValue
             }
-            
+
         },
+    },
+    mounted() {
+        this.checkAutofocus();
     },
     computed: {
         optionLookup() {
@@ -54,6 +60,8 @@ export default {
             },
             set(val) {
                 this.value = this.cleanInput(val);
+
+                this.checkAutofocus();
                 this.dispatch();
             }
         },
@@ -107,16 +115,26 @@ export default {
             return this.isGroup && !this.field.asObject;
         },
         canAddValue() {
+
+            if (this.singleValue) {
+                return;
+            }
+
             return this.maximum === 0 || this.numValues < this.maximum;
         },
         canRemoveValue() {
             return this.numValues > this.minimum;
         },
         singleValue() {
-            return this.maximum == 1;
+            if (this.asObject) {
+                var isSingle = this.minimum === 1 && this.maximum === 1;
+                return isSingle;
+            } else {
+                return this.maximum === 1;
+            }
         },
         multiValue() {
-            return this.maximum != 1;
+            return !this.singleValue;
         },
         label() {
             return this.field.title;
@@ -139,11 +157,10 @@ export default {
             return `Remove`
         },
         numValues() {
-            if (!this.multiValue) {
+            if (this.singleValue) {
                 return 1;
             }
-
-            return (this.value || []).length;
+            return (this.value || []).length || 0;
         },
 
         showLabel() {
@@ -196,19 +213,74 @@ export default {
         },
     },
     methods: {
+        cleanTextInput(val, type, instance) {
+            switch (type) {
+                case 'url':
+                    val = instance.$qik.utils.parseURL(val);
+                    break;
+                case 'key':
+                    val = instance.$qik.utils.machineName(val);
+                    break;
+                case 'integer':
+                    val = parseInt(String(val).replace(/[^0-9-]/g, ''));
+                    if (isNaN(val)) {
+                        val = undefined;
+                    }
+                    break;
+                case 'number':
+                case 'decimal':
+                case 'float':
+                    val = Number(String(val).replace(/[^0-9.-]/g, ''));
+                    if (isNaN(val)) {
+                        val = undefined;
+                    }
+                    break;
+            }
+            return val;
+        },
+        checkAutofocus() {
+            if (this.field.autofocus) {
+
+                if (this.value) {
+                    return;
+                }
+
+                this.$nextTick(function() {
+
+
+                    this.refocus();
+                })
+            }
+        },
         getValue(option) {
             if (!option) {
                 return;
             }
 
-            return option._id || option.value || option;
+            //Get the value of the object
+            var value = option._id || option.value;
+
+            //If we have a title but no value
+            if(!value && option.title && !this.returnObject) {
+                //user the title as the value
+                value = option.title;
+            }
+
+            //Return the value or the option itself
+            return value || option;
         },
         getLabel(option) {
             if (!option) {
                 return;
             }
 
-            return option.title || option.name || option.label || option;
+            var label = option.title || option.name || option.label;
+
+            if(typeof label == 'object') {
+                return '(no title)'
+            } else {
+                return label
+            }
         },
         touch() {
             this.$emit('touched');
@@ -223,7 +295,7 @@ export default {
 
             var defaultEntry = this.cleanInputValue(this.getNewDefaultEntry());
 
-            if(!this.value) {
+            if (!this.value || !Array.isArray(this.value)) {
                 this.value = []
             }
 
@@ -280,6 +352,11 @@ export default {
                 }
             } else {
                 if (self.multiValue) {
+
+                    if (!Array.isArray(val)) {
+                        val = []
+                    }
+
                     val.forEach(function(v, i) {
                         val[i] = self.cleanOutputValue(v);
                     });
@@ -341,12 +418,23 @@ export default {
 
         refocus() {
             var elements = this.$refs.input;
+
             if (!elements) {
                 return;
             }
 
-            var input = elements[elements.length - 1];
-            input.focus();
+
+            var input;
+            if (Array.isArray(elements)) {
+                input = elements[elements.length - 1];
+            } else {
+                input = elements;
+            }
+
+            if (input) {
+
+                input.focus();
+            }
         },
     }
 }

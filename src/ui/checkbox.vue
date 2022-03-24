@@ -58,13 +58,17 @@ export default {
     }
 
     &.ux-checkbox-true {
+        background: $primary;
+
         .icon {
+            color: #fff;
             opacity: 1;
             transform: scale(1) translate(-50%, -50%);
         }
     }
 
     &:hover {
+        border-color: $primary;
         .icon {
             opacity: 0.5 !important;
             transform: scale(1) translate(-50%, -50%);

@@ -27,7 +27,7 @@
             Loading
         </flex-column>
 
-
+<pre>{{model}}</pre>
     </flex-column>
 </template>
 <script>
@@ -43,15 +43,10 @@ export default {
     },
     mixins: [ModalMixin],
     async created() {
-
-
-
         var self = this;
         var glossary = await self.$qik.content.glossary({ hash: true });
         var definition = glossary[self.type]
         self.definition = definition;
-
-        console.log('Loading the glossary', definition)
     },
     computed: {
         type() {

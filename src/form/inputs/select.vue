@@ -14,7 +14,6 @@
             <option :value="option.value" v-for="option in selectableOptions">{{option.title}}</option>
         </select>
 
-
     </div>
 </template>
 <script>
@@ -146,8 +145,11 @@ export default {
             return this.model ? this.getLabel(this.optionLookup[this.model]) : this.title || 'Click to select';
         },
 
-        selectableOptions() {
-            return this.options;
+        selectableOptions() { 
+            return this.options
+            // .sort(function(option) {
+            //     return option.title;
+            // });
             // if(this.type == 'reference') {
 
             // } else {

@@ -22,8 +22,8 @@
     <template v-else>
         <div class="ux-text-wrap">
             <span class="ux-text-prefix" v-if="prefix">{{prefix}}</span>
-            <input v-if="lazy" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model.lazy="model" />
-            <input v-if="!lazy" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model="model" />
+            <input v-if="lazy" ref="input" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model.lazy="model" />
+            <input v-if="!lazy" ref="input" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model="model" />
             <span class="ux-text-suffix" v-if="suffix">{{suffix}}</span>
         </div>
     </template>
@@ -32,28 +32,6 @@
 import InputMixin from './input-mixin';
 
 
-function cleanInput(val, type, instance) {
-    switch (type) {
-        case 'url':
-            val = instance.$qik.utils.parseURL(val);
-        break;
-        case 'integer':
-            val = parseInt(String(val).replace(/[^0-9-]/g, ''));
-            if (isNaN(val)) {
-                val = undefined;
-            }
-            break;
-        case 'number':
-        case 'decimal':
-        case 'float':
-            val = Number(String(val).replace(/[^0-9.-]/g, ''));
-            if (isNaN(val)) {
-                val = undefined;
-            }
-            break;
-    }
-    return val;
-}
 
 
 export default {
@@ -71,6 +49,7 @@ export default {
                 case 'decimal':
                 case 'float':
                 case 'url':
+                case 'key':
                     return true;
                     break;
             }
@@ -98,11 +77,11 @@ export default {
     },
     methods: {
         cleanOutputValue(v) {
-            var cleaned = cleanInput(v, this.type, this);
+            var cleaned = this.cleanTextInput(v, this.type, this);
             return cleaned ? String(cleaned) : '';
         },
         cleanInputValue(v) {
-            return cleanInput(v, this.type, this);
+            return this.cleanTextInput(v, this.type, this);
         },
         getNewDefaultEntry() {
             return '';

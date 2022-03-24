@@ -4,7 +4,7 @@
     <div class="buttons">
         <option-slot :option="option" v-slot="{plainValue}" v-for="option in selectableOptions">
             <ux-button :class="{active:selectionHash[plainValue]}" @click="toggle(plainValue)">
-                {{option.title}}
+                {{getLabel(option)}}
                 <ux-icon icon="fa-check" right />
             </ux-button>
         </option-slot>

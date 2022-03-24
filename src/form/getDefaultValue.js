@@ -144,9 +144,14 @@ export default function getDefaultValue(fieldData, currentValue) {
             if (fieldData.asObject) {
                 var number = ask;
                 if (multiValue) {
-                    output = Array(number).fill().map(function() {
-                        return {}
-                    });
+                    if (number > 0) {
+                        output = Array(number).fill().map(function() {
+                            return {}
+                        });
+                    } else {
+                        output = [];
+                    }
+
                 } else {
                     output = isUndefined(firstDefaultValue) ? {} : firstDefaultValue;
                 }

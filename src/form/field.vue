@@ -1,6 +1,5 @@
 <template>
     <div class="ux-field" @focusin="focus" @focusout="blur" v-if="visible" :class="classes">
-        
         <template v-if="widget == 'checkbox'">
             <checkbox @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -21,7 +20,7 @@
         <template v-if="widget == 'select'">
             <native-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
-        <template v-if="widget == 'buttons'">
+        <template v-if="widget == 'button'">
             <button-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'textfield'">
@@ -39,7 +38,7 @@
         <template v-if="widget == 'richtext'">
             <text-area @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
-        <template v-if="widget == 'longtext'">
+        <template v-if="widget == 'textarea'">
             <text-area @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'timezone'">
@@ -50,9 +49,20 @@
         </template>
         <template v-if="widget == 'value'">
         </template>
+        <template v-if="widget == 'object'">
+            <object-field @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
+        <template v-if="widget == 'options'">
+            <options-manager @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <div v-if="error && validateResults.message" class="ux-field-message">
             {{validateResults.message}}
         </div>
+        <!-- <pre>Has Data: {{hasData}}</pre>
+        <pre>Dirty: {{dirty}}</pre>
+        <pre>Dirty Before: {{isDirtyBeforeInput}}</pre>
+        <pre>Touched: {{touched}}</pre>
+        <pre>DEFAULT VALUE: {{fieldDefaultValue}}</pre> -->
     </div>
 </template>
 <script>
@@ -70,12 +80,30 @@ import Upload from './inputs/upload/upload.vue';
 import FieldGroup from './inputs/group.vue';
 import NativeSelect from './inputs/select.vue';
 import ButtonSelect from './inputs/button-select.vue';
+import ObjectField from './inputs/object-field.vue';
+import OptionsManager from './inputs/options-manager.vue';
 
 ////////////////
 
 import Expressions from './expressions';
 import getDefaultValue from './getDefaultValue';
 import parseBoolean from './parseBoolean';
+
+////////////////////////////////////////
+
+function hasExpression(key) {
+    return function() {
+        var self = this;
+        if (!self.expressions) {
+            return;
+        }
+
+        let expression = self.expressions[key];
+        if (expression) {
+            return true;
+        }
+    }
+}
 
 ////////////////////////////////////////
 
@@ -112,6 +140,8 @@ export default {
         TimezoneSelect,
         PhoneNumberInput,
         Upload,
+        ObjectField,
+        OptionsManager,
     },
     props: {
         field: {
@@ -137,26 +167,13 @@ export default {
             validateResults: { valid: true },
             mounted: false,
             subFormState: {},
+            isDirty: false,
+            isDirtyBeforeInput: false,
         }
     },
+
     created() {
-
-
-        // if (this.visible) {
-        var currentValue = this.fieldModel;
-        var defaultValue = currentValue || this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField);
-        if (!currentValue) {
-            currentValue = defaultValue;
-        }
-        // }
-
-        var cleaned = this.cleanInput(currentValue)
-        if (this.fieldModel != cleaned) {
-            this.fieldModel = cleaned;
-        }
-
-        // console.log('FIELD VALUE', this.key, this.fieldModel);
-
+        this.checkDirtyState();
     },
     mounted() {
         this.mounted = true;
@@ -165,6 +182,46 @@ export default {
         this.mounted = false;
     },
     methods: {
+        checkDirtyState() {
+
+            //What is the value for this field right now?
+            var existingData = this.fieldModel;
+            var proposedDefaultValue = this.fieldDefaultValue;
+
+            ///////////////////////////////////////////
+
+            var existingString = JSON.stringify(this.cleanOutput(existingData));
+            var proposedString = JSON.stringify(this.cleanOutput(proposedDefaultValue));
+
+            //We already have data
+
+
+            if (existingData && (existingString != proposedString)) {
+                this.isDirty = true;
+                this.isDirtyBeforeInput = true;
+                //May as well put it in anyway so it can clean itself if need be
+                this.fieldModel = existingData;
+            } else {
+                //The field is untouched
+                this.isDirty = false;
+                this.isDirtyBeforeInput = false;
+
+                //Use the default
+                this.fieldModel = proposedDefaultValue;
+            }
+
+            // ///////////////////////////////////////////
+
+            // var defaultValue = currentValue || proposedDefaultValue
+            // if (!currentValue) {
+            //     currentValue = defaultValue;
+            // }
+
+            // ///////////////////////////////////////////
+
+            // this.fieldModel = currentValue;
+
+        },
         groupStateAltered(details) {
             this.subFormState = details;
         },
@@ -204,10 +261,17 @@ export default {
         visible(now) {
             //Remove and clear all data
             if (!now) {
-                this.fieldModel = undefined;
+                this.touched = false;
+                if (this.expressions && this.expressions.value) {
+                    this.fieldModel = this.getExpressionValue
+                } else {
+                    this.fieldModel = undefined;
+                }
+
             } else {
                 this.reset();
             }
+
         },
         focussed(val) {
             if (val) {
@@ -236,12 +300,18 @@ export default {
         },
         modelValue(val, old) {
             this.model = val;
+            this.touched = false;
+            this.checkDirtyState();
         },
         getExpressionHide(result) {
 
         },
         getExpressionDefaultValue(result) {
-            if (!this.touched) {
+
+            //If this already had data, or has been touched and now has data
+            if (this.isDirtyBeforeInput || (this.touched && this.dirty)) {
+                //Don't update it
+            } else {
                 this.fieldModel = result;
             }
 
@@ -251,6 +321,9 @@ export default {
         },
     },
     computed: {
+        fieldDefaultValue() {
+            return this.cleanInput(this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField));
+        },
         title() {
             return this.field.title;
         },
@@ -291,6 +364,12 @@ export default {
             return isInvalid;
         },
         dirty() {
+
+            return this.isDirty;
+
+        },
+        hasData() {
+
             if (typeof this.fieldModel === 'undefined') {
                 return false;
             }
@@ -305,7 +384,9 @@ export default {
                 return false;
             }
 
-
+            // if (this.hasExpressionDefaultValue) {
+            //     return this.touched && (this.fieldModel != this.getExpressionDefaultValue);
+            // }
 
             return true;
         },
@@ -327,6 +408,7 @@ export default {
         getExpressionRequired: computedExpression('required'),
         getExpressionDefaultValue: computedExpression('defaultValue'),
         getExpressionValue: computedExpression('value'),
+        hasExpressionDefaultValue: hasExpression('defaultValue'),
         expressions() {
             return this.field.expressions;
         },
@@ -363,12 +445,17 @@ export default {
         },
         fieldModel: {
             get() {
-
                 return this.cleanOutput(this.model[this.key]);
             },
             set(value) {
-                this.model[this.key] = this.cleanInput(value);
-                this.$emit('update:modelValue', this.model);
+
+                var cleaned = this.cleanInput(value);
+
+                if (this.model[this.key] != cleaned) {
+                    this.model[this.key] = cleaned
+                    this.isDirty = true;
+                    this.$emit('update:modelValue', this.model);
+                }
             }
         },
         sourceModel: {
@@ -431,18 +518,17 @@ export default {
                 case 'checkbox':
                 case 'datefield':
                 case 'richtext':
-                case 'longtext':
-                case 'buttons':
+                case 'textarea':
                 case 'switch':
                 case 'email':
                 case 'url':
-
                 case 'currency':
-
                 case 'timezone':
                 case 'country':
                 case 'typeselect':
                 case 'upload':
+                case 'options':
+                case 'button':
                     break;
                 case 'phone':
                 case 'phonenumber':
@@ -463,6 +549,9 @@ export default {
                         default:
                         case 'string':
                             widget = 'textfield';
+                            break;
+                        case 'object':
+                            widget = 'object';
                             break;
                     }
                     break;
@@ -518,7 +607,8 @@ export default {
 
 :deep(.ux-field-description) {
     // .ux-field-description {
-    font-size: 0.8em;
+
+    font-size: clamp(12px, 0.8em, 16px);
     opacity: 0.5;
     margin-bottom: 0.5em;
 

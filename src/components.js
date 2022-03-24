@@ -23,8 +23,12 @@ export { default as UXCheckbox } from './ui/checkbox.vue';
 export { default as UXSwitch } from './ui/switch.vue';
 export { default as UXLink } from './ui/link.vue';
 export { default as UXIcon } from './ui/icon.vue';
+export { default as UXMenu } from './ui/menu.vue';
+export { default as UXImage } from './ui/image.vue';
 export { default as Spinner } from './ui/spinner.vue';
 export { default as ProgressBar } from './ui/progressbar.vue';
+export { default as UXList } from './ui/list.vue';
+export { default as UXListItem } from './ui/list-item.vue';
 
 export { default as UXForm } from './form/form.vue';
 export { default as UXFormField } from './form/field.vue';
@@ -46,6 +50,10 @@ export { default as QikOptionsModal } from './modal/OptionsModal.vue';
 export { default as QikPromptModal } from './modal/PromptModal.vue';
 export { default as QikContentModal } from './modal/ContentModal.vue';
 
+
+//Services
+export { default as Selection } from './services/selection.js';
+
 ////////////////////////////////////////////
 
 //Create a default set of components
@@ -65,7 +73,11 @@ import UXButton from './ui/button.vue';
 import UXSwitch from './ui/switch.vue';
 import UXCheckbox from './ui/checkbox.vue';
 import UXIcon from './ui/icon.vue';
+import UXMenu from './ui/menu.vue';
+import UXImage from './ui/image.vue';
 import UXLink from './ui/link.vue';
+import UXList from './ui/list.vue';
+import UXListItem from './ui/list-item.vue';
 import Spinner from './ui/spinner.vue';
 import ProgressBar from './ui/progressbar.vue';
 
@@ -95,11 +107,15 @@ const defaultComponents = {
     PanelBody,
     PanelHeader,
     PanelFooter,
+    UxList: UXList,
+    UxListItem: UXListItem,
     UxForm: UXForm,
     UxFormField: UXFormField,
     UxRender: UXRender,
     UxRenderField: UXRenderField,
     UxIcon: UXIcon,
+    UxMenu:UXMenu,
+    UxImage:UXImage,
     UxButton: UXButton,
     UxCheckbox: UXCheckbox,
     UxSwitch: UXSwitch,
@@ -113,7 +129,6 @@ const defaultComponents = {
 ////////////////////////////////////////////
 
 import { reactive, watchEffect } from 'vue'
-
 export default {
     install(Vue, qik) {
         console.log(versionName)
@@ -184,6 +199,8 @@ export default {
         qik.confirm = function(title, options) {
             options = options || {};
 
+            options.title = title;
+            
             return qik.modal({
                 component: QikConfirmModal,
                 options,
