@@ -5,7 +5,7 @@
         <div class="items" v-if="model && model.length">
             <item :key="item._id" :item="item" v-for="(item, index) in model">
                 <template #actions>
-                    <ux-button icon @click="remove(item)">
+                    <ux-button icon @click.stop.prevent="remove(item)">
                         <ux-icon icon="fa-times" />
                     </ux-button>
                 </template>
@@ -16,7 +16,7 @@
         <div class="items">
             <item :item="model">
                 <template #actions>
-                    <ux-button icon @click="clear">
+                    <ux-button icon @click.stop.prevent="clear">
                         <ux-icon icon="fa-times" />
                     </ux-button>
                 </template>

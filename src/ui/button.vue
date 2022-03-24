@@ -161,7 +161,8 @@ export default {
 
     &.ux-btn-block {
         display: block;
-        width: 100%;
+        width:100%;
+        box-sizing:border-box;
         text-align: center;
     }
 }

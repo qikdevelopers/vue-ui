@@ -6,8 +6,8 @@
             <flex-cell>
                 <div class="ux-text-wrap">
                     <span class="ux-text-prefix" v-if="prefix">{{prefix}}</span>
-                    <input v-if="lazy" class="ux-field-focus ux-text-input-multiple" :placeholder="actualPlaceholder" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model.lazy="model[index]" />
-                    <input v-if="!lazy" class="ux-field-focus ux-text-input-multiple" :placeholder="actualPlaceholder" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model="model[index]" />
+                    <input :type="inputType" v-if="lazy" class="ux-field-focus ux-text-input-multiple" :placeholder="actualPlaceholder" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model.lazy="model[index]" />
+                    <input :type="inputType" v-if="!lazy" class="ux-field-focus ux-text-input-multiple" :placeholder="actualPlaceholder" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model="model[index]" />
                     <span class="ux-text-suffix" v-if="suffix">{{suffix}}</span>
                 </div>
             </flex-cell>
@@ -22,11 +22,12 @@
     <template v-else>
         <div class="ux-text-wrap">
             <span class="ux-text-prefix" v-if="prefix">{{prefix}}</span>
-            <input v-if="lazy" ref="input" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model.lazy="model" />
-            <input v-if="!lazy" ref="input" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model="model" />
+            <input :type="inputType" v-if="lazy" ref="input" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model.lazy="model" />
+            <input :type="inputType" v-if="!lazy" ref="input" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model="model" />
             <span class="ux-text-suffix" v-if="suffix">{{suffix}}</span>
         </div>
     </template>
+
 </template>
 <script>
 import InputMixin from './input-mixin';
@@ -42,6 +43,25 @@ export default {
     },
     mixins: [InputMixin],
     computed: {
+        inputType() {
+            switch(this.field.widget) {
+                case 'password':
+                case 'email':
+                    return this.field.widget;
+                break;
+                default:
+
+                    switch(this.field.type) {
+                        case 'email':
+                            return 'email';
+                        break;
+                        default:
+                            return 'text';
+                        break;
+                    }
+                break;
+            }
+        },
         lazy() {
             switch (this.type) {
                 case 'integer':

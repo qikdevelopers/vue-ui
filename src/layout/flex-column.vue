@@ -20,6 +20,10 @@ export default {
     	align-items: center;
     	justify-content: center;
     }
+
+    &[shrink] {
+        flex:none;
+    }
 }
 
 

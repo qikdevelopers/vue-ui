@@ -530,6 +530,9 @@ export default {
                 case 'options':
                 case 'button':
                     break;
+                case 'password':
+                    return 'textfield';
+                    break;
                 case 'phone':
                 case 'phonenumber':
                     return 'phone'

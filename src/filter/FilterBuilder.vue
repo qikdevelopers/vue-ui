@@ -2,7 +2,7 @@
     <flex-column class="filter-builder">
         <flex-body>
             <div class="filters">
-            <div class="top">
+            <div class="top" v-if="model.filters.length">
                 <div class="summary">
                     Match <native-select v-model="model.operator" :field="operatorField">
                         {{summary}}
@@ -10,7 +10,7 @@
                 </div>
             </div>
             <filter-rule :enableRemove="model.filters.length > 1" :key="`rule-${index}`" @remove="removeRule(index)" :definition="definition" v-model="model.filters[index]" :index="index" v-for="(rule, index) in model.filters" />
-            <ux-button @click="addRule()">Add Rule</ux-button>
+            <ux-button @click="addRule()">Add Filter Rule</ux-button>
         </div>
         </flex-body>
     </flex-column>
@@ -119,12 +119,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .filter-builder {
-    background: rgba(#000, 0.1);
+    
     
 
-    .filters {
-        padding:0.7em;
-    }
 
     .summary {
         font-size: 0.8em;

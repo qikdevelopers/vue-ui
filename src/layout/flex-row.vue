@@ -28,6 +28,10 @@ export default {
     &[wrap] {
         flex-wrap: wrap;
     }
+
+    &[gap] {
+        gap: 0.2em;
+    }
 }
 
 

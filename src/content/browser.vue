@@ -7,17 +7,23 @@
                     <flex-cell flex>
                         <native-table :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :actions="false" :selection="manager.items" @click:row="rowClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns" />
                     </flex-cell>
-                    <flex-column style="max-width: 600px;">
-                        <flex-header>
-                            Filters
-                        </flex-header>
+                    <flex-column class="filter-column" style="max-width: 600px;" v-if="showFilters">
+<flex-body>
+                        <search v-model="search" :loading="searching" :debounce="500" placeholder="Keyword Search" />
+
+
+<p></p>
+
+                        
+
                         <filter-builder :definition="definition" v-model="filter" />
+                    </flex-body>
                     </flex-column>
                 </flex-row>
             </flex-column>
             <flex-footer>
                 <div class="footer">
-                    <flex-row center>
+                    <flex-row center gap >
                         <flex-cell shrink class="text">
                             <native-select v-model="perPage" :field="perPageField">
                                 Showing {{displayStartIndex}} to {{endIndex}} of {{totalItems}} total
@@ -25,8 +31,8 @@
                         </flex-cell>
                         <flex-cell>
                         </flex-cell>
-                        <flex-cell shrink>
-                            <flex-row center>
+                        <flex-cell shrink v-if="totalPages > 1">
+                            <flex-row gap center>
                                 <flex-cell shrink class="text">
                                     <native-select v-model="currentPage" :field="pageField">
                                         Page {{currentPage}} of {{totalPages}}
@@ -56,6 +62,7 @@ import NativeTable from '../table/Table.vue';
 
 import FilterBuilder from '../filter/FilterBuilder.vue';
 import Selection from '../services/selection.js';
+import Search from '../form/inputs/search.vue';
 
 
 // import FilterRule from '../filter/FilterRule.vue';
@@ -68,6 +75,9 @@ export default {
         type: {
             type: String,
             required: true,
+        },
+        showFilters:{
+            type:Boolean,
         },
         search: {
             type: String,
@@ -101,6 +111,7 @@ export default {
         NativeSelect,
         NativeTable,
         FilterBuilder,
+        Search,
         // FilterRule,
     },
     async created() {
@@ -462,6 +473,11 @@ export default {
     &.loading {
         opacity: 0.5;
     }
+}
+
+.filter-column {
+    padding:1em;
+    background: rgba(#000, 0.1);
 }
 
 

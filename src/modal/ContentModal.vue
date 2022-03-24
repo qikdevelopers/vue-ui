@@ -27,7 +27,6 @@
             Loading
         </flex-column>
 
-<pre>{{model}}</pre>
     </flex-column>
 </template>
 <script>
