@@ -35,6 +35,10 @@
         <template v-if="widget == 'content-select'">
             <content-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
+
+        <template v-if="widget == 'type-select'">
+            <type-select @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <template v-if="widget == 'richtext'">
             <text-area @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -70,6 +74,7 @@
 import PhoneNumberInput from './inputs/phone-number-input.vue';
 import TimezoneSelect from './inputs/timezone.vue';
 import ContentSelect from './inputs/content-select.vue';
+import TypeSelect from './inputs/type-select.vue';
 import CurrencyField from './inputs/currency.vue';
 import TextField from './inputs/textfield.vue';
 import TextArea from './inputs/textarea.vue';
@@ -137,6 +142,7 @@ export default {
         BooleanSwitch: Switch,
         FieldGroup,
         ContentSelect,
+        TypeSelect,
         TimezoneSelect,
         PhoneNumberInput,
         Upload,
@@ -529,6 +535,7 @@ export default {
                 case 'upload':
                 case 'options':
                 case 'button':
+                case 'type-select':
                     break;
                 case 'password':
                     return 'textfield';
