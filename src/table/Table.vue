@@ -49,23 +49,6 @@ import RememberScrollMixin from '../mixins/RememberScroll.js';
 
 export default {
     mixins:[RememberScrollMixin],
-    // data() {
-    //     return {
-    //         scrollTop: 0,
-    //     }
-    // },
-    // mounted() {
-    //     var scroller = this.$refs.scroll;
-    //     scroller.addEventListener('scroll', this.updateScroll);
-    // },
-    // beforeUnmount() {
-    //     var scroller = this.$refs.scroll;
-    //     scroller.removeEventListener('scroll', this.updateScroll);
-    // },
-    // activated() {
-    //     var scroller = this.$refs.scroll;
-    //     scroller.scrollTop = this.scrollTop;
-    // },
     components: {
         TableRow,
         TableCell,
@@ -167,9 +150,6 @@ export default {
         },
     },
     methods: {
-        updateScroll(e) {
-            this.scrollTop = this.$refs.scroll.scrollTop;
-        },
         togglePage() {
 
             var self = this;
