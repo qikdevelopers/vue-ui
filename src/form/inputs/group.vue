@@ -1,8 +1,8 @@
 <template>
    
     <div class="ux-multi-group" v-if="multiValue">
-        <panel ref="row" :key="entry" v-for="(entry, index) in model">
-            <panel-header>
+        <ux-panel ref="row" :key="entry" v-for="(entry, index) in model">
+            <ux-panel-header>
                 <flex-row>
                     <flex-cell vcenter>
                         <div>
@@ -15,11 +15,11 @@
                         </ux-button>
                     </flex-cell>
                 </flex-row>
-            </panel-header>
-            <panel-body @keydown.enter="enterPress($event)">
+            </ux-panel-header>
+            <ux-panel-body @keydown.enter="enterPress($event)">
                 <ux-form ref="form" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
-            </panel-body>
-        </panel>
+            </ux-panel-body>
+        </ux-panel>
         <ux-button v-if="canAddValue" @click="add()">{{addLabel}}
             <ux-icon icon="fa-plus" right />
         </ux-button>

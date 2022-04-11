@@ -18,6 +18,12 @@ export { default as PanelBody } from './layout/panel-body.vue';
 export { default as PanelHeader } from './layout/panel-header.vue';
 export { default as PanelFooter } from './layout/panel-footer.vue';
 
+
+export { default as UXTabset } from './layout/tabset.vue';
+export { default as UXTab } from './layout/tab.vue';
+
+
+
 export { default as UXButton } from './ui/button.vue';
 export { default as UXCheckbox } from './ui/checkbox.vue';
 export { default as UXSwitch } from './ui/switch.vue';
@@ -44,14 +50,20 @@ export { default as ContentBrowser } from './content/browser.vue';
 
 ////////////////////////////////////////////
 
+//Mixins
+export { default as RememberScrollMixin } from './mixins/RememberScroll.js';
+
+////////////////////////////////////////////
+
+export { default as ModalMixin } from './modal/ModalMixin.js';
 export { default as QikModal } from './modal/Modal.vue';
 export { default as QikConfirmModal } from './modal/ConfirmModal.vue';
 export { default as QikOptionsModal } from './modal/OptionsModal.vue';
 export { default as QikPromptModal } from './modal/PromptModal.vue';
 export { default as QikContentModal } from './modal/ContentModal.vue';
 
-
 //Services
+export { default as Device } from './services/device.js';
 export { default as Selection } from './services/selection.js';
 
 ////////////////////////////////////////////
@@ -69,6 +81,10 @@ import PanelBody from './layout/panel-body.vue';
 import PanelHeader from './layout/panel-header.vue';
 import PanelFooter from './layout/panel-footer.vue';
 
+
+import UXTabset from './layout/tabset.vue';
+import UXTab from './layout/tab.vue';
+
 import UXButton from './ui/button.vue';
 import UXSwitch from './ui/switch.vue';
 import UXCheckbox from './ui/checkbox.vue';
@@ -78,6 +94,12 @@ import UXImage from './ui/image.vue';
 import UXLink from './ui/link.vue';
 import UXList from './ui/list.vue';
 import UXListItem from './ui/list-item.vue';
+
+
+
+
+
+
 import Spinner from './ui/spinner.vue';
 import ProgressBar from './ui/progressbar.vue';
 
@@ -87,6 +109,8 @@ import UXFormField from './form/field.vue';
 import UXRender from './content/render/render.vue';
 import UXRenderField from './content/render/field.vue';
 
+
+//Services
 
 //Modals
 import QikModal from './modal/Modal.vue';
@@ -103,10 +127,10 @@ const defaultComponents = {
     FlexCell,
     FlexSpacer,
     FlexRow,
-    Panel,
-    PanelBody,
-    PanelHeader,
-    PanelFooter,
+    UxPanel:Panel,
+    UxPanelBody:PanelBody,
+    UxPanelHeader:PanelHeader,
+    UxPanelFooter:PanelFooter,
     UxList: UXList,
     UxListItem: UXListItem,
     UxForm: UXForm,
@@ -114,12 +138,14 @@ const defaultComponents = {
     UxRender: UXRender,
     UxRenderField: UXRenderField,
     UxIcon: UXIcon,
-    UxMenu:UXMenu,
-    UxImage:UXImage,
+    UxMenu: UXMenu,
+    UxImage: UXImage,
     UxButton: UXButton,
     UxCheckbox: UXCheckbox,
     UxSwitch: UXSwitch,
     UxLink: UXLink,
+    UxTabset: UXTabset,
+    UxTab: UXTab,
     Spinner,
     ProgressBar,
     QikModal,
@@ -132,6 +158,8 @@ import { reactive, watchEffect } from 'vue'
 export default {
     install(Vue, qik) {
         console.log(versionName)
+
+
 
         //////////////////////////////
 
@@ -200,7 +228,7 @@ export default {
             options = options || {};
 
             options.title = title;
-            
+
             return qik.modal({
                 component: QikConfirmModal,
                 options,

@@ -1,5 +1,5 @@
 <template>
-    <div class="ux-menu">
+    <div class="ux-menu" :class="{right}">
         <span>
             <slot name="activator" :on="on" />
         </span>
@@ -11,6 +11,10 @@
 <script>
 export default {
     props: {
+        right:{
+            type:Boolean,
+            default:false,
+        },
         closeOnClick: {
             type: Boolean,
             default () {
@@ -59,8 +63,6 @@ export default {
             }
         },
         globalClick(event) {
-            console.log('GLOBAL', event);
-
 
             if (this.triggerEvent === event) {
                 return;
@@ -129,7 +131,17 @@ export default {
 
     .ux-menu-panel {
         position: fixed;
-        z-index: 1;
+        z-index: 10;
+        max-height: 70vh;
+        overflow: auto;
+        text-align: left;
+        text-transform: none;
+        letter-spacing: 0;
+        font-weight: normal;
+    }
+
+    &.right .ux-menu-panel{
+        right:0;
     }
 }
 </style>

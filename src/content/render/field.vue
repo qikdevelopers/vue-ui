@@ -222,6 +222,14 @@ export default {
             return val;
         },
         cleanOutput(val) {
+
+            if (this.type == 'reference') {
+                if (!this.multiValue) {
+                    if (Array.isArray(val) && val.length) {
+                        return val[0]
+                    }
+                }
+            }
             return val;
         }
     },

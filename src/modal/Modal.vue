@@ -58,7 +58,8 @@ export default {
 	bottom:0;
 	display: flex;
 	width:100vw;
-	height:100vh;
+	height: 100vh;
+    height: -webkit-fill-available;
 	z-index: 100;
 	justify-content: center;
 	align-items:center;

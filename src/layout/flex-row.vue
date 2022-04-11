@@ -30,7 +30,7 @@ export default {
     }
 
     &[gap] {
-        gap: 0.2em;
+        gap: 0.4em;
     }
 }
 

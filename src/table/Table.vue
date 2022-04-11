@@ -4,7 +4,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th v-if="enableSelection" class="first shrink">
+                        <th v-if="enableSelection" class="first table-select shrink">
                             <ux-menu>
                                 <template #activator="{ on }">
                                     <ux-checkbox v-on="on" :value="pageSelected"></ux-checkbox>
@@ -13,7 +13,6 @@
                                     <ux-list-item @click="selectPage()">
                                         Select Page
                                     </ux-list-item>
-
                                     <ux-list-item v-if="someSelectedOnPage" @click="deselectPage()">
                                         Deselect Page
                                     </ux-list-item>
@@ -23,14 +22,15 @@
                                     <ux-list-item v-if="deselectAll" @click="deselectAll()">
                                         Deselect All
                                     </ux-list-item>
-                                    
                                 </ux-list>
                             </ux-menu>
                         </th>
                         <th @click="toggleSort(column)" :class="column.class" v-for="column in renderColumns">
                             {{column.title}}
                         </th>
-                        <th v-if="enableActions" class="last shrink"></th>
+                        <th v-if="enableActions" class="last shrink">
+                            <slot name="corner"></slot>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,8 +44,28 @@
 import TableRow from './TableRow.vue';
 import TableCell from './TableCell.vue';
 
+import RememberScrollMixin from '../mixins/RememberScroll.js';
+
 
 export default {
+    mixins:[RememberScrollMixin],
+    // data() {
+    //     return {
+    //         scrollTop: 0,
+    //     }
+    // },
+    // mounted() {
+    //     var scroller = this.$refs.scroll;
+    //     scroller.addEventListener('scroll', this.updateScroll);
+    // },
+    // beforeUnmount() {
+    //     var scroller = this.$refs.scroll;
+    //     scroller.removeEventListener('scroll', this.updateScroll);
+    // },
+    // activated() {
+    //     var scroller = this.$refs.scroll;
+    //     scroller.scrollTop = this.scrollTop;
+    // },
     components: {
         TableRow,
         TableCell,
@@ -59,8 +79,8 @@ export default {
         }
     },
     props: {
-        total:{
-            type:Number,
+        total: {
+            type: Number,
         },
         columns: {
             type: Array,
@@ -98,11 +118,11 @@ export default {
                 return []
             },
         },
-        selectAll:{
-            type:Function,
+        selectAll: {
+            type: Function,
         },
-        deselectAll:{
-            type:Function,
+        deselectAll: {
+            type: Function,
         },
     },
     computed: {
@@ -147,12 +167,14 @@ export default {
         },
     },
     methods: {
-
+        updateScroll(e) {
+            this.scrollTop = this.$refs.scroll.scrollTop;
+        },
         togglePage() {
 
             var self = this;
 
-            console.log('TOGGLE', self.pageSelected)
+
             if (self.pageSelected) {
                 self.deselectPage();
             } else {
@@ -167,7 +189,7 @@ export default {
             var self = this;
             self.$emit('deselect:multiple', self.rows);
         },
-        
+
         isSelected(row) {
 
             var self = this;
@@ -189,15 +211,18 @@ export default {
 
         },
         clickRow(row) {
+
             this.$emit('click:row', row);
         },
         clickCell({ row, column }) {
+
             this.$emit('click:cell', { row, column });
         },
         clickActions(row) {
             this.$emit('click:actions', row);
         },
         clickSelect(row) {
+
             this.$emit('select:row:toggle', row);
         },
 
@@ -223,6 +248,8 @@ export default {
         width: 100%;
         border-collapse: collapse;
 
+
+
         thead {
             th {
                 top: 0;
@@ -236,6 +263,10 @@ export default {
                 background: #fff;
                 z-index: 2;
                 text-align: left;
+
+                &.table-select {
+                    font-size: clamp(17px, 1em, 20px);
+                }
             }
 
             border-bottom: 1px solid rgba(#000, 0.05);
@@ -247,6 +278,7 @@ export default {
             position: sticky;
             left: 0;
             // z-index: 1;
+            text-align: center;
         }
 
         th.last,
@@ -254,15 +286,50 @@ export default {
             position: sticky;
             right: 0;
             // z-index: 1;
+            text-align: center;
         }
 
         td,
         th {
             padding: 0.5em;
+            font-size: clamp(17px, 1em, 20px);
 
             &.shrink {
                 width: 1px;
             }
+        }
+
+        tr {
+            border-bottom: 1px solid rgba(#000, 0.05);
+
+            &:last-of-type {
+                border-bottom: none;
+            }
+        }
+
+        tr:nth-child(odd) {
+            background: darken(#fff, 1%);
+
+            th.first,
+            td.first,
+            th.last,
+            td.last {
+                background: darken(#fff, 1%);
+            }
+        }
+
+        tr:nth-child(even) {
+
+            th.first,
+            td.first,
+            th.last,
+            td.last {
+                background: #fff;
+            }
+        }
+
+        tr.selected {
+            background: rgba(orange, 0.1);
         }
     }
 }

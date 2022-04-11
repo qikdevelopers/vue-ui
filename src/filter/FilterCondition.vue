@@ -9,7 +9,12 @@
             </flex-cell>
             <flex-cell v-if="model.comparator">
                 <div v-if="inputType == 'array'">
-                    <text-field :field="arrayField" v-model="model.values" />
+                    <template v-if="hasOptions">
+                        <native-select v-model="model.values" :field="multiOptionsField" />
+                    </template>
+                    <template v-else>
+                        <text-field :field="arrayField" v-model="model.values" />
+                    </template>
                 </div>
                 <div v-if="inputType == 'range'">
                     <text-field :field="normalField" v-model="model.value" />
@@ -50,16 +55,20 @@
                     <text-field :field="normalField" v-model="model.value" />
                 </div>
                 <div v-if="inputType == 'normal'">
-                    <text-field :field="normalField" v-model="model.value" />
+                    <template v-if="hasOptions">
+                        <native-select v-model="model.value" :field="singleOptionsField" />
+                    </template>
+                    <template v-else>
+                        <text-field :field="normalField" v-model="model.value" />
+                    </template>
                 </div>
-                <!-- <pre>{{inputType}}</pre> -->
-                <!-- <pre>{{comparator}}</pre>
-            <native-select v-model="model.value" :field="comparatorField">
-                {{model.comparator || 'Select Value'}}
-            </native-select> -->
+                
+
+                <!-- <pre>{{field}}</pre> -->
+
             </flex-cell>
             <flex-cell shrink v-if="enableRemove">
-                <ux-button icon @click="$emit('remove')">
+                <ux-button size="sm" icon @click="$emit('remove')">
                     <ux-icon icon="fa-times" />
                 </ux-button>
             </flex-cell>
@@ -112,6 +121,9 @@ export default {
         }
     },
     computed: {
+        hasOptions() {
+            return !!(this.field.options && this.field.options.length);
+        },
         fieldHash() {
             return this.fields.reduce(function(set, field) {
 
@@ -282,13 +294,39 @@ export default {
                 placeholder: this.field.title,
             }
         },
+        multiOptionsField() {
+            return {
+                // title:`Select ${this.field.title}`,
+                options: this.field.options,
+                widget: 'select',
+                type: this.fieldType,
+                maximum: 0,
+                minimum: 1,
+                placeholder: this.field.title,
+            }
+        },
+        singleOptionsField() {
+            return {
+                title:`Select ${this.field.title}`,
+                options: this.field.options,
+                widget: 'select',
+                type: this.fieldType,
+                maximum: 1,
+                minimum: 0,
+                placeholder: this.field.title,
+            }
+        },
         normalField() {
+
+
+
             return {
                 type: this.fieldType,
                 maximum: 1,
                 minimum: 1,
                 placeholder: this.field.title,
             }
+
         },
         arrayField() {
             return {

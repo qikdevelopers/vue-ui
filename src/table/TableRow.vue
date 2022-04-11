@@ -1,14 +1,14 @@
 <template>
     <tr :class="classes" class="table-row">
         <slot>
-            <th v-if="enableSelection" class="table-cell first shrink" @click.stop.prevent="clickSelect(row)">
+            <th v-if="enableSelection" class="table-cell table-select first shrink" @click.stop.prevent="clickSelect(row)">
                 <ux-checkbox :value="selected">
                 </ux-checkbox>
             </th>
             <table-cell @click.stop.prevent="clickCell(column)" :column="column" :row="row" v-for="column in columns">
             </table-cell>
             <th v-if="enableActions" class="table-cell last shrink" @click.stop.prevent="clickActions(row)">
-                <ux-button icon>
+                <ux-button size="xs" icon>
                     <ux-icon icon="fa-ellipsis" />
                 </ux-button>
             </th>
@@ -52,12 +52,13 @@ export default {
             this.$emit('click:cell', {row:this.row, column});
             this.$emit('click:row', this.row);
         },
-        clickActions() {
-            this.$emit('click:actions', this.row);
-            this.$emit('click:row', this.row);
+        clickActions(row) {
+            console.log('click actions')
+            this.$emit('click:actions', row);
         },
-        clickSelect() {
-            this.$emit('click:select', this.row);
+        clickSelect(row) {
+            console.log('click select')
+            this.$emit('click:select', row);
             // this.$emit('click:row', this.row);
         },
     },
@@ -76,19 +77,6 @@ export default {
 </script>
 <style scoped lang="scss">
 
-tr {
-	border-bottom: 1px solid rgba(#000, 0.05);
-	&:last-of-type {
-		border-bottom:none;
-	}
-}
 
-tr:nth-child(odd) {
-    background: rgba(#000, 0.02);
-}
-
-tr.selected {
-    background: rgba(orange, 0.1);
-}
 
 </style>

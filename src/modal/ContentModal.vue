@@ -1,32 +1,32 @@
 <template>
     <flex-column class="wrapper">
-        
-        <template v-if="definition">
-            <flex-header>
-                <div class="header">
-                    <flex-row center>
-                        <flex-cell shrink>
-                            Select {{maximum == 1 ? title : plural}}
-                        </flex-cell>
-                        <flex-spacer />
-                        <flex-cell>
-                            <search v-model="search" :loading="searching" :debounce="500" placeholder="Search" />
-                        </flex-cell>
-                        <flex-spacer />
-                        <flex-cell shrink>
-                            <ux-button color="primary" @click="selectionComplete">Done</ux-button>
-                        </flex-cell>
-                    </flex-row>
-                </div>
-            </flex-header>
-            <content-browser ref="browser" :search="search" @click:row="rowClicked" :maximum="options.maximum" v-model="model" :type="options.type" :options="browserOptions">
-            </content-browser>
-        </template>
-
-        <flex-column v-else>
+        <flex-column v-if="loading">
             Loading
         </flex-column>
+        <template v-else>
+            <template v-if="definition">
+                <flex-header>
+                    <div class="header">
+                        <flex-row center>
+                            <flex-cell shrink>
+                                Select {{maximum == 1 ? title : plural}}
+                            </flex-cell>
+                            <flex-spacer />
+                            <flex-cell>
+                                <search v-model="search" :loading="searching" :debounce="500" placeholder="Search" />
+                            </flex-cell>
+                            <flex-spacer />
+                            <flex-cell shrink>
+                                <ux-button color="primary" @click="selectionComplete">Done</ux-button>
+                            </flex-cell>
+                        </flex-row>
+                    </div>
+                </flex-header>
+                <content-browser ref="browser" :search="search" @click:row="rowClicked" :maximum="options.maximum" v-model="model" :type="options.type" :options="browserOptions">
+                </content-browser>
+            </template>
 
+        </template>
     </flex-column>
 </template>
 <script>
@@ -44,7 +44,15 @@ export default {
     async created() {
         var self = this;
         var glossary = await self.$qik.content.glossary({ hash: true });
+        self.loading = false;
         var definition = glossary[self.type]
+
+        if(!definition) {
+            //Close immediately
+            self.$qik.notify('You do not have the required permissions to list content of this type');
+            self.dismiss()
+            return;
+        }
         self.definition = definition;
     },
     computed: {
@@ -69,6 +77,7 @@ export default {
             search: '',
             searching: false,
             definition: null,
+            loading: true,
             model: this.options.model.slice(),
         }
     },
@@ -91,7 +100,7 @@ export default {
 }
 
 .header {
-    background:#fff;
+    background: #fff;
     padding: 1em;
     border-bottom: 1px solid rgba(#000, 0.1);
 }

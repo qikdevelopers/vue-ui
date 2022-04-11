@@ -6,7 +6,7 @@
 <script>
 export default {
     props: {
-        modelValue: {
+        item: {
             type: Object,
         },
         width: {
@@ -35,7 +35,7 @@ export default {
     },
     data() {
         return {
-            model: this.modelValue,
+            model: this.item,
         }
     },
     computed: {

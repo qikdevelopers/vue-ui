@@ -10,6 +10,7 @@ export default {
 <style scoped lang="scss">
 .flex-spacer {
     padding:0.25em;
+    flex:1;
 }
 
 

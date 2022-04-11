@@ -185,9 +185,27 @@ export default {
             position: relative;
             width:100%;
 
+
+
             & > .ux-btn {
                 display: block;
+                position:relative;
                 text-align: left;
+
+                &:after {
+                content:'▼';
+                position:absolute;
+                right:0;
+                line-height: 3.5em;
+                top:0;
+                bottom: 0;
+                height:100%;
+                font-size: 0.6em;
+                width:4em;
+                text-align: center;
+                opacity: 0.5;
+
+            }
             }
         }
 

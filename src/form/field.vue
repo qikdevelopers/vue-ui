@@ -1,5 +1,8 @@
 <template>
     <div class="ux-field" @focusin="focus" @focusout="blur" v-if="visible" :class="classes">
+        <template v-if="widget == 'html'">
+            <custom-html @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <template v-if="widget == 'checkbox'">
             <checkbox @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -80,6 +83,7 @@ import TextField from './inputs/textfield.vue';
 import TextArea from './inputs/textarea.vue';
 import DateField from './inputs/datefield.vue';
 import Checkbox from './inputs/checkbox.vue';
+import CustomHTML from './inputs/html.vue';
 import Switch from './inputs/switch.vue';
 import Upload from './inputs/upload/upload.vue';
 import FieldGroup from './inputs/group.vue';
@@ -139,6 +143,7 @@ export default {
         CurrencyField,
         TextArea,
         Checkbox,
+        CustomHtml:CustomHTML,
         BooleanSwitch: Switch,
         FieldGroup,
         ContentSelect,
@@ -536,6 +541,7 @@ export default {
                 case 'options':
                 case 'button':
                 case 'type-select':
+                case 'html':
                     break;
                 case 'password':
                     return 'textfield';

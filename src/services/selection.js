@@ -1,4 +1,5 @@
-import { reactive, watchEffect } from 'vue';
+import { reactive, watch } from 'vue';
+import { EventDispatcher } from '@qikdev/sdk';
 
 export default function(options) {
 
@@ -8,7 +9,7 @@ export default function(options) {
 
     ///////////////////////////////////
 
-    const service = {}
+    const service = EventDispatcher({})
 
     ///////////////////////////////////
 
@@ -17,7 +18,8 @@ export default function(options) {
 
     ///////////////////////////////////
 
-    watchEffect(function() {
+
+    watch(selection, function() {
         recreateHash();
     });
 
@@ -33,6 +35,7 @@ export default function(options) {
             set[id] = item;
             return set;
         }, {});
+
     }
     ///////////////////////////////////
 
@@ -40,7 +43,8 @@ export default function(options) {
         return hash[item._id || item.id];
     }
 
-    service.select = function(item) {
+    service.select = function(item, ignoreDispatch) {
+
 
         //If there is a limit set
         if (maximum) {
@@ -60,9 +64,14 @@ export default function(options) {
 
         //Add the item into the selection array
         selection.push(item);
+
+        if (!ignoreDispatch) {
+            service.dispatch('change', selection);
+        }
     }
 
-    service.deselect = function(item) {
+    service.deselect = function(item, ignoreDispatch) {
+
 
         //If we can only select one item
         //then just clear the selection
@@ -77,44 +86,60 @@ export default function(options) {
         })
 
         //If there was no index found
-        if(index == -1) {
+        if (index == -1) {
             return;
         }
 
         //remove it from the array
         selection.splice(index, 1);
+        if (!ignoreDispatch) {
+            service.dispatch('change', selection);
+        }
+
     }
 
-    service.toggle = function(item) {
+    service.toggle = function(item, ignoreDispatch) {
+
         if (service.isSelected(item)) {
-            service.deselect(item);
+            service.deselect(item, ignoreDispatch);
         } else {
-            service.select(item);
+            service.select(item, ignoreDispatch);
         }
     }
 
     service.selectMultiple = function(array) {
+
+
         array.forEach(function(item) {
-            service.select(item);
+            service.select(item, true);
         })
+
+        service.dispatch('change', selection);
     }
 
     service.deselectMultiple = function(array) {
+
+
         array.forEach(function(item) {
-            service.deselect(item);
+            service.deselect(item, true);
         })
+
+        service.dispatch('change', selection);
     }
 
     service.setSelection = function(array) {
+
+
         selection.length = 0;
         setTimeout(function() {
             service.selectMultiple(array);
         })
-        
+
     }
 
     service.deselectAll = function() {
         selection.length = 0;
+        service.dispatch('change', selection);
     }
 
     ///////////////////////////////////

@@ -141,6 +141,7 @@ export default function getDefaultValue(fieldData, currentValue) {
             }
             break;
         case 'group':
+
             if (fieldData.asObject) {
                 var number = ask;
                 if (multiValue) {
@@ -205,6 +206,7 @@ export default function getDefaultValue(fieldData, currentValue) {
             }
             break;
         default:
+
             if (multiValue) {
                 if (defaultValues.length) {
                     output = defaultValues.slice(0, maximum);

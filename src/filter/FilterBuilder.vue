@@ -9,7 +9,8 @@
                     </native-select> of the following rules
                 </div>
             </div>
-            <filter-rule :enableRemove="model.filters.length > 1" :key="`rule-${index}`" @remove="removeRule(index)" :definition="definition" v-model="model.filters[index]" :index="index" v-for="(rule, index) in model.filters" />
+            <!-- :enableRemove="model.filters.length > 1" -->
+            <filter-rule  enableRemove :key="`rule-${index}`" @remove="removeRule(index)" :definition="definition" v-model="model.filters[index]" :index="index" v-for="(rule, index) in model.filters" />
             <ux-button @click="addRule()">Add Filter Rule</ux-button>
         </div>
         </flex-body>

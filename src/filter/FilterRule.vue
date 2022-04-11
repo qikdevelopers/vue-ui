@@ -10,7 +10,7 @@
                     </div>
                 </flex-cell>
                 <flex-cell @click="$emit('remove')" shrink v-if="enableRemove">
-                    <ux-button icon>
+                    <ux-button size="sm" icon>
                         <ux-icon icon="fa-trash" />
                     </ux-button>
                 </flex-cell>
@@ -109,6 +109,8 @@ export default {
                     break;
             }
         },
+
+        
         fields() {
             var allFields = [...this.definition.fields];
             var definedFields = this.definition.definedFields || [];

@@ -1,7 +1,7 @@
 <template>
     <div class="ux-multi-group" v-if="multiValue">
-        <panel ref="row" :key="entry" v-for="(entry, index) in model">
-            <panel-header>
+        <ux-panel ref="row" :key="entry" v-for="(entry, index) in model">
+            <ux-panel-header>
                 <flex-row>
                     <flex-cell vcenter>
                         <div>
@@ -9,11 +9,11 @@
                         </div>
                     </flex-cell>
                 </flex-row>
-            </panel-header>
-            <panel-body>
+            </ux-panel-header>
+            <ux-panel-body>
                 <ux-render :fields="fields" :flex="sameLine" :parentModel="parentModel" v-model="model[index]" />
-            </panel-body>
-        </panel>
+            </ux-panel-body>
+        </ux-panel>
     </div>
     <template v-else>
         <ux-render :fields="fields" :flex="sameLine" :parentModel="parentModel" v-model="model" />
