@@ -1,5 +1,5 @@
 <template>
-    <component :is="element" :to="to" :href="href" :target="target" :class="class" class="ux-link">
+    <component @click="clicked" :is="element" :to="to" :href="href" :target="target" :class="class" class="ux-link">
         <slot />
     </component>
 </template>
@@ -19,7 +19,19 @@ export default {
             type: Boolean,
         }
     },
+    methods:{
+        clicked(event) {
+            var self = this;
+
+            if(self.buildMode) {
+                self.$qik.app.to(self.to);
+            }
+        },
+    },
     computed: {
+        buildMode() {
+            return !!this.$qik && this.$qik.app && this.$qik.app.builder;
+        },
         class() {
 
             var array = [];

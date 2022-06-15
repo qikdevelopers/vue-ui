@@ -216,6 +216,7 @@ export default {
 
             //What is the value for this field right now?
             var existingData = this.fieldModel;
+            var hasExistingData = existingData || existingData === false || existingData === 0;
             var proposedDefaultValue = this.fieldDefaultValue;
 
             ///////////////////////////////////////////
@@ -224,9 +225,7 @@ export default {
             var proposedString = JSON.stringify(this.cleanOutput(proposedDefaultValue));
 
             //We already have data
-
-
-            if (existingData && (existingString != proposedString)) {
+            if (hasExistingData && (existingString != proposedString)) {
                 this.isDirty = true;
                 this.isDirtyBeforeInput = true;
                 //May as well put it in anyway so it can clean itself if need be
@@ -247,6 +246,9 @@ export default {
             //     currentValue = defaultValue;
             // }
 
+            // if(this.field.key == 'maximum') {
+            //     console.log('CHECKIT', existingData, existingString, proposedString, this.fieldModel)
+            // }
             // ///////////////////////////////////////////
 
             // this.fieldModel = currentValue;
@@ -373,6 +375,7 @@ export default {
         getExpressionValue(result) {
             this.fieldModel = result;
         },
+
     },
     computed: {
         fieldDefaultValue() {
@@ -388,10 +391,14 @@ export default {
                 return Object.assign({}, field, { minimum: 1 });
             }
 
+            if (this.getExpressionReferenceType) {
+                return Object.assign({}, field, { referenceType:this.getExpressionReferenceType });
+            }
+
             return field;
         },
         changeString() {
-            return `${JSON.stringify(this.fieldModel)}-${this.actualField.minimum}`;
+            return `${JSON.stringify(this.fieldModel)}-${this.actualField.minimum}-${this.actualField.referenceType}`;
         },
         valid() {
             return !this.invalid;
@@ -462,6 +469,7 @@ export default {
         getExpressionRequired: computedExpression('required'),
         getExpressionDefaultValue: computedExpression('defaultValue'),
         getExpressionValue: computedExpression('value'),
+        getExpressionReferenceType: computedExpression('referenceType'),
         hasExpressionDefaultValue: hasExpression('defaultValue'),
         expressions() {
             return this.field.expressions;

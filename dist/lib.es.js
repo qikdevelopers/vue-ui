@@ -34,7 +34,7 @@ import { openBlock, createElementBlock, renderSlot, resolveComponent, createBloc
 import ace, { version as version$2 } from "ace-builds";
 import { VAceEditor } from "vue3-ace-editor";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.4";
+const version$1 = "0.1.7";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -449,7 +449,18 @@ const _sfc_main$Q = {
       type: Boolean
     }
   },
+  methods: {
+    clicked(event) {
+      var self2 = this;
+      if (self2.buildMode) {
+        self2.$qik.app.to(self2.to);
+      }
+    }
+  },
   computed: {
+    buildMode() {
+      return !!this.$qik && this.$qik.app && this.$qik.app.builder;
+    },
     class() {
       var array = [];
       if (this.disabled) {
@@ -471,6 +482,7 @@ const _sfc_main$Q = {
 };
 function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createBlock(resolveDynamicComponent($options.element), {
+    onClick: $options.clicked,
     to: $props.to,
     href: $props.href,
     target: $props.target,
@@ -480,9 +492,9 @@ function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
       renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ]),
     _: 3
-  }, 8, ["to", "href", "target", "class"]);
+  }, 8, ["onClick", "to", "href", "target", "class"]);
 }
-var UXLink = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$Q], ["__scopeId", "data-v-98e29600"]]);
+var UXLink = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$Q], ["__scopeId", "data-v-c92454ee"]]);
 var icon_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$P = {
   props: {
@@ -9893,10 +9905,11 @@ const _sfc_main$i = {
   methods: {
     checkDirtyState() {
       var existingData = this.fieldModel;
+      var hasExistingData = existingData || existingData === false || existingData === 0;
       var proposedDefaultValue = this.fieldDefaultValue;
       var existingString = JSON.stringify(this.cleanOutput(existingData));
       var proposedString = JSON.stringify(this.cleanOutput(proposedDefaultValue));
-      if (existingData && existingString != proposedString) {
+      if (hasExistingData && existingString != proposedString) {
         this.isDirty = true;
         this.isDirtyBeforeInput = true;
         this.fieldModel = existingData;
@@ -10024,10 +10037,13 @@ const _sfc_main$i = {
       if (this.getExpressionRequired) {
         return Object.assign({}, field, { minimum: 1 });
       }
+      if (this.getExpressionReferenceType) {
+        return Object.assign({}, field, { referenceType: this.getExpressionReferenceType });
+      }
       return field;
     },
     changeString() {
-      return `${JSON.stringify(this.fieldModel)}-${this.actualField.minimum}`;
+      return `${JSON.stringify(this.fieldModel)}-${this.actualField.minimum}-${this.actualField.referenceType}`;
     },
     valid() {
       return !this.invalid;
@@ -10076,6 +10092,7 @@ const _sfc_main$i = {
     getExpressionRequired: computedExpression("required"),
     getExpressionDefaultValue: computedExpression("defaultValue"),
     getExpressionValue: computedExpression("value"),
+    getExpressionReferenceType: computedExpression("referenceType"),
     hasExpressionDefaultValue: hasExpression("defaultValue"),
     expressions() {
       return this.field.expressions;
@@ -10420,7 +10437,7 @@ function _sfc_render$i(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$d, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["render", _sfc_render$i], ["__scopeId", "data-v-68d6db60"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["render", _sfc_render$i], ["__scopeId", "data-v-25b1ee7a"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$h = {
   props: {
