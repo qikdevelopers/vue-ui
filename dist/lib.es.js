@@ -34,7 +34,7 @@ import { openBlock, createElementBlock, renderSlot, resolveComponent, createBloc
 import ace, { version as version$2 } from "ace-builds";
 import { VAceEditor } from "vue3-ace-editor";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.7";
+const version$1 = "0.1.8";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -8708,8 +8708,12 @@ const _sfc_main$l = {
       this.$emit("update:modelValue", v);
     }
   },
+  mounted() {
+    this.mounted = true;
+  },
   data() {
     return {
+      mounted: false,
       model: this.modelValue
     };
   }
@@ -8717,7 +8721,7 @@ const _sfc_main$l = {
 function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_v_ace_editor = resolveComponent("v-ace-editor");
   const _component_flex_column = resolveComponent("flex-column");
-  return openBlock(), createBlock(_component_flex_column, null, {
+  return $data.mounted ? (openBlock(), createBlock(_component_flex_column, { key: 0 }, {
     default: withCtx(() => [
       createVNode(_component_v_ace_editor, {
         class: "editor-wrap",
@@ -8731,9 +8735,9 @@ function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["value", "onInit", "lang"])
     ]),
     _: 1
-  });
+  })) : createCommentVNode("", true);
 }
-var CodeEditor = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-8bfcc044"]]);
+var CodeEditor = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-00d04fe9"]]);
 var codeEditorField_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$k = {
   components: {
