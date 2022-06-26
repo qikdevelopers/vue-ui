@@ -26,7 +26,7 @@ export default {
             if(self.buildMode || self.nuxtMode) {
                 event.preventDefault();
                 event.stopImmediatePropagation();
-                console.log('hijack spa');
+                console.log('hijack spa', self.$qik.app);
                 return self.$qik.app.to(self.to);
             }
         },
