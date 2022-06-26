@@ -7,6 +7,7 @@
 <script>
 
 
+import { VAceEditor } from 'vue3-ace-editor';
 
 export default {
     components: {
@@ -46,8 +47,6 @@ export default {
         }
     },
 }
-
-
 /**
 import ace from 'ace-builds';
 import { version } from 'ace-builds';
