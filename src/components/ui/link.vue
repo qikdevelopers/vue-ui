@@ -23,8 +23,11 @@ export default {
         clicked(event) {
             var self = this;
 
-            if(self.buildMode) {
-                self.$qik.app.to(self.to);
+            if(self.buildMode || self.nuxtMode) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                console.log('hijack spa');
+                return self.$qik.app.to(self.to);
             }
         },
     },
@@ -37,9 +40,12 @@ export default {
 
             // If we are being rendered in nuxt
             // we need to create the href manually
-            if(this.to && this.$qik.nuxt && this.$qik.app && this.$qik.app.createHref) {
+            if(this.nuxtMode) {
                 return this.$qik.app.createHref(this.to);
             }
+        },
+        nuxtMode() {
+            return this.to && this.$qik.nuxt && this.$qik.app && this.$qik.app.createHref;
         },
         buildMode() {
             return !!this.$qik && this.$qik.app && this.$qik.app.builder;
