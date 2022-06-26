@@ -48,7 +48,7 @@ export default {
         },
         element() {
             if (this.to) {
-                return `router-link`;
+                return this.$qik && this.$qik.nuxt ? `nuxt-link` : `router-link`;
             } else {
                 return 'a';
             }
