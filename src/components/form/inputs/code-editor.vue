@@ -1,17 +1,17 @@
 <template>
     <flex-column v-if="mounted">
 
-        <v-ace-editor class="editor-wrap" v-model:value="model" :options="{ useWorker: true }" @init="editorInit" :lang="lang" theme="tomorrow_night_eighties" style="height: 300px" />
+        <!-- <v-ace-editor class="editor-wrap" v-model:value="model" :options="{ useWorker: true }" @init="editorInit" :lang="lang" theme="tomorrow_night_eighties" style="height: 300px" /> -->
     </flex-column>
 </template>
 <script>
 
 
-import { VAceEditor } from 'vue3-ace-editor';
+// import { VAceEditor } from 'vue3-ace-editor';
 
 export default {
     components: {
-        VAceEditor,
+        // VAceEditor,
     },
     methods: {
         editorInit() {

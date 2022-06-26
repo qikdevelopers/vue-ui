@@ -31,9 +31,8 @@ var __objRest = (source, exclude) => {
   return target;
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
-import { VAceEditor } from "vue3-ace-editor";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.11";
+const version$1 = "0.1.12";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -8680,9 +8679,7 @@ function _sfc_render$m(_ctx, _cache, $props, $setup, $data, $options) {
 var OptionsManager = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["render", _sfc_render$m], ["__scopeId", "data-v-42a51394"]]);
 var codeEditor_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$l = {
-  components: {
-    VAceEditor
-  },
+  components: {},
   methods: {
     editorInit() {
     }
@@ -8717,25 +8714,10 @@ const _sfc_main$l = {
   }
 };
 function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_v_ace_editor = resolveComponent("v-ace-editor");
   const _component_flex_column = resolveComponent("flex-column");
-  return $data.mounted ? (openBlock(), createBlock(_component_flex_column, { key: 0 }, {
-    default: withCtx(() => [
-      createVNode(_component_v_ace_editor, {
-        class: "editor-wrap",
-        value: $data.model,
-        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.model = $event),
-        options: { useWorker: true },
-        onInit: $options.editorInit,
-        lang: $props.lang,
-        theme: "tomorrow_night_eighties",
-        style: { "height": "300px" }
-      }, null, 8, ["value", "onInit", "lang"])
-    ]),
-    _: 1
-  })) : createCommentVNode("", true);
+  return $data.mounted ? (openBlock(), createBlock(_component_flex_column, { key: 0 })) : createCommentVNode("", true);
 }
-var CodeEditor = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-13cbf9c0"]]);
+var CodeEditor = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-30adda03"]]);
 var codeEditorField_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$k = {
   components: {
