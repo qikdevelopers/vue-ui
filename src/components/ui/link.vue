@@ -31,11 +31,15 @@ export default {
     computed: {
         actualHref() {
 
-            if(this.to && this.$qik.nuxt) {
-                return '/test'
+            if(this.href) {
+                return this.href;
             }
 
-            return this.href;
+            // If we are being rendered in nuxt
+            // we need to create the href manually
+            if(this.to && this.$qik.nuxt && this.$qik.app && this.$qik.app.createHref) {
+                return this.$qik.app.createHref(this.to);
+            }
         },
         buildMode() {
             return !!this.$qik && this.$qik.app && this.$qik.app.builder;
