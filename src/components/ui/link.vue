@@ -1,5 +1,5 @@
 <template>
-    <component @click="clicked" :is="element" :to="to" :href="href" :target="target" :class="class" class="ux-link">
+    <component @click="clicked" :is="element" :to="to" :href="actualHref" :target="target" :class="class" class="ux-link">
         <slot />
     </component>
 </template>
@@ -29,6 +29,14 @@ export default {
         },
     },
     computed: {
+        actualHref() {
+
+            if(this.to && this.$qik.nuxt) {
+                return '/test'
+            }
+
+            return this.href;
+        },
         buildMode() {
             return !!this.$qik && this.$qik.app && this.$qik.app.builder;
         },
@@ -48,7 +56,7 @@ export default {
         },
         element() {
             if (this.to) {
-                return this.$qik && this.$qik.nuxt ? `nuxt-link` : `router-link`;
+                return this.$qik && this.$qik.nuxt ? `a` : `router-link`;
             } else {
                 return 'a';
             }
