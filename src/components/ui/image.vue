@@ -144,7 +144,7 @@ export default {
     background-repeat: no-repeat;
     background-color: rgba(#000, 0.1);
     width: 100%;
-    height: auto;
+    height: 0;
     overflow: hidden;
 
     img {

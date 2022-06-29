@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.17";
+const version$1 = "0.1.18";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -453,7 +453,6 @@ const _sfc_main$Q = {
       if (self2.buildMode || self2.nuxtMode) {
         event.preventDefault();
         event.stopImmediatePropagation();
-        console.log("hijack spa", self2.$qik.app);
         return self2.$qik.app.to(self2.to);
       }
     }
@@ -506,7 +505,7 @@ function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["onClick", "to", "href", "target", "class"]);
 }
-var UXLink = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$Q], ["__scopeId", "data-v-2cc918fb"]]);
+var UXLink = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$Q], ["__scopeId", "data-v-0fa2817a"]]);
 var icon_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$P = {
   props: {
@@ -846,7 +845,7 @@ function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
     createElementVNode("img", { src: $options.src }, null, 8, _hoisted_1$F)
   ], 4);
 }
-var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$N, [["render", _sfc_render$N], ["__scopeId", "data-v-542486de"]]);
+var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$N, [["render", _sfc_render$N], ["__scopeId", "data-v-7b68ec1a"]]);
 var progressbar_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$M = {
   props: {
