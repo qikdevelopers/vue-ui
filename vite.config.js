@@ -7,7 +7,7 @@ import libCss from 'vite-plugin-libcss';
 export default defineConfig({
   build: {
     sourcemap: true,
-    cssCodeSplit: true,
+    // cssCodeSplit: true,
     lib: {
       entry: path.resolve('./src/components/index.js'),
       name: '@qikdev/vue-ui',
