@@ -139,32 +139,10 @@ export default {
                 return [];
             }
 
-            var allRoutes = [];
-
-            extractFlat(this.interface.routes);
-
-            function extractFlat(array, depth) {
-                if (!depth) {
-                    depth = 0;
-                }
-
-                array.forEach(function(route) {
-                    if (route.type != 'folder') {
-                        allRoutes.push({ route, depth });
-                    }
-
-                    if (route.routes && route.routes.length) {
-                        extractFlat(route.routes, depth + 1);
-                    }
-                })
-            }
-
-            return allRoutes.map(function({ route, depth }) {
-
-                var prefix = "-".repeat(depth);
+            return this.interface.menus.map(function(menu) {
                 return {
-                    title: `${prefix}${route.title}`,
-                    value: route.name,
+                    title:menu.title,
+                    value:menu.name,
                 }
             })
         },

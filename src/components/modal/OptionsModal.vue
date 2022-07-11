@@ -29,7 +29,7 @@ export default {
 	mixins:[ModalMixin],
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     
 .wrapper {
     border-radius: 0.5em;

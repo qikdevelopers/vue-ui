@@ -83,5 +83,9 @@ export default {
 		max-width: 90%;
 		max-height: 90%;
 	}
+
+	.wrapper {
+		background: #fff;
+	}
 }
 </style>

@@ -2,7 +2,9 @@
     <div class="ux-field" @focusin="focus" @focusout="blur" v-if="visible" :class="classes">
         <template v-if="widget == 'internal-route'">
             <internal-route-select @touched="touch" :field="actualField" v-model="fieldModel" />
-            <pre>{{model}}</pre>
+        </template>
+        <template v-if="widget == 'internal-menu'">
+            <internal-menu-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'html'">
             <custom-html @touched="touch" :field="actualField" v-model="fieldModel" />
@@ -107,6 +109,7 @@ import CodeEditorField from './inputs/code-editor-field.vue';
 
 //Internal Selectors
 import InternalRouteSelect from './internal/InternalRouteSelect.vue';
+import InternalMenuSelect from './internal/InternalMenuSelect.vue';
 
 ////////////////
 
@@ -153,6 +156,7 @@ function computedExpression(key) {
 export default {
     components: {
         InternalRouteSelect,
+        InternalMenuSelect,
         ButtonSelect,
         NativeSelect,
         DateField,
@@ -387,15 +391,26 @@ export default {
         actualField() {
 
             var field = this.field;
+            var actual = field;
+
             if (this.getExpressionRequired) {
-                return Object.assign({}, field, { minimum: 1 });
+                actual = Object.assign({}, actual, { minimum: 1 });
             }
 
             if (this.getExpressionReferenceType) {
-                return Object.assign({}, field, { referenceType:this.getExpressionReferenceType });
+                actual = Object.assign({}, actual, { referenceType:this.getExpressionReferenceType });
             }
 
-            return field;
+            if (this.getExpressionWidgetType) {
+                actual = Object.assign({}, actual, { widget:this.getExpressionWidgetType });
+            }
+
+            if (this.getExpressionSyntax) {
+
+                actual = Object.assign({}, actual, { syntax:this.getExpressionSyntax });
+            }
+
+            return actual;
         },
         changeString() {
             return `${JSON.stringify(this.fieldModel)}-${this.actualField.minimum}-${this.actualField.referenceType}`;
@@ -470,6 +485,8 @@ export default {
         getExpressionDefaultValue: computedExpression('defaultValue'),
         getExpressionValue: computedExpression('value'),
         getExpressionReferenceType: computedExpression('referenceType'),
+        getExpressionWidgetType:computedExpression('widget'),
+        getExpressionSyntax:computedExpression('syntax'),
         hasExpressionDefaultValue: hasExpression('defaultValue'),
         expressions() {
             return this.field.expressions;
@@ -575,6 +592,7 @@ export default {
             ///////////////////////////////
 
             switch (widget) {
+                case 'internal-menu':
                 case 'internal-route':
                 case 'content-select':
                 case 'select':

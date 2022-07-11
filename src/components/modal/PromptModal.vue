@@ -56,12 +56,13 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .wrapper {
     border-radius: 0.5em;
     overflow: hidden;
     background: #fff;
     text-align: left;
+    display: flex;
 
     h5 {
         font-size: 1.2em;
