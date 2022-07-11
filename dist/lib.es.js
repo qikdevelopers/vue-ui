@@ -31,9 +31,8 @@ var __objRest = (source, exclude) => {
   return target;
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
-import { VAceEditor } from "vue3-ace-editor";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.21";
+const version$1 = "0.1.23";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -8693,9 +8692,7 @@ function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
 var OptionsManager = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$n], ["__scopeId", "data-v-42a51394"]]);
 var codeEditor_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$m = {
-  components: {
-    VAceEditor
-  },
+  components: {},
   methods: {
     editorInit() {
     }
@@ -8748,7 +8745,7 @@ function _sfc_render$m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   })) : createCommentVNode("", true);
 }
-var CodeEditor = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["render", _sfc_render$m], ["__scopeId", "data-v-75a102c6"]]);
+var CodeEditor = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["render", _sfc_render$m], ["__scopeId", "data-v-dc659dc4"]]);
 var codeEditorField_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$l = {
   components: {
