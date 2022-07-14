@@ -8,11 +8,11 @@
 
 
 
-import { VAceEditor } from 'vue3-ace-editor';
+// import { VAceEditor } from 'vue3-ace-editor';
 
 export default {
     components: {
-        VAceEditor,
+        // VAceEditor,
     },
     methods: {
         editorInit() {

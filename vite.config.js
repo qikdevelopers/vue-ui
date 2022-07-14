@@ -17,8 +17,8 @@ export default defineConfig({
       external: [
         'vue', 
         '@qikdev/sdk',
-        'ace-builds',
-        'vue3-ace-editor',
+        // 'ace-builds',
+        // 'vue3-ace-editor',
       ],
       output: {
         // Provide global variables to use in the UMD build
@@ -26,8 +26,8 @@ export default defineConfig({
         // exports: 'named',
         globals: {
           vue: 'Vue',
-          'ace-builds':'ace-builds',
-          'vue3-ace-editor':'vue3-ace-editor',
+          // 'ace-builds':'ace-builds',
+          // 'vue3-ace-editor':'vue3-ace-editor',
           '@qikdev/sdk':'@qikdev/sdk',
         },
       },
