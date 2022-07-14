@@ -1,6 +1,6 @@
 {
   "name": "@qikdev/vue-ui",
-  "version": "0.1.23",
+  "version": "0.1.30",
   "files": [
     "dist"
   ],
@@ -35,7 +35,7 @@
     "preview": "vite preview"
   },
   "peerDependencies":{
-    "@qikdev/sdk": "^0.1.25"
+    "@qikdev/sdk": "^0.1.30"
   },
   "dependencies": {
     "ace-builds": "^1.4.14",

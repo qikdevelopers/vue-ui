@@ -31,8 +31,10 @@ var __objRest = (source, exclude) => {
   return target;
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
+import ace, { version as version$2 } from "ace-builds";
+import { VAceEditor } from "vue3-ace-editor";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.23";
+const version$1 = "0.1.30";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -8691,8 +8693,11 @@ function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
 }
 var OptionsManager = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$n], ["__scopeId", "data-v-42a51394"]]);
 var codeEditor_vue_vue_type_style_index_0_scoped_true_lang = "";
+ace.config.set("basePath", `https://cdn.jsdelivr.net/npm/ace-builds@${version$2}/src-noconflict/`);
 const _sfc_main$m = {
-  components: {},
+  components: {
+    VAceEditor
+  },
   methods: {
     editorInit() {
     }
@@ -8745,7 +8750,7 @@ function _sfc_render$m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   })) : createCommentVNode("", true);
 }
-var CodeEditor = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["render", _sfc_render$m], ["__scopeId", "data-v-dc659dc4"]]);
+var CodeEditor = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["render", _sfc_render$m], ["__scopeId", "data-v-22de0edd"]]);
 var codeEditorField_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$l = {
   components: {
@@ -10220,6 +10225,9 @@ const _sfc_main$i = {
       if (this.getExpressionWidgetType) {
         actual = Object.assign({}, actual, { widget: this.getExpressionWidgetType });
       }
+      if (this.getExpressionOptions) {
+        actual = Object.assign({}, actual, { options: this.getExpressionOptions });
+      }
       if (this.getExpressionSyntax) {
         actual = Object.assign({}, actual, { syntax: this.getExpressionSyntax });
       }
@@ -10277,6 +10285,7 @@ const _sfc_main$i = {
     getExpressionValue: computedExpression("value"),
     getExpressionReferenceType: computedExpression("referenceType"),
     getExpressionWidgetType: computedExpression("widget"),
+    getExpressionOptions: computedExpression("options"),
     getExpressionSyntax: computedExpression("syntax"),
     hasExpressionDefaultValue: hasExpression("defaultValue"),
     expressions() {
@@ -10629,7 +10638,7 @@ function _sfc_render$i(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$d, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["render", _sfc_render$i], ["__scopeId", "data-v-4b76fa7d"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["render", _sfc_render$i], ["__scopeId", "data-v-41ce4fe8"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$h = {
   props: {
