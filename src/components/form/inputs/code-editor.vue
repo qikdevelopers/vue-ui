@@ -6,11 +6,7 @@
 </template>
 <script>
 
-/**/
-import ace from 'ace-builds';
-import { version } from 'ace-builds';
-ace.config.set("basePath", `https://cdn.jsdelivr.net/npm/ace-builds@${version}/src-noconflict/`)
-/**/
+
 
 import { VAceEditor } from 'vue3-ace-editor';
 
