@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.33";
+const version$1 = "0.1.34";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -411,6 +411,12 @@ const _sfc_main$S = {
       default() {
         return false;
       }
+    },
+    loading: {
+      type: Boolean,
+      default() {
+        return false;
+      }
     }
   },
   computed: {
@@ -421,16 +427,27 @@ const _sfc_main$S = {
       } else {
         array.push(`ux-switch-false`);
       }
+      if (this.loading) {
+        array.push(`ux-switch-loading`);
+      }
       return array;
     }
   }
 };
 function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_ux_icon = resolveComponent("ux-icon");
   return openBlock(), createElementBlock("a", {
     class: normalizeClass(["ux-switch", $options.classes])
-  }, null, 2);
+  }, [
+    createElementVNode("span", null, [
+      createVNode(_component_ux_icon, {
+        spin: "",
+        icon: "fa-spinner"
+      })
+    ])
+  ], 2);
 }
-var UXSwitch = /* @__PURE__ */ _export_sfc(_sfc_main$S, [["render", _sfc_render$S], ["__scopeId", "data-v-7c22b478"]]);
+var UXSwitch = /* @__PURE__ */ _export_sfc(_sfc_main$S, [["render", _sfc_render$S], ["__scopeId", "data-v-4063e9b5"]]);
 var link_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$R = {
   props: {
@@ -4984,11 +5001,17 @@ const _sfc_main$G = {
     open() {
       var self2 = this;
       self2.touch();
-      self2.$qik.browse(this.field.referenceType, {
+      var modalOptions = {
         field: self2.field,
         model: self2.multiValue ? self2.value : [self2.value].filter(Boolean),
-        maximum: self2.field.maximum
-      }).then(function(newSelection) {
+        maximum: self2.field.maximum,
+        browserOptions: {
+          columns: self2.field.columns,
+          select: self2.field.select
+        }
+      };
+      console.log("Modal options", modalOptions);
+      self2.$qik.browse(this.field.referenceType, modalOptions).then(function(newSelection) {
         self2.model = self2.multiValue ? newSelection : newSelection[0];
       }).catch(function(err) {
         console.log("Error", err);
@@ -5143,7 +5166,7 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["onClick"])
   ], 64);
 }
-var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$G, [["render", _sfc_render$G], ["__scopeId", "data-v-19e783ac"]]);
+var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$G, [["render", _sfc_render$G], ["__scopeId", "data-v-858ab1cc"]]);
 var typeSelect_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined$4(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
@@ -16931,12 +16954,16 @@ const _sfc_main$5 = {
       return this.definition.plural;
     },
     selectFields() {
-      return this.columns.map(function(column) {
+      var fields = this.columns.map(function(column) {
         if (column.fields) {
           return [column.key, ...column.fields];
         }
         return column.key;
       }).flat();
+      if (this.options.select) {
+        fields = [...fields, ...this.options.select];
+      }
+      return fields;
     },
     columns() {
       let columns = [];
@@ -16945,6 +16972,17 @@ const _sfc_main$5 = {
         set[column.key] = 1;
         return set;
       }, {});
+      var augmentColumns = this.options.columns || [];
+      augmentColumns.forEach(function(field) {
+        if (!existingColumns[field.key]) {
+          existingColumns[field.key] = 1;
+          columns.push({
+            title: field.title,
+            key: field.path,
+            type: field.type
+          });
+        }
+      });
       var additionalFields = this.additionalFields;
       additionalFields.forEach(function(field) {
         if (!existingColumns[field.key]) {
@@ -17117,7 +17155,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-41c6f78a"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-3bfbea74"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { class: "footer" };
 function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
@@ -17286,7 +17324,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-41c6f78a"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-3bfbea74"]]);
 var ModalMixin = {
   props: {
     options: {
@@ -17641,7 +17679,7 @@ const _sfc_main = {
       return this.options.maximum || 0;
     },
     browserOptions() {
-      return {};
+      return this.options.browserOptions || {};
     }
   },
   data() {
@@ -17752,7 +17790,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var QikContentModal = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-26046182"]]);
+var QikContentModal = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-2efc11d9"]]);
 function device() {
   var service2 = reactive({
     mounted: false,

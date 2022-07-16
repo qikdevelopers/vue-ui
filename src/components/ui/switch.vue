@@ -1,11 +1,24 @@
 <template>
-    <a class="ux-switch" :class="classes"/>
+    <a class="ux-switch" :class="classes">
+        <span><ux-icon spin icon="fa-spinner"/></span>
+    </a>
     
 </template>
 <script>
+// import UxIcon from './icon.vue';
+
 export default {
+    // components:{
+        // UxIcon,
+    // },
     props: {
         value: {
+            type: Boolean,
+            default () {
+                return false;
+            }
+        },
+        loading: {
             type: Boolean,
             default () {
                 return false;
@@ -20,6 +33,11 @@ export default {
             } else {
                 array.push(`ux-switch-false`);
             }
+
+            if(this.loading) {
+                array.push(`ux-switch-loading`);
+            }
+
             return array;
         },
     },
@@ -50,8 +68,7 @@ export default {
     vertical-align: top;
 
 
-    &:after {
-        content: '';
+    span {
         display: block;
         background: #fff;
         height: 100%;
@@ -67,13 +84,26 @@ export default {
         box-shadow: 0 0 2em rgba(#000, 0.3);
         transition: transform 0.3s;
         transform: scale(0.8);
+        color: rgba(#000, 0.5);
+
+        i {
+            display: none;
+            position: relative;
+            top:-2px;
+        }
     }
 
     &:hover {
         border: 1px solid $primary;
 
-        &:after {
+        span {
             transform: scale(1);
+        }
+    }
+
+    &.ux-switch-loading {
+        span i {
+            display: inline-block;
         }
     }
 
@@ -81,7 +111,7 @@ export default {
         background: $primary;
         // border-color: #fff;
 
-        &:after {
+        span {
             transform:  translateX(100%);
         }
     }

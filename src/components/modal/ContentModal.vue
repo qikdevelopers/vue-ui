@@ -24,6 +24,7 @@
                         </flex-row>
                     </div>
                 </flex-header>
+               
                 <content-browser ref="browser" :search="search" @click:row="rowClicked" :maximum="options.maximum" v-model="model" :type="options.type" :options="browserOptions">
                 </content-browser>
             </template>
@@ -71,7 +72,7 @@ export default {
             return this.options.maximum || 0;
         },
         browserOptions() {
-            return {}
+            return this.options.browserOptions || {};
         },
     },
     data() {

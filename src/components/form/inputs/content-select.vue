@@ -89,11 +89,21 @@ export default {
             var self = this;
             self.touch();
 
-            self.$qik.browse(this.field.referenceType, {
+
+            var modalOptions = {
                     field: self.field,
                     model: self.multiValue ? self.value : [self.value].filter(Boolean),
                     maximum: self.field.maximum,
-                })
+                    browserOptions:{
+                        columns:self.field.columns,
+                        select:self.field.select,
+                    }
+                }
+
+                console.log('Modal options', modalOptions)
+
+
+            self.$qik.browse(this.field.referenceType, modalOptions)
                 .then(function(newSelection) {
                     self.model = self.multiValue ? newSelection : newSelection[0];
                 })

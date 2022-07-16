@@ -429,6 +429,7 @@ export default {
                 allFields.push(customFields);
             }
 
+
             var mapped = this.$qik.utils.mapFields(allFields)
                 .filter(function(field) {
                     var isObject = field.type == 'group' && field.asObject && (field.minimum == 1 && field.maximum == 1);
@@ -464,13 +465,21 @@ export default {
             return this.definition.plural;
         },
         selectFields() {
-            return this.columns.map(function(column) {
+
+           
+            var fields =  this.columns.map(function(column) {
                 if (column.fields) {
                     return [column.key, ...column.fields];
                 }
                 return column.key;
 
             }).flat()
+
+            if(this.options.select) {
+                fields = [...fields, ...this.options.select];
+            }
+
+            return fields;
         },
         columns() {
 
@@ -486,6 +495,22 @@ export default {
                 return set;
             }, {})
 
+
+            /////////////////////////////////////
+
+            var augmentColumns = (this.options.columns || []);
+
+            augmentColumns.forEach(function(field) {
+                if (!existingColumns[field.key]) {
+                    existingColumns[field.key] = 1;
+                    columns.push({
+                        title: field.title,
+                        key: field.path,
+                        type: field.type,
+                    })
+                }
+            })
+
             /////////////////////////////////////
 
             var additionalFields = this.additionalFields;
@@ -500,6 +525,8 @@ export default {
                     })
                 }
             })
+
+
 
 
 
