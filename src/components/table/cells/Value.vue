@@ -14,6 +14,9 @@ export default {
 		},
 		type:{
 			type:String,
+		},
+		widget:{
+			type:String,
 		}
 	},
 	computed:{
@@ -25,6 +28,22 @@ export default {
 		},
 		date() {
 			return DateTime.fromISO(this.value).toFormat('dd MMM yyyy');
+		},
+		actualWidget() {
+
+			var widget;
+
+			if(this.widget) {
+				widget = this.widget;
+			} else {
+				switch(this.type) {
+					case 'date':
+						widget = 'datetime';
+					break;
+				}
+			}
+			
+			return widget;	
 		}
 	},
 	methods:{

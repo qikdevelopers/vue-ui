@@ -1,6 +1,6 @@
 <template>
     <!-- :type="nativeType" -->
-    <component :is="element" :loading="loading" :to="to" :href="href" :target="target" :style="style" :class="classes" :disabled="disabled" class="ux-btn">
+    <component :is="element" :active="active" :loading="loading" :to="to" :href="href" :target="target" :style="style" :class="classes" :disabled="disabled" class="ux-btn">
         <spinner v-if="loading" />
         <span class="ux-btn-text">
             <slot />
@@ -42,6 +42,9 @@ export default {
         loading: {
             type: Boolean,
         },
+        active:{
+            type:Boolean,
+        },
         disabled: {
             type: Boolean,
         },
@@ -81,6 +84,10 @@ export default {
 
             if (this.loading) {
                 array.push(`ux-btn-loading`);
+            }
+
+            if (this.active) {
+                array.push(`ux-btn-active`);
             }
 
             if (this.icon) {
@@ -191,6 +198,11 @@ export default {
         opacity: 0 !important;
     }
 }
+
+
+
+
+
 
 
 

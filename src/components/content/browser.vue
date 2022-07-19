@@ -465,8 +465,6 @@ export default {
             return this.definition.plural;
         },
         selectFields() {
-
-           
             var fields =  this.columns.map(function(column) {
                 if (column.fields) {
                     return [column.key, ...column.fields];
@@ -485,10 +483,7 @@ export default {
 
             let columns = [];
 
-
             columns = defaultColumns(this, this.basicType);
-
-
 
             var existingColumns = columns.reduce(function(set, column) {
                 set[column.key] = 1;
@@ -499,14 +494,13 @@ export default {
             /////////////////////////////////////
 
             var augmentColumns = (this.options.columns || []);
-
-            augmentColumns.forEach(function(field) {
-                if (!existingColumns[field.key]) {
-                    existingColumns[field.key] = 1;
+            
+            augmentColumns.forEach(function(col) {
+                if (!existingColumns[col.path || col.key]) {
+                    existingColumns[col.path || col.key] = 1;
                     columns.push({
-                        title: field.title,
-                        key: field.path,
-                        type: field.type,
+                        ...col,
+                        key: col.path || col.key,
                     })
                 }
             })
@@ -516,19 +510,15 @@ export default {
             var additionalFields = this.additionalFields;
             additionalFields.forEach(function(field) {
 
-                if (!existingColumns[field.key]) {
-                    existingColumns[field.key] = 1;
+                if (!existingColumns[field.path || field.key]) {
+                    existingColumns[field.path || field.key] = 1;
                     columns.push({
                         title: field.title,
-                        key: field.path,
+                        key: field.path || field.key,
                         type: field.type,
                     })
                 }
             })
-
-
-
-
 
             /////////////////////////////////////
 

@@ -26,6 +26,7 @@ import { defineAsyncComponent } from 'vue';
 
 import ThumbnailCell from './cells/Thumbnail.vue';
 import ButtonCell from './cells/Button.vue';
+import DateCell from './cells/DateCell.vue';
 import ValueRenderer from './cells/Value.vue';
 
 export default {
@@ -44,14 +45,25 @@ export default {
 
         ///////////////////////////////
 
-        switch (this.column.renderer) {
+        switch (self.column.renderer) {
             case 'button':
-            component = ButtonCell;
+                component = ButtonCell;
+                break;
+            case 'date':
+            case 'datetime':
+                component = DateCell;
                 break;
             case 'thumbnail':
                 // simple usage
                 component = ThumbnailCell;
                 break;
+            default:
+                switch(self.column.type) {
+                    case 'date':
+                        component = DateCell;
+                    break;
+                }
+            break;
         }
 
         ///////////////////////////////
