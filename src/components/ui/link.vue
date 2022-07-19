@@ -31,6 +31,7 @@ export default {
         },
     },
     computed: {
+
         actualHref() {
 
             if(this.href) {
@@ -64,8 +65,17 @@ export default {
             return array;
         },
         element() {
+
+            if(this.nuxtMode) {
+                return 'a';
+            }
+
+            if(this.buildMode) {
+                return 'a';
+            }
+
             if (this.to) {
-                return this.$qik && this.$qik.nuxt ? `a` : `router-link`;
+                return `router-link`;
             } else {
                 return 'a';
             }
