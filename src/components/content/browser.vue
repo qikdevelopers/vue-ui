@@ -5,7 +5,7 @@
                 <flex-row>
                     <flex-column v-if="items.length">
                         <template v-if="viewMode && viewMode.component">
-                            <component :is="viewMode.component" :selection="manager.items" :items="items"  @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked"/>
+                            <component :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
                         </template>
                         <template v-else>
                             <native-table :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
@@ -18,7 +18,6 @@
                                         </template>
                                         <ux-list>
                                             <ux-list-item @click="toggleField(field)" v-for="field in fields">
-
                                                 <ux-icon :icon="fieldEnabled[field.path] ? 'fa-check-square' : 'fa-regular fa-square' " left /> {{field.title}}
                                             </ux-list-item>
                                             <!-- <ux-list-item @click="selectPage()">
@@ -58,7 +57,7 @@
             <flex-footer>
                 <slot name="footera"></slot>
                 <div class="footer">
-                    <pager v-model:page="page" :total="totalItems"/>
+                    <pager v-model:page="page" :total="totalItems" />
                 </div>
                 <slot name="footerb"></slot>
             </flex-footer>
@@ -107,25 +106,25 @@ function defaultColumns(self, type) {
             columns.push({
                 title: 'First Name',
                 key: 'firstName',
-                // shrink: true,
+                shrink: true,
             })
 
             columns.push({
                 title: 'Last Name',
                 key: 'lastName',
-                // shrink: true,
+                shrink: true,
             })
 
             columns.push({
                 title: 'Gender',
                 key: 'gender',
-                // shrink: true,
+                shrink: true,
             })
 
             columns.push({
                 title: 'Age',
                 key: 'age',
-                // shrink: true,
+                shrink: true,
             })
             break;
         case 'definition':
@@ -195,15 +194,19 @@ function defaultColumns(self, type) {
             columns.push({
                 title: 'Mime Type',
                 key: 'fileMime',
-                // shrink: true,
-            })
-
-
-            columns.push({
-                title: 'File Type',
-                key: 'mediaIntegrationType',
                 shrink: true,
             })
+
+            switch (type) {
+                case 'image':
+                case 'video':
+                    columns.push({
+                        title: 'Media Type',
+                        key: 'mediaIntegrationType',
+                        shrink: true,
+                    })
+                    break;
+            }
 
             break;
     }
@@ -271,10 +274,10 @@ export default {
     props: {
         view: {
             type: Object,
-            default() {
+            default () {
                 return {
-                    title:'List',
-                    key:'table',
+                    title: 'List',
+                    key: 'table',
                 }
             },
         },
@@ -314,6 +317,10 @@ export default {
             type: Object,
         },
         enableActions: {
+            type: Boolean,
+            default: false,
+        },
+        trash: {
             type: Boolean,
             default: false,
         },
@@ -381,11 +388,11 @@ export default {
         viewMode() {
             var view = this.view;
 
-            switch(view.key) {
+            switch (view.key) {
                 case 'list':
                 case 'table':
                     return;
-                break;
+                    break;
             }
 
             return view;
@@ -465,16 +472,25 @@ export default {
             return this.definition.plural;
         },
         selectFields() {
-            var fields =  this.columns.map(function(column) {
-                if (column.fields) {
-                    return [column.key, ...column.fields];
-                }
-                return column.key;
+            const self = this;
 
+            var fields = self.columns.map(function(column) {
+                // if (column.fields) {
+                //     return [column.key, ...column.fields];
+                // }
+                return column.path || column.key;
             }).flat()
+            // .map(function(field) {
+            //     return field.key || field
+            // })
 
-            if(this.options.select) {
-                fields = [...fields, ...this.options.select];
+
+            // var fields =  self.columns.map(function(column) {
+            //     return column.key;
+            // }).flat()
+
+            if (self.options.select) {
+                fields = [...fields, ...self.options.select];
             }
 
             return fields;
@@ -482,57 +498,71 @@ export default {
         columns() {
 
             let columns = [];
-
-            columns = defaultColumns(this, this.basicType);
-
-            var existingColumns = columns.reduce(function(set, column) {
-                set[column.key] = 1;
-                return set;
-            }, {})
-
+            let columnHash = {};
 
             /////////////////////////////////////
 
-            var augmentColumns = (this.options.columns || []);
-            
-            augmentColumns.forEach(function(col) {
-                if (!existingColumns[col.path || col.key]) {
-                    existingColumns[col.path || col.key] = 1;
-                    columns.push({
-                        ...col,
-                        key: col.path || col.key,
-                    })
+            function addColumn(force) {
+                return function(col) {
+                    var alreadySelected = columnHash[col.path || col.key];
+                    if (force || !alreadySelected) {
+                        columnHash[col.path || col.key] = 1;
+                        columns.push({
+                            ...col,
+                            key: col.path || col.key,
+                        })
+                    }
                 }
-            })
+            }
+
 
             /////////////////////////////////////
 
+
+            // If the interface is forcing to prefix columns
+            var prefixColumns = (this.options.prefixColumns || []);
+            prefixColumns.forEach(addColumn(true))
+
+            /////////////////////////////////////
+
+            //Add the default columns
+            var optionColumns = this.options.columns;
+            var basicColumns = optionColumns && optionColumns.length ? optionColumns : defaultColumns(this, this.basicType);
+
+            if (!basicColumns.length) {
+                basicColumns.push({
+                    title: 'Title',
+                    key: 'title',
+                })
+            }
+
+            basicColumns.forEach(addColumn(true))
+
+            // //Create a hash
+            // columnHash = { ...columnHash,
+            //     ...columns.reduce(function(set, column) {
+            //         set[column.key] = 1;
+            //         return set;
+            //     }, {})
+            // }
+
+
+            /////////////////////////////////////
+
+            // If the user has selected extra fields manually
             var additionalFields = this.additionalFields;
-            additionalFields.forEach(function(field) {
+            additionalFields.forEach(addColumn())
 
-                if (!existingColumns[field.path || field.key]) {
-                    existingColumns[field.path || field.key] = 1;
-                    columns.push({
-                        title: field.title,
-                        key: field.path || field.key,
-                        type: field.type,
-                    })
-                }
-            })
+            /////////////////////////////////////
+
+            // If the interface is forcing to suffix columns
+            var suffixColumns = (this.options.suffixColumns || []);
+            suffixColumns.forEach(addColumn(true))
 
             /////////////////////////////////////
 
             var activeFilters = this.activeFilters;
-            activeFilters.forEach(function(filter) {
-
-                if (!existingColumns[filter.key]) {
-                    existingColumns[filter.key] = 1;
-                    columns.push({
-                        title: filter.key,
-                        key: filter.key,
-                    })
-                }
-            })
+            activeFilters.forEach(addColumn())
 
             /////////////////////////////////////
 
@@ -573,6 +603,8 @@ export default {
         },
         fieldEnabled() {
             var self = this;
+
+
             return self.columns.reduce(function(set, field) {
                 set[field.key] = true;
                 return set;
@@ -602,6 +634,11 @@ export default {
 
             row.meta.type = this.basicType;
             row.meta.definition = this.definition.key;
+
+            if (this.trash) {
+                row.meta.deleted = true;
+            }
+
             return row;
         },
         deselectAll() {
@@ -641,7 +678,7 @@ export default {
         },
         rowClicked(row) {
 
-            
+
             this.$emit('click:row', row);
         },
         actionsClicked(row) {
@@ -678,6 +715,10 @@ export default {
 
             var loadCriteria = Object.assign({}, self.loadCriteria);
             loadCriteria.includeAll = includeAll;
+
+            if (self.trash) {
+                loadCriteria.trash = true;
+            }
 
 
             const { promise, cancel } = await self.$qik.content.list(self.type, loadCriteria, { cancellable: true })
@@ -771,6 +812,6 @@ export default {
     padding: 1em;
     border-top: 1px solid rgba(#000, 0.1);
 
-    
+
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="ux-render" :class="renderClass">
         <slot name="render" :fields="fields">
-            <ux-field-render :field="field" v-model="model" :parentModel="parentModel || model" :key="`ux-render-field-${field.key}-${index}`" :class="fieldClass" v-for="(field, index) in renderFields" />
+            <ux-field-render :submission="submission" :field="field" v-model="model" :parentModel="parentModel || model" :key="`ux-render-field-${field.key}-${index}`" :class="fieldClass" v-for="(field, index) in renderFields" />
         </slot>
     </div>
 </template>
@@ -28,6 +28,10 @@ export default {
         flex: {
             type: Boolean,
             default: false,
+        },
+        submission:{
+            type:Boolean,
+            default:false,
         },
     },
     watch: {

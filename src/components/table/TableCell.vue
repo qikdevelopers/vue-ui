@@ -1,6 +1,7 @@
-<template>
-    <component v-if="component" :is="component" :column="column" :row="row" :value="value" />
+<template>    
+    <component  v-if="component" :is="component" :column="column" :row="row" :value="value" />
     <td v-else class="table-cell">
+
         <template v-if="multiValue">
             <template v-if="complex">
                 <span class="value" v-for="entry in value">
@@ -27,6 +28,7 @@ import { defineAsyncComponent } from 'vue';
 import ThumbnailCell from './cells/Thumbnail.vue';
 import ButtonCell from './cells/Button.vue';
 import DateCell from './cells/DateCell.vue';
+import URLCell from './cells/URLCell.vue';
 import ValueRenderer from './cells/Value.vue';
 
 export default {
@@ -39,13 +41,18 @@ export default {
         ValueRenderer,
     },
     async created() {
-        var self = this;
+        const self = this;
 
-        var component;
+        let component;
 
         ///////////////////////////////
 
-        switch (self.column.renderer) {
+        const cellType = self.column.type;
+        const cellRenderer = self.column.renderer;
+
+        ///////////////////////////////
+
+        switch (cellRenderer) {
             case 'button':
                 component = ButtonCell;
                 break;
@@ -53,22 +60,27 @@ export default {
             case 'datetime':
                 component = DateCell;
                 break;
+            case 'url':
+                component = URLCell;
+                break;
             case 'thumbnail':
-                // simple usage
                 component = ThumbnailCell;
                 break;
             default:
-                switch(self.column.type) {
+                switch(cellType) {
                     case 'date':
                         component = DateCell;
+                    break;
+                    case 'url':
+                        component = URLCell;
                     break;
                 }
             break;
         }
-
+        
         ///////////////////////////////
 
-        this.component = component;
+        self.component = component;
     },
     props: {
         column: {

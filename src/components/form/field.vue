@@ -23,11 +23,14 @@
         </template>
         <template v-if="widget == 'group'">
             <template v-if="asObject">
-                <field-group @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
+                <field-group :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
             </template>
             <template v-else>
-                <field-group @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="sourceModel" />
+                <field-group :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="sourceModel" />
             </template>
+        </template>
+        <template v-if="widget == 'form'">
+                <field-group :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'select'">
             <native-select @touched="touch" :field="actualField" v-model="fieldModel" />
@@ -178,6 +181,10 @@ export default {
         CodeEditorField,
     },
     props: {
+        submission:{
+            type:Boolean,
+            default:false,
+        },
         field: {
             type: Object,
             required: true,
@@ -522,7 +529,7 @@ export default {
             return this.type === 'group'
         },
         asObject() {
-            return this.isGroup && this.actualField.asObject;
+            return this.widget === 'form' || this.isGroup && this.actualField.asObject;
         },
         layoutGroup() {
             return this.isGroup && !this.actualField.asObject;
@@ -597,6 +604,9 @@ export default {
             ///////////////////////////////
 
             switch (widget) {
+                case 'form':
+                    widget = this.submission ? 'form' : 'content-select';
+                break;
                 case 'internal-menu':
                 case 'internal-route':
                 case 'content-select':
@@ -619,6 +629,7 @@ export default {
                 case 'type-select':
                 case 'html':
                 case 'filter':
+                
                     break;
                 case 'password':
                     return 'textfield';

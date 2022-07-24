@@ -22,5 +22,18 @@ export default {
 		font-size: clamp(50px, 10vw, 500px);
 		opacity: 0.5;;
 	}
+
+
+	&[lg] {
+		font-size: 2em;
+	}
+
+	&[xl] {
+		font-size: 4em;
+	}
+
+	&[xx]l {
+		font-size: 6em;
+	}
 }
 </style>

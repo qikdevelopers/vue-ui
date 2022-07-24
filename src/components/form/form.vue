@@ -1,8 +1,7 @@
 <template>
     <div class="ux-form" :class="formClass">
         <slot name="fields" :fields="renderFields" :hash="fieldHash">
-
-            <ux-field ref="field" @field:mount="fieldMounted" @field:unmount="fieldUnmounted" @field:dirty="fieldDirty" @field:invalid="fieldInvalid" @field:valid="fieldValid" @field:error="fieldError" @field:focus="fieldFocus" @field:blur="fieldBlur" @field:touched="fieldTouch" :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="fieldClass" :key="`ux-form-field-${field.key}-${index}`" v-for="(field, index) in renderFields" />
+            <ux-field ref="field" :submission="submission" @field:mount="fieldMounted" @field:unmount="fieldUnmounted" @field:dirty="fieldDirty" @field:invalid="fieldInvalid" @field:valid="fieldValid" @field:error="fieldError" @field:focus="fieldFocus" @field:blur="fieldBlur" @field:touched="fieldTouch" :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="fieldClass" :key="`ux-form-field-${field.key}-${index}`" v-for="(field, index) in renderFields" />
         </slot>
     </div>
 </template>
@@ -31,6 +30,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        submission:{
+            type:Boolean,
+            default:false,
+        }
     },
     watch: {
         modelValue(val, old) {

@@ -11,13 +11,12 @@
                 </flex-row>
             </ux-panel-header>
             <ux-panel-body>
-                <ux-render :fields="fields" :flex="sameLine" :parentModel="parentModel" v-model="model[index]" />
+                <ux-render :submission="submission" :fields="fields" :flex="sameLine" :parentModel="parentModel" v-model="model[index]" />
             </ux-panel-body>
         </ux-panel>
     </div>
     <template v-else>
-        <ux-render :fields="fields" :flex="sameLine" :parentModel="parentModel" v-model="model" />
-        <!-- <ux-form ref="form" @form:state="stateChange"  :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" /> -->
+        <ux-render :submission="submission" :fields="fields" :flex="sameLine" :parentModel="parentModel" v-model="model" />
     </template>
 </template>
 <script>
@@ -28,6 +27,10 @@ export default {
     props: {
         modelValue: {
             type: [Object, Array],
+        },
+        submission:{
+            type:Boolean,
+            default:false,
         },
     },
     computed: {

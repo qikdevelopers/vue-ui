@@ -37,6 +37,7 @@ export { default as UXList } from './ui/list.vue';
 export { default as UXListItem } from './ui/list-item.vue';
 
 export { default as UXForm } from './form/form.vue';
+export { default as UXSubmissionForm } from './form/submissionform.vue';
 export { default as UXFormField } from './form/field.vue';
 export { default as Search } from './form/inputs/search.vue';
 export { default as NativeSelect } from './form/inputs/select.vue';
@@ -106,6 +107,8 @@ import Spinner from './ui/spinner.vue';
 import ProgressBar from './ui/progressbar.vue';
 
 import UXForm from './form/form.vue';
+import UXSubmissionForm from './form/submissionform.vue';
+
 import UXFormField from './form/field.vue';
 
 import UXRender from './content/render/render.vue';
@@ -136,7 +139,9 @@ const defaultComponents = {
     UxList: UXList,
     UxListItem: UXListItem,
     UxForm: UXForm,
+    UxSubmissionForm:UXSubmissionForm,
     UxFormField: UXFormField,
+    UxSubmissionForm: UXSubmissionForm,
     UxRender: UXRender,
     UxRenderField: UXRenderField,
     UxIcon: UXIcon,

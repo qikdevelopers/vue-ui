@@ -48,7 +48,7 @@ import RememberScrollMixin from '../mixins/RememberScroll.js';
 
 
 export default {
-    mixins:[RememberScrollMixin],
+    mixins: [RememberScrollMixin],
     components: {
         TableRow,
         TableCell,
@@ -308,8 +308,29 @@ export default {
             }
         }
 
-        tr.selected {
-            background: rgba(orange, 0.1);
+        tbody {
+            tr.selected {
+
+                &,
+                th.first,
+                td.first,
+                th.last,
+                td.last {
+                    background: #fbf6eb;
+                    color: #8c5732;
+                }
+            }
+
+            tr:hover {
+                &,
+                th.first,
+                td.first,
+                th.last,
+                td.last {
+                    color: #328c8c;
+                    background: #ebfbfb;
+                }
+            }
         }
     }
 }

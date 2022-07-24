@@ -1,135 +1,96 @@
 <template>
     <div class="ux-field-render" v-if="visible" :class="classes">
+
         <label class="ux-field-title">{{title}}</label>
         <div class="ux-field-description">{{field.description}}</div>
-        <template v-if="type == 'reference'">
-            <template v-if="multiValue">
-                <item :key="item._id" :item="item" v-for="(item, index) in fieldModel" />
-            </template>
-            <template v-else>
-                <item :item="fieldModel" />
-            </template>
-        </template>
-        <template v-if="widget == 'group'">
+
+        <template v-if="widget === 'group'">
             <template v-if="asObject">
-                <field-group :field="field" :parentModel="parentModel" v-model="fieldModel" />
+                <field-group :submission="submission" :field="field" :parentModel="parentModel" v-model="fieldModel" />
             </template>
             <template v-else>
-                <field-group :field="field" :parentModel="parentModel" v-model="sourceModel" />
+                <field-group :submission="submission" :field="field" :parentModel="parentModel" v-model="sourceModel" />
             </template>
         </template>
-        <!-- <template v-if="type == 'group'">
-            <template v-if="multiValue">
-                <item :key="item._id" :item="item" v-for="(item, index) in fieldModel" />
+        <template v-else-if="widget === 'form'">
+            <field-group :submission="submission" :field="field" :parentModel="parentModel" v-model="fieldModel" />
+        </template>
+        <template v-else>
+            <template v-if="type === 'reference'">
+                <template v-if="multiValue">
+                    <item :submission="submission" :key="item._id" :item="item" v-for="(item, index) in fieldModel" />
+                </template>
+                <template v-else>
+                    <item :submission="submission" :item="fieldModel" />
+                </template>
             </template>
-            <template v-else>
-                <item :item="fieldModel" />
+            <template v-if="type == 'string'">
+                <template v-if="multiValue">
+                    <div v-for="(value, index) in fieldModel">
+                        {{value}}
+                    </div>
+                </template>
+                <template v-else>
+                    <div>{{fieldModel}}</div>
+                </template>
             </template>
-        </template> -->
-        <template v-if="type == 'string'">
-            <template v-if="multiValue">
-                <div v-for="(value, index) in fieldModel">
-                    {{value}}
-                </div>
+            <template v-if="type == 'boolean'">
+                <template v-if="multiValue">
+                    <div v-for="(value, index) in fieldModel">
+                        {{!!value}}
+                    </div>
+                </template>
+                <template v-else>
+                    <div>{{!!fieldModel}}</div>
+                </template>
             </template>
-            <template v-else>
-                <div>{{fieldModel}}</div>
+            <template v-if="type == 'date'">
+                <template v-if="multiValue">
+                    <div v-for="(value, index) in fieldModel">
+                        {{value}}
+                    </div>
+                </template>
+                <template v-else>
+                    <div>
+                        {{fieldModel}}
+                    </div>
+                </template>
+            </template>
+            <template v-if="type == 'email'">
+                <template v-if="multiValue">
+                    <div v-for="(value, index) in fieldModel">
+                        <a :href="`mailto:${value}`">{{value}}</a>
+                    </div>
+                </template>
+                <template v-else>
+                    <div>
+                        <a :href="`mailto:${fieldModel}`">{{fieldModel}}</a>
+                    </div>
+                </template>
+            </template>
+            <template v-if="type == 'url'">
+                <template v-if="multiValue">
+                    <div v-for="(value, index) in fieldModel">
+                        <a :href="value">{{value}}</a>
+                    </div>
+                </template>
+                <template v-else>
+                    <div>
+                        <a :href="fieldModel">{{fieldModel}}</a>
+                    </div>
+                </template>
+            </template>
+            <template v-if="isNumber">
+                <template v-if="multiValue">
+                    <div v-for="(value, index) in fieldModel">
+                        {{value}}
+                    </div>
+                </template>
+                <template v-else>
+                    <div>{{fieldModel}}</div>
+                </template>
             </template>
         </template>
-        <template v-if="type == 'date'">
-            <template v-if="multiValue">
-                <div v-for="(value, index) in fieldModel">
-                    {{value}}
-                </div>
-            </template>
-            <template v-else>
-                <div>
-                    {{fieldModel}}
-                </div>
-            </template>
-        </template>
-        <template v-if="type == 'email'">
-            <template v-if="multiValue">
-                <div v-for="(value, index) in fieldModel">
-                    <a :href="`mailto:${value}`">{{value}}</a>
-                </div>
-            </template>
-            <template v-else>
-                <div>
-                    <a :href="`mailto:${fieldModel}`">{{fieldModel}}</a>
-                </div>
-            </template>
-        </template>
-        <template v-if="type == 'url'">
-            <template v-if="multiValue">
-                <div v-for="(value, index) in fieldModel">
-                    <a :href="value">{{value}}</a>
-                </div>
-            </template>
-            <template v-else>
-                <div>
-                    <a :href="fieldModel">{{fieldModel}}</a>
-                </div>
-            </template>
-        </template>
-        <template v-if="isNumber">
-            <template v-if="multiValue">
-                <div v-for="(value, index) in fieldModel">
-                    {{value}}
-                </div>
-            </template>
-            <template v-else>
-                <div>{{fieldModel}}</div>
-            </template>
-        </template>
-        <!-- <pre>{{fieldModel}}</pre> -->
-        <!-- <template v-if="widget == 'group'">
-            <template v-if="asObject">
-                <field-group :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
-            </template>
-            <template v-else>
-                <field-group :field="actualField" :parentModel="parentModel" v-model="sourceModel" />
-            </template>
-        </template> -->
-        <!-- <template v-if="widget == 'checkbox'">
-            <checkbox @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        <template v-if="widget == 'switch'">
-            <boolean-switch @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        <template v-if="widget == 'upload'">
-            <upload @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        
-        <template v-if="widget == 'select'">
-            <native-select @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        <template v-if="widget == 'buttons'">
-            <button-select @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        <template v-if="widget == 'textfield'">
-            <text-field @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        <template v-if="widget == 'currency'">
-            <currency-field @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        <template v-if="widget == 'datefield'">
-            <date-field @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        <template v-if="widget == 'content-select'">
-            <content-select @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        <template v-if="widget == 'richtext'">
-            <text-area @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        <template v-if="widget == 'longtext'">
-            <text-area @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
-        <template v-if="widget == 'value'">
-        </template>
-        <div v-if="error && validateResults.message" class="ux-field-message">
-            {{validateResults.message}}
-        </div> -->
     </div>
 </template>
 <script>
@@ -198,6 +159,10 @@ export default {
             type: Object,
             required: true,
         },
+        submission: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
@@ -242,11 +207,14 @@ export default {
         type() {
             return this.field.type || 'string';
         },
+        isEmbedded() {
+            return this.submission && (this.field.widget === 'form' && this.field.type === 'reference');
+        },
         isGroup() {
-            return this.type === 'group'
+            return this.isEmbedded || this.type === 'group'
         },
         asObject() {
-            return this.isGroup && this.field.asObject;
+            return this.isEmbedded || this.isGroup && this.field.asObject;
         },
         isNumber() {
             switch (this.type) {
@@ -293,7 +261,10 @@ export default {
             return this.getExpressionHide;
         },
         visible() {
-            return !this.hidden && this.fieldModel;
+            var visible = !this.hidden;
+            var hasModel = this.layoutGroup || this.fieldModel;
+
+            return visible && hasModel;
         },
         type() {
             return this.field.type || 'string';
@@ -354,6 +325,9 @@ export default {
             ///////////////////////////////
 
             switch (widget) {
+                case 'form':
+                    widget = this.submission ? 'form' : 'content-select';
+                    break;
                 case 'content-select':
                 case 'select':
                 case 'checkbox':

@@ -5,7 +5,7 @@
                 <ux-checkbox :value="selected">
                 </ux-checkbox>
             </th>
-            <table-cell @click.stop.prevent="clickCell(column)" :column="column" :row="row" v-for="column in columns">
+            <table-cell :key="`${column.path || column.key}-${index}`" @click.stop.prevent="clickCell(column)" :column="column" :row="row" v-for="(column, index) in columns">
             </table-cell>
             <th v-if="enableActions" class="table-cell last shrink" @click.stop.prevent="clickActions(row)">
                 <ux-button size="xs" icon>
@@ -34,22 +34,22 @@ export default {
             type: Array,
             required: true,
         },
-        enableActions:{
-            type:Boolean,
-            default() {
+        enableActions: {
+            type: Boolean,
+            default () {
                 return false;
             },
         },
-        enableSelection:{
-            type:Boolean,
-            default() {
+        enableSelection: {
+            type: Boolean,
+            default () {
                 return true;
             },
         }
     },
-    methods:{
+    methods: {
         clickCell(column) {
-            this.$emit('click:cell', {row:this.row, column});
+            this.$emit('click:cell', { row: this.row, column });
             this.$emit('click:row', this.row);
         },
         clickActions(row) {
@@ -76,7 +76,5 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
-
 
 </style>
