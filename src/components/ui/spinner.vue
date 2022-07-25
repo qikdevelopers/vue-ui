@@ -32,7 +32,7 @@ export default {
 		font-size: 4em;
 	}
 
-	&[xx]l {
+	&[xxl] {
 		font-size: 6em;
 	}
 }

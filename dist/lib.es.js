@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.37";
+const version$1 = "0.1.38";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -146,14 +146,12 @@ const _sfc_main$_ = {
   },
   methods: {
     select(i2) {
-      console.log("SELECT", this.activeIndex);
       this.activeIndex = i2;
     }
   },
   computed: {
     tabs() {
       var slotChildren = this.$slots.default();
-      console.log("SLOT CHILDREN", slotChildren);
       return slotChildren;
     }
   }
@@ -200,7 +198,7 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-b5715b66"]]);
+var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-1835b512"]]);
 const _sfc_main$Z = {
   props: {
     heading: {
@@ -242,7 +240,7 @@ const _sfc_main$Y = {
     }
   }
 };
-const _withScopeId$4 = (n2) => (pushScopeId("data-v-5ef0f22e"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$4 = (n2) => (pushScopeId("data-v-27f20370"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$L = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("i", { class: "fa fa-spin fa-spinner" }, null, -1));
 const _hoisted_2$B = [
   _hoisted_1$L
@@ -252,7 +250,7 @@ function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
     class: normalizeClass(["ux-spinner", { large: $props.large }])
   }, _hoisted_2$B, 2);
 }
-var Spinner = /* @__PURE__ */ _export_sfc(_sfc_main$Y, [["render", _sfc_render$Y], ["__scopeId", "data-v-5ef0f22e"]]);
+var Spinner = /* @__PURE__ */ _export_sfc(_sfc_main$Y, [["render", _sfc_render$Y], ["__scopeId", "data-v-27f20370"]]);
 var button_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$X = {
   components: {
@@ -758,7 +756,7 @@ function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
     ]))
   ], 2);
 }
-var UXMenu = /* @__PURE__ */ _export_sfc(_sfc_main$S, [["render", _sfc_render$S], ["__scopeId", "data-v-3d55731c"]]);
+var UXMenu = /* @__PURE__ */ _export_sfc(_sfc_main$S, [["render", _sfc_render$S], ["__scopeId", "data-v-29d476a2"]]);
 var image_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$R = {
   props: {
@@ -942,6 +940,60 @@ function _sfc_render$O(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 var UXListItem = /* @__PURE__ */ _export_sfc(_sfc_main$O, [["render", _sfc_render$O], ["__scopeId", "data-v-0e73c260"]]);
+var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
+var safeJsonStringify$2 = { exports: {} };
+var hasProp = Object.prototype.hasOwnProperty;
+function throwsMessage(err) {
+  return "[Throws: " + (err ? err.message : "?") + "]";
+}
+function safeGetValueFromPropertyOnObject(obj, property) {
+  if (hasProp.call(obj, property)) {
+    try {
+      return obj[property];
+    } catch (err) {
+      return throwsMessage(err);
+    }
+  }
+  return obj[property];
+}
+function ensureProperties(obj) {
+  var seen = [];
+  function visit(obj2) {
+    if (obj2 === null || typeof obj2 !== "object") {
+      return obj2;
+    }
+    if (seen.indexOf(obj2) !== -1) {
+      return "[Circular]";
+    }
+    seen.push(obj2);
+    if (typeof obj2.toJSON === "function") {
+      try {
+        var fResult = visit(obj2.toJSON());
+        seen.pop();
+        return fResult;
+      } catch (err) {
+        return throwsMessage(err);
+      }
+    }
+    if (Array.isArray(obj2)) {
+      var aResult = obj2.map(visit);
+      seen.pop();
+      return aResult;
+    }
+    var result = Object.keys(obj2).reduce(function(result2, prop) {
+      result2[prop] = visit(safeGetValueFromPropertyOnObject(obj2, prop));
+      return result2;
+    }, {});
+    seen.pop();
+    return result;
+  }
+  return visit(obj);
+}
+safeJsonStringify$2.exports = function(data, replacer, space) {
+  return JSON.stringify(ensureProperties(data), replacer, space);
+};
+safeJsonStringify$2.exports.ensureProperties = ensureProperties;
+var safeJsonStringify$1 = safeJsonStringify$2.exports;
 function isUndefined$7(v, type) {
   return v === void 0 || v === null || type == "date" && v.toString && v.toString() === "Invalid Date";
 }
@@ -966,7 +1018,7 @@ var InputMixin = {
     modelValue(val, old) {
       var cleanedValue = this.cleanInput(val);
       var cleanedModel = this.cleanInput(this.model);
-      if (JSON.stringify(cleanedValue) != JSON.stringify(cleanedModel)) {
+      if (safeJsonStringify$1(cleanedValue) != safeJsonStringify$1(cleanedModel)) {
         this.model = cleanedValue;
       }
     }
@@ -6677,7 +6729,6 @@ function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
   ])) : createCommentVNode("", true);
 }
 var FilterCondition = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["render", _sfc_render$B]]);
-var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 function isObject$4(value) {
   var type = typeof value;
   return value != null && (type == "object" || type == "function");
@@ -10250,7 +10301,9 @@ const _sfc_main$l = {
       return actual;
     },
     changeString() {
-      return `${JSON.stringify(this.fieldModel)}-${this.actualField.minimum}-${this.actualField.referenceType}`;
+      const fieldModel = this.fieldModel;
+      const stringified = safeJsonStringify(fieldModel);
+      return `${stringified}-${this.actualField.minimum}-${this.actualField.referenceType}`;
     },
     valid() {
       return !this.invalid;
@@ -10670,7 +10723,7 @@ function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$g, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-8477ba44"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-00411086"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$k = {
   props: {
@@ -17211,21 +17264,46 @@ const _sfc_main$5 = {
       return defaultSort;
     },
     fields() {
-      var allFields = [...this.definition.fields];
-      var definedFields = this.definition.definedFields || [];
+      const self2 = this;
+      const isFormSubmission = self2.definition.definesType === "submission";
+      var allFields = [...self2.definition.fields];
+      var definedFields = self2.definition.definedFields || [];
       if (definedFields.length) {
-        var customFields = {
-          title: `${this.definition.title}`,
-          minimum: 1,
-          maximum: 1,
-          key: "data",
-          asObject: true,
-          type: "group",
-          fields: definedFields
-        };
-        allFields.push(customFields);
+        if (isFormSubmission) {
+          var formDataFields = {
+            title: `Form Data`,
+            minimum: 1,
+            maximum: 1,
+            key: "formData",
+            asObject: true,
+            type: "group",
+            fields: definedFields
+          };
+          allFields.push(formDataFields);
+          var dataFields = {
+            title: `Data`,
+            minimum: 1,
+            maximum: 1,
+            key: "data",
+            asObject: true,
+            type: "group",
+            fields: definedFields
+          };
+          allFields.push(dataFields);
+        } else {
+          var dataFields = {
+            title: `${self2.definition.title}`,
+            minimum: 1,
+            maximum: 1,
+            key: "data",
+            asObject: true,
+            type: "group",
+            fields: definedFields
+          };
+          allFields.push(dataFields);
+        }
       }
-      var mapped = this.$qik.utils.mapFields(allFields).filter(function(field) {
+      var mapped = self2.$qik.utils.mapFields(allFields).filter(function(field) {
         var isObject2 = field.type == "group" && field.asObject && (field.minimum == 1 && field.maximum == 1);
         return !isObject2;
       }).map(function(field) {
@@ -17339,11 +17417,12 @@ const _sfc_main$5 = {
   },
   methods: {
     toggleField(field) {
-      var key = field.path;
+      var key = field.path || field.key;
       var index2 = this.additionalFields.findIndex(function(f) {
-        return f.key == key;
+        return f.path === key || f.key === key;
       });
-      if (index2 == -1) {
+      console.log("index", index2, key);
+      if (index2 === -1) {
         this.additionalFields.push(field);
       } else {
         this.additionalFields.splice(index2, 1);
@@ -17453,7 +17532,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-0f7f08aa"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-685be52b"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { class: "footer" };
 function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
@@ -17524,7 +17603,8 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
                               default: withCtx(() => [
                                 (openBlock(true), createElementBlock(Fragment, null, renderList($options.fields, (field) => {
                                   return openBlock(), createBlock(_component_ux_list_item, {
-                                    onClick: ($event) => $options.toggleField(field)
+                                    onClick: ($event) => $options.toggleField(field),
+                                    key: field.path
                                   }, {
                                     default: withCtx(() => [
                                       createVNode(_component_ux_icon, {
@@ -17535,7 +17615,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
                                     ]),
                                     _: 2
                                   }, 1032, ["onClick"]);
-                                }), 256))
+                                }), 128))
                               ]),
                               _: 1
                             })
@@ -17622,7 +17702,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-0f7f08aa"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-685be52b"]]);
 var ModalMixin = {
   props: {
     options: {

@@ -23,7 +23,6 @@ export default {
     },
     methods: {
         select(i) {
-            console.log('SELECT', this.activeIndex)
             this.activeIndex = i;
         },
     },
@@ -34,7 +33,6 @@ export default {
             // .map(function(t) {
             //     return t.children;
             // });
-            console.log('SLOT CHILDREN', slotChildren);
             return slotChildren;
 
             // 

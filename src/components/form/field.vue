@@ -424,7 +424,11 @@ export default {
             return actual;
         },
         changeString() {
-            return `${JSON.stringify(this.fieldModel)}-${this.actualField.minimum}-${this.actualField.referenceType}`;
+
+            const fieldModel = this.fieldModel;
+            const stringified = safeJsonStringify(fieldModel);
+
+            return `${stringified}-${this.actualField.minimum}-${this.actualField.referenceType}`;
         },
         valid() {
             return !this.invalid;

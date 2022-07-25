@@ -17,7 +17,7 @@
                                             </ux-button>
                                         </template>
                                         <ux-list>
-                                            <ux-list-item @click="toggleField(field)" v-for="field in fields">
+                                            <ux-list-item @click="toggleField(field)" :key="field.path" v-for="field in fields">
                                                 <ux-icon :icon="fieldEnabled[field.path] ? 'fa-check-square' : 'fa-regular fa-square' " left /> {{field.title}}
                                             </ux-list-item>
                                             <!-- <ux-list-item @click="selectPage()">
@@ -420,24 +420,61 @@ export default {
             return defaultSort
         },
         fields() {
-            var allFields = [...this.definition.fields];
-            var definedFields = this.definition.definedFields || [];
-            if (definedFields.length) {
-                var customFields = {
-                    title: `${this.definition.title}`,
-                    minimum: 1,
-                    maximum: 1,
-                    key: 'data',
-                    asObject: true,
-                    type: 'group',
-                    fields: definedFields,
-                }
 
-                allFields.push(customFields);
+            const self = this
+            const isFormSubmission = self.definition.definesType === 'submission';
+            var allFields = [...self.definition.fields];
+            var definedFields = self.definition.definedFields || [];
+            
+
+
+            if (definedFields.length) {
+
+                if(isFormSubmission) {
+
+                    var formDataFields = {
+                        title: `Form Data`,
+                        minimum: 1,
+                        maximum: 1,
+                        key: 'formData',
+                        asObject: true,
+                        type: 'group',
+                        fields: definedFields,
+                    }
+
+                    allFields.push(formDataFields);
+
+                    var dataFields = {
+                        title: `Data`,
+                        minimum: 1,
+                        maximum: 1,
+                        key: 'data',
+                        asObject: true,
+                        type: 'group',
+                        fields: definedFields,
+                    }
+
+                    allFields.push(dataFields);
+                
+                } else {
+
+                    var dataFields = {
+                        title: `${self.definition.title}`,
+                        minimum: 1,
+                        maximum: 1,
+                        key: 'data',
+                        asObject: true,
+                        type: 'group',
+                        fields: definedFields,
+                    }
+
+                    allFields.push(dataFields);
+
+                }
             }
 
 
-            var mapped = this.$qik.utils.mapFields(allFields)
+            var mapped = self.$qik.utils.mapFields(allFields)
                 .filter(function(field) {
                     var isObject = field.type == 'group' && field.asObject && (field.minimum == 1 && field.maximum == 1);
                     return !isObject;
@@ -615,13 +652,15 @@ export default {
 
         toggleField(field) {
 
-            var key = field.path;
+            var key = field.path || field.key;
 
             var index = this.additionalFields.findIndex(function(f) {
-                return f.key == key;
+                return f.path === key || f.key === key;
             })
 
-            if (index == -1) {
+            console.log('index', index, key)
+            if (index === -1) {
+
                 this.additionalFields.push(field);
             } else {
                 this.additionalFields.splice(index, 1);

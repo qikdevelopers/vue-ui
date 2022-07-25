@@ -3,9 +3,11 @@ function isUndefined(v, type) {
         v === null || (type == 'date' && v.toString && (v.toString() === 'Invalid Date'));
 }
 
+//////////////////////////////////////
 
+import safeJsonStringify from 'safe-json-stringify';
 
-
+//////////////////////////////////////
 
 export default {
     props: {
@@ -26,13 +28,11 @@ export default {
     },
     watch: {
         modelValue(val, old) {
-
             var cleanedValue = this.cleanInput(val);
             var cleanedModel = this.cleanInput(this.model);
-            if (JSON.stringify(cleanedValue) != JSON.stringify(cleanedModel)) {
+            if (safeJsonStringify(cleanedValue) != safeJsonStringify(cleanedModel)) {
                 this.model = cleanedValue
             }
-
         },
     },
     mounted() {

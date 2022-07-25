@@ -248,7 +248,7 @@ export default {
 
 .ux-menu-panel {
     position: absolute;
-    max-height: 98vh;
+    max-height: 70vh;
     overflow: auto;
     border: 1px solid rgba(#000, 0.05);
     box-shadow: 0 0.2em 1em rgba(#000, 0.1);
