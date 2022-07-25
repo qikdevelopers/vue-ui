@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.40";
+const version$1 = "0.1.41";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -10023,14 +10023,29 @@ function getDefaultValue(fieldData, currentValue) {
       }
       break;
     case "reference":
-      if (multiValue) {
-        if (defaultValues.length) {
-          output = defaultValues.slice(0, maximum);
+      if (fieldData.widget === "form") {
+        var number = ask;
+        if (multiValue) {
+          if (number > 0) {
+            output = Array(number).fill().map(function() {
+              return {};
+            });
+          } else {
+            output = [];
+          }
         } else {
-          output = [];
+          output = isUndefined2(firstDefaultValue) ? {} : firstDefaultValue;
         }
       } else {
-        output = isUndefined2(firstDefaultValue) ? void 0 : firstDefaultValue;
+        if (multiValue) {
+          if (defaultValues.length) {
+            output = defaultValues.slice(0, maximum);
+          } else {
+            output = [];
+          }
+        } else {
+          output = isUndefined2(firstDefaultValue) ? void 0 : firstDefaultValue;
+        }
       }
       break;
     case "string":

@@ -198,14 +198,31 @@ export default function getDefaultValue(fieldData, currentValue) {
 
             break;
         case 'reference':
-            if (multiValue) {
-                if (defaultValues.length) {
-                    output = defaultValues.slice(0, maximum);
+
+            if (fieldData.widget === 'form') {
+                var number = ask;
+                if (multiValue) {
+                    if (number > 0) {
+                        output = Array(number).fill().map(function() {
+                            return {}
+                        });
+                    } else {
+                        output = [];
+                    }
+
                 } else {
-                    output = [];
+                    output = isUndefined(firstDefaultValue) ? {} : firstDefaultValue;
                 }
             } else {
-                output = isUndefined(firstDefaultValue) ? undefined : firstDefaultValue;
+                if (multiValue) {
+                    if (defaultValues.length) {
+                        output = defaultValues.slice(0, maximum);
+                    } else {
+                        output = [];
+                    }
+                } else {
+                    output = isUndefined(firstDefaultValue) ? undefined : firstDefaultValue;
+                }
             }
             break;
         case 'string':
