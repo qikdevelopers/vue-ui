@@ -122,6 +122,10 @@ import parseBoolean from './parseBoolean';
 
 ////////////////////////////////////////
 
+import safeJsonStringify from 'safe-json-stringify';
+
+////////////////////////////////////////
+
 function hasExpression(key) {
     return function() {
         var self = this;
@@ -363,7 +367,6 @@ export default {
             this.$emit('field:dirty', this);
         },
         changeString(v) {
-            console.log('CHANGE STRING', v);
             this.validateResults = this.$qik.content.validateField(this.fieldModel, this.actualField);
         },
         modelValue(val, old) {

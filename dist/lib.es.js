@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.39";
+const version$1 = "0.1.40";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -941,7 +941,7 @@ function _sfc_render$O(_ctx, _cache, $props, $setup, $data, $options) {
 }
 var UXListItem = /* @__PURE__ */ _export_sfc(_sfc_main$O, [["render", _sfc_render$O], ["__scopeId", "data-v-0e73c260"]]);
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
-var safeJsonStringify$2 = { exports: {} };
+var safeJsonStringify$1 = { exports: {} };
 var hasProp = Object.prototype.hasOwnProperty;
 function throwsMessage(err) {
   return "[Throws: " + (err ? err.message : "?") + "]";
@@ -989,11 +989,11 @@ function ensureProperties(obj) {
   }
   return visit(obj);
 }
-safeJsonStringify$2.exports = function(data, replacer, space) {
+safeJsonStringify$1.exports = function(data, replacer, space) {
   return JSON.stringify(ensureProperties(data), replacer, space);
 };
-safeJsonStringify$2.exports.ensureProperties = ensureProperties;
-var safeJsonStringify$1 = safeJsonStringify$2.exports;
+safeJsonStringify$1.exports.ensureProperties = ensureProperties;
+var safeJsonStringify = safeJsonStringify$1.exports;
 function isUndefined$7(v, type) {
   return v === void 0 || v === null || type == "date" && v.toString && v.toString() === "Invalid Date";
 }
@@ -1018,7 +1018,7 @@ var InputMixin = {
     modelValue(val, old) {
       var cleanedValue = this.cleanInput(val);
       var cleanedModel = this.cleanInput(this.model);
-      if (safeJsonStringify$1(cleanedValue) != safeJsonStringify$1(cleanedModel)) {
+      if (safeJsonStringify(cleanedValue) != safeJsonStringify(cleanedModel)) {
         this.model = cleanedValue;
       }
     }
@@ -10253,7 +10253,6 @@ const _sfc_main$l = {
       this.$emit("field:dirty", this);
     },
     changeString(v) {
-      console.log("CHANGE STRING", v);
       this.validateResults = this.$qik.content.validateField(this.fieldModel, this.actualField);
     },
     modelValue(val, old) {
@@ -10724,7 +10723,7 @@ function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$g, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-addc0926"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-54e7b3ce"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$k = {
   props: {
