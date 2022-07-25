@@ -363,6 +363,7 @@ export default {
             this.$emit('field:dirty', this);
         },
         changeString(v) {
+            console.log('CHANGE STRING', v);
             this.validateResults = this.$qik.content.validateField(this.fieldModel, this.actualField);
         },
         modelValue(val, old) {
