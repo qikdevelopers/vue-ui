@@ -97,6 +97,7 @@ export default {
                     browserOptions:{
                         columns:self.field.columns,
                         select:self.field.select,
+                        lockFilter:self.field.lockFilter,
                     }
                 }
 

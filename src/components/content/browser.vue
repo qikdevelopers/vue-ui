@@ -385,6 +385,37 @@ export default {
         },
     },
     computed: {
+        combinedFilter() {
+
+            const self = this
+            let userSelectedFilters = self.filter;
+            let lockFilter = self.options.lockFilter;
+
+            if (!lockFilter) {
+                return userSelectedFilters;
+            }
+
+            //////////////////////////
+
+            // Start by copying the user filters
+            userSelectedFilters = JSON.parse(JSON.stringify(userSelectedFilters));
+            lockFilter = JSON.parse(JSON.stringify(lockFilter));
+
+            let combinedFilter; 
+
+            // If it's already an 'and'
+            if(userSelectedFilters.operator === 'and') {
+                // Add the locked filters to the list
+                combinedFilter = userSelectedFilters;
+                combinedFilter.filters.push(lockFilter);
+            } else {
+                // Add the user filters to the list
+                combinedFilter = lockFilter;
+                lockFilter.filters.push(userSelectedFilters);
+            }
+
+            return combinedFilter;
+        },
         viewMode() {
             var view = this.view;
 
@@ -425,12 +456,12 @@ export default {
             const isFormSubmission = self.definition.definesType === 'submission';
             var allFields = [...self.definition.fields];
             var definedFields = self.definition.definedFields || [];
-            
+
 
 
             if (definedFields.length) {
 
-                if(isFormSubmission) {
+                if (isFormSubmission) {
 
                     var formDataFields = {
                         title: `Form Data`,
@@ -455,7 +486,7 @@ export default {
                     }
 
                     allFields.push(dataFields);
-                
+
                 } else {
 
                     var dataFields = {
@@ -628,7 +659,10 @@ export default {
             var search = self.keywords;
             var select = self.selectFields;
             var page = self.page;
-            var filter = self.filter;
+            var filter = self.combinedFilter;
+
+
+           
 
             return {
                 sort,

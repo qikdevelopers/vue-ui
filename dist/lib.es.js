@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.41";
+const version$1 = "0.1.42";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -5072,7 +5072,8 @@ const _sfc_main$J = {
         maximum: self2.field.maximum,
         browserOptions: {
           columns: self2.field.columns,
-          select: self2.field.select
+          select: self2.field.select,
+          lockFilter: self2.field.lockFilter
         }
       };
       console.log("Modal options", modalOptions);
@@ -5231,7 +5232,7 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["onClick"])
   ], 64);
 }
-var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-858ab1cc"]]);
+var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-41fe69cc"]]);
 var typeSelect_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined$4(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
@@ -17252,6 +17253,25 @@ const _sfc_main$5 = {
     }
   },
   computed: {
+    combinedFilter() {
+      const self2 = this;
+      let userSelectedFilters = self2.filter;
+      let lockFilter = self2.options.lockFilter;
+      if (!lockFilter) {
+        return userSelectedFilters;
+      }
+      userSelectedFilters = JSON.parse(JSON.stringify(userSelectedFilters));
+      lockFilter = JSON.parse(JSON.stringify(lockFilter));
+      let combinedFilter;
+      if (userSelectedFilters.operator === "and") {
+        combinedFilter = userSelectedFilters;
+        combinedFilter.filters.push(lockFilter);
+      } else {
+        combinedFilter = lockFilter;
+        lockFilter.filters.push(userSelectedFilters);
+      }
+      return combinedFilter;
+    },
     viewMode() {
       var view = this.view;
       switch (view.key) {
@@ -17413,7 +17433,7 @@ const _sfc_main$5 = {
       var search = self2.keywords;
       var select = self2.selectFields;
       var page = self2.page;
-      var filter = self2.filter;
+      var filter = self2.combinedFilter;
       return {
         sort: sort2,
         search,
@@ -17547,7 +17567,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-685be52b"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-04072c44"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { class: "footer" };
 function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
@@ -17717,7 +17737,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-685be52b"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-04072c44"]]);
 var ModalMixin = {
   props: {
     options: {
