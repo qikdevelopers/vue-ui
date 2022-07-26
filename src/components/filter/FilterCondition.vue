@@ -3,6 +3,7 @@
         <flex-row>
             <flex-cell>
                 <native-select title="Select field" v-model="model.key" :field="keyField" />
+                <pre>{{keyOptions}}</pre>
             </flex-cell>
             <flex-cell v-if="model.key">
                 <native-select title="Select comparator" v-model="model.comparator" :field="comparatorField" />
@@ -134,6 +135,7 @@ export default {
         keyOptions() {
             return this.fields.reduce(function(set, entry) {
                 switch (entry.type) {
+                    case 'object':
                     case 'group':
                         break;
                     default:

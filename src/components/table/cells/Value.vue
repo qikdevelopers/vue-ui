@@ -1,7 +1,9 @@
 <template>
+
 	<a @click.stop.prevent="clicked(value)" v-if="reference">{{renderValue}}</a>
 	<template v-else-if="type == 'date'">{{date}}</template>
-	<template v-else>{{renderValue}}</template>
+	<template v-else>{{renderValue}}<template v-if="multi && !last">,&nbsp;</template></template>
+	
 </template>
 <script>
 
@@ -9,6 +11,12 @@ import {DateTime} from 'luxon';
 
 export default {
 	props:{
+		multi:{
+			type:Boolean,
+		},
+		last:{
+			type:Boolean,
+		},
 		value:{
 			required:true,
 		},

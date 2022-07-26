@@ -246,6 +246,7 @@ export default {
 
                 &.table-select {
                     font-size: clamp(17px, 1em, 20px);
+                    z-index: 3;
                 }
             }
 
@@ -281,13 +282,12 @@ export default {
 
         tr {
             border-bottom: 1px solid rgba(#000, 0.05);
-
             &:last-of-type {
                 border-bottom: none;
             }
         }
 
-        tr:nth-child(odd) {
+        tr:nth-child(even) {
             background: darken(#fff, 1%);
 
             th.first,
@@ -298,7 +298,7 @@ export default {
             }
         }
 
-        tr:nth-child(even) {
+        tr:nth-child(odd) {
 
             th.first,
             td.first,

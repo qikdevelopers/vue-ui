@@ -16,6 +16,7 @@
         </ux-panel>
     </div>
     <template v-else>
+       
         <ux-render :submission="submission" :fields="fields" :flex="sameLine" :parentModel="parentModel" v-model="model" />
     </template>
 </template>

@@ -41,7 +41,7 @@ export default {
         },
         definition: {
             type: Object,
-            required:true,
+            required: true,
             default () {
                 return {}
             }
@@ -111,25 +111,71 @@ export default {
             }
         },
 
-        
+
         fields() {
-            var allFields = this.definition && this.definition.fields ? [...this.definition.fields] : [];
-            var definedFields = this.definition && this.definition.definedFields ? this.definition.definedFields : [] || [];
+            const self = this;
+            var allFields = self.definition && self.definition.fields ? [...self.definition.fields] : [];
+            var definedFields = self.definition && self.definition.definedFields ? self.definition.definedFields : [] || [];
+
+            const isFormSubmission = self.definition.definesType === 'submission';
+
             if (definedFields.length) {
-                var customFields = {
-                    title: `${this.definition.title}`,
-                    minimum: 1,
-                    maximum: 1,
-                    key: 'data',
-                    asObject: true,
-                    type: 'group',
-                    fields: definedFields,
+
+                if (isFormSubmission) {
+
+                    var formDataFields = {
+                        title: `Form Data`,
+                        minimum: 1,
+                        maximum: 1,
+                        key: 'formData',
+                        asObject: true,
+                        type: 'group',
+                        fields: definedFields,
+                    }
+
+                    allFields.push(formDataFields);
+
+                    const cleanedDataFields = definedFields.map(function(field) {
+                        if(field.type === 'reference') {
+                            field = JSON.parse(JSON.stringify(field))
+                            delete field.fields;
+                        }
+
+                        return field;
+                    });
+
+                    var dataFields = {
+                        title: `Data`,
+                        minimum: 1,
+                        maximum: 1,
+                        key: 'data',
+                        asObject: true,
+                        type: 'group',
+                        fields: cleanedDataFields,
+                    }
+
+                    allFields.push(dataFields);
+
+                } else {
+
+                    var dataFields = {
+                        title: `${self.definition.title}`,
+                        minimum: 1,
+                        maximum: 1,
+                        key: 'data',
+                        asObject: true,
+                        type: 'group',
+                        fields: definedFields,
+                    }
+
+                    allFields.push(dataFields);
+
                 }
 
-                allFields.push(customFields);
+
             }
 
-            var mapped = this.$qik.utils.mapFields(allFields);
+            var mapped = self.$qik.utils.mapFields(allFields, {includeArrayDelimeter:true});
             return mapped;
         },
         operatorField() {
@@ -174,12 +220,13 @@ export default {
 
 
     .operator-cell {
-        position:relative;
+        position: relative;
 
         &.and {
             .line {
-                 background: green;
+                background: green;
             }
+
             .operator {
                 background: green;
                 color: #fff;
@@ -190,6 +237,7 @@ export default {
             .line {
                 background: orange;
             }
+
             .operator {
                 background: orange;
                 color: #fff;
@@ -198,8 +246,9 @@ export default {
 
         &.nor {
             .line {
-                 background: #000;
+                background: #000;
             }
+
             .operator {
                 background: #000;
                 color: #fff;

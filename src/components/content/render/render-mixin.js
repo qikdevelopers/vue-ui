@@ -39,11 +39,20 @@ export default {
         description() {
             return this.field.description;
         },
+
         singleValue() {
-            return this.maximum == 1;
+            if (this.asObject) {
+                var isSingle = this.minimum === 1 && this.maximum === 1;
+                return isSingle;
+            } else {
+                return this.maximum === 1;
+            }
+        },
+        type() {
+            return this.field.type || 'string';
         },
         multiValue() {
-            return this.maximum != 1;
+            return !this.singleValue;
         },
         key() {
             return this.field.key;

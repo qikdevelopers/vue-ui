@@ -76,6 +76,7 @@
         </ux-button>
     </div>
     <template v-else>
+
         <ux-form ref="form" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
     </template>
     <!-- <pre><strong>{{field.title}}</strong>

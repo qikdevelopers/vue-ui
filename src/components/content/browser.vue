@@ -475,6 +475,15 @@ export default {
 
                     allFields.push(formDataFields);
 
+                    const cleanedDataFields = definedFields.map(function(field) {
+                        if(field.type === 'reference') {
+                            field = JSON.parse(JSON.stringify(field))
+                            delete field.fields;
+                        }
+
+                        return field;
+                    });
+
                     var dataFields = {
                         title: `Data`,
                         minimum: 1,
@@ -482,10 +491,11 @@ export default {
                         key: 'data',
                         asObject: true,
                         type: 'group',
-                        fields: definedFields,
+                        fields: cleanedDataFields,
                     }
 
                     allFields.push(dataFields);
+
 
                 } else {
 
