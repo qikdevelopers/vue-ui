@@ -55,22 +55,22 @@ export default {
             const submission = JSON.parse(JSON.stringify(self.model))
 
             // Submit to the server
-            const data = await new Promise(function(resolve, reject) {
-                self.$qik.api.post(`/form/${self.formID}`, submission)
-                .then(function(res) {
-                    return resolve(res.data);
-                },function(err) {
-                    self.error = err;
-                    self.state = STATE_ERROR;
-                    return reject(err);
-                });
-            })
 
-            // Run post submission functions
-            await self.postSubmit();
+            self.$qik.api.post(`/form/${self.formID}`, submission).then(submissionComplete, submissionFailed)
 
-            // Set the state to ready
-            self.state = STATE_COMPLETE;
+            async function submissionComplete(res) {
+
+                // Run post submission functions
+                await self.postSubmit();
+                // Set the state to ready
+                self.state = STATE_COMPLETE;
+            }
+
+            async function submissionFailed(err) {
+                self.error = err;
+                self.state = STATE_ERROR;
+            }
+
         },
         async preSubmit() {
 

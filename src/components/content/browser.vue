@@ -45,6 +45,13 @@
                             </ux-panel-body>
                         </ux-panel>
                     </flex-column>
+                    <flex-column class="empty" v-else center>
+                        <!-- <ux-panel>
+                            <ux-panel-body>
+                                <div>No {{definition.plural}} found.</div>
+                            </ux-panel-body>
+                        </ux-panel> -->
+                    </flex-column>
                     <flex-column class="filter-column" v-if="showFilters">
                         <flex-body>
                             <search v-model="keywords" :loading="searching" :debounce="500" placeholder="Keyword Search" />
@@ -537,7 +544,23 @@ export default {
             return this.manager.items.slice();
         },
         activeFilters() {
-            var activeFilters = this.$qik.filter.activeFilters(this.filter);
+            var activeFilters = this.$qik.filter.activeFilters(this.filter)
+            .reduce(function(set, filter) {
+                if(!filter.key) {
+                    return set;
+                }
+
+                filter = {...filter};
+                filter.title = `Filter ${set.length + 1}`;
+                filter.key = filter.key.split('[]').join('');
+                filter.class = 'active-filter';
+                filter.shrink = true;
+                set.push(filter);
+
+                return set;
+            }, [])
+           
+
             return activeFilters;
         },
         searching() {
@@ -557,7 +580,12 @@ export default {
                 //     return [column.key, ...column.fields];
                 // }
                 return column.path || column.key;
-            }).flat()
+            })
+            .flat()
+            .filter(Boolean)
+            .map(function(string) {
+                return string.split('[]').join('');
+            })
             // .map(function(field) {
             //     return field.key || field
             // })
@@ -640,8 +668,9 @@ export default {
             /////////////////////////////////////
 
             var activeFilters = this.activeFilters;
-            activeFilters.forEach(addColumn())
 
+
+            activeFilters.forEach(addColumn())
             /////////////////////////////////////
 
             return columns;

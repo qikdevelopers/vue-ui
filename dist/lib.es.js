@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.43";
+const version$1 = "0.1.45";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -6571,8 +6571,7 @@ function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
               modelValue: $data.model.key,
               "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $data.model.key = $event),
               field: $options.keyField
-            }, null, 8, ["modelValue", "field"]),
-            createElementVNode("pre", null, toDisplayString($options.keyOptions), 1)
+            }, null, 8, ["modelValue", "field"])
           ]),
           _: 1
         }),
@@ -11042,17 +11041,15 @@ const _sfc_main$j = {
       self2.state = STATE_PROCESSING;
       await self2.preSubmit();
       const submission = JSON.parse(JSON.stringify(self2.model));
-      await new Promise(function(resolve, reject) {
-        self2.$qik.api.post(`/form/${self2.formID}`, submission).then(function(res) {
-          return resolve(res.data);
-        }, function(err) {
-          self2.error = err;
-          self2.state = STATE_ERROR;
-          return reject(err);
-        });
-      });
-      await self2.postSubmit();
-      self2.state = STATE_COMPLETE;
+      self2.$qik.api.post(`/form/${self2.formID}`, submission).then(submissionComplete, submissionFailed);
+      async function submissionComplete(res) {
+        await self2.postSubmit();
+        self2.state = STATE_COMPLETE;
+      }
+      async function submissionFailed(err) {
+        self2.error = err;
+        self2.state = STATE_ERROR;
+      }
     },
     async preSubmit() {
     },
@@ -16344,9 +16341,6 @@ const _sfc_main$9 = {
     },
     value() {
       var v = extract(this.row, this.column.key);
-      if (!v) {
-        console.log(this.row, this.column.key);
-      }
       return v;
     }
   }
@@ -16392,7 +16386,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["type", "value"]))
   ]));
 }
-var TableCell = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-0e44bd7f"]]);
+var TableCell = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-054965d2"]]);
 const _sfc_main$8 = {
   components: {
     TableCell
@@ -17443,7 +17437,18 @@ const _sfc_main$5 = {
       return this.manager.items.slice();
     },
     activeFilters() {
-      var activeFilters = this.$qik.filter.activeFilters(this.filter);
+      var activeFilters = this.$qik.filter.activeFilters(this.filter).reduce(function(set, filter) {
+        if (!filter.key) {
+          return set;
+        }
+        filter = __spreadValues({}, filter);
+        filter.title = `Filter ${set.length + 1}`;
+        filter.key = filter.key.split("[]").join("");
+        filter.class = "active-filter";
+        filter.shrink = true;
+        set.push(filter);
+        return set;
+      }, []);
       return activeFilters;
     },
     searching() {
@@ -17459,7 +17464,9 @@ const _sfc_main$5 = {
       const self2 = this;
       var fields = self2.columns.map(function(column) {
         return column.path || column.key;
-      }).flat();
+      }).flat().filter(Boolean).map(function(string) {
+        return string.split("[]").join("");
+      });
       if (self2.options.select) {
         fields = [...fields, ...self2.options.select];
       }
@@ -17654,7 +17661,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-ca158dc8"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-93998f7a"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { class: "footer" };
 function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
@@ -17768,9 +17775,13 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   ]),
                   _: 1
-                })) : createCommentVNode("", true),
-                $props.showFilters ? (openBlock(), createBlock(_component_flex_column, {
+                })) : (openBlock(), createBlock(_component_flex_column, {
                   key: 2,
+                  class: "empty",
+                  center: ""
+                })),
+                $props.showFilters ? (openBlock(), createBlock(_component_flex_column, {
+                  key: 3,
                   class: "filter-column"
                 }, {
                   default: withCtx(() => [
@@ -17824,7 +17835,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-ca158dc8"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-93998f7a"]]);
 var ModalMixin = {
   props: {
     options: {
