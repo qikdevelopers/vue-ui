@@ -392,7 +392,6 @@ export default {
                 }
             }
 
-
             var out = val;
             return val;
         },

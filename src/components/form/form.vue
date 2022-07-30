@@ -62,8 +62,23 @@ export default {
     },
 
     methods: {
-        reset() {
+        touch() {
 
+            this.childFields.forEach(function(field) {
+                field.touch();
+            })
+            this.touched = true;
+        },
+        reset() {
+            
+            //Reset all fields
+            this.childFields.forEach(function(field) {
+                field.reset();
+            })
+            this.touched = false;
+        },
+        validate() {
+            console.log('VALIDATE FORM')
         },
         fieldUnmounted(field) {
             this.fieldStateChange(field, 'unmount');
@@ -126,6 +141,7 @@ export default {
                         invalidFields.push({
                             title:field.field.title,
                             key:field.field.key,
+                            message:field.invalidMessage,
                         });
                     }
 

@@ -34,7 +34,7 @@
                         <ux-panel-body @keydown.enter="enterPress($event)" v-show="!collapsible || !element.collapsed">
                            
 
-                            <ux-form ref="form" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
+                            <ux-form ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
                         </ux-panel-body>
                     </ux-panel>
                 </template>
@@ -67,7 +67,7 @@
                     </flex-row>
                 </ux-panel-header>
                 <ux-panel-body @keydown.enter="enterPress($event)" v-show="!element.collapsed">
-                    <ux-form ref="form" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
+                    <ux-form ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
                 </ux-panel-body>
             </ux-panel>
         </template>
@@ -77,7 +77,7 @@
     </div>
     <template v-else>
 
-        <ux-form ref="form" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+        <ux-form ref="form" :submission="submission"  @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
     </template>
     <!-- <pre><strong>{{field.title}}</strong>
 
@@ -99,6 +99,10 @@ export default {
     //TODO check whether we should move draggable into the input mixin
     components: { draggable },
     props: {
+        submission:{
+            type:Boolean,
+            default:false,
+        },
         modelValue: {
             type: [Object, Array],
         },
@@ -178,7 +182,7 @@ export default {
         getNewDefaultEntry() {
             return {
                 // guid: Math.random(),
-            };
+            }
         },
     }
 }

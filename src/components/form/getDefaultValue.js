@@ -48,7 +48,10 @@ export default function getDefaultValue(fieldData, currentValue) {
     //Ensure that if there is a maximum set it's never more than the maximum
     ask = maximum ? Math.min(ask, maximum) : ask;
 
-    var singleValue = (maximum == 1);
+    var singleValue = (maximum === 1);
+    if(fieldData.asObject && fieldData.type === 'group') {
+        singleValue = (maximum === minimum === 1);
+    }
     var multiValue = !singleValue;
     var defaultValues = (fieldData.type === 'reference' ? fieldData.defaultReferences : fieldData.defaultValues) || [];
     var firstDefaultValue = defaultValues[0];
@@ -56,8 +59,6 @@ export default function getDefaultValue(fieldData, currentValue) {
     /////////////////////////////////////
 
     var output;
-
-
 
     switch (fieldData.type) {
         case 'date':

@@ -30,7 +30,7 @@
             </template>
         </template>
         <template v-if="widget == 'form'">
-                <field-group :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
+            <field-group :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'select'">
             <native-select @touched="touch" :field="actualField" v-model="fieldModel" />
@@ -234,6 +234,7 @@ export default {
             var hasExistingData = existingData || existingData === false || existingData === 0;
             var proposedDefaultValue = this.fieldDefaultValue;
 
+
             ///////////////////////////////////////////
 
             var existingString = JSON.stringify(this.cleanOutput(existingData));
@@ -253,21 +254,6 @@ export default {
                 //Use the default
                 this.fieldModel = proposedDefaultValue;
             }
-
-            // ///////////////////////////////////////////
-
-            // var defaultValue = currentValue || proposedDefaultValue
-            // if (!currentValue) {
-            //     currentValue = defaultValue;
-            // }
-
-            // if(this.field.key == 'maximum') {
-            //     console.log('CHECKIT', existingData, existingString, proposedString, this.fieldModel)
-            // }
-            // ///////////////////////////////////////////
-
-            // this.fieldModel = currentValue;
-
         },
         groupStateAltered(details) {
             this.subFormState = details;
@@ -282,14 +268,15 @@ export default {
                 this.fieldModel = this.getExpressionValue;
             }
         },
-        reset() {
-            // var defaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField);
-            // this.fieldModel = defaultValue;
-            this.touched = false;
-        },
         touch() {
             this.touched = true;
         },
+        reset() {
+            this.touched = false;
+        },
+
+
+
         cleanInput(val) {
             return this.fieldCleanInput(val);
         },
@@ -394,7 +381,12 @@ export default {
     },
     computed: {
         fieldDefaultValue() {
-            return this.cleanInput(this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : getDefaultValue(this.actualField));
+
+
+            var expressionDefaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : undefined;
+            var normalDefaultValue =  getDefaultValue(this.actualField);
+            var defaultValue =  this.cleanInput(expressionDefaultValue || normalDefaultValue);
+            return defaultValue;
         },
         title() {
             return this.field.title;
