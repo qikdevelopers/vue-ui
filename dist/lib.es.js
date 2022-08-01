@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, pushScopeId, popScopeId, createElementVNode, normalizeStyle, createCommentVNode, Teleport, createTextVNode, vModelSelect, withKeys, withModifiers, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, mergeProps, toHandlers, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.46";
+const version$1 = "0.1.47";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -198,7 +198,7 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-1835b512"]]);
+var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-1449f192"]]);
 const _sfc_main$Z = {
   props: {
     heading: {
@@ -373,7 +373,7 @@ function _sfc_render$X(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["active", "loading", "to", "href", "target", "style", "class", "disabled"]);
 }
-var UXButton = /* @__PURE__ */ _export_sfc(_sfc_main$X, [["render", _sfc_render$X], ["__scopeId", "data-v-bcaad93a"]]);
+var UXButton = /* @__PURE__ */ _export_sfc(_sfc_main$X, [["render", _sfc_render$X], ["__scopeId", "data-v-ef0c5e26"]]);
 var checkbox_vue_vue_type_style_index_0_scoped_true_lang$1 = "";
 const _sfc_main$W = {
   props: {
@@ -407,7 +407,7 @@ function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ], 2);
 }
-var UXCheckbox = /* @__PURE__ */ _export_sfc(_sfc_main$W, [["render", _sfc_render$W], ["__scopeId", "data-v-7dd035b9"]]);
+var UXCheckbox = /* @__PURE__ */ _export_sfc(_sfc_main$W, [["render", _sfc_render$W], ["__scopeId", "data-v-73f2c6b6"]]);
 var switch_vue_vue_type_style_index_0_scoped_true_lang$1 = "";
 const _sfc_main$V = {
   props: {
@@ -452,7 +452,7 @@ function _sfc_render$V(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var UXSwitch = /* @__PURE__ */ _export_sfc(_sfc_main$V, [["render", _sfc_render$V], ["__scopeId", "data-v-4063e9b5"]]);
+var UXSwitch = /* @__PURE__ */ _export_sfc(_sfc_main$V, [["render", _sfc_render$V], ["__scopeId", "data-v-57a418e1"]]);
 var link_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$U = {
   props: {
@@ -909,7 +909,7 @@ const _sfc_main$Q = {
     }
   }
 };
-const _withScopeId$4 = (n2) => (pushScopeId("data-v-6581fb86"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$4 = (n2) => (pushScopeId("data-v-317a7690"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$J = { class: "ux-progress" };
 const _hoisted_2$A = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("div", { class: "ux-progress-bg" }, null, -1));
 function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
@@ -921,7 +921,7 @@ function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 4)
   ]);
 }
-var ProgressBar = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$Q], ["__scopeId", "data-v-6581fb86"]]);
+var ProgressBar = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$Q], ["__scopeId", "data-v-317a7690"]]);
 var list_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$P = {};
 const _hoisted_1$I = { class: "ux-list" };
@@ -1101,6 +1101,9 @@ var InputMixin = {
     },
     canRemoveValue() {
       return this.numValues > this.minimum;
+    },
+    widget() {
+      return this.field.widget;
     },
     singleValue() {
       if (this.asObject) {
@@ -1489,7 +1492,7 @@ function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var NativeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$N, [["render", _sfc_render$N], ["__scopeId", "data-v-6d808434"]]);
+var NativeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$N, [["render", _sfc_render$N], ["__scopeId", "data-v-1d53b270"]]);
 var phoneNumberInput_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$M = {
   props: {
@@ -1562,7 +1565,7 @@ const _sfc_main$M = {
     }
   }
 };
-const _withScopeId$3 = (n2) => (pushScopeId("data-v-856e04c2"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$3 = (n2) => (pushScopeId("data-v-6e2a7569"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$F = {
   key: 0,
   class: "ux-field-title"
@@ -1724,7 +1727,7 @@ function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
     }))
   ], 64);
 }
-var PhoneNumberInput = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["render", _sfc_render$M], ["__scopeId", "data-v-856e04c2"]]);
+var PhoneNumberInput = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["render", _sfc_render$M], ["__scopeId", "data-v-6e2a7569"]]);
 var timezone_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined$5(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
@@ -2312,7 +2315,7 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var TimezoneSelect = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["render", _sfc_render$L], ["__scopeId", "data-v-2b83f766"]]);
+var TimezoneSelect = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["render", _sfc_render$L], ["__scopeId", "data-v-a15362c8"]]);
 var item_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$K = {
   props: {
@@ -5076,7 +5079,6 @@ const _sfc_main$J = {
           lockFilter: self2.field.lockFilter
         }
       };
-      console.log("Modal options", modalOptions);
       self2.$qik.browse(this.field.referenceType, modalOptions).then(function(newSelection) {
         self2.model = self2.multiValue ? newSelection : newSelection[0];
       }).catch(function(err) {
@@ -5232,7 +5234,7 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["onClick"])
   ], 64);
 }
-var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-41fe69cc"]]);
+var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-62ba944e"]]);
 var typeSelect_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined$4(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
@@ -5404,7 +5406,7 @@ function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var TypeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$I, [["render", _sfc_render$I], ["__scopeId", "data-v-3c487f67"]]);
+var TypeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$I, [["render", _sfc_render$I], ["__scopeId", "data-v-bd09dc46"]]);
 var currency_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$H = {
   props: {
@@ -5450,7 +5452,6 @@ const _sfc_main$H = {
         return this.cleanOutput(this.value);
       },
       set(val) {
-        console.log("SET MODEL", val);
         this.value = this.cleanInput(val);
         this.dispatch();
       }
@@ -5622,7 +5623,7 @@ function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
     ], 2))
   ], 64);
 }
-var CurrencyField = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["render", _sfc_render$H], ["__scopeId", "data-v-5afb1a86"]]);
+var CurrencyField = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["render", _sfc_render$H], ["__scopeId", "data-v-0f0203d4"]]);
 var textfield_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$G = {
   props: {
@@ -5852,7 +5853,7 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
     ]))
   ], 64);
 }
-var TextField = /* @__PURE__ */ _export_sfc(_sfc_main$G, [["render", _sfc_render$G], ["__scopeId", "data-v-8f2cb452"]]);
+var TextField = /* @__PURE__ */ _export_sfc(_sfc_main$G, [["render", _sfc_render$G], ["__scopeId", "data-v-d9e8503e"]]);
 var textarea_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$F = {
   props: {
@@ -5958,7 +5959,7 @@ function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 64);
 }
-var TextArea = /* @__PURE__ */ _export_sfc(_sfc_main$F, [["render", _sfc_render$F], ["__scopeId", "data-v-72eafde6"]]);
+var TextArea = /* @__PURE__ */ _export_sfc(_sfc_main$F, [["render", _sfc_render$F], ["__scopeId", "data-v-777c0703"]]);
 var datefield_vue_vue_type_style_index_0_scoped_true_lang = "";
 function zero(input) {
   if (String(input).length < 2) {
@@ -6106,7 +6107,7 @@ function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 64);
 }
-var DateField = /* @__PURE__ */ _export_sfc(_sfc_main$E, [["render", _sfc_render$E], ["__scopeId", "data-v-578af064"]]);
+var DateField = /* @__PURE__ */ _export_sfc(_sfc_main$E, [["render", _sfc_render$E], ["__scopeId", "data-v-1c86b484"]]);
 var checkbox_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$D = {
   computed: {
@@ -6199,7 +6200,7 @@ function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var Checkbox = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["render", _sfc_render$D], ["__scopeId", "data-v-a346dafc"]]);
+var Checkbox = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["render", _sfc_render$D], ["__scopeId", "data-v-046b9e38"]]);
 const _sfc_main$C = {
   props: {
     modelValue: {
@@ -6951,7 +6952,6 @@ const _sfc_main$A = {
       this.model.filters.push({});
     },
     removeCondition(index2) {
-      console.log("remove index", index2);
       this.model.filters.splice(index2, 1);
     }
   },
@@ -7333,7 +7333,7 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var FilterBuilder = /* @__PURE__ */ _export_sfc(_sfc_main$z, [["render", _sfc_render$z], ["__scopeId", "data-v-30449bfc"]]);
+var FilterBuilder = /* @__PURE__ */ _export_sfc(_sfc_main$z, [["render", _sfc_render$z], ["__scopeId", "data-v-2a26bc0c"]]);
 var filter_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$y = {
   mixins: [InputMixin],
@@ -7369,7 +7369,6 @@ const _sfc_main$y = {
   },
   methods: {
     getNewDefaultEntry() {
-      console.log("GET DEFAULT ENTRY");
       return {
         operator: "and",
         filters: []
@@ -7459,7 +7458,7 @@ function _sfc_render$y(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["definition", "modelValue"]))
   ], 64);
 }
-var FilterInput = /* @__PURE__ */ _export_sfc(_sfc_main$y, [["render", _sfc_render$y], ["__scopeId", "data-v-5a049062"]]);
+var FilterInput = /* @__PURE__ */ _export_sfc(_sfc_main$y, [["render", _sfc_render$y], ["__scopeId", "data-v-514ca0dc"]]);
 var switch_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$x = {
   mixins: [InputMixin],
@@ -7549,7 +7548,7 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var Switch = /* @__PURE__ */ _export_sfc(_sfc_main$x, [["render", _sfc_render$x], ["__scopeId", "data-v-7ee9d4cd"]]);
+var Switch = /* @__PURE__ */ _export_sfc(_sfc_main$x, [["render", _sfc_render$x], ["__scopeId", "data-v-5994d322"]]);
 var filedrop_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$w = {
   props: {
@@ -7886,6 +7885,9 @@ const _sfc_main$u = {
     }
   },
   methods: {
+    createSingleObject() {
+      this.model = {};
+    },
     stateChange(details) {
       this.$emit("form:state", details);
     },
@@ -8162,19 +8164,105 @@ function _sfc_render$u(_ctx, _cache, $props, $setup, $data, $options) {
       ]),
       _: 1
     })) : createCommentVNode("", true)
-  ])) : (openBlock(), createBlock(_component_ux_form, {
-    key: 1,
-    ref: "form",
-    submission: $props.submission,
-    "onForm:state": $options.stateChange,
-    parentModel: _ctx.parentModel,
-    modelValue: _ctx.model,
-    "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => _ctx.model = $event),
-    flex: $options.sameLine,
-    fields: _ctx.field.fields
-  }, null, 8, ["submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"]));
+  ])) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
+    _ctx.widget === "form" ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
+      _ctx.model ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
+        _ctx.minimum === 0 ? (openBlock(), createBlock(_component_ux_panel, { key: 0 }, {
+          default: withCtx(() => [
+            createVNode(_component_ux_panel_header, null, {
+              default: withCtx(() => [
+                createVNode(_component_flex_row, {
+                  vcenter: "",
+                  gap: ""
+                }, {
+                  default: withCtx(() => [
+                    createVNode(_component_flex_cell, { vcenter: "" }, {
+                      default: withCtx(() => [
+                        createElementVNode("div", null, [
+                          createElementVNode("strong", null, toDisplayString(_ctx.label), 1)
+                        ])
+                      ]),
+                      _: 1
+                    }),
+                    createVNode(_component_flex_cell, {
+                      vcenter: "",
+                      shrink: ""
+                    }, {
+                      default: withCtx(() => [
+                        createVNode(_component_ux_button, {
+                          icon: "",
+                          tag: "a",
+                          onClick: _cache[6] || (_cache[6] = ($event) => _ctx.model = void 0)
+                        }, {
+                          default: withCtx(() => [
+                            createVNode(_component_ux_icon, { icon: "fa-times" })
+                          ]),
+                          _: 1
+                        })
+                      ]),
+                      _: 1
+                    })
+                  ]),
+                  _: 1
+                })
+              ]),
+              _: 1
+            }),
+            createVNode(_component_ux_panel_body, null, {
+              default: withCtx(() => [
+                createVNode(_component_ux_form, {
+                  ref: "form",
+                  submission: $props.submission,
+                  "onForm:state": $options.stateChange,
+                  parentModel: _ctx.parentModel,
+                  modelValue: _ctx.model,
+                  "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => _ctx.model = $event),
+                  flex: $options.sameLine,
+                  fields: _ctx.field.fields
+                }, null, 8, ["submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"])
+              ]),
+              _: 1
+            })
+          ]),
+          _: 1
+        })) : (openBlock(), createBlock(_component_ux_form, {
+          key: 1,
+          ref: "form",
+          submission: $props.submission,
+          "onForm:state": $options.stateChange,
+          parentModel: _ctx.parentModel,
+          modelValue: _ctx.model,
+          "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => _ctx.model = $event),
+          flex: $options.sameLine,
+          fields: _ctx.field.fields
+        }, null, 8, ["submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"]))
+      ], 64)) : (openBlock(), createBlock(_component_ux_button, {
+        key: 1,
+        onClick: _cache[9] || (_cache[9] = ($event) => $options.createSingleObject())
+      }, {
+        default: withCtx(() => [
+          createTextVNode("Add " + toDisplayString(_ctx.label) + " ", 1),
+          createVNode(_component_ux_icon, {
+            icon: "fa-plus",
+            right: ""
+          })
+        ]),
+        _: 1
+      }))
+    ], 64)) : (openBlock(), createBlock(_component_ux_form, {
+      key: 1,
+      ref: "form",
+      submission: $props.submission,
+      "onForm:state": $options.stateChange,
+      parentModel: _ctx.parentModel,
+      modelValue: _ctx.model,
+      "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => _ctx.model = $event),
+      flex: $options.sameLine,
+      fields: _ctx.field.fields
+    }, null, 8, ["submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"]))
+  ], 64));
 }
-var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$u, [["render", _sfc_render$u], ["__scopeId", "data-v-106e1cf4"]]);
+var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$u, [["render", _sfc_render$u], ["__scopeId", "data-v-582bfb1a"]]);
 const _sfc_main$t = {
   props: {
     option: {
@@ -8365,7 +8453,7 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 64);
 }
-var ButtonSelect = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-4b69def8"]]);
+var ButtonSelect = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-f0acfde4"]]);
 var objectField_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$r = {
   props: {
@@ -8554,7 +8642,7 @@ const _sfc_main$q = {
     }
   }
 };
-const _withScopeId$2 = (n2) => (pushScopeId("data-v-42a51394"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$2 = (n2) => (pushScopeId("data-v-076c3da8"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$l = {
   key: 0,
   class: "ux-field-title"
@@ -8798,7 +8886,7 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
     }))
   ], 64);
 }
-var OptionsManager = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-42a51394"]]);
+var OptionsManager = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-076c3da8"]]);
 var codeEditor_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$p = {
   components: {},
@@ -9155,7 +9243,7 @@ function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var InternalRouteSelect = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$n], ["__scopeId", "data-v-7662837a"]]);
+var InternalRouteSelect = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$n], ["__scopeId", "data-v-bfeface6"]]);
 var InternalMenuSelect_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined$1(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
@@ -9321,7 +9409,7 @@ function _sfc_render$m(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var InternalMenuSelect = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["render", _sfc_render$m], ["__scopeId", "data-v-a9c8bb64"]]);
+var InternalMenuSelect = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["render", _sfc_render$m], ["__scopeId", "data-v-2002cd50"]]);
 var jsep = { exports: {} };
 (function(module, exports) {
   (function(root2) {
@@ -9936,9 +10024,6 @@ function ensureMinimum(field, array, min, ask, max, func) {
   var length = array.length;
   var meetsMinimum = length >= min;
   if (!meetsMinimum) {
-    if (field.key == "multiNumber") {
-      console.log(field.key, min);
-    }
     var difference = min - length;
     var extras = Array(difference).fill().map(func);
     return [...array, ...extras];
@@ -9959,7 +10044,11 @@ function getDefaultValue(fieldData, currentValue) {
   ask = maximum ? Math.min(ask, maximum) : ask;
   var singleValue = maximum === 1;
   if (fieldData.asObject && fieldData.type === "group") {
-    singleValue = maximum === minimum === 1;
+    if (maximum === 1 && minimum === 1) {
+      singleValue = true;
+    } else {
+      singleValue = false;
+    }
   }
   var multiValue = !singleValue;
   var defaultValues = (fieldData.type === "reference" ? fieldData.defaultReferences : fieldData.defaultValues) || [];
@@ -10078,7 +10167,11 @@ function getDefaultValue(fieldData, currentValue) {
             output = [];
           }
         } else {
-          output = isUndefined2(firstDefaultValue) ? {} : firstDefaultValue;
+          if (!minimum) {
+            output = void 0;
+          } else {
+            output = isUndefined2(firstDefaultValue) ? {} : firstDefaultValue;
+          }
         }
       } else {
         if (multiValue) {
@@ -10189,6 +10282,7 @@ const _sfc_main$l = {
   },
   data() {
     return {
+      watching: true,
       defaultValue: null,
       model: this.modelValue,
       touched: false,
@@ -10200,20 +10294,36 @@ const _sfc_main$l = {
       isDirtyBeforeInput: false
     };
   },
+  inject: ["parentFormElement"],
   created() {
     this.checkDirtyState();
   },
   mounted() {
-    this.mounted = true;
+    const self2 = this;
+    self2.mounted = true;
+    if (self2.parentFormElement && self2.parentFormElement.childFormElements) {
+      self2.parentFormElement.childFormElements.push(self2);
+    }
   },
   beforeUnmount() {
-    this.mounted = false;
+    const self2 = this;
+    self2.mounted = false;
+    if (self2.parentFormElement) {
+      var index2 = self2.parentFormElement.childFormElements.indexOf(self2);
+      self2.parentFormElement.childFormElements.splice(index2, 1);
+    }
   },
   methods: {
+    fieldDefaultValue() {
+      var expressionDefaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : void 0;
+      var normalDefaultValue = getDefaultValue(this.actualField);
+      var defaultValue = this.cleanInput(expressionDefaultValue || normalDefaultValue);
+      return defaultValue;
+    },
     checkDirtyState() {
       var existingData = this.fieldModel;
       var hasExistingData = existingData || existingData === false || existingData === 0;
-      var proposedDefaultValue = this.fieldDefaultValue;
+      var proposedDefaultValue = this.fieldDefaultValue();
       var existingString = JSON.stringify(this.cleanOutput(existingData));
       var proposedString = JSON.stringify(this.cleanOutput(proposedDefaultValue));
       if (hasExistingData && existingString != proposedString) {
@@ -10241,8 +10351,20 @@ const _sfc_main$l = {
     touch() {
       this.touched = true;
     },
-    reset() {
+    untouch() {
       this.touched = false;
+    },
+    reset() {
+      this.untouch();
+      this.watching = false;
+      var defaultValue = this.fieldDefaultValue();
+      if (Array.isArray(defaultValue)) {
+        defaultValue = [];
+      }
+      this.model[this.key] = defaultValue;
+      this.$nextTick(function() {
+        this.watching = true;
+      });
     },
     cleanInput(val) {
       return this.fieldCleanInput(val);
@@ -10286,7 +10408,7 @@ const _sfc_main$l = {
           this.fieldModel = void 0;
         }
       } else {
-        this.reset();
+        this.untouch();
       }
     },
     focussed(val) {
@@ -10315,9 +10437,11 @@ const _sfc_main$l = {
       this.validateResults = this.$qik.content.validateField(this.fieldModel, this.actualField);
     },
     modelValue(val, old) {
-      this.model = val;
-      this.touched = false;
-      this.checkDirtyState();
+      if (this.watching) {
+        this.model = val;
+        this.touched = false;
+        this.checkDirtyState();
+      }
     },
     getExpressionHide(result) {
     },
@@ -10333,12 +10457,6 @@ const _sfc_main$l = {
     }
   },
   computed: {
-    fieldDefaultValue() {
-      var expressionDefaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : void 0;
-      var normalDefaultValue = getDefaultValue(this.actualField);
-      var defaultValue = this.cleanInput(expressionDefaultValue || normalDefaultValue);
-      return defaultValue;
-    },
     title() {
       return this.field.title;
     },
@@ -10359,6 +10477,9 @@ const _sfc_main$l = {
       }
       if (this.getExpressionSyntax) {
         actual = Object.assign({}, actual, { syntax: this.getExpressionSyntax });
+      }
+      if (this.getExpressionCurrency) {
+        actual = Object.assign({}, actual, { currency: this.getExpressionCurrency });
       }
       return actual;
     },
@@ -10384,20 +10505,6 @@ const _sfc_main$l = {
     dirty() {
       return this.isDirty;
     },
-    hasData() {
-      if (typeof this.fieldModel === "undefined") {
-        return false;
-      }
-      if (this.multiValue) {
-        if (!this.fieldModel || !this.fieldModel.length) {
-          return false;
-        }
-      }
-      if (this.fieldModel == "") {
-        return false;
-      }
-      return true;
-    },
     getExpressionHide() {
       if (!this.expressions) {
         return;
@@ -10418,6 +10525,7 @@ const _sfc_main$l = {
     getExpressionWidgetType: computedExpression("widget"),
     getExpressionOptions: computedExpression("options"),
     getExpressionSyntax: computedExpression("syntax"),
+    getExpressionCurrency: computedExpression("currency"),
     hasExpressionDefaultValue: hasExpression("defaultValue"),
     expressions() {
       return this.field.expressions;
@@ -10785,7 +10893,7 @@ function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$h, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-3e31f9aa"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-84a6cd12"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$k = {
   props: {
@@ -10826,30 +10934,44 @@ const _sfc_main$k = {
       invalid: false,
       error: false,
       dirty: false,
-      focussed: false
+      focussed: false,
+      childFormElements: []
     };
   },
+  provide() {
+    const parentFormElement = this.parentFormElement || this;
+    return {
+      parentFormElement
+    };
+  },
+  inject: ["parentFormElement"],
   mounted() {
-    this.mounted = true;
+    const self2 = this;
+    self2.mounted = true;
   },
   beforeUnmount() {
-    this.mounted = false;
+    const self2 = this;
+    self2.mounted = false;
   },
   methods: {
     touch() {
-      this.childFields.forEach(function(field) {
+      (this.childFormElements || []).forEach(function(field) {
         field.touch();
       });
       this.touched = true;
     },
-    reset() {
-      this.childFields.forEach(function(field) {
-        field.reset();
+    untouch() {
+      (this.childFormElements || []).forEach(function(field) {
+        field.untouch();
       });
       this.touched = false;
     },
-    validate() {
-      console.log("VALIDATE FORM");
+    reset() {
+      this.untouch();
+      (this.childFormElements || []).forEach(function(field) {
+        field.reset();
+      });
+      this.model = {};
     },
     fieldUnmounted(field) {
       this.fieldStateChange(field, "unmount");
@@ -10896,7 +11018,7 @@ const _sfc_main$k = {
         var touched = false;
         var focussed = false;
         var invalidFields = [];
-        self2.childFields.forEach(function(field) {
+        self2.childFormElements.forEach(function(field) {
           if (field.dirty) {
             dirty = true;
           }
@@ -10950,41 +11072,6 @@ const _sfc_main$k = {
     },
     valid() {
       return !this.invalid;
-    },
-    childFields() {
-      var self2 = this;
-      var directRefs = [];
-      if (!self2.mounted) {
-        return [];
-      }
-      findRecursive(this.$refs, directRefs);
-      function findRecursive($refs, collection) {
-        var fields = $refs.field ? $refs.field : [];
-        var groups = $refs.group ? $refs.group : [];
-        var forms = $refs.form ? $refs.form : [];
-        if (fields && !Array.isArray(fields)) {
-          fields = [fields];
-        }
-        if (groups && !Array.isArray(groups)) {
-          groups = [groups];
-        }
-        if (forms && !Array.isArray(forms)) {
-          forms = [forms];
-        }
-        fields.forEach(function(field) {
-          if (field.visible) {
-            collection.push(field);
-            findRecursive(field.$refs, collection);
-          }
-        });
-        groups.forEach(function(group) {
-          findRecursive(group.$refs, collection);
-        });
-        forms.forEach(function(form) {
-          findRecursive(form.$refs, collection);
-        });
-      }
-      return directRefs;
     },
     formClass() {
       var array = [];
@@ -11048,7 +11135,7 @@ function _sfc_render$k(_ctx, _cache, $props, $setup, $data, $options) {
     ], true)
   ], 2);
 }
-var UXForm = /* @__PURE__ */ _export_sfc(_sfc_main$k, [["render", _sfc_render$k], ["__scopeId", "data-v-30496a0c"]]);
+var UXForm = /* @__PURE__ */ _export_sfc(_sfc_main$k, [["render", _sfc_render$k], ["__scopeId", "data-v-6296f844"]]);
 var submissionform_vue_vue_type_style_index_0_scoped_true_lang = "";
 const STATE_READY = "form.ready";
 const STATE_PROCESSING = "form.processing";
@@ -11069,12 +11156,14 @@ const _sfc_main$j = {
     },
     untouch() {
       if (this.$refs.form) {
-        this.$refs.form.reset();
+        this.$refs.form.untouch();
       }
     },
     reset() {
       this.model = {};
-      this.untouch();
+      if (this.$refs.form) {
+        this.$refs.form.reset();
+      }
       this.state = STATE_READY;
       this.error = null;
       this.submitAttempted = false;
@@ -11165,7 +11254,7 @@ const _sfc_main$j = {
     }
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-227974b0"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-165f973d"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$g = { class: "ux-submission-form" };
 const _hoisted_2$b = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("h3", null, "An error occurred", -1));
 const _hoisted_3$8 = { key: 0 };
@@ -11238,7 +11327,7 @@ function _sfc_render$j(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ]);
 }
-var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["render", _sfc_render$j], ["__scopeId", "data-v-227974b0"]]);
+var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["render", _sfc_render$j], ["__scopeId", "data-v-165f973d"]]);
 var search_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$i = {
   props: {
@@ -11324,7 +11413,7 @@ function _sfc_render$i(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ]);
 }
-var Search = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["render", _sfc_render$i], ["__scopeId", "data-v-0a1831cd"]]);
+var Search = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["render", _sfc_render$i], ["__scopeId", "data-v-53fd0043"]]);
 var RenderMixin = {
   props: {
     field: {
@@ -16480,7 +16569,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["type", "value"]))
   ]));
 }
-var TableCell = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-054965d2"]]);
+var TableCell = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-d2ef28aa"]]);
 const _sfc_main$8 = {
   components: {
     TableCell
@@ -16516,11 +16605,9 @@ const _sfc_main$8 = {
       this.$emit("click:row", this.row);
     },
     clickActions(row) {
-      console.log("click actions");
       this.$emit("click:actions", row);
     },
     clickSelect(row) {
-      console.log("click select");
       this.$emit("click:select", row);
     }
   },
@@ -17644,7 +17731,6 @@ const _sfc_main$5 = {
       var index2 = this.additionalFields.findIndex(function(f) {
         return f.path === key || f.key === key;
       });
-      console.log("index", index2, key);
       if (index2 === -1) {
         this.additionalFields.push(field);
       } else {
@@ -17655,8 +17741,12 @@ const _sfc_main$5 = {
       if (!row.meta) {
         row.meta = {};
       }
-      row.meta.type = this.basicType;
-      row.meta.definition = this.definition.key;
+      if (!row.meta.type) {
+        row.meta.type = this.basicType;
+      }
+      if (!row.meta.definition) {
+        row.meta.definition = this.definition.key;
+      }
       if (this.trash) {
         row.meta.deleted = true;
       }
@@ -17755,7 +17845,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-93998f7a"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-3e12c643"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { class: "footer" };
 function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
@@ -17929,7 +18019,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-93998f7a"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-3e12c643"]]);
 var ModalMixin = {
   props: {
     options: {
@@ -18171,7 +18261,7 @@ function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var QikOptionsModal = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2], ["__scopeId", "data-v-52f8951e"]]);
+var QikOptionsModal = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2], ["__scopeId", "data-v-09008c8a"]]);
 var PromptModal_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1 = {
   mixins: [ModalMixin],
@@ -18180,11 +18270,7 @@ const _sfc_main$1 = {
       model: {}
     };
   },
-  methods: {
-    submit() {
-      console.log("SUBMIT");
-    }
-  },
+  methods: {},
   computed: {
     fields() {
       return this.options.fields || [];
@@ -18211,7 +18297,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_column = resolveComponent("flex-column");
   return openBlock(), createElementBlock("form", {
     class: "wrapper",
-    onSubmit: _cache[2] || (_cache[2] = withModifiers((...args) => $options.submit && $options.submit(...args), ["prevent", "stop"]))
+    onSubmit: _cache[2] || (_cache[2] = withModifiers((...args) => _ctx.submit && _ctx.submit(...args), ["prevent", "stop"]))
   }, [
     createVNode(_component_flex_column, null, {
       default: withCtx(() => [
@@ -18276,7 +18362,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ], 32);
 }
-var QikPromptModal = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-3d30139e"]]);
+var QikPromptModal = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-4af3c888"]]);
 var ContentModal_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main = {
   components: {

@@ -176,7 +176,7 @@ export default {
 }
 
 .ux-btn-color-primary {
-    background: $primary;
+    background: var(--primary);
     color: #fff;
 }
 

@@ -101,9 +101,6 @@ export default {
                     }
                 }
 
-                console.log('Modal options', modalOptions)
-
-
             self.$qik.browse(this.field.referenceType, modalOptions)
                 .then(function(newSelection) {
                     self.model = self.multiValue ? newSelection : newSelection[0];
@@ -194,7 +191,7 @@ input {
 
     &:focus {
         background: none;
-        border: 1px solid $primary;
+        border: 1px solid var(--primary);
         outline: none;
     }
 }

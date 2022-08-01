@@ -94,7 +94,7 @@ h5 {
 
 
     &:hover {
-        border: 1px solid $primary;
+        border: 1px solid var(--primary);
         background: #fafafa;
     }
 

@@ -63,7 +63,6 @@ export default {
             });
         },
         removeCondition(index) {
-            console.log('remove index', index)
             this.model.filters.splice(index, 1);
         },
     },
@@ -301,7 +300,7 @@ export default {
 
             &:hover {
                 background: #fff;
-                border-color: $primary;
+                border-color: var(--primary);
             }
         }
     }

@@ -61,8 +61,8 @@ export default {
 
         &.active {
             background: #fff;
-            color: $primary;
-            border-top:3px solid $primary;
+            color: var(--primary);
+            border-top:3px solid var(--primary);
         }
 
     }

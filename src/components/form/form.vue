@@ -8,7 +8,7 @@
 <script>
 import UXField from './field.vue';
 import debounce from 'lodash/debounce';
-
+import {computed} from 'vue';
 export default {
     props: {
         parentModel: {
@@ -41,9 +41,6 @@ export default {
         },
     },
     data() {
-
-        // console.log('start', JSON.parse(JSON.stringify(this.modelValue)));
-
         return {
             mounted: false,
             model: this.modelValue,
@@ -52,33 +49,48 @@ export default {
             error: false,
             dirty: false,
             focussed: false,
+            childFormElements:[],
         }
     },
+    provide() {
+        const parentFormElement = this.parentFormElement || this;
+        return {
+            parentFormElement,
+            // :computed(() => parentFormElement),
+        }
+    },
+    inject:['parentFormElement'],
     mounted() {
-        this.mounted = true;
+        const self = this;
+        self.mounted = true;
     },
     beforeUnmount() {
-        this.mounted = false;
+        const self = this;
+        self.mounted = false;
     },
 
+   
     methods: {
-        touch() {
-
-            this.childFields.forEach(function(field) {
+        touch() {  
+            ;(this.childFormElements || []).forEach(function(field) {
                 field.touch();
             })
             this.touched = true;
         },
-        reset() {
-            
-            //Reset all fields
-            this.childFields.forEach(function(field) {
-                field.reset();
+        untouch() {
+            ;(this.childFormElements || []).forEach(function(field) {
+                field.untouch();
             })
+            
             this.touched = false;
         },
-        validate() {
-            console.log('VALIDATE FORM')
+        reset() {
+            this.untouch();
+
+            ;(this.childFormElements || []).forEach(function(field) {
+                field.reset();
+            })
+            this.model = {}
         },
         fieldUnmounted(field) {
             this.fieldStateChange(field, 'unmount');
@@ -119,7 +131,6 @@ export default {
         fieldStateChange(triggerField, event) {
             var self = this;
 
-
             self.$nextTick(function() {
                 var dirty = false;
                 var invalid = false;
@@ -129,8 +140,7 @@ export default {
                 var invalidFields = [];
 
                 //If we are actually on the screen
-
-                self.childFields.forEach(function(field) {
+                self.childFormElements.forEach(function(field) {
 
                     if (field.dirty) {
                         dirty = true;
@@ -156,10 +166,7 @@ export default {
                     if (field.focussed) {
                         focussed = true;
                     }
-
-                })
-
-
+                });
 
                 self.dirty = dirty;
                 self.error = error;
@@ -186,8 +193,6 @@ export default {
     },
     computed: {
         fieldHash() {
-
-
             return this.renderFields.reduce(function(set,field) {
 
                 if(!field) {
@@ -200,60 +205,6 @@ export default {
         valid() {
             return !this.invalid;
         },
-        childFields() {
-            var self = this;
-
-            var directRefs = [];
-
-            if (!self.mounted) {
-                return [];
-            }
-
-            findRecursive(this.$refs, directRefs);
-
-            function findRecursive($refs, collection) {
-
-                var fields = $refs.field ? $refs.field : [];
-                var groups = $refs.group ? $refs.group : [];
-                var forms = $refs.form ? $refs.form : [];
-
-                ////////////////////////////////////////
-
-                if (fields && !Array.isArray(fields)) {
-                    fields = [fields];
-                }
-
-                if (groups && !Array.isArray(groups)) {
-                    groups = [groups];
-                }
-
-                if (forms && !Array.isArray(forms)) {
-                    forms = [forms];
-                }
-
-                ////////////////////////////////////////
-
-                fields.forEach(function(field) {
-                    if (field.visible) {
-                        collection.push(field);
-                        findRecursive(field.$refs, collection);
-                    }
-                })
-
-                groups.forEach(function(group) {
-                    findRecursive(group.$refs, collection);
-                })
-
-                forms.forEach(function(form) {
-                    findRecursive(form.$refs, collection);
-                })
-            }
-
-            return directRefs;
-
-        },
-
-
         formClass() {
             var array = [];
 

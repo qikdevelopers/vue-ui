@@ -154,11 +154,6 @@ export default {
         },
         value() {
             var v = extract(this.row, this.column.key);
-
-            if (!v) {
-                // console.log(this.row, this.column.key)
-            }
-
             return v;
         },
     }

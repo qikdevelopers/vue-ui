@@ -60,7 +60,7 @@ export default {
     }
 
     &.ux-checkbox-true {
-        background: $primary;
+        background: var(--primary);
 
         .icon {
             color: #fff;
@@ -70,7 +70,7 @@ export default {
     }
 
     &:hover {
-        border-color: $primary;
+        border-color: var(--primary);
         .icon {
             opacity: 0.5 !important;
             transform: scale(1) translate(-50%, -50%);

@@ -195,7 +195,7 @@ export default {
         }
 
         &.active {
-            background: $primary;
+            background: var(--primary);
             color: #fff;
 
             .ux-icon {

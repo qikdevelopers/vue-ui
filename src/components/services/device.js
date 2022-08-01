@@ -174,8 +174,6 @@ export default function() {
         service.point = point;
         service.breakpoint = breakpoint;
 
-        // console.log('SERVICE', point, service.screen, breakpoint)
-
     }
 
 

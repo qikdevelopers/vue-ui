@@ -94,7 +94,7 @@ export default {
     }
 
     &:hover {
-        border: 1px solid $primary;
+        border: 1px solid var(--primary);
 
         span {
             transform: scale(1);
@@ -108,7 +108,7 @@ export default {
     }
 
     &.ux-switch-true {
-        background: $primary;
+        background: var(--primary);
         // border-color: #fff;
 
         span {

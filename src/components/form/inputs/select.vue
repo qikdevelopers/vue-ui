@@ -144,7 +144,7 @@ export default {
             appearance:none;
 
             &:focus {
-            border:1px solid $primary;
+            border:1px solid var(--primary);
             }
         }
     }

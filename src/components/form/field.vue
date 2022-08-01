@@ -79,11 +79,14 @@
         <div v-if="error && validateResults.message" class="ux-field-message">
             {{validateResults.message}}
         </div>
-        <!-- <pre>Has Data: {{hasData}}</pre>
-        <pre>Dirty: {{dirty}}</pre>
-        <pre>Dirty Before: {{isDirtyBeforeInput}}</pre>
-        <pre>Touched: {{touched}}</pre>
-        <pre>DEFAULT VALUE: {{fieldDefaultValue}}</pre> -->
+
+        <!-- __________ -->
+        <!-- <pre>{{field.title}} Touched: {{touched}}</pre> -->
+        <!-- <pre>Has Data: {{hasData}}</pre> -->
+        <!-- <pre>Dirty: {{dirty}}</pre> -->
+        <!-- <pre>Invalid: {{invalid}}</pre> -->
+        <!-- <pre>Dirty Before: {{isDirtyBeforeInput}}</pre> -->
+        <!-- __________ -->
     </div>
 </template>
 <script>
@@ -205,6 +208,7 @@ export default {
 
 
         return {
+            watching:true,
             defaultValue: null,
             model: this.modelValue,
             touched: false,
@@ -216,23 +220,40 @@ export default {
             isDirtyBeforeInput: false,
         }
     },
-
+    inject:['parentFormElement'],
     created() {
         this.checkDirtyState();
     },
     mounted() {
-        this.mounted = true;
+        const self = this;
+        self.mounted = true;
+        if(self.parentFormElement && self.parentFormElement.childFormElements) {
+            self.parentFormElement.childFormElements.push(self);
+        }
     },
     beforeUnmount() {
-        this.mounted = false;
+        const self = this;
+        self.mounted = false;
+
+        if(self.parentFormElement) {
+            var index = self.parentFormElement.childFormElements.indexOf(self);
+            self.parentFormElement.childFormElements.splice(index, 1);
+        }
     },
     methods: {
+        fieldDefaultValue() {
+            var expressionDefaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : undefined;
+            var normalDefaultValue =  getDefaultValue(this.actualField);
+
+            var defaultValue =  this.cleanInput(expressionDefaultValue || normalDefaultValue);
+            return defaultValue;
+        },
         checkDirtyState() {
 
             //What is the value for this field right now?
             var existingData = this.fieldModel;
             var hasExistingData = existingData || existingData === false || existingData === 0;
-            var proposedDefaultValue = this.fieldDefaultValue;
+            var proposedDefaultValue = this.fieldDefaultValue();
 
 
             ///////////////////////////////////////////
@@ -271,8 +292,24 @@ export default {
         touch() {
             this.touched = true;
         },
-        reset() {
+        untouch() {
             this.touched = false;
+        },
+        reset() {
+            this.untouch();
+            this.watching = false;
+
+            var defaultValue = this.fieldDefaultValue();
+
+            if(Array.isArray(defaultValue)) {
+                defaultValue = [];
+            }
+
+            this.model[this.key] = defaultValue
+
+            this.$nextTick(function() {
+            this.watching = true;
+            })
         },
 
 
@@ -327,7 +364,7 @@ export default {
                 }
 
             } else {
-                this.reset();
+                this.untouch();
             }
 
         },
@@ -357,9 +394,12 @@ export default {
             this.validateResults = this.$qik.content.validateField(this.fieldModel, this.actualField);
         },
         modelValue(val, old) {
-            this.model = val;
-            this.touched = false;
-            this.checkDirtyState();
+
+            if(this.watching) {
+                this.model = val;
+                this.touched = false;
+                this.checkDirtyState();
+            }
         },
         getExpressionHide(result) {
 
@@ -380,14 +420,7 @@ export default {
 
     },
     computed: {
-        fieldDefaultValue() {
-
-
-            var expressionDefaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : undefined;
-            var normalDefaultValue =  getDefaultValue(this.actualField);
-            var defaultValue =  this.cleanInput(expressionDefaultValue || normalDefaultValue);
-            return defaultValue;
-        },
+        
         title() {
             return this.field.title;
         },
@@ -417,6 +450,11 @@ export default {
                 actual = Object.assign({}, actual, { syntax:this.getExpressionSyntax });
             }
 
+            if (this.getExpressionCurrency) {
+
+                actual = Object.assign({}, actual, { currency:this.getExpressionCurrency });
+            }
+
             return actual;
         },
         changeString() {
@@ -436,7 +474,6 @@ export default {
             //Check the subform
             var invalidSubForm = this.subFormState && this.subFormState.invalid;
             if (invalidSubForm) {
-
                 return { invalidSubForm: this.subFormState, mounted: this.mounted };
             }
 
@@ -446,36 +483,12 @@ export default {
 
             // }
 
-
-
             return isInvalid;
         },
         dirty() {
 
             return this.isDirty;
 
-        },
-        hasData() {
-
-            if (typeof this.fieldModel === 'undefined') {
-                return false;
-            }
-
-            if (this.multiValue) {
-                if (!this.fieldModel || !this.fieldModel.length) {
-                    return false;
-                }
-            }
-
-            if (this.fieldModel == '') {
-                return false;
-            }
-
-            // if (this.hasExpressionDefaultValue) {
-            //     return this.touched && (this.fieldModel != this.getExpressionDefaultValue);
-            // }
-
-            return true;
         },
         getExpressionHide() {
             if (!this.expressions) {
@@ -499,6 +512,7 @@ export default {
         getExpressionWidgetType:computedExpression('widget'),
         getExpressionOptions:computedExpression('options'),
         getExpressionSyntax:computedExpression('syntax'),
+        getExpressionCurrency:computedExpression('currency'),
         hasExpressionDefaultValue: hasExpression('defaultValue'),
         expressions() {
             return this.field.expressions;

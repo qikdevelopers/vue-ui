@@ -53,11 +53,9 @@ export default {
             this.$emit('click:row', this.row);
         },
         clickActions(row) {
-            console.log('click actions')
             this.$emit('click:actions', row);
         },
         clickSelect(row) {
-            console.log('click select')
             this.$emit('click:select', row);
             // this.$emit('click:row', this.row);
         },

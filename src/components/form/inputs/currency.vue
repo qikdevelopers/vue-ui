@@ -91,7 +91,6 @@ export default {
                 return this.cleanOutput(this.value);
             },
             set(val) {
-                console.log('SET MODEL', val);
                 this.value = this.cleanInput(val);
                 this.dispatch();
             }
@@ -148,7 +147,7 @@ input {
 
     &:focus {
         background: none;
-        border: 1px solid $primary;
+        border: 1px solid var(--primary);
         outline: none;
     }
 }

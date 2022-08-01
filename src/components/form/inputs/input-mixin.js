@@ -123,9 +123,12 @@ export default {
         canRemoveValue() {
             return this.numValues > this.minimum;
         },
+        widget() {
+            return this.field.widget;
+        }, 
         singleValue() {
             if (this.asObject) {
-                var isSingle = this.minimum === 1 && this.maximum === 1;
+                var isSingle = (this.minimum === 1) && (this.maximum === 1);
                 return isSingle;
             } else {
                 return this.maximum === 1;

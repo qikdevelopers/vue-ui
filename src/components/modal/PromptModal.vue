@@ -39,10 +39,7 @@ export default {
         }
     },
     methods:{
-        submit() {
-            console.log('SUBMIT')
-            // this.close(this.model);
-        }
+        
     },
     computed:{
         fields() {

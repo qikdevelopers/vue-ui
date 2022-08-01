@@ -731,7 +731,6 @@ export default {
                 return f.path === key || f.key === key;
             })
 
-            console.log('index', index, key)
             if (index === -1) {
 
                 this.additionalFields.push(field);
@@ -744,8 +743,13 @@ export default {
                 row.meta = {}
             }
 
-            row.meta.type = this.basicType;
-            row.meta.definition = this.definition.key;
+            if(!row.meta.type) {
+                row.meta.type = this.basicType;
+            }
+            
+            if(!row.meta.definition) {
+                row.meta.definition = this.definition.key;
+            }
 
             if (this.trash) {
                 row.meta.deleted = true;

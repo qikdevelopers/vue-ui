@@ -74,12 +74,12 @@ export default {
     padding: 0;
 
     &:hover {
-        border-color: $primary;
+        border-color: var(--primary);
     }
 
     &.ux-checkbox-true {
-        background: $primary;
-        border-color: $primary;
+        background: var(--primary);
+        border-color: var(--primary);
         color: #fff;
     }
 }

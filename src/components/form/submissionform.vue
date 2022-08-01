@@ -25,6 +25,10 @@
             </ux-button>
         </span>
         </template>
+
+        <!-- <a @click="touch()">Touch</a> |
+        <a @click="untouch()">Untouch</a> |
+        <a @click="reset()">Reset</a> -->
     </div>
 </template>
 <script>
@@ -51,12 +55,14 @@ export default {
         },
         untouch() {
             if(this.$refs.form) {
-            this.$refs.form.reset()
+            this.$refs.form.untouch()
             }
         },
         reset() {
             this.model = {};
-            this.untouch();
+            if(this.$refs.form) {
+                this.$refs.form.reset()
+            }
             this.state = STATE_READY;
             this.error = null;
             this.submitAttempted = false;

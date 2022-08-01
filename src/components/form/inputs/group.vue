@@ -1,12 +1,10 @@
 <template>
     <div class="ux-multi-group" v-if="multiValue">
         <template v-if="reorderable">
-<!-- item-key="guid" -->
-            <draggable v-model="model" :group="groupKey" @start="drag=true" @end="drag=false" >
+            <!-- item-key="guid" -->
+            <draggable v-model="model" :group="groupKey" @start="drag=true" @end="drag=false">
                 <template #item="{element, index}">
-                    
                     <ux-panel ref="row">
-
                         <!-- :key="guid" v-for="(element, index) in model" -->
                         <ux-panel-header>
                             <flex-row vcenter gap>
@@ -32,8 +30,6 @@
                             </flex-row>
                         </ux-panel-header>
                         <ux-panel-body @keydown.enter="enterPress($event)" v-show="!collapsible || !element.collapsed">
-                           
-
                             <ux-form ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
                         </ux-panel-body>
                     </ux-panel>
@@ -76,17 +72,45 @@
         </ux-button>
     </div>
     <template v-else>
+        <template v-if="widget === 'form'">
+            <template v-if="model">
+                <ux-panel v-if="minimum === 0">
+                    <ux-panel-header>
+                        <flex-row vcenter gap>
+                            <flex-cell vcenter>
+                                <div>
+                                    <strong>{{label}}</strong>
+                                </div>
+                            </flex-cell>
+                            <flex-cell vcenter shrink>
+                                <ux-button icon tag="a" @click="model = undefined">
+                                    <ux-icon icon="fa-times" />
+                                </ux-button>
+                            </flex-cell>
+                        </flex-row>
+                    </ux-panel-header>
+                    <ux-panel-body>
+                        <ux-form ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+                    </ux-panel-body>
+                </ux-panel>
+                <ux-form v-else ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+                <!-- <pre><strong>{{field.title}}</strong>
 
-        <ux-form ref="form" :submission="submission"  @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+                Should be single: {{singleValue}}, {{asObject}}, {{minimum == 1}} {{maximum == 1}}
+                Multi: {{multiValue}};
+                Can Add Value: {{canAddValue}}
+                Number Values: {{numValues}}
+                Model: {{model}}
+            </pre> -->
+            </template>
+            <ux-button v-else @click="createSingleObject()">Add {{label}}
+                <ux-icon icon="fa-plus" right />
+            </ux-button>
+        </template>
+        <template v-else>
+            <ux-form ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+        </template>
     </template>
-    <!-- <pre><strong>{{field.title}}</strong>
-
-    Should be single: {{singleValue}}, {{asObject}}, {{minimum == 1}} {{maximum == 1}}
-    Multi: {{multiValue}};
-    Can Add Value: {{canAddValue}}
-    Number Values: {{numValues}}
-    Model: {{model}}
-</pre> -->
 </template>
 <script>
 import InputMixin from './input-mixin';
@@ -99,9 +123,9 @@ export default {
     //TODO check whether we should move draggable into the input mixin
     components: { draggable },
     props: {
-        submission:{
-            type:Boolean,
-            default:false,
+        submission: {
+            type: Boolean,
+            default: false,
         },
         modelValue: {
             type: [Object, Array],
@@ -135,6 +159,9 @@ export default {
         }
     },
     methods: {
+        createSingleObject() {
+            this.model = {}
+        },
         stateChange(details) {
             this.$emit('form:state', details);
         },

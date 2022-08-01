@@ -13,9 +13,6 @@ function ensureMinimum(field, array, min, ask, max, func) {
     var meetsMaximum = length <= max;
 
     if (!meetsMinimum) {
-        if (field.key == 'multiNumber') {
-            console.log(field.key, min)
-        }
         var difference = min - length;
         var extras = Array(difference).fill().map(func);
         return [...array, ...extras];
@@ -49,9 +46,16 @@ export default function getDefaultValue(fieldData, currentValue) {
     ask = maximum ? Math.min(ask, maximum) : ask;
 
     var singleValue = (maximum === 1);
-    if(fieldData.asObject && fieldData.type === 'group') {
-        singleValue = (maximum === minimum === 1);
+
+    // If we're an object
+    if(fieldData.asObject && (fieldData.type === 'group')) {
+        if((maximum === 1) && (minimum === 1)) {
+            singleValue = true;
+        } else {
+            singleValue = false;
+        }
     }
+
     var multiValue = !singleValue;
     var defaultValues = (fieldData.type === 'reference' ? fieldData.defaultReferences : fieldData.defaultValues) || [];
     var firstDefaultValue = defaultValues[0];
@@ -212,7 +216,11 @@ export default function getDefaultValue(fieldData, currentValue) {
                     }
 
                 } else {
-                    output = isUndefined(firstDefaultValue) ? {} : firstDefaultValue;
+                    if(!minimum) {
+                        output = undefined;
+                    } else {
+                        output = isUndefined(firstDefaultValue) ? {} : firstDefaultValue;
+                    }
                 }
             } else {
                 if (multiValue) {

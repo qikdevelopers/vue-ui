@@ -57,7 +57,6 @@ export default {
 
     methods: {
         getNewDefaultEntry() {
-            console.log('GET DEFAULT ENTRY')
             return {
                 operator: 'and',
                 filters: [],
@@ -88,7 +87,7 @@ textarea {
 
     &:focus {
         background: none;
-        border: 1px solid $primary;
+        border: 1px solid var(--primary);
         outline: none;
     }
 }

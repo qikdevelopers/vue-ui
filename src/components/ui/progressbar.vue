@@ -67,7 +67,7 @@ export default {
 }
 
 .ux-progress-fg {
-    background: $primary;
+    background: var(--primary);
     position: absolute;
     top: 0;
     left: 0;

@@ -160,7 +160,7 @@ export default {
 
             &:hover {
                 background: #fff;
-                border-color: $primary;
+                border-color: var(--primary);
             }
         }
     }
