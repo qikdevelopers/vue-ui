@@ -119,7 +119,7 @@ export default {
             return String(this.field.currency || 'usd').toLowerCase();
         },
         prefix() {
-            return this.$qik.utils.currencySymbol(this.currency);
+            return this.$sdk.utils.currencySymbol(this.currency);
         },
         suffix() {
             return String(this.currency).toUpperCase();

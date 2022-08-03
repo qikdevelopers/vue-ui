@@ -23,11 +23,11 @@ export default {
     		this.dismiss();
     	},
         dismiss(err) {
-            this.$qik.closeModal(this.modal.id);
+            this.$sdk.closeModal(this.modal.id);
             this.modal.reject(err);
         },
         close(value) {
-            this.$qik.closeModal(this.modal.id);
+            this.$sdk.closeModal(this.modal.id);
             this.modal.resolve(value);
         }
     },

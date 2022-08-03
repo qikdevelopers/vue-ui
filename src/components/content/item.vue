@@ -29,7 +29,7 @@ export default {
     },
     methods:{
         clicked() {
-            this.$qik.dispatch('item:view', this.item);
+            this.$sdk.dispatch('item:view', this.item);
         }
     }
 }

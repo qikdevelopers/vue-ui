@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.48";
+const version$1 = "0.1.49";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -4718,7 +4718,7 @@ const _sfc_main$U = {
   },
   methods: {
     clicked(item) {
-      this.$qik.dispatch("item:view", item);
+      this.$sdk.dispatch("item:view", item);
     }
   }
 };
@@ -4736,7 +4736,7 @@ function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 64));
 }
-var ValueRenderer = /* @__PURE__ */ _export_sfc(_sfc_main$U, [["render", _sfc_render$U], ["__scopeId", "data-v-ff63e962"]]);
+var ValueRenderer = /* @__PURE__ */ _export_sfc(_sfc_main$U, [["render", _sfc_render$U], ["__scopeId", "data-v-255b9ec8"]]);
 var TableCell_vue_vue_type_style_index_0_scoped_true_lang = "";
 function extract(row, path) {
   if (!row) {
@@ -5499,7 +5499,7 @@ const _sfc_main$M = {
       if (self2.buildMode || self2.nuxtMode) {
         event.preventDefault();
         event.stopImmediatePropagation();
-        return self2.$qik.app.to(self2.to);
+        return self2.$sdk.app.to(self2.to);
       }
     }
   },
@@ -5509,14 +5509,14 @@ const _sfc_main$M = {
         return this.href;
       }
       if (this.nuxtMode) {
-        return this.$qik.app.createHref(this.to);
+        return this.$sdk.app.createHref(this.to);
       }
     },
     nuxtMode() {
-      return this.to && this.$qik.nuxt && this.$qik.app && this.$qik.app.createHref;
+      return this.to && this.$sdk.nuxt && this.$sdk.app && this.$sdk.app.createHref;
     },
     buildMode() {
-      return !!this.$qik && this.$qik.app && this.$qik.app.builder;
+      return !!this.$sdk && this.$sdk.app && this.$sdk.app.builder;
     },
     class() {
       var array = [];
@@ -5557,7 +5557,7 @@ function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["onClick", "to", "href", "target", "class"]);
 }
-var UXLink = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["render", _sfc_render$M], ["__scopeId", "data-v-4ed46cbc"]]);
+var UXLink = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["render", _sfc_render$M], ["__scopeId", "data-v-39903da2"]]);
 var icon_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$L = {
   props: {
@@ -5830,11 +5830,11 @@ const _sfc_main$J = {
       return parseInt(this.height);
     },
     id() {
-      return this.$qik.utils.id(this.model);
+      return this.$sdk.utils.id(this.model);
     },
     params() {
       var params = {};
-      params.access_token = this.$qik.auth.getCurrentToken();
+      params.access_token = this.$sdk.auth.getCurrentToken();
       if (this.imageWidth) {
         params.w = this.imageWidth ? this.imageWidth : this.defaultWidth;
       }
@@ -5858,13 +5858,13 @@ const _sfc_main$J = {
       return params;
     },
     src() {
-      return this.$qik.api.generateEndpointURL(`/${this.type}/${this.id}`, this.params);
+      return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, this.params);
     },
     previewSrc() {
       var params = Object.assign({}, this.params);
       params.w = 50;
       delete params.h;
-      return this.$qik.api.generateEndpointURL(`/${this.type}/${this.id}`, params);
+      return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, params);
     },
     style() {
       var _a, _b, _c;
@@ -5897,7 +5897,7 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
     createElementVNode("img", { src: $options.src }, null, 8, _hoisted_1$D)
   ], 4);
 }
-var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-7b68ec1a"]]);
+var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-3d48a5ec"]]);
 var progressbar_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$I = {
   props: {
@@ -6212,10 +6212,10 @@ var InputMixin = {
     cleanTextInput(val, type, instance) {
       switch (type) {
         case "url":
-          val = instance.$qik.utils.parseURL(val);
+          val = instance.$sdk.utils.parseURL(val);
           break;
         case "key":
-          val = instance.$qik.utils.machineName(val);
+          val = instance.$sdk.utils.machineName(val);
           break;
         case "integer":
           val = parseInt(String(val).replace(/[^0-9-]/g, ""));
@@ -6528,7 +6528,7 @@ const _sfc_main$E = {
   },
   mixins: [InputMixin],
   async created() {
-    var countries = await this.$qik.system.countries();
+    var countries = await this.$sdk.system.countries();
     var mapped = countries.reduce(function(set, country) {
       if (!country.countryCallingCodes || !country.countryCallingCodes.length) {
         return set;
@@ -6588,7 +6588,7 @@ const _sfc_main$E = {
     }
   }
 };
-const _withScopeId$3 = (n2) => (pushScopeId("data-v-6e2a7569"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$3 = (n2) => (pushScopeId("data-v-79694d60"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$y = {
   key: 0,
   class: "ux-field-title"
@@ -6750,7 +6750,7 @@ function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
     }))
   ], 64);
 }
-var PhoneNumberInput = /* @__PURE__ */ _export_sfc(_sfc_main$E, [["render", _sfc_render$E], ["__scopeId", "data-v-6e2a7569"]]);
+var PhoneNumberInput = /* @__PURE__ */ _export_sfc(_sfc_main$E, [["render", _sfc_render$E], ["__scopeId", "data-v-79694d60"]]);
 var timezone_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined$4(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
@@ -7354,7 +7354,7 @@ const _sfc_main$C = {
   },
   methods: {
     clicked() {
-      this.$qik.dispatch("item:view", this.item);
+      this.$sdk.dispatch("item:view", this.item);
     }
   }
 };
@@ -7387,7 +7387,7 @@ function _sfc_render$C(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ]);
 }
-var Item = /* @__PURE__ */ _export_sfc(_sfc_main$C, [["render", _sfc_render$C], ["__scopeId", "data-v-4f7e8052"]]);
+var Item = /* @__PURE__ */ _export_sfc(_sfc_main$C, [["render", _sfc_render$C], ["__scopeId", "data-v-1eeabf50"]]);
 /**!
  * Sortable 1.14.0
  * @author	RubaXa   <trash@rubaxa.org>
@@ -10080,10 +10080,10 @@ const _sfc_main$B = {
       if (!user) {
         return false;
       }
-      return this.$qik.access.canEditItem(user, item);
+      return this.$sdk.access.canEditItem(user, item);
     },
     async edit(item) {
-      var result = await this.$qik.global.edit(item, true).catch(function(err) {
+      var result = await this.$sdk.global.edit(item, true).catch(function(err) {
       });
       for (var prop in result) {
         item[prop] = result[prop];
@@ -10102,7 +10102,7 @@ const _sfc_main$B = {
           lockFilter: self2.field.lockFilter
         }
       };
-      self2.$qik.browse(this.field.referenceType, modalOptions).then(function(newSelection) {
+      self2.$sdk.browse(this.field.referenceType, modalOptions).then(function(newSelection) {
         self2.model = self2.multiValue ? newSelection : newSelection[0];
       }).catch(function(err) {
         console.log("Error", err);
@@ -10257,7 +10257,7 @@ function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["onClick"])
   ], 64);
 }
-var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["render", _sfc_render$B], ["__scopeId", "data-v-62ba944e"]]);
+var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["render", _sfc_render$B], ["__scopeId", "data-v-49f2d443"]]);
 var typeSelect_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined$3(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
@@ -10272,7 +10272,7 @@ const _sfc_main$A = {
   mixins: [InputMixin],
   async created() {
     this.model = this.model;
-    var glossary = await this.$qik.content.glossary();
+    var glossary = await this.$sdk.content.glossary();
     var typeList = glossary;
     if (this.field.basicTypes === false) {
       typeList = typeList.filter(function(definition) {
@@ -10429,7 +10429,7 @@ function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var TypeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$A, [["render", _sfc_render$A], ["__scopeId", "data-v-bd09dc46"]]);
+var TypeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$A, [["render", _sfc_render$A], ["__scopeId", "data-v-49a55ef8"]]);
 var currency_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$z = {
   props: {
@@ -10501,7 +10501,7 @@ const _sfc_main$z = {
       return String(this.field.currency || "usd").toLowerCase();
     },
     prefix() {
-      return this.$qik.utils.currencySymbol(this.currency);
+      return this.$sdk.utils.currencySymbol(this.currency);
     },
     suffix() {
       return String(this.currency).toUpperCase();
@@ -10646,7 +10646,7 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
     ], 2))
   ], 64);
 }
-var CurrencyField = /* @__PURE__ */ _export_sfc(_sfc_main$z, [["render", _sfc_render$z], ["__scopeId", "data-v-0f0203d4"]]);
+var CurrencyField = /* @__PURE__ */ _export_sfc(_sfc_main$z, [["render", _sfc_render$z], ["__scopeId", "data-v-5dd6344d"]]);
 var textfield_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$y = {
   props: {
@@ -11329,7 +11329,7 @@ const _sfc_main$t = {
     }
   },
   async created() {
-    this.comparators = await this.$qik.content.comparators();
+    this.comparators = await this.$sdk.content.comparators();
   },
   data() {
     return {
@@ -11997,7 +11997,7 @@ const _sfc_main$s = {
           allFields.push(dataFields);
         }
       }
-      var mapped = self2.$qik.utils.mapFields(allFields, { includeArrayDelimeter: true });
+      var mapped = self2.$sdk.utils.mapFields(allFields, { includeArrayDelimeter: true });
       return mapped;
     },
     operatorField() {
@@ -12316,7 +12316,7 @@ const _sfc_main$q = {
         if (!referenceType2) {
           return this.definition = null;
         }
-        var glossary = await this.$qik.content.glossary({ hash: true });
+        var glossary = await this.$sdk.content.glossary({ hash: true });
         this.definition = glossary[referenceType2];
       },
       immediate: true
@@ -12418,7 +12418,7 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["definition", "modelValue"]))
   ], 64);
 }
-var FilterInput = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-514ca0dc"]]);
+var FilterInput = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-1721388e"]]);
 var switch_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$p = {
   mixins: [InputMixin],
@@ -12591,7 +12591,7 @@ const _sfc_main$n = {
   },
   methods: {
     filesize(size) {
-      return this.$qik.files.filesize(size);
+      return this.$sdk.files.filesize(size);
     },
     remove(index2) {
       var self2 = this;
@@ -12638,14 +12638,14 @@ const _sfc_main$n = {
           }, 0);
         }
       };
-      const CancelToken = self2.$qik.api.CancelToken;
+      const CancelToken = self2.$sdk.api.CancelToken;
       const source = CancelToken.source();
       config.cancelToken = source.token;
       fileItem.cancelToken = source;
       config.headers = {
         "Content-Type": void 0
       };
-      return self2.$qik.api.post(`/file/upload`, body, config).then(function(res) {
+      return self2.$sdk.api.post(`/file/upload`, body, config).then(function(res) {
         fileItem.state = "complete";
         fileItem.result = res.data;
         fileItem.cancelToken = null;
@@ -12809,7 +12809,7 @@ function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["onFiles"]))
   ], 64);
 }
-var Upload = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$n], ["__scopeId", "data-v-124f63e6"]]);
+var Upload = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$n], ["__scopeId", "data-v-1c070f26"]]);
 var group_vue_vue_type_style_index_0_scoped_true_lang$1 = "";
 const _sfc_main$m = {
   mixins: [InputMixin],
@@ -14084,7 +14084,7 @@ const _sfc_main$f = {
   },
   computed: {
     interface() {
-      var editor = this.$qik.global.editor;
+      var editor = this.$sdk.global.editor;
       if (!editor) {
         return;
       }
@@ -14203,7 +14203,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var InternalRouteSelect = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-bfeface6"]]);
+var InternalRouteSelect = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-7b06d646"]]);
 var InternalMenuSelect_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
@@ -14266,7 +14266,7 @@ const _sfc_main$e = {
   },
   computed: {
     interface() {
-      var editor = this.$qik.global.editor;
+      var editor = this.$sdk.global.editor;
       if (!editor) {
         return;
       }
@@ -14369,7 +14369,7 @@ function _sfc_render$e(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var InternalMenuSelect = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["render", _sfc_render$e], ["__scopeId", "data-v-2002cd50"]]);
+var InternalMenuSelect = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["render", _sfc_render$e], ["__scopeId", "data-v-a04e9882"]]);
 var jsep = { exports: {} };
 (function(module, exports) {
   (function(root2) {
@@ -15394,7 +15394,7 @@ const _sfc_main$d = {
       this.$emit("field:dirty", this);
     },
     changeString(v) {
-      this.validateResults = this.$qik.content.validateField(this.fieldModel, this.actualField);
+      this.validateResults = this.$sdk.content.validateField(this.fieldModel, this.actualField);
     },
     modelValue(val, old) {
       if (this.watching) {
@@ -15853,7 +15853,7 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$a, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$d], ["__scopeId", "data-v-84a6cd12"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$d], ["__scopeId", "data-v-44748cb0"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$c = {
   props: {
@@ -16142,7 +16142,7 @@ const _sfc_main$b = {
       self2.state = STATE_PROCESSING;
       await self2.preSubmit();
       const submission = JSON.parse(JSON.stringify(self2.model));
-      self2.$qik.api.post(`/form/${self2.formID}`, submission).then(submissionComplete, submissionFailed);
+      self2.$sdk.api.post(`/form/${self2.formID}`, submission).then(submissionComplete, submissionFailed);
       async function submissionComplete(res) {
         await self2.postSubmit();
         self2.state = STATE_COMPLETE;
@@ -16207,14 +16207,14 @@ const _sfc_main$b = {
       return (_a = this.formState) == null ? void 0 : _a.invalid;
     },
     formID() {
-      return this.$qik.utils.id(this.form);
+      return this.$sdk.utils.id(this.form);
     },
     fields() {
       return this.form.fields || [];
     }
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-165f973d"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-7ac54a6a"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$9 = { class: "ux-submission-form" };
 const _hoisted_2$7 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("h3", null, "An error occurred", -1));
 const _hoisted_3$5 = { key: 0 };
@@ -16287,7 +16287,7 @@ function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ]);
 }
-var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$b], ["__scopeId", "data-v-165f973d"]]);
+var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$b], ["__scopeId", "data-v-7ac54a6a"]]);
 var search_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$a = {
   props: {
@@ -17385,8 +17385,8 @@ function defaultColumns(self2, type) {
           icon: "fa-download",
           action(row) {
             return new Promise(async function(resolve, reject) {
-              await self2.$qik.auth.ensureValidToken();
-              var url = self2.$qik.files.downloadUrl(self2.basicType, row);
+              await self2.$sdk.auth.ensureValidToken();
+              var url = self2.$sdk.files.downloadUrl(self2.basicType, row);
               window.open(url);
               resolve();
             });
@@ -17461,11 +17461,11 @@ const _sfc_main$5 = {
     Search
   },
   deactivated() {
-    typeCacheKey = this.$qik.global.cacheKeys[this.type];
+    typeCacheKey = this.$sdk.global.cacheKeys[this.type];
   },
   async activated() {
     var self2 = this;
-    var nowCacheKey = self2.$qik.global.cacheKeys[self2.type];
+    var nowCacheKey = self2.$sdk.global.cacheKeys[self2.type];
     if (typeCacheKey != nowCacheKey) {
       typeCacheKey = nowCacheKey;
       self2.dataSource = await self2.load();
@@ -17475,7 +17475,7 @@ const _sfc_main$5 = {
     var self2 = this;
     await Promise.all([
       new Promise(async function(resolve, reject) {
-        var glossary = await self2.$qik.content.glossary({ hash: true });
+        var glossary = await self2.$sdk.content.glossary({ hash: true });
         var definition = glossary[self2.type];
         self2.definition = definition;
         if (!definition) {
@@ -17600,7 +17600,7 @@ const _sfc_main$5 = {
           allFields.push(dataFields);
         }
       }
-      var mapped = self2.$qik.utils.mapFields(allFields).filter(function(field) {
+      var mapped = self2.$sdk.utils.mapFields(allFields).filter(function(field) {
         var isObject2 = field.type == "group" && field.asObject && (field.minimum == 1 && field.maximum == 1);
         return !isObject2;
       }).map(function(field) {
@@ -17618,7 +17618,7 @@ const _sfc_main$5 = {
       return this.manager.items.slice();
     },
     activeFilters() {
-      var activeFilters = this.$qik.filter.activeFilters(this.filter).reduce(function(set, filter) {
+      var activeFilters = this.$sdk.filter.activeFilters(this.filter).reduce(function(set, filter) {
         if (!filter.key) {
           return set;
         }
@@ -17687,11 +17687,11 @@ const _sfc_main$5 = {
       return columns;
     },
     filterChangeString() {
-      var string = this.$qik.filter.filterChangeString(this.filter);
+      var string = this.$sdk.filter.filterChangeString(this.filter);
       return string;
     },
     change() {
-      return `${JSON.stringify([this.page, this.sort, this.keywords, this.selectFields, this.type, this.filterChangeString])}-${this.cacheKey}-${this.$qik.global.cacheKeys[this.type]}`;
+      return `${JSON.stringify([this.page, this.sort, this.keywords, this.selectFields, this.type, this.filterChangeString])}-${this.cacheKey}-${this.$sdk.global.cacheKeys[this.type]}`;
     },
     items() {
       return this.dataSource.items;
@@ -17807,7 +17807,7 @@ const _sfc_main$5 = {
       if (self2.trash) {
         loadCriteria.trash = true;
       }
-      const { promise, cancel } = await self2.$qik.content.list(self2.type, loadCriteria, { cancellable: true });
+      const { promise, cancel } = await self2.$sdk.content.list(self2.type, loadCriteria, { cancellable: true });
       cancelInflight = cancel;
       promise.then(function(res) {
         self2.loading = false;
@@ -17845,7 +17845,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-3e12c643"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-444f4547"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { class: "footer" };
 function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
@@ -18019,7 +18019,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-3e12c643"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-444f4547"]]);
 var ModalMixin = {
   props: {
     options: {
@@ -18057,11 +18057,11 @@ const _sfc_main$4 = {
       this.dismiss();
     },
     dismiss(err) {
-      this.$qik.closeModal(this.modal.id);
+      this.$sdk.closeModal(this.modal.id);
       this.modal.reject(err);
     },
     close(value) {
-      this.$qik.closeModal(this.modal.id);
+      this.$sdk.closeModal(this.modal.id);
       this.modal.resolve(value);
     }
   },
@@ -18098,7 +18098,7 @@ function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
     ], 4)
   ]);
 }
-var QikModal = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$4], ["__scopeId", "data-v-a5940076"]]);
+var QikModal = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$4], ["__scopeId", "data-v-53027fe5"]]);
 var ConfirmModal_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$3 = {
   mixins: [ModalMixin]
@@ -18372,11 +18372,11 @@ const _sfc_main = {
   mixins: [ModalMixin],
   async created() {
     var self2 = this;
-    var glossary = await self2.$qik.content.glossary({ hash: true });
+    var glossary = await self2.$sdk.content.glossary({ hash: true });
     self2.loading = false;
     var definition = glossary[self2.type];
     if (!definition) {
-      self2.$qik.notify("You do not have the required permissions to list content of this type");
+      self2.$sdk.notify("You do not have the required permissions to list content of this type");
       self2.dismiss();
       return;
     }
@@ -18507,7 +18507,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var QikContentModal = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-2efc11d9"]]);
+var QikContentModal = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57c31aea"]]);
 function device() {
   var service2 = reactive({
     mounted: false,

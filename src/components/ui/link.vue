@@ -26,7 +26,7 @@ export default {
             if(self.buildMode || self.nuxtMode) {
                 event.preventDefault();
                 event.stopImmediatePropagation();
-                return self.$qik.app.to(self.to);
+                return self.$sdk.app.to(self.to);
             }
         },
     },
@@ -41,14 +41,14 @@ export default {
             // If we are being rendered in nuxt
             // we need to create the href manually
             if(this.nuxtMode) {
-                return this.$qik.app.createHref(this.to);
+                return this.$sdk.app.createHref(this.to);
             }
         },
         nuxtMode() {
-            return this.to && this.$qik.nuxt && this.$qik.app && this.$qik.app.createHref;
+            return this.to && this.$sdk.nuxt && this.$sdk.app && this.$sdk.app.createHref;
         },
         buildMode() {
-            return !!this.$qik && this.$qik.app && this.$qik.app.builder;
+            return !!this.$sdk && this.$sdk.app && this.$sdk.app.builder;
         },
         class() {
 

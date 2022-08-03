@@ -52,12 +52,12 @@ export default {
             return parseInt(this.height);
         },
         id() {
-            return this.$qik.utils.id(this.model);
+            return this.$sdk.utils.id(this.model);
         },
         params() {
 
             var params = {};
-            params.access_token = this.$qik.auth.getCurrentToken();
+            params.access_token = this.$sdk.auth.getCurrentToken();
 
             /////////////////////////////////
 
@@ -91,14 +91,14 @@ export default {
             return params;
         },
         src() {
-            return this.$qik.api.generateEndpointURL(`/${this.type}/${this.id}`, this.params);
+            return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, this.params);
         },
         previewSrc() {
 
             var params = Object.assign({}, this.params);
             params.w = 50;
             delete params.h;
-            return this.$qik.api.generateEndpointURL(`/${this.type}/${this.id}`, params);
+            return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, params);
         },
         style() {
 

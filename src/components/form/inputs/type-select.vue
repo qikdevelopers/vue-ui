@@ -39,7 +39,7 @@ export default {
     async created() {
         this.model = this.model;
 
-        var glossary = await this.$qik.content.glossary();
+        var glossary = await this.$sdk.content.glossary();
 
 
         var typeList = glossary;

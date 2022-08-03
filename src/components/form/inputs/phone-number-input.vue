@@ -66,7 +66,7 @@ export default {
     },
     mixins: [InputMixin],
     async created() {
-        var countries = await this.$qik.system.countries();
+        var countries = await this.$sdk.system.countries();
 
         var mapped = countries.reduce(function(set, country) {
 

@@ -112,7 +112,7 @@ export default {
         }
     },
     async created() {
-        this.comparators = await this.$qik.content.comparators();
+        this.comparators = await this.$sdk.content.comparators();
     },
     data() {
         return {

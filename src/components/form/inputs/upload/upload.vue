@@ -101,7 +101,7 @@ export default {
     },
     methods: {
         filesize(size) {
-            return this.$qik.files.filesize(size);
+            return this.$sdk.files.filesize(size);
         },
         remove(index) {
 
@@ -175,7 +175,7 @@ export default {
 
             ///////////////////////////////////////////////////
 
-            const CancelToken = self.$qik.api.CancelToken;
+            const CancelToken = self.$sdk.api.CancelToken;
             const source = CancelToken.source();
             config.cancelToken = source.token;
             fileItem.cancelToken = source;
@@ -187,7 +187,7 @@ export default {
 
             ///////////////////////////////////////////////////
 
-            return self.$qik.api.post(`/file/upload`, body, config)
+            return self.$sdk.api.post(`/file/upload`, body, config)
                 .then(function(res) {
                     fileItem.state = 'complete';
                     fileItem.result = res.data;

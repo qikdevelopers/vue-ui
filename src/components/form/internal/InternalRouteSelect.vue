@@ -99,7 +99,7 @@ export default {
     computed: {
         interface() {
 
-            var editor = this.$qik.global.editor;
+            var editor = this.$sdk.global.editor;
 
             if (!editor) {
                 return;

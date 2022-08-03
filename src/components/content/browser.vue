@@ -250,10 +250,10 @@ function defaultColumns(self, type) {
                         return new Promise(async function(resolve, reject) {
 
                             //Refresh our token if it's stale
-                            var validToken = await self.$qik.auth.ensureValidToken();
+                            var validToken = await self.$sdk.auth.ensureValidToken();
 
                             //Open the URL
-                            var url = self.$qik.files.downloadUrl(self.basicType, row)
+                            var url = self.$sdk.files.downloadUrl(self.basicType, row)
 
                             window.open(url);
 
@@ -339,11 +339,11 @@ export default {
         Search,
     },
     deactivated() {
-        typeCacheKey = this.$qik.global.cacheKeys[this.type];
+        typeCacheKey = this.$sdk.global.cacheKeys[this.type];
     },
     async activated() {
         var self = this;
-        var nowCacheKey = self.$qik.global.cacheKeys[self.type];
+        var nowCacheKey = self.$sdk.global.cacheKeys[self.type];
         if (typeCacheKey != nowCacheKey) {
             typeCacheKey = nowCacheKey;
             self.dataSource = await self.load();
@@ -356,7 +356,7 @@ export default {
         //Get the type details
         await Promise.all([
             new Promise(async function(resolve, reject) {
-                var glossary = await self.$qik.content.glossary({ hash: true });
+                var glossary = await self.$sdk.content.glossary({ hash: true });
                 var definition = glossary[self.type]
                 self.definition = definition;
 
@@ -522,7 +522,7 @@ export default {
             }
 
 
-            var mapped = self.$qik.utils.mapFields(allFields)
+            var mapped = self.$sdk.utils.mapFields(allFields)
                 .filter(function(field) {
                     var isObject = field.type == 'group' && field.asObject && (field.minimum == 1 && field.maximum == 1);
                     return !isObject;
@@ -544,7 +544,7 @@ export default {
             return this.manager.items.slice();
         },
         activeFilters() {
-            var activeFilters = this.$qik.filter.activeFilters(this.filter)
+            var activeFilters = this.$sdk.filter.activeFilters(this.filter)
             .reduce(function(set, filter) {
                 if(!filter.key) {
                     return set;
@@ -676,11 +676,11 @@ export default {
             return columns;
         },
         filterChangeString() {
-            var string = this.$qik.filter.filterChangeString(this.filter);
+            var string = this.$sdk.filter.filterChangeString(this.filter);
             return string;
         },
         change() {
-            return `${JSON.stringify([this.page, this.sort, this.keywords, this.selectFields, this.type, this.filterChangeString])}-${this.cacheKey}-${this.$qik.global.cacheKeys[this.type]}`;
+            return `${JSON.stringify([this.page, this.sort, this.keywords, this.selectFields, this.type, this.filterChangeString])}-${this.cacheKey}-${this.$sdk.global.cacheKeys[this.type]}`;
         },
         items() {
             return this.dataSource.items;
@@ -837,7 +837,7 @@ export default {
             }
 
 
-            const { promise, cancel } = await self.$qik.content.list(self.type, loadCriteria, { cancellable: true })
+            const { promise, cancel } = await self.$sdk.content.list(self.type, loadCriteria, { cancellable: true })
 
             cancelInflight = cancel;
 

@@ -43,7 +43,7 @@ export default {
                 if (!referenceType) {
                     return this.definition = null;
                 }
-                var glossary = await this.$qik.content.glossary({ hash: true });
+                var glossary = await this.$sdk.content.glossary({ hash: true });
                 this.definition = glossary[referenceType]
             },
             immediate: true,

@@ -72,11 +72,11 @@ export default {
                 return false;
             }
 
-            return this.$qik.access.canEditItem(user, item);
+            return this.$sdk.access.canEditItem(user, item);
 
         },
         async edit(item) {
-            var result = await this.$qik.global.edit(item, true)
+            var result = await this.$sdk.global.edit(item, true)
             .catch(function(err) {
 
             });
@@ -101,7 +101,7 @@ export default {
                     }
                 }
 
-            self.$qik.browse(this.field.referenceType, modalOptions)
+            self.$sdk.browse(this.field.referenceType, modalOptions)
                 .then(function(newSelection) {
                     self.model = self.multiValue ? newSelection : newSelection[0];
                 })

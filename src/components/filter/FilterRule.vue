@@ -174,7 +174,7 @@ export default {
 
             }
 
-            var mapped = self.$qik.utils.mapFields(allFields, {includeArrayDelimeter:true});
+            var mapped = self.$sdk.utils.mapFields(allFields, {includeArrayDelimeter:true});
             return mapped;
         },
         operatorField() {

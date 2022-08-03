@@ -94,7 +94,7 @@ export default {
 
             // Submit to the server
 
-            self.$qik.api.post(`/form/${self.formID}`, submission).then(submissionComplete, submissionFailed)
+            self.$sdk.api.post(`/form/${self.formID}`, submission).then(submissionComplete, submissionFailed)
 
             async function submissionComplete(res) {
 
@@ -168,7 +168,7 @@ export default {
             return this.formState?.invalid
         },
         formID() {
-            return this.$qik.utils.id(this.form);
+            return this.$sdk.utils.id(this.form);
         },
         fields() {
             return this.form.fields || [];

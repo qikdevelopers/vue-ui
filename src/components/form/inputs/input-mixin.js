@@ -217,10 +217,10 @@ export default {
         cleanTextInput(val, type, instance) {
             switch (type) {
                 case 'url':
-                    val = instance.$qik.utils.parseURL(val);
+                    val = instance.$sdk.utils.parseURL(val);
                     break;
                 case 'key':
-                    val = instance.$qik.utils.machineName(val);
+                    val = instance.$sdk.utils.machineName(val);
                     break;
                 case 'integer':
                     val = parseInt(String(val).replace(/[^0-9-]/g, ''));

@@ -46,13 +46,13 @@ export default {
     mixins: [ModalMixin],
     async created() {
         var self = this;
-        var glossary = await self.$qik.content.glossary({ hash: true });
+        var glossary = await self.$sdk.content.glossary({ hash: true });
         self.loading = false;
         var definition = glossary[self.type]
 
         if(!definition) {
             //Close immediately
-            self.$qik.notify('You do not have the required permissions to list content of this type');
+            self.$sdk.notify('You do not have the required permissions to list content of this type');
             self.dismiss()
             return;
         }

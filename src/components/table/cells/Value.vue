@@ -56,7 +56,7 @@ export default {
 	},
 	methods:{
 		clicked(item) {
-			this.$qik.dispatch('item:view', item);
+			this.$sdk.dispatch('item:view', item);
 		}
 	},
 }
