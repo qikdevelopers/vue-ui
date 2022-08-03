@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.49";
+const version$1 = "0.1.50";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -18098,7 +18098,7 @@ function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
     ], 4)
   ]);
 }
-var QikModal = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$4], ["__scopeId", "data-v-53027fe5"]]);
+var UxModal = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$4], ["__scopeId", "data-v-53027fe5"]]);
 var ConfirmModal_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$3 = {
   mixins: [ModalMixin]
@@ -18163,7 +18163,7 @@ function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var QikConfirmModal = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$3], ["__scopeId", "data-v-20b62981"]]);
+var UxConfirmModal = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$3], ["__scopeId", "data-v-20b62981"]]);
 var OptionsModal_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$2 = {
   data() {
@@ -18261,7 +18261,7 @@ function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var QikOptionsModal = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2], ["__scopeId", "data-v-09008c8a"]]);
+var UxOptionsModal = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2], ["__scopeId", "data-v-09008c8a"]]);
 var PromptModal_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1 = {
   mixins: [ModalMixin],
@@ -18362,7 +18362,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ], 32);
 }
-var QikPromptModal = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-4af3c888"]]);
+var UxPromptModal = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-4af3c888"]]);
 var ContentModal_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main = {
   components: {
@@ -18507,7 +18507,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var QikContentModal = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57c31aea"]]);
+var UxContentModal = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57c31aea"]]);
 function device() {
   var service2 = reactive({
     mounted: false,
@@ -18684,32 +18684,32 @@ const defaultComponents = {
   UxTab: UXTab,
   Spinner,
   ProgressBar,
-  QikModal
+  UxModal
 };
 const QikUI = {
-  install(Vue, qik) {
+  install(Vue, sdk) {
     console.log(versionName);
-    qik.modals = reactive([]);
-    qik.modal = function(modal) {
+    sdk.modals = reactive([]);
+    sdk.modal = function(modal) {
       return new Promise(function(resolve, reject) {
-        modal.id = qik.modals.length;
+        modal.id = sdk.modals.length;
         modal.resolve = resolve;
         modal.reject = reject;
-        qik.modals.splice(modal.id, 0, modal);
+        sdk.modals.splice(modal.id, 0, modal);
       });
     };
-    qik.browse = function(type, options) {
+    sdk.browse = function(type, options) {
       options = options || {};
       options.type = type;
       options.model = options.model || [];
-      return qik.modal({
-        component: QikContentModal,
+      return sdk.modal({
+        component: UxContentModal,
         options
       });
     };
-    qik.options = function(choices, title, description) {
-      return qik.modal({
-        component: QikOptionsModal,
+    sdk.options = function(choices, title, description) {
+      return sdk.modal({
+        component: UxOptionsModal,
         options: {
           title,
           description,
@@ -18717,29 +18717,29 @@ const QikUI = {
         }
       });
     };
-    qik.prompt = function(fields, options) {
+    sdk.prompt = function(fields, options) {
       options = options || {};
       options.model = options.model || {};
       options.fields = fields;
-      return qik.modal({
-        component: QikPromptModal,
+      return sdk.modal({
+        component: UxPromptModal,
         options
       });
     };
-    qik.confirm = function(title, options) {
+    sdk.confirm = function(title, options) {
       options = options || {};
       options.title = title;
-      return qik.modal({
-        component: QikConfirmModal,
+      return sdk.modal({
+        component: UxConfirmModal,
         options
       });
     };
-    qik.closeModal = function(id) {
-      var modal = qik.modals.find(function(modal2) {
+    sdk.closeModal = function(id) {
+      var modal = sdk.modals.find(function(modal2) {
         return modal2.id == id;
       });
-      var index2 = qik.modals.indexOf(modal);
-      qik.modals.splice(index2, 1);
+      var index2 = sdk.modals.indexOf(modal);
+      sdk.modals.splice(index2, 1);
     };
     for (const prop in defaultComponents) {
       const component = defaultComponents[prop];
@@ -18747,5 +18747,5 @@ const QikUI = {
     }
   }
 };
-export { CodeEditor, ContentBrowser, device as Device, FlexBody, FlexCell, FlexColumn, FlexFooter, FlexHeader, FlexRow, FlexSpacer, ModalMixin, NativeSelect, Panel, PanelBody, PanelFooter, PanelHeader, ProgressBar, QikConfirmModal, QikContentModal, QikModal, QikOptionsModal, QikPromptModal, QikUI, RememberScrollMixin, Search, Selection, Spinner, UXButton, UXCheckbox, UXForm, UXFormField, UXIcon, UXImage, UXLink, UXList, UXListItem, UXMenu, UXRender, UXRenderField, UXSubmissionForm, UXSwitch, UXTab, NativeTable as UXTable, UXTabset };
+export { CodeEditor, ContentBrowser, device as Device, FlexBody, FlexCell, FlexColumn, FlexFooter, FlexHeader, FlexRow, FlexSpacer, ModalMixin, NativeSelect, Panel, PanelBody, PanelFooter, PanelHeader, ProgressBar, QikUI, RememberScrollMixin, Search, Selection, Spinner, UXButton, UXCheckbox, UXForm, UXFormField, UXIcon, UXImage, UXLink, UXList, UXListItem, UXMenu, UXRender, UXRenderField, UXSubmissionForm, UXSwitch, UXTab, NativeTable as UXTable, UXTabset, UxConfirmModal, UxContentModal, UxModal, UxOptionsModal, UxPromptModal };
 //# sourceMappingURL=lib.es.js.map

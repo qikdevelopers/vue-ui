@@ -62,11 +62,11 @@ export { default as RememberScrollMixin } from './mixins/RememberScroll.js';
 ////////////////////////////////////////////
 
 export { default as ModalMixin } from './modal/ModalMixin.js';
-export { default as QikModal } from './modal/Modal.vue';
-export { default as QikConfirmModal } from './modal/ConfirmModal.vue';
-export { default as QikOptionsModal } from './modal/OptionsModal.vue';
-export { default as QikPromptModal } from './modal/PromptModal.vue';
-export { default as QikContentModal } from './modal/ContentModal.vue';
+export { default as UxModal } from './modal/Modal.vue';
+export { default as UxConfirmModal } from './modal/ConfirmModal.vue';
+export { default as UxOptionsModal } from './modal/OptionsModal.vue';
+export { default as UxPromptModal } from './modal/PromptModal.vue';
+export { default as UxContentModal } from './modal/ContentModal.vue';
 
 //Services
 export { default as Device } from './services/device.js';
@@ -123,11 +123,11 @@ import UXRenderField from './content/render/field.vue';
 //Services
 
 //Modals
-import QikModal from './modal/Modal.vue';
-import QikConfirmModal from './modal/ConfirmModal.vue';
-import QikOptionsModal from './modal/OptionsModal.vue';
-import QikPromptModal from './modal/PromptModal.vue';
-import QikContentModal from './modal/ContentModal.vue';
+import UxModal from './modal/Modal.vue';
+import UxConfirmModal from './modal/ConfirmModal.vue';
+import UxOptionsModal from './modal/OptionsModal.vue';
+import UxPromptModal from './modal/PromptModal.vue';
+import UxContentModal from './modal/ContentModal.vue';
 
 const defaultComponents = {
     FlexColumn,
@@ -160,7 +160,7 @@ const defaultComponents = {
     UxTab: UXTab,
     Spinner,
     ProgressBar,
-    QikModal,
+    UxModal,
 }
 
 
@@ -169,7 +169,7 @@ const defaultComponents = {
 import { reactive, watchEffect } from 'vue'
 
 const QikUI = {
-    install(Vue, qik) {
+    install(Vue, sdk) {
         console.log(versionName)
 
 
@@ -177,40 +177,40 @@ const QikUI = {
         //////////////////////////////
 
         //Create an array for our modal stack
-        qik.modals = reactive([]);
+        sdk.modals = reactive([]);
 
         //Base modal function
-        qik.modal = function(modal) {
+        sdk.modal = function(modal) {
 
             return new Promise(function(resolve, reject) {
-                modal.id = qik.modals.length;
+                modal.id = sdk.modals.length;
                 modal.resolve = resolve;
                 modal.reject = reject;
 
                 //Add our modal to the stack
-                qik.modals.splice(modal.id, 0, modal);
+                sdk.modals.splice(modal.id, 0, modal);
             });
 
         }
 
         //Quick function for asking the user to select an option
-        qik.browse = function(type, options) {
+        sdk.browse = function(type, options) {
             options = options || {}
             options.type = type;
             options.model = options.model || [];
 
-            return qik.modal({
-                component: QikContentModal,
+            return sdk.modal({
+                component: UxContentModal,
                 options,
             })
 
         }
 
         //Quick function for asking the user to select an option
-        qik.options = function(choices, title, description) {
+        sdk.options = function(choices, title, description) {
 
-            return qik.modal({
-                component: QikOptionsModal,
+            return sdk.modal({
+                component: UxOptionsModal,
                 options: {
                     title,
                     description,
@@ -221,7 +221,7 @@ const QikUI = {
         }
 
         //Prompt the user to input data into a form
-        qik.prompt = function(fields, options) {
+        sdk.prompt = function(fields, options) {
             options = options || {};
             options.model = options.model || {}
 
@@ -229,32 +229,32 @@ const QikUI = {
             //Append the fields
             options.fields = fields;
 
-            return qik.modal({
-                component: QikPromptModal,
+            return sdk.modal({
+                component: UxPromptModal,
                 options,
             })
 
         }
 
         //Prompt the user to confirm an action
-        qik.confirm = function(title, options) {
+        sdk.confirm = function(title, options) {
             options = options || {};
 
             options.title = title;
 
-            return qik.modal({
-                component: QikConfirmModal,
+            return sdk.modal({
+                component: UxConfirmModal,
                 options,
             })
         }
 
-        qik.closeModal = function(id) {
-            var modal = qik.modals.find(function(modal) {
+        sdk.closeModal = function(id) {
+            var modal = sdk.modals.find(function(modal) {
                 return modal.id == id;
             })
 
-            var index = qik.modals.indexOf(modal);
-            qik.modals.splice(index, 1);
+            var index = sdk.modals.indexOf(modal);
+            sdk.modals.splice(index, 1);
         }
 
         //////////////////////////////
