@@ -23,6 +23,9 @@ export { default as UXTabset } from './layout/tabset.vue';
 export { default as UXTab } from './layout/tab.vue';
 
 
+export { default as UXTable } from './table/Table.vue';
+
+
 
 export { default as UXButton } from './ui/button.vue';
 export { default as UXCheckbox } from './ui/checkbox.vue';
@@ -83,6 +86,8 @@ import Panel from './layout/panel.vue';
 import PanelBody from './layout/panel-body.vue';
 import PanelHeader from './layout/panel-header.vue';
 import PanelFooter from './layout/panel-footer.vue';
+
+import UXTable from './table/Table.vue';
 
 
 import UXTabset from './layout/tabset.vue';
