@@ -33,6 +33,7 @@ export { default as UXSwitch } from './ui/switch.vue';
 export { default as UXLink } from './ui/link.vue';
 export { default as UXIcon } from './ui/icon.vue';
 export { default as UXMenu } from './ui/menu.vue';
+export { default as UXMenuList } from './ui/menulist.vue';
 export { default as UXImage } from './ui/image.vue';
 export { default as Spinner } from './ui/spinner.vue';
 export { default as ProgressBar } from './ui/progressbar.vue';
@@ -98,6 +99,7 @@ import UXSwitch from './ui/switch.vue';
 import UXCheckbox from './ui/checkbox.vue';
 import UXIcon from './ui/icon.vue';
 import UXMenu from './ui/menu.vue';
+import UXMenuList from './ui/menulist.vue';
 import UXImage from './ui/image.vue';
 import UXLink from './ui/link.vue';
 import UXList from './ui/list.vue';
@@ -151,6 +153,7 @@ const defaultComponents = {
     UxRenderField: UXRenderField,
     UxIcon: UXIcon,
     UxMenu: UXMenu,
+    UxMenuList: UXMenuList,
     UxImage: UXImage,
     UxButton: UXButton,
     UxCheckbox: UXCheckbox,

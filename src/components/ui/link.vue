@@ -23,10 +23,20 @@ export default {
         clicked(event) {
             var self = this;
 
-            if(self.buildMode || self.nuxtMode) {
-                event.preventDefault();
-                event.stopImmediatePropagation();
-                return self.$sdk.app.to(self.to);
+            if(self.to) {
+                if(self.buildMode || self.nuxtMode) {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    return self.$sdk.app.to(self.to);
+                }
+            }
+
+            if(self.href) {
+                if(self.buildMode || self.nuxtMode) {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    return;
+                }
             }
         },
     },
