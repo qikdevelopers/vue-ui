@@ -1,6 +1,6 @@
 <template>
     <td class="table-date-cell">
-        <div>
+        <div v-if="hasValue">
         	<span class="off">{{readable}}</span>
         	<span class="on">{{timeago}}</span>
         	<span class="spacer">{{readable}}</span>
@@ -14,6 +14,9 @@ import { DateTime } from 'luxon';
 export default {
     mixins: [TableCellMixin],
     computed: {
+        hasValue() {
+            return this.value !== undefined && this.value !== null;
+        },
     	timeago() {
     		return DateTime.fromISO(this.value).toRelative();
     	},

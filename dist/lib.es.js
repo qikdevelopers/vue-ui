@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.52";
+const version$1 = "0.1.53";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -41,104 +41,104 @@ var _export_sfc = (sfc, props2) => {
   }
   return target;
 };
-const _sfc_main$1a = {};
+const _sfc_main$1b = {};
 const _hoisted_1$Y = { class: "flex-column" };
-function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$Y, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexColumn = /* @__PURE__ */ _export_sfc(_sfc_main$1a, [["render", _sfc_render$1a], ["__scopeId", "data-v-203ea86f"]]);
+var FlexColumn = /* @__PURE__ */ _export_sfc(_sfc_main$1b, [["render", _sfc_render$1b], ["__scopeId", "data-v-203ea86f"]]);
 var flexBody_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$19 = {};
+const _sfc_main$1a = {};
 const _hoisted_1$X = { class: "flex-column-body" };
-function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$X, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexBody = /* @__PURE__ */ _export_sfc(_sfc_main$19, [["render", _sfc_render$19], ["__scopeId", "data-v-64850355"]]);
+var FlexBody = /* @__PURE__ */ _export_sfc(_sfc_main$1a, [["render", _sfc_render$1a], ["__scopeId", "data-v-64850355"]]);
 var flexHeader_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$18 = {};
+const _sfc_main$19 = {};
 const _hoisted_1$W = { class: "flex-column-header" };
-function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$W, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexHeader = /* @__PURE__ */ _export_sfc(_sfc_main$18, [["render", _sfc_render$18], ["__scopeId", "data-v-10b28f00"]]);
+var FlexHeader = /* @__PURE__ */ _export_sfc(_sfc_main$19, [["render", _sfc_render$19], ["__scopeId", "data-v-10b28f00"]]);
 var flexFooter_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$17 = {};
+const _sfc_main$18 = {};
 const _hoisted_1$V = { class: "flex-column-footer" };
-function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$V, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexFooter = /* @__PURE__ */ _export_sfc(_sfc_main$17, [["render", _sfc_render$17], ["__scopeId", "data-v-68216a72"]]);
+var FlexFooter = /* @__PURE__ */ _export_sfc(_sfc_main$18, [["render", _sfc_render$18], ["__scopeId", "data-v-68216a72"]]);
 var flexCell_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$16 = {};
+const _sfc_main$17 = {};
 const _hoisted_1$U = { class: "flex-cell" };
-function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$U, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexCell = /* @__PURE__ */ _export_sfc(_sfc_main$16, [["render", _sfc_render$16], ["__scopeId", "data-v-644bb279"]]);
+var FlexCell = /* @__PURE__ */ _export_sfc(_sfc_main$17, [["render", _sfc_render$17], ["__scopeId", "data-v-644bb279"]]);
 var flexRow_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$15 = {};
+const _sfc_main$16 = {};
 const _hoisted_1$T = { class: "flex-row" };
-function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$T, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexRow = /* @__PURE__ */ _export_sfc(_sfc_main$15, [["render", _sfc_render$15], ["__scopeId", "data-v-5b76ad1f"]]);
+var FlexRow = /* @__PURE__ */ _export_sfc(_sfc_main$16, [["render", _sfc_render$16], ["__scopeId", "data-v-5b76ad1f"]]);
 var flexSpacer_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$14 = {};
+const _sfc_main$15 = {};
 const _hoisted_1$S = { class: "flex-spacer" };
-function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$S);
 }
-var FlexSpacer = /* @__PURE__ */ _export_sfc(_sfc_main$14, [["render", _sfc_render$14], ["__scopeId", "data-v-35b15579"]]);
+var FlexSpacer = /* @__PURE__ */ _export_sfc(_sfc_main$15, [["render", _sfc_render$15], ["__scopeId", "data-v-35b15579"]]);
 var panel_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$13 = {};
+const _sfc_main$14 = {};
 const _hoisted_1$R = { class: "panel" };
-function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$R, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var Panel = /* @__PURE__ */ _export_sfc(_sfc_main$13, [["render", _sfc_render$13], ["__scopeId", "data-v-50ae77fc"]]);
+var Panel = /* @__PURE__ */ _export_sfc(_sfc_main$14, [["render", _sfc_render$14], ["__scopeId", "data-v-50ae77fc"]]);
 var panelBody_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$12 = {};
+const _sfc_main$13 = {};
 const _hoisted_1$Q = { class: "panel-body" };
-function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$Q, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var PanelBody = /* @__PURE__ */ _export_sfc(_sfc_main$12, [["render", _sfc_render$12], ["__scopeId", "data-v-c82dca76"]]);
+var PanelBody = /* @__PURE__ */ _export_sfc(_sfc_main$13, [["render", _sfc_render$13], ["__scopeId", "data-v-c82dca76"]]);
 var panelHeader_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$11 = {};
+const _sfc_main$12 = {};
 const _hoisted_1$P = { class: "panel-header" };
-function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$P, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var PanelHeader = /* @__PURE__ */ _export_sfc(_sfc_main$11, [["render", _sfc_render$11], ["__scopeId", "data-v-13bf11da"]]);
+var PanelHeader = /* @__PURE__ */ _export_sfc(_sfc_main$12, [["render", _sfc_render$12], ["__scopeId", "data-v-13bf11da"]]);
 var panelFooter_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$10 = {};
+const _sfc_main$11 = {};
 const _hoisted_1$O = { class: "panel-footer" };
-function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$O, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var PanelFooter = /* @__PURE__ */ _export_sfc(_sfc_main$10, [["render", _sfc_render$10], ["__scopeId", "data-v-b4f4786a"]]);
+var PanelFooter = /* @__PURE__ */ _export_sfc(_sfc_main$11, [["render", _sfc_render$11], ["__scopeId", "data-v-b4f4786a"]]);
 var tabset_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$$ = {
+const _sfc_main$10 = {
   data() {
     return {
       activeIndex: 0
@@ -157,7 +157,7 @@ const _sfc_main$$ = {
   }
 };
 const _hoisted_1$N = ["onClick"];
-function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_row = resolveComponent("flex-row");
   const _component_flex_header = resolveComponent("flex-header");
   const _component_flex_column = resolveComponent("flex-column");
@@ -198,8 +198,8 @@ function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$$, [["render", _sfc_render$$], ["__scopeId", "data-v-1449f192"]]);
-const _sfc_main$_ = {
+var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$10, [["render", _sfc_render$10], ["__scopeId", "data-v-1449f192"]]);
+const _sfc_main$$ = {
   props: {
     heading: {
       type: String,
@@ -222,7 +222,7 @@ const _sfc_main$_ = {
     }
   }
 };
-function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_column = resolveComponent("flex-column");
   return openBlock(), createBlock(_component_flex_column, null, {
     default: withCtx(() => [
@@ -231,7 +231,7 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   });
 }
-var UXTab = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_]]);
+var UXTab = /* @__PURE__ */ _export_sfc(_sfc_main$$, [["render", _sfc_render$$]]);
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 var isArray$3 = Array.isArray;
 var isArray_1 = isArray$3;
@@ -699,7 +699,7 @@ var TableCellMixin = {
   }
 };
 var Thumbnail_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$Z = {
+const _sfc_main$_ = {
   mixins: [TableCellMixin],
   computed: {
     type() {
@@ -709,7 +709,7 @@ const _sfc_main$Z = {
   }
 };
 const _hoisted_1$M = { class: "table-image-cell" };
-function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_image = resolveComponent("ux-image");
   const _component_ux_icon = resolveComponent("ux-icon");
   return openBlock(), createElementBlock("td", _hoisted_1$M, [
@@ -724,9 +724,9 @@ function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
     }))
   ]);
 }
-var ThumbnailCell = /* @__PURE__ */ _export_sfc(_sfc_main$Z, [["render", _sfc_render$Z], ["__scopeId", "data-v-6dbe8d2c"]]);
+var ThumbnailCell = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-6dbe8d2c"]]);
 var Button_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$Y = {
+const _sfc_main$Z = {
   data() {
     return {
       processing: false
@@ -751,7 +751,7 @@ const _sfc_main$Y = {
   }
 };
 const _hoisted_1$L = { class: "table-button-cell" };
-function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
   const _component_ux_button = resolveComponent("ux-button");
   return openBlock(), createElementBlock("td", _hoisted_1$L, [
@@ -774,7 +774,7 @@ function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["size", "loading", "onClick"])
   ]);
 }
-var ButtonCell = /* @__PURE__ */ _export_sfc(_sfc_main$Y, [["render", _sfc_render$Y], ["__scopeId", "data-v-3cbecb7e"]]);
+var ButtonCell = /* @__PURE__ */ _export_sfc(_sfc_main$Z, [["render", _sfc_render$Z], ["__scopeId", "data-v-3cbecb7e"]]);
 class LuxonError extends Error {
 }
 class InvalidDateTimeError extends LuxonError {
@@ -4608,9 +4608,12 @@ function friendlyDateTime(dateTimeish) {
   }
 }
 var DateCell_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$X = {
+const _sfc_main$Y = {
   mixins: [TableCellMixin],
   computed: {
+    hasValue() {
+      return this.value !== void 0 && this.value !== null;
+    },
     timeago() {
       return DateTime.fromISO(this.value).toRelative();
     },
@@ -4627,19 +4630,40 @@ const _sfc_main$X = {
   }
 };
 const _hoisted_1$K = { class: "table-date-cell" };
-const _hoisted_2$B = { class: "off" };
-const _hoisted_3$v = { class: "on" };
-const _hoisted_4$r = { class: "spacer" };
-function _sfc_render$X(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_2$B = { key: 0 };
+const _hoisted_3$v = { class: "off" };
+const _hoisted_4$r = { class: "on" };
+const _hoisted_5$l = { class: "spacer" };
+function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("td", _hoisted_1$K, [
-    createElementVNode("div", null, [
-      createElementVNode("span", _hoisted_2$B, toDisplayString($options.readable), 1),
-      createElementVNode("span", _hoisted_3$v, toDisplayString($options.timeago), 1),
-      createElementVNode("span", _hoisted_4$r, toDisplayString($options.readable), 1)
-    ])
+    $options.hasValue ? (openBlock(), createElementBlock("div", _hoisted_2$B, [
+      createElementVNode("span", _hoisted_3$v, toDisplayString($options.readable), 1),
+      createElementVNode("span", _hoisted_4$r, toDisplayString($options.timeago), 1),
+      createElementVNode("span", _hoisted_5$l, toDisplayString($options.readable), 1)
+    ])) : createCommentVNode("", true)
   ]);
 }
-var DateCell = /* @__PURE__ */ _export_sfc(_sfc_main$X, [["render", _sfc_render$X], ["__scopeId", "data-v-bde0ae3a"]]);
+var DateCell = /* @__PURE__ */ _export_sfc(_sfc_main$Y, [["render", _sfc_render$Y], ["__scopeId", "data-v-3687693f"]]);
+var BooleanCell_vue_vue_type_style_index_0_scoped_true_lang = "";
+const _sfc_main$X = {
+  mixins: [TableCellMixin],
+  computed: {
+    boolean() {
+      return !!this.value;
+    }
+  }
+};
+function _sfc_render$X(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_ux_icon = resolveComponent("ux-icon");
+  return openBlock(), createElementBlock("td", {
+    class: normalizeClass(["table-boolean-cell", { true: $options.boolean, false: !$options.boolean }])
+  }, [
+    createVNode(_component_ux_icon, {
+      icon: $options.boolean ? `fa-check` : `fa-times`
+    }, null, 8, ["icon"])
+  ], 2);
+}
+var BooleanCell = /* @__PURE__ */ _export_sfc(_sfc_main$X, [["render", _sfc_render$X], ["__scopeId", "data-v-27f127ae"]]);
 var URLCell_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$W = {
   mixins: [TableCellMixin],
@@ -4779,6 +4803,9 @@ const _sfc_main$U = {
       case "button":
         component = ButtonCell;
         break;
+      case "boolean":
+        component = BooleanCell;
+        break;
       case "date":
       case "datetime":
         component = DateCell;
@@ -4793,6 +4820,9 @@ const _sfc_main$U = {
         switch (cellType) {
           case "date":
             component = DateCell;
+            break;
+          case "boolean":
+            component = BooleanCell;
             break;
           case "url":
             component = URLCell;
@@ -4877,7 +4907,7 @@ function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["type", "value"]))
   ]));
 }
-var TableCell = /* @__PURE__ */ _export_sfc(_sfc_main$U, [["render", _sfc_render$U], ["__scopeId", "data-v-d2ef28aa"]]);
+var TableCell = /* @__PURE__ */ _export_sfc(_sfc_main$U, [["render", _sfc_render$U], ["__scopeId", "data-v-b6482442"]]);
 const _sfc_main$T = {
   components: {
     TableCell

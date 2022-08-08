@@ -25,6 +25,7 @@ import { defineAsyncComponent } from 'vue';
 import ThumbnailCell from './cells/Thumbnail.vue';
 import ButtonCell from './cells/Button.vue';
 import DateCell from './cells/DateCell.vue';
+import BooleanCell from './cells/BooleanCell.vue';
 import URLCell from './cells/URLCell.vue';
 import ValueRenderer from './cells/Value.vue';
 
@@ -92,6 +93,9 @@ export default {
             case 'button':
                 component = ButtonCell;
                 break;
+            case 'boolean':
+                component = BooleanCell
+            break;
             case 'date':
             case 'datetime':
                 component = DateCell;
@@ -106,6 +110,9 @@ export default {
                 switch (cellType) {
                     case 'date':
                         component = DateCell;
+                        break;
+                    case 'boolean':
+                        component = BooleanCell;
                         break;
                     case 'url':
                         component = URLCell;
