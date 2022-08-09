@@ -1,6 +1,7 @@
 <template>
     <div class="ux-image" :style="style">
-        <img :src="src" />
+        <object v-if="svg" type="image/svg+xml" :data="src"/>
+        <img v-else :src="src" />
     </div>
 </template>
 <script>

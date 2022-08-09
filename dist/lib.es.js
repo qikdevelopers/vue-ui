@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.55";
+const version$1 = "0.1.56";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -4630,13 +4630,13 @@ const _sfc_main$Y = {
   }
 };
 const _hoisted_1$K = { class: "table-date-cell" };
-const _hoisted_2$B = { key: 0 };
+const _hoisted_2$C = { key: 0 };
 const _hoisted_3$v = { class: "off" };
 const _hoisted_4$r = { class: "on" };
 const _hoisted_5$l = { class: "spacer" };
 function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("td", _hoisted_1$K, [
-    $options.hasValue ? (openBlock(), createElementBlock("div", _hoisted_2$B, [
+    $options.hasValue ? (openBlock(), createElementBlock("div", _hoisted_2$C, [
       createElementVNode("span", _hoisted_3$v, toDisplayString($options.readable), 1),
       createElementVNode("span", _hoisted_4$r, toDisplayString($options.timeago), 1),
       createElementVNode("span", _hoisted_5$l, toDisplayString($options.readable), 1)
@@ -4679,7 +4679,7 @@ const _sfc_main$W = {
   }
 };
 const _hoisted_1$J = { class: "table-url-cell" };
-const _hoisted_2$A = ["href"];
+const _hoisted_2$B = ["href"];
 function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
   return openBlock(), createElementBlock("td", _hoisted_1$J, [
@@ -4693,7 +4693,7 @@ function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
         right: "",
         icon: "fa-external-link"
       })
-    ], 8, _hoisted_2$A)
+    ], 8, _hoisted_2$B)
   ]);
 }
 var URLCell = /* @__PURE__ */ _export_sfc(_sfc_main$W, [["render", _sfc_render$W], ["__scopeId", "data-v-17cf3a86"]]);
@@ -4870,7 +4870,7 @@ const _hoisted_1$H = {
   key: 1,
   class: "table-cell"
 };
-const _hoisted_2$z = { class: "value" };
+const _hoisted_2$A = { class: "value" };
 const _hoisted_3$u = { class: "value" };
 function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_value_renderer = resolveComponent("value-renderer");
@@ -4882,7 +4882,7 @@ function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8, ["column", "row", "value"])) : (openBlock(), createElementBlock("td", _hoisted_1$H, [
     $options.multiValue ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
       $options.complex ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.value, (entry, index2) => {
-        return openBlock(), createElementBlock("span", _hoisted_2$z, [
+        return openBlock(), createElementBlock("span", _hoisted_2$A, [
           createVNode(_component_value_renderer, {
             type: $props.column.type,
             multi: "",
@@ -5177,7 +5177,7 @@ const _sfc_main$S = {
   }
 };
 const _hoisted_1$G = { class: "table-wrapper" };
-const _hoisted_2$y = {
+const _hoisted_2$z = {
   class: "table-scroll",
   ref: "scroll"
 };
@@ -5200,7 +5200,7 @@ function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_menu = resolveComponent("ux-menu");
   const _component_table_row = resolveComponent("table-row");
   return openBlock(), createElementBlock("div", _hoisted_1$G, [
-    createElementVNode("div", _hoisted_2$y, [
+    createElementVNode("div", _hoisted_2$z, [
       createElementVNode("table", null, [
         createElementVNode("thead", null, [
           createElementVNode("tr", null, [
@@ -5296,13 +5296,13 @@ const _sfc_main$R = {
 };
 const _withScopeId$5 = (n2) => (pushScopeId("data-v-27f20370"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$F = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("i", { class: "fa fa-spin fa-spinner" }, null, -1));
-const _hoisted_2$x = [
+const _hoisted_2$y = [
   _hoisted_1$F
 ];
 function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["ux-spinner", { large: $props.large }])
-  }, _hoisted_2$x, 2);
+  }, _hoisted_2$y, 2);
 }
 var Spinner = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["render", _sfc_render$R], ["__scopeId", "data-v-27f20370"]]);
 var button_vue_vue_type_style_index_0_scoped_true_lang = "";
@@ -6018,16 +6018,24 @@ const _sfc_main$J = {
     }
   }
 };
-const _hoisted_1$D = ["src"];
+const _hoisted_1$D = ["data"];
+const _hoisted_2$x = ["src"];
 function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: "ux-image",
     style: normalizeStyle($options.style)
   }, [
-    createElementVNode("img", { src: $options.src }, null, 8, _hoisted_1$D)
+    $props.svg ? (openBlock(), createElementBlock("object", {
+      key: 0,
+      type: "image/svg+xml",
+      data: $options.src
+    }, null, 8, _hoisted_1$D)) : (openBlock(), createElementBlock("img", {
+      key: 1,
+      src: $options.src
+    }, null, 8, _hoisted_2$x))
   ], 4);
 }
-var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-dee7ea18"]]);
+var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-92100196"]]);
 var progressbar_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$I = {
   props: {
