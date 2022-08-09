@@ -32,6 +32,9 @@ export default {
             type: String,
             default: 'image',
         },
+        svg:{
+            type:Boolean,
+        }
     },
     data() {
         return {
@@ -39,6 +42,18 @@ export default {
         }
     },
     computed: {
+        isSvg() {
+            if(this.svg) {
+                return true;
+            }
+
+            switch(this.item?.fileMime) {
+                case 'image/svg+xml':
+                case 'image/svg':
+                    return true;
+                break
+            }
+        },
         defaultWidth() {
             return;
         },
@@ -127,7 +142,11 @@ export default {
 
             ///////////////////////////////////////////
 
-            style.backgroundImage = `url(${this.previewSrc})`
+            if(this.isSvg) {
+                // No preview image
+            } else {
+                style.backgroundImage = `url(${this.previewSrc})`
+            }
 
             ///////////////////////////////////////////
 

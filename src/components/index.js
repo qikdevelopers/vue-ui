@@ -73,6 +73,10 @@ export { default as UxContentModal } from './modal/ContentModal.vue';
 export { default as Device } from './services/device.js';
 export { default as Selection } from './services/selection.js';
 
+//Upload UI
+export { default as FileDrop } from './form/inputs/upload/filedrop.vue';
+
+
 ////////////////////////////////////////////
 
 //Create a default set of components

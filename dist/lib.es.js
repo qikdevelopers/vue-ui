@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.53";
+const version$1 = "0.1.55";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -5921,6 +5921,9 @@ const _sfc_main$J = {
     type: {
       type: String,
       default: "image"
+    },
+    svg: {
+      type: Boolean
     }
   },
   data() {
@@ -5929,6 +5932,17 @@ const _sfc_main$J = {
     };
   },
   computed: {
+    isSvg() {
+      var _a;
+      if (this.svg) {
+        return true;
+      }
+      switch ((_a = this.item) == null ? void 0 : _a.fileMime) {
+        case "image/svg+xml":
+        case "image/svg":
+          return true;
+      }
+    },
     defaultWidth() {
       return;
     },
@@ -5995,7 +6009,11 @@ const _sfc_main$J = {
         style.height = 0;
         style.paddingBottom = `${dimensionHeight / dimensionWidth * 100}%`;
       }
-      style.backgroundImage = `url(${this.previewSrc})`;
+      if (this.isSvg)
+        ;
+      else {
+        style.backgroundImage = `url(${this.previewSrc})`;
+      }
       return style;
     }
   }
@@ -6009,7 +6027,7 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
     createElementVNode("img", { src: $options.src }, null, 8, _hoisted_1$D)
   ], 4);
 }
-var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-3d48a5ec"]]);
+var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-dee7ea18"]]);
 var progressbar_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$I = {
   props: {
@@ -12626,6 +12644,9 @@ const _sfc_main$o = {
   props: {
     multiple: {
       type: Boolean
+    },
+    accept: {
+      type: String
     }
   },
   methods: {
@@ -12656,7 +12677,7 @@ const _sfc_main$o = {
     }
   }
 };
-const _hoisted_1$j = ["multiple"];
+const _hoisted_1$j = ["accept", "multiple"];
 const _hoisted_2$f = /* @__PURE__ */ createTextVNode("Select Files");
 function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_button = resolveComponent("ux-button");
@@ -12667,6 +12688,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
   }, [
     createElementVNode("input", {
       ref: "file",
+      accept: $props.accept,
       type: "file",
       multiple: $props.multiple,
       onChange: _cache[0] || (_cache[0] = ($event) => $options.filesSelected($event.target.files))
@@ -12686,7 +12708,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 32);
 }
-var FileDrop = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-67879182"]]);
+var FileDrop = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-65e7e548"]]);
 var upload_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$n = {
   mixins: [InputMixin],
@@ -18860,5 +18882,5 @@ const QikUI = {
     }
   }
 };
-export { CodeEditor, ContentBrowser, device as Device, FlexBody, FlexCell, FlexColumn, FlexFooter, FlexHeader, FlexRow, FlexSpacer, ModalMixin, NativeSelect, Panel, PanelBody, PanelFooter, PanelHeader, ProgressBar, QikUI, RememberScrollMixin, Search, Selection, Spinner, UXButton, UXCheckbox, UXForm, UXFormField, UXIcon, UXImage, UXLink, UXList, UXListItem, UXMenu, UXMenuList, UXRender, UXRenderField, UXSubmissionForm, UXSwitch, UXTab, NativeTable as UXTable, UXTabset, UxConfirmModal, UxContentModal, UxModal, UxOptionsModal, UxPromptModal };
+export { CodeEditor, ContentBrowser, device as Device, FileDrop, FlexBody, FlexCell, FlexColumn, FlexFooter, FlexHeader, FlexRow, FlexSpacer, ModalMixin, NativeSelect, Panel, PanelBody, PanelFooter, PanelHeader, ProgressBar, QikUI, RememberScrollMixin, Search, Selection, Spinner, UXButton, UXCheckbox, UXForm, UXFormField, UXIcon, UXImage, UXLink, UXList, UXListItem, UXMenu, UXMenuList, UXRender, UXRenderField, UXSubmissionForm, UXSwitch, UXTab, NativeTable as UXTable, UXTabset, UxConfirmModal, UxContentModal, UxModal, UxOptionsModal, UxPromptModal };
 //# sourceMappingURL=lib.es.js.map

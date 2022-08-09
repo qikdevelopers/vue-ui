@@ -1,6 +1,6 @@
 <template>
     <label class="file-drop" @dragover.prevent.stop="fileover" @drop.prevent.stop="filedrop">
-        <input ref="file" type="file" :multiple="multiple" @change="filesSelected($event.target.files)">
+        <input ref="file" :accept="accept" type="file" :multiple="multiple" @change="filesSelected($event.target.files)">
         <div class="file-drop-ux" @click="clicked">
             <slot>
                 <ux-button>Select Files</ux-button>
@@ -17,7 +17,10 @@ export default {
     props:{
         multiple:{
             type:Boolean,
-        }
+        },
+        accept:{
+            type:String,
+        },
     },
     methods: {
         clicked() {
