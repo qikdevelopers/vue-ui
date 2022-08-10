@@ -95,14 +95,18 @@ export default {
             }
 
 
-
-            if (this.color == 'default') {
-                array.push('ux-btn-color-default')
-            }
-
-            if (this.color == 'primary') {
-                array.push('ux-btn-color-primary')
-            }
+            // switch(this.color) {
+            //     case 'default':
+            //         array.push('ux-btn-color-default')
+            //     break;
+            //     case 'primary':
+            //         array.push('ux-btn-color-primary')
+            //     break;
+            //     default:
+            array.push(`ux-btn-${this.color}`)
+                // break;
+            // }
+            
 
             if (this.disabled) {
                 array.push(`ux-btn-disabled`);

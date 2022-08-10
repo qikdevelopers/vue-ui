@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.56";
+const version$1 = "0.1.57";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -5379,12 +5379,7 @@ const _sfc_main$Q = {
       if (this.icon) {
         array.push(`ux-btn-icon`);
       }
-      if (this.color == "default") {
-        array.push("ux-btn-color-default");
-      }
-      if (this.color == "primary") {
-        array.push("ux-btn-color-primary");
-      }
+      array.push(`ux-btn-${this.color}`);
       if (this.disabled) {
         array.push(`ux-btn-disabled`);
       }
@@ -5427,7 +5422,7 @@ function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["active", "loading", "to", "href", "target", "style", "class", "disabled"]);
 }
-var UXButton = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$Q], ["__scopeId", "data-v-ef0c5e26"]]);
+var UXButton = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$Q], ["__scopeId", "data-v-7db8ccb4"]]);
 var checkbox_vue_vue_type_style_index_0_scoped_true_lang$1 = "";
 const _sfc_main$P = {
   props: {
@@ -6035,7 +6030,7 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, _hoisted_2$x))
   ], 4);
 }
-var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-92100196"]]);
+var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-4c8cc011"]]);
 var progressbar_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$I = {
   props: {

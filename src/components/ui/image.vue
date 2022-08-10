@@ -1,6 +1,8 @@
 <template>
     <div class="ux-image" :style="style">
-        <object v-if="svg" type="image/svg+xml" :data="src"/>
+        <template v-if="svg">
+        <object type="image/svg+xml" :data="src"></object>
+    </template>
         <img v-else :src="src" />
     </div>
 </template>
@@ -42,6 +44,7 @@ export default {
             model: this.item,
         }
     },
+    
     computed: {
         isSvg() {
             if(this.svg) {
