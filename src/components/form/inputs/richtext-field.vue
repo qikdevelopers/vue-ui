@@ -5,8 +5,8 @@
     <div v-if="multiValue">
         <flex-row class="ux-text-row" :key="index" v-for="(entry, index) in model">
             <flex-cell>
-                <div class="code-editor-field-wrap">
-                    <code-editor :lang="syntax" @focus="touch" ref="input" v-model="model[index]" class="ux-code-editor ux-field-focus ux-text-area-multiple" />
+                <div class="richtext-field-wrap">
+                    <richtext @focus="touch" ref="input" v-model="model[index]" class="ux-richtext ux-field-focus ux-text-area-multiple" />
                 </div>
             </flex-cell>
             <flex-cell shrink vcenter>
@@ -17,20 +17,20 @@
         </flex-row>
         <ux-button v-if="canAddValue" @click="add()">{{addLabel}}</ux-button>
     </div>
-    <div class="code-editor-field-wrap" v-else>
-        <code-editor :lang="syntax" class="ux-code-editor ux-field-focus ux-text-area-single" @focus="touch" v-model="model" />
+    <div class="richtext-field-wrap" v-else>
+        <richtext class="ux-richtext ux-field-focus ux-text-area-single" @focus="touch" v-model="model" />
     </div>
 </div>
 </template>
 <script>
-import CodeEditor from './code-editor.vue';
+import RichText from './richtext.vue';
 
 
 import InputMixin from './input-mixin';
 
 export default {
     components: {
-        CodeEditor,
+        richtext:RichText,
     },
     props: {
         modelValue: {
@@ -38,15 +38,12 @@ export default {
         },
     },
     computed:{
-        syntax() {
-            return this.field ? this.field.syntax : 'json';
-        }
+        // syntax() {
+        //     return this.field ? this.field.syntax : 'json';
+        // }
     },
     mixins: [InputMixin],
     methods: {
-        enterPress() {
-
-        },
         getNewDefaultEntry() {
             return '';
         },
@@ -55,7 +52,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 
-.code-editor-field-wrap {
+.richtext-field-wrap {
     display: flex;
     min-height: 300px;
 }

@@ -54,7 +54,7 @@
             <type-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'richtext'">
-            <text-area @touched="touch" :field="actualField" v-model="fieldModel" />
+            <rich-text-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'textarea'">
             <text-area @touched="touch" :field="actualField" v-model="fieldModel" />
@@ -110,6 +110,7 @@ import ButtonSelect from './inputs/button-select.vue';
 import ObjectField from './inputs/object-field.vue';
 import OptionsManager from './inputs/options-manager.vue';
 import CodeEditorField from './inputs/code-editor-field.vue';
+import RichTextField from './inputs/richtext-field.vue';
 
 ////////////////
 
@@ -186,6 +187,7 @@ export default {
         ObjectField,
         OptionsManager,
         CodeEditorField,
+        RichTextField,
     },
     props: {
         submission:{
