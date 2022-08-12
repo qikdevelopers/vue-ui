@@ -103,7 +103,7 @@ export default {
             //         array.push('ux-btn-color-primary')
             //     break;
             //     default:
-            array.push(`ux-btn-${this.color}`)
+            array.push(`ux-btn-color-${this.color}`)
                 // break;
             // }
             
