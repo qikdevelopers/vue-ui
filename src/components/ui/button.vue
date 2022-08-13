@@ -139,7 +139,7 @@ export default {
 <style lang="scss" scoped>
 .ux-btn {
     font-family: inherit;
-    padding: 0.5em 1em;
+    padding: 0.7em 1.3em;
     background: rgba(#000, 0.1);
     border-radius: 2em;
     text-decoration: none;

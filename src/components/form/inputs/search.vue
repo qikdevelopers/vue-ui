@@ -93,14 +93,14 @@ export default {
         right:0;
         top:0;
         bottom:0;
-        line-height: 2.2em;
+        line-height: 2.7em;
         padding:0 1em;
     }
 
     input {
         width:100%;
         border-radius: 5em;
-        padding: 0.5em 1em;
+        padding: 0.7em 1em;
         box-sizing: border-box;
         background: rgba(#000, 0.05);
         border: 1px solid transparent;
