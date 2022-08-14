@@ -31,7 +31,7 @@ export default {
 		},
 		expandOn:{
 			type:String,
-			default:'click',
+			default:'none',
 		}
 	},
 	methods:{

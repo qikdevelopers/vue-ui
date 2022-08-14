@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.61";
+const version$1 = "0.1.62";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -5826,7 +5826,7 @@ const _sfc_main$M = {
     },
     expandOn: {
       type: String,
-      default: "click"
+      default: "none"
     }
   },
   methods: {
@@ -17746,6 +17746,7 @@ function defaultColumns(self2, type) {
   return columns;
 }
 let cancelInflight;
+let cancelledUnmount;
 let typeCacheKey;
 const _sfc_main$5 = {
   props: {
@@ -17810,12 +17811,21 @@ const _sfc_main$5 = {
   },
   deactivated() {
     typeCacheKey = this.$sdk.global.cacheKeys[this.type];
+    if (cancelInflight) {
+      cancelInflight();
+      cancelInflight = null;
+      cancelledUnmount = true;
+    }
   },
   async activated() {
     var self2 = this;
     var nowCacheKey = self2.$sdk.global.cacheKeys[self2.type];
     if (typeCacheKey != nowCacheKey) {
       typeCacheKey = nowCacheKey;
+      self2.dataSource = await self2.load();
+    }
+    if (cancelledUnmount) {
+      cancelledUnmount = false;
       self2.dataSource = await self2.load();
     }
   },
@@ -18193,7 +18203,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-444f4547"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-00a8af80"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { class: "footer" };
 function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
@@ -18367,7 +18377,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-444f4547"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-00a8af80"]]);
 var ModalMixin = {
   props: {
     options: {

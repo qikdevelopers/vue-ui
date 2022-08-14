@@ -275,7 +275,9 @@ function defaultColumns(self, type) {
 //////////////////////////////////////////////
 
 let cancelInflight;
+let cancelledUnmount;
 let typeCacheKey;
+
 
 export default {
     props: {
@@ -340,12 +342,23 @@ export default {
     },
     deactivated() {
         typeCacheKey = this.$sdk.global.cacheKeys[this.type];
+
+        if(cancelInflight) {
+            cancelInflight();
+            cancelInflight = null;
+            cancelledUnmount = true;
+        }
     },
     async activated() {
         var self = this;
         var nowCacheKey = self.$sdk.global.cacheKeys[self.type];
         if (typeCacheKey != nowCacheKey) {
             typeCacheKey = nowCacheKey;
+            self.dataSource = await self.load();
+        }
+
+        if(cancelledUnmount) {
+            cancelledUnmount = false;
             self.dataSource = await self.load();
         }
     },
