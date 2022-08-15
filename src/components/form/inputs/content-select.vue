@@ -31,7 +31,19 @@
             </item>
         </div>
     </template>
-    <ux-button @click="open">{{summary}}</ux-button>
+
+    <flex-row gap v-if="canAdd">
+        <flex-cell shrink>
+
+            <ux-button @click="open">{{summary}}</ux-button>
+        </flex-cell>
+        <flex-cell shrink v-if="canCreate">
+            <ux-button color="primary"  @click="create">
+                Create <ux-icon right icon="fa-plus"/>
+            </ux-button>
+        </flex-cell>
+        <flex-spacer />
+    </flex-row>
 </template>
 <script>
 import Item from '../../content/item.vue';
@@ -49,11 +61,39 @@ export default {
         },
     },
     mixins: [InputMixin],
-    created() {
+    async created() {
+        this.glossary = await this.$sdk.content.glossary({ hash: true });
+
         this.value = this.cleanInput(this.value, true);
         this.dispatch();
+   
+    },
+    data() {
+        return {
+            glossary:{},
+        }
     },
     methods: {
+        async create() {
+
+            const self = this;
+
+            if(!self.$sdk.global?.create) {
+                return;
+            }
+
+            const item = await self.$sdk.global.create(self.field.referenceType);
+
+            if(self.multiValue) {
+                if(!self.model) {
+                    self.model = []
+                }
+                
+                self.model.push(item);
+            } else {
+                self.model = item;
+            }
+        },
         clear() {
             this.model = undefined;
             this.touch();
@@ -68,7 +108,7 @@ export default {
         canEdit(item) {
 
             var user = this.user;
-            if(!user) {
+            if (!user) {
                 return false;
             }
 
@@ -77,11 +117,11 @@ export default {
         },
         async edit(item) {
             var result = await this.$sdk.global.edit(item, true)
-            .catch(function(err) {
+                .catch(function(err) {
 
-            });
+                });
 
-            for(var prop in result) {
+            for (var prop in result) {
                 item[prop] = result[prop];
             }
         },
@@ -91,15 +131,15 @@ export default {
 
 
             var modalOptions = {
-                    field: self.field,
-                    model: self.multiValue ? self.value : [self.value].filter(Boolean),
-                    maximum: self.field.maximum,
-                    browserOptions:{
-                        columns:self.field.columns,
-                        select:self.field.select,
-                        lockFilter:self.field.lockFilter,
-                    }
+                field: self.field,
+                model: self.multiValue ? self.value : [self.value].filter(Boolean),
+                maximum: self.field.maximum,
+                browserOptions: {
+                    columns: self.field.columns,
+                    select: self.field.select,
+                    lockFilter: self.field.lockFilter,
                 }
+            }
 
             self.$sdk.browse(this.field.referenceType, modalOptions)
                 .then(function(newSelection) {
@@ -138,6 +178,34 @@ export default {
         },
     },
     computed: {
+        canAdd() {
+            const self = this;
+
+            if(!self.maximum) {
+                return true;
+            }
+            return self.multiValue ? self.model.length < self.maximum : !self.model;
+        },
+        canCreate() {
+
+            if(!this.$sdk.global?.create) {
+                return;
+            }
+
+            var basicType = this.field.referenceType;
+            var definedType = basicType;
+
+            var match = this.glossary[this.field.referenceType];
+            if(match) {
+                basicType = match.definesType || match.key;
+                definedType = match.key || match.definesType;
+            }
+
+            // Ensure the user is authenticated and they have permission to create this kind of thing
+            return this.user && this.$sdk.access.canCreate(this.user, definedType, basicType);
+
+
+        },
         summary() {
             if (this.multiValue) {
                 if (this.model && this.model.length) {
@@ -155,6 +223,11 @@ export default {
 
                     if (difference) {
                         summary = `${summary}... +${difference} more...`
+                    }
+
+
+                    if(!summary) {
+                        return `Click to select`;
                     }
 
                     return summary;

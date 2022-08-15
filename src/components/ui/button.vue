@@ -146,7 +146,7 @@ export default {
     color: inherit;
     display: inline-block;
     position: relative;
-    border: 1px solid transparent;
+    border: 1px solid rgba(#000, 0.01);
     flex: none;
     margin-right: 0.5em;
     text-align: center;
@@ -243,12 +243,12 @@ export default {
     
 
     position:relative;
-    width:2em;
+    width:2.4em;
     height:0;
     overflow: hidden;
-    padding: 0 0 2em;
+    padding: 0 0 2.4em;
     text-align: center;
-    line-height: 2em;
+    line-height: 2.4em;
 
     .ux-button-text {
         position: absolute;
