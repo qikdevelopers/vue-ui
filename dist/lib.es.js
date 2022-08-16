@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.72";
+const version$1 = "0.1.73";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -11757,7 +11757,7 @@ const _sfc_main$v = {
     singleReferenceField() {
       return {
         type: "reference",
-        referenceType,
+        referenceType: this.referenceType,
         maximum: 1,
         minimum: 1
       };
@@ -11765,7 +11765,7 @@ const _sfc_main$v = {
     multiReferenceField() {
       return {
         type: "reference",
-        referenceType,
+        referenceType: this.referenceType,
         maximum: 0,
         minimum: 1
       };
@@ -12531,12 +12531,12 @@ const _sfc_main$s = {
   },
   watch: {
     "field.referenceType": {
-      handler: async function(referenceType2) {
-        if (!referenceType2) {
+      handler: async function(referenceType) {
+        if (!referenceType) {
           return this.definition = null;
         }
         var glossary = await this.$sdk.content.glossary({ hash: true });
-        this.definition = glossary[referenceType2];
+        this.definition = glossary[referenceType];
       },
       immediate: true
     }

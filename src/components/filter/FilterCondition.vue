@@ -340,7 +340,7 @@ export default {
         singleReferenceField() {
             return {
                 type: 'reference',
-                referenceType,
+                referenceType:this.referenceType,
                 maximum: 1,
                 minimum: 1,
             }
@@ -348,7 +348,7 @@ export default {
         multiReferenceField() {
             return {
                 type: 'reference',
-                referenceType,
+                referenceType:this.referenceType,
                 maximum: 0,
                 minimum: 1,
             }
