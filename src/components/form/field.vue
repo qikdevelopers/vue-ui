@@ -22,18 +22,18 @@
             <boolean-switch @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'upload'">
-            <upload @touched="touch" :field="actualField" v-model="fieldModel" />
+            <upload  @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'group'">
             <template v-if="asObject">
-                <field-group :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
+                <field-group :trail="currentTrail" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
             </template>
             <template v-else>
-                <field-group :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="sourceModel" />
+                <field-group :trail="trail" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="sourceModel" />
             </template>
         </template>
         <template v-if="widget == 'form'">
-            <field-group :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
+            <field-group :trail="currentTrail" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'select'">
             <native-select @touched="touch" :field="actualField" v-model="fieldModel" />
@@ -193,6 +193,12 @@ export default {
         RichTextField,
     },
     props: {
+        trail:{
+            type:Array,
+            default() {
+                return []
+            }
+        },
         submission:{
             type:Boolean,
             default:false,
@@ -226,6 +232,11 @@ export default {
         }
     },
     inject:['parentFormElement'],
+    provide() {
+        return {
+            fieldPath:this.fieldPath,
+        }
+    },
     created() {
         this.checkDirtyState();
     },
@@ -425,7 +436,14 @@ export default {
 
     },
     computed: {
-        
+        fieldPath() {
+            return this.currentTrail.join('.');
+        },
+        currentTrail() {
+            var trail = this.trail.slice();
+            trail.push(this.field.key)
+            return trail;
+        },
         title() {
             return this.field.title;
         },

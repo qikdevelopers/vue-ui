@@ -30,7 +30,7 @@
                             </flex-row>
                         </ux-panel-header>
                         <ux-panel-body @keydown.enter="enterPress($event)" v-show="!collapsible || !element.collapsed">
-                            <ux-form ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
+                            <ux-form :trail="trail" ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
                         </ux-panel-body>
                     </ux-panel>
                 </template>
@@ -63,7 +63,7 @@
                     </flex-row>
                 </ux-panel-header>
                 <ux-panel-body @keydown.enter="enterPress($event)" v-show="!element.collapsed">
-                    <ux-form ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
+                    <ux-form ref="form" :trail="trail"  :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
                 </ux-panel-body>
             </ux-panel>
         </template>
@@ -90,10 +90,10 @@
                         </flex-row>
                     </ux-panel-header>
                     <ux-panel-body>
-                        <ux-form ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+                        <ux-form ref="form" :trail="trail" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
                     </ux-panel-body>
                 </ux-panel>
-                <ux-form v-else ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+                <ux-form v-else ref="form" :trail="trail" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
                 <!-- <pre><strong>{{field.title}}</strong>
 
                 Should be single: {{singleValue}}, {{asObject}}, {{minimum == 1}} {{maximum == 1}}
@@ -108,7 +108,7 @@
             </ux-button>
         </template>
         <template v-else>
-            <ux-form ref="form" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+            <ux-form ref="form" :trail="trail" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
         </template>
     </template>
 </template>
@@ -129,6 +129,12 @@ export default {
         },
         modelValue: {
             type: [Object, Array],
+        },
+        trail:{
+            type:Array,
+            default() {
+                return [];
+            }
         },
     },
     data() {

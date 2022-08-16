@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.68";
+const version$1 = "0.1.70";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -6182,7 +6182,7 @@ var InputMixin = {
   mounted() {
     this.checkAutofocus();
   },
-  inject: ["form"],
+  inject: ["form", "fieldPath"],
   computed: {
     optionLookup() {
       var self2 = this;
@@ -12836,10 +12836,9 @@ const _sfc_main$p = {
       fileItem.state = "processing";
       var body = new FormData();
       var jsonData = {};
-      self2.user ? Object.keys(self2.user.permissions) : [];
       jsonData.attachment = true;
-      jsonData.field = self2.field.key;
-      console.log("FORM FILE UPLOAD", self2.field, self2.form, jsonData);
+      jsonData.form = self2.$sdk.utils.id(self2.form);
+      jsonData.fieldPath = self2.fieldPath;
       body.append("json", JSON.stringify(jsonData));
       body.append("file", fileItem.file, fileItem.name);
       var config = {
@@ -13036,7 +13035,7 @@ function _sfc_render$p(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["onFiles"]))
   ], 64);
 }
-var Upload = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["render", _sfc_render$p], ["__scopeId", "data-v-214d11c6"]]);
+var Upload = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["render", _sfc_render$p], ["__scopeId", "data-v-397fdaa7"]]);
 var group_vue_vue_type_style_index_0_scoped_true_lang$1 = "";
 const _sfc_main$o = {
   mixins: [InputMixin],
@@ -13048,6 +13047,12 @@ const _sfc_main$o = {
     },
     modelValue: {
       type: [Object, Array]
+    },
+    trail: {
+      type: Array,
+      default() {
+        return [];
+      }
     }
   },
   data() {
@@ -13219,6 +13224,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
             }, {
               default: withCtx(() => [
                 createVNode(_component_ux_form, {
+                  trail: $props.trail,
                   ref: "form",
                   submission: $props.submission,
                   "onForm:state": $options.stateChange,
@@ -13227,7 +13233,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
                   "onUpdate:modelValue": ($event) => _ctx.model[index2] = $event,
                   flex: $options.sameLine,
                   fields: _ctx.field.fields
-                }, null, 8, ["submission", "onForm:state", "parentModel", "modelValue", "onUpdate:modelValue", "flex", "fields"])
+                }, null, 8, ["trail", "submission", "onForm:state", "parentModel", "modelValue", "onUpdate:modelValue", "flex", "fields"])
               ]),
               _: 2
             }, 1536), [
@@ -13322,6 +13328,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
               createVNode(_component_ux_form, {
                 ref_for: true,
                 ref: "form",
+                trail: $props.trail,
                 submission: $props.submission,
                 "onForm:state": $options.stateChange,
                 parentModel: _ctx.parentModel,
@@ -13329,7 +13336,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
                 "onUpdate:modelValue": ($event) => _ctx.model[index2] = $event,
                 flex: $options.sameLine,
                 fields: _ctx.field.fields
-              }, null, 8, ["submission", "onForm:state", "parentModel", "modelValue", "onUpdate:modelValue", "flex", "fields"])
+              }, null, 8, ["trail", "submission", "onForm:state", "parentModel", "modelValue", "onUpdate:modelValue", "flex", "fields"])
             ]),
             _: 2
           }, 1536), [
@@ -13400,6 +13407,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
               default: withCtx(() => [
                 createVNode(_component_ux_form, {
                   ref: "form",
+                  trail: $props.trail,
                   submission: $props.submission,
                   "onForm:state": $options.stateChange,
                   parentModel: _ctx.parentModel,
@@ -13407,7 +13415,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
                   "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => _ctx.model = $event),
                   flex: $options.sameLine,
                   fields: _ctx.field.fields
-                }, null, 8, ["submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"])
+                }, null, 8, ["trail", "submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"])
               ]),
               _: 1
             })
@@ -13416,6 +13424,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
         })) : (openBlock(), createBlock(_component_ux_form, {
           key: 1,
           ref: "form",
+          trail: $props.trail,
           submission: $props.submission,
           "onForm:state": $options.stateChange,
           parentModel: _ctx.parentModel,
@@ -13423,7 +13432,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
           "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => _ctx.model = $event),
           flex: $options.sameLine,
           fields: _ctx.field.fields
-        }, null, 8, ["submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"]))
+        }, null, 8, ["trail", "submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"]))
       ], 64)) : (openBlock(), createBlock(_component_ux_button, {
         key: 1,
         onClick: _cache[9] || (_cache[9] = ($event) => $options.createSingleObject())
@@ -13440,6 +13449,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : (openBlock(), createBlock(_component_ux_form, {
       key: 1,
       ref: "form",
+      trail: $props.trail,
       submission: $props.submission,
       "onForm:state": $options.stateChange,
       parentModel: _ctx.parentModel,
@@ -13447,10 +13457,10 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
       "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => _ctx.model = $event),
       flex: $options.sameLine,
       fields: _ctx.field.fields
-    }, null, 8, ["submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"]))
+    }, null, 8, ["trail", "submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"]))
   ], 64));
 }
-var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-53c1ace8"]]);
+var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-71c41d3a"]]);
 const _sfc_main$n = {
   props: {
     option: {
@@ -15661,6 +15671,12 @@ const _sfc_main$d = {
     RichTextField
   },
   props: {
+    trail: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
     submission: {
       type: Boolean,
       default: false
@@ -15692,6 +15708,11 @@ const _sfc_main$d = {
     };
   },
   inject: ["parentFormElement"],
+  provide() {
+    return {
+      fieldPath: this.fieldPath
+    };
+  },
   created() {
     this.checkDirtyState();
   },
@@ -15854,6 +15875,14 @@ const _sfc_main$d = {
     }
   },
   computed: {
+    fieldPath() {
+      return this.currentTrail.join(".");
+    },
+    currentTrail() {
+      var trail = this.trail.slice();
+      trail.push(this.field.key);
+      return trail;
+    },
     title() {
       return this.field.title;
     },
@@ -16153,6 +16182,7 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
     $options.widget == "group" ? (openBlock(), createElementBlock(Fragment, { key: 8 }, [
       $options.asObject ? (openBlock(), createBlock(_component_field_group, {
         key: 0,
+        trail: $options.currentTrail,
         submission: $props.submission,
         "onForm:state": $options.groupStateAltered,
         ref: "group",
@@ -16161,8 +16191,9 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
         parentModel: $props.parentModel,
         modelValue: $options.fieldModel,
         "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => $options.fieldModel = $event)
-      }, null, 8, ["submission", "onForm:state", "onTouched", "field", "parentModel", "modelValue"])) : (openBlock(), createBlock(_component_field_group, {
+      }, null, 8, ["trail", "submission", "onForm:state", "onTouched", "field", "parentModel", "modelValue"])) : (openBlock(), createBlock(_component_field_group, {
         key: 1,
+        trail: $props.trail,
         submission: $props.submission,
         "onForm:state": $options.groupStateAltered,
         ref: "group",
@@ -16171,10 +16202,11 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
         parentModel: $props.parentModel,
         modelValue: $options.sourceModel,
         "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => $options.sourceModel = $event)
-      }, null, 8, ["submission", "onForm:state", "onTouched", "field", "parentModel", "modelValue"]))
+      }, null, 8, ["trail", "submission", "onForm:state", "onTouched", "field", "parentModel", "modelValue"]))
     ], 64)) : createCommentVNode("", true),
     $options.widget == "form" ? (openBlock(), createBlock(_component_field_group, {
       key: 9,
+      trail: $options.currentTrail,
       submission: $props.submission,
       "onForm:state": $options.groupStateAltered,
       ref: "group",
@@ -16183,7 +16215,7 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
       parentModel: $props.parentModel,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $options.fieldModel = $event)
-    }, null, 8, ["submission", "onForm:state", "onTouched", "field", "parentModel", "modelValue"])) : createCommentVNode("", true),
+    }, null, 8, ["trail", "submission", "onForm:state", "onTouched", "field", "parentModel", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "select" ? (openBlock(), createBlock(_component_native_select, {
       key: 10,
       onTouched: $options.touch,
@@ -16293,7 +16325,7 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$a, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$d], ["__scopeId", "data-v-6c49b812"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$d], ["__scopeId", "data-v-77633d3c"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$c = {
   props: {
@@ -16302,6 +16334,12 @@ const _sfc_main$c = {
     },
     parentForm: {
       type: Object
+    },
+    trail: {
+      type: Array,
+      default() {
+        return [];
+      }
     },
     fields: {
       type: Array,
@@ -16324,7 +16362,7 @@ const _sfc_main$c = {
       default: false
     }
   },
-  inject: ["form"],
+  inject: ["form", "parentFormElement"],
   watch: {
     modelValue(val, old) {
       this.model = val;
@@ -16348,7 +16386,6 @@ const _sfc_main$c = {
       parentFormElement
     };
   },
-  inject: ["parentFormElement"],
   mounted() {
     const self2 = this;
     self2.mounted = true;
@@ -16465,6 +16502,9 @@ const _sfc_main$c = {
     UxField: UXFormField
   },
   computed: {
+    currentTrail() {
+      return this.trail;
+    },
     fieldHash() {
       return this.renderFields.reduce(function(set, field) {
         if (!field) {
@@ -16518,6 +16558,7 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
         return openBlock(), createBlock(_component_ux_field, {
           ref_for: true,
           ref: "field",
+          trail: $options.currentTrail,
           submission: $props.submission,
           "onField:mount": $options.fieldMounted,
           "onField:unmount": $options.fieldUnmounted,
@@ -16534,12 +16575,12 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
           parentModel: $props.parentModel || $options.formModel,
           class: normalizeClass($options.fieldClass),
           key: `ux-form-field-${field.key}-${index2}`
-        }, null, 8, ["submission", "onField:mount", "onField:unmount", "onField:dirty", "onField:invalid", "onField:valid", "onField:error", "onField:focus", "onField:blur", "onField:touched", "field", "modelValue", "parentModel", "class"]);
+        }, null, 8, ["trail", "submission", "onField:mount", "onField:unmount", "onField:dirty", "onField:invalid", "onField:valid", "onField:error", "onField:focus", "onField:blur", "onField:touched", "field", "modelValue", "parentModel", "class"]);
       }), 128))
     ], true)
   ], 2);
 }
-var UXForm = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-24ce6bd4"]]);
+var UXForm = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-f463bb0c"]]);
 var submissionform_vue_vue_type_style_index_0_scoped_true_lang = "";
 const STATE_READY = "form.ready";
 const STATE_PROCESSING = "form.processing";

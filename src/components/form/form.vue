@@ -1,7 +1,7 @@
 <template>
     <div class="ux-form" :class="formClass">
         <slot name="fields" :fields="renderFields" :hash="fieldHash">
-            <ux-field ref="field" :submission="submission" @field:mount="fieldMounted" @field:unmount="fieldUnmounted" @field:dirty="fieldDirty" @field:invalid="fieldInvalid" @field:valid="fieldValid" @field:error="fieldError" @field:focus="fieldFocus" @field:blur="fieldBlur" @field:touched="fieldTouch" :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="fieldClass" :key="`ux-form-field-${field.key}-${index}`" v-for="(field, index) in renderFields" />
+            <ux-field ref="field" :trail="currentTrail" :submission="submission" @field:mount="fieldMounted" @field:unmount="fieldUnmounted" @field:dirty="fieldDirty" @field:invalid="fieldInvalid" @field:valid="fieldValid" @field:error="fieldError" @field:focus="fieldFocus" @field:blur="fieldBlur" @field:touched="fieldTouch" :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="fieldClass" :key="`ux-form-field-${field.key}-${index}`" v-for="(field, index) in renderFields" />
         </slot>
     </div>
 </template>
@@ -16,6 +16,12 @@ export default {
         },
         parentForm:{
             type:Object,
+        },
+        trail:{
+            type:Array,
+            default() {
+                return [];
+            }
         },
         fields: {
             type: Array,
@@ -38,7 +44,7 @@ export default {
             default:false,
         }
     },
-    inject:['form'],
+    inject:['form', 'parentFormElement'],
     watch: {
         modelValue(val, old) {
             this.model = val;
@@ -63,7 +69,6 @@ export default {
             // :computed(() => parentFormElement),
         }
     },
-    inject:['parentFormElement'],
     mounted() {
         const self = this;
         self.mounted = true;
@@ -196,6 +201,9 @@ export default {
         UxField: UXField,
     },
     computed: {
+        currentTrail() {
+            return this.trail;
+        },
         fieldHash() {
             return this.renderFields.reduce(function(set,field) {
 

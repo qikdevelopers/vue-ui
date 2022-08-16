@@ -137,17 +137,12 @@ export default {
             /////////////////////////////////////////////
 
             //Add the JSON data 
-
-            var allScopeIDs = self.user ? Object.keys(self.user.permissions) : [];
-
+            // var allScopeIDs = self.user ? Object.keys(self.user.permissions) : [];
             jsonData.attachment = true;
-            jsonData.field = self.field.key;
-            // jsonData.meta = {
-            //     scopes: allScopeIDs
-            // }
+            jsonData.form = self.$sdk.utils.id(self.form);
+            jsonData.fieldPath = self.fieldPath;
 
-            console.log('FORM FILE UPLOAD', self.field, self.form, jsonData)
-
+            // Append the JSON Data to the post body
             body.append('json', JSON.stringify(jsonData));
             body.append('file', fileItem.file, fileItem.name)
 
