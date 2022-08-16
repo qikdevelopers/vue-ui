@@ -138,15 +138,19 @@ export default {
 
             //Add the JSON data 
 
-
             var allScopeIDs = self.user ? Object.keys(self.user.permissions) : [];
 
-            jsonData.meta = {
-                scopes: allScopeIDs
-            }
+            jsonData.attachment = true;
+            jsonData.field = self.field.key;
+            // jsonData.meta = {
+            //     scopes: allScopeIDs
+            // }
+
+            console.log('FORM FILE UPLOAD', self.field, self.form, jsonData)
 
             body.append('json', JSON.stringify(jsonData));
             body.append('file', fileItem.file, fileItem.name)
+
 
             var config = {
                 headers: {
@@ -187,7 +191,7 @@ export default {
 
             ///////////////////////////////////////////////////
 
-            console.log('FORM FILE UPLOAD', self.field)
+
             let uploadURL = `/file/upload`;
             if(self.$sdk.fileAPI) {
 

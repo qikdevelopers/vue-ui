@@ -122,6 +122,11 @@ export default {
     components: {
         UxForm,
     },
+    provide() {
+        return {
+            form:this.form,
+        }
+    },
     props: {
         modelValue: {
             type: Object,

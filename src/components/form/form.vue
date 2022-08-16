@@ -14,6 +14,9 @@ export default {
         parentModel: {
             type: Object,
         },
+        parentForm:{
+            type:Object,
+        },
         fields: {
             type: Array,
             default () {
@@ -35,6 +38,7 @@ export default {
             default:false,
         }
     },
+    inject:['form'],
     watch: {
         modelValue(val, old) {
             this.model = val;

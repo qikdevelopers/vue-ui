@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.67";
+const version$1 = "0.1.68";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -6182,6 +6182,7 @@ var InputMixin = {
   mounted() {
     this.checkAutofocus();
   },
+  inject: ["form"],
   computed: {
     optionLookup() {
       var self2 = this;
@@ -12835,10 +12836,10 @@ const _sfc_main$p = {
       fileItem.state = "processing";
       var body = new FormData();
       var jsonData = {};
-      var allScopeIDs = self2.user ? Object.keys(self2.user.permissions) : [];
-      jsonData.meta = {
-        scopes: allScopeIDs
-      };
+      self2.user ? Object.keys(self2.user.permissions) : [];
+      jsonData.attachment = true;
+      jsonData.field = self2.field.key;
+      console.log("FORM FILE UPLOAD", self2.field, self2.form, jsonData);
       body.append("json", JSON.stringify(jsonData));
       body.append("file", fileItem.file, fileItem.name);
       var config = {
@@ -12867,7 +12868,6 @@ const _sfc_main$p = {
       config.headers = {
         "Content-Type": void 0
       };
-      console.log("FORM FILE UPLOAD", self2.field);
       let uploadURL = `/file/upload`;
       if (self2.$sdk.fileAPI) {
         uploadURL = `${self2.$sdk.fileAPI}${uploadURL}`;
@@ -13036,7 +13036,7 @@ function _sfc_render$p(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["onFiles"]))
   ], 64);
 }
-var Upload = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["render", _sfc_render$p], ["__scopeId", "data-v-dbc07a4e"]]);
+var Upload = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["render", _sfc_render$p], ["__scopeId", "data-v-214d11c6"]]);
 var group_vue_vue_type_style_index_0_scoped_true_lang$1 = "";
 const _sfc_main$o = {
   mixins: [InputMixin],
@@ -16300,6 +16300,9 @@ const _sfc_main$c = {
     parentModel: {
       type: Object
     },
+    parentForm: {
+      type: Object
+    },
     fields: {
       type: Array,
       default() {
@@ -16321,6 +16324,7 @@ const _sfc_main$c = {
       default: false
     }
   },
+  inject: ["form"],
   watch: {
     modelValue(val, old) {
       this.model = val;
@@ -16535,7 +16539,7 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
     ], true)
   ], 2);
 }
-var UXForm = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-6296f844"]]);
+var UXForm = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-24ce6bd4"]]);
 var submissionform_vue_vue_type_style_index_0_scoped_true_lang = "";
 const STATE_READY = "form.ready";
 const STATE_PROCESSING = "form.processing";
@@ -16602,6 +16606,11 @@ const _sfc_main$b = {
   components: {
     UxForm: UXForm
   },
+  provide() {
+    return {
+      form: this.form
+    };
+  },
   props: {
     modelValue: {
       type: Object,
@@ -16654,7 +16663,7 @@ const _sfc_main$b = {
     }
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-7ac54a6a"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-428ba5ea"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$9 = { class: "ux-submission-form" };
 const _hoisted_2$7 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("h3", null, "An error occurred", -1));
 const _hoisted_3$5 = { key: 0 };
@@ -16727,7 +16736,7 @@ function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ]);
 }
-var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$b], ["__scopeId", "data-v-7ac54a6a"]]);
+var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$b], ["__scopeId", "data-v-428ba5ea"]]);
 var search_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$a = {
   props: {

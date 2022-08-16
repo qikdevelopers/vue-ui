@@ -38,6 +38,7 @@ export default {
     mounted() {
         this.checkAutofocus();
     },
+    inject:['form'],
     computed: {
         optionLookup() {
             var self = this;
