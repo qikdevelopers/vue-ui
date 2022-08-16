@@ -9,6 +9,9 @@
         <template v-if="widget == 'html'">
             <custom-html @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
+        <template v-if="widget == 'value'">
+            <!-- Value in here -->
+        </template>
         <template v-if="widget == 'filter'">
             <filter-input @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -645,6 +648,7 @@ export default {
                 case 'type-select':
                 case 'html':
                 case 'filter':
+                case 'value':
                 
                     break;
                 case 'password':

@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.63";
+const version$1 = "0.1.64";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -16029,6 +16029,7 @@ const _sfc_main$d = {
         case "type-select":
         case "html":
         case "filter":
+        case "value":
           break;
         case "password":
           return "textfield";
@@ -16061,7 +16062,7 @@ const _sfc_main$d = {
   }
 };
 const _hoisted_1$a = {
-  key: 24,
+  key: 25,
   class: "ux-field-message"
 };
 function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
@@ -16115,35 +16116,36 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
+    $options.widget == "value" ? (openBlock(), createElementBlock(Fragment, { key: 3 }, [], 64)) : createCommentVNode("", true),
     $options.widget == "filter" ? (openBlock(), createBlock(_component_filter_input, {
-      key: 3,
+      key: 4,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "checkbox" ? (openBlock(), createBlock(_component_checkbox, {
-      key: 4,
+      key: 5,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "switch" ? (openBlock(), createBlock(_component_boolean_switch, {
-      key: 5,
+      key: 6,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "upload" ? (openBlock(), createBlock(_component_upload, {
-      key: 6,
+      key: 7,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
-    $options.widget == "group" ? (openBlock(), createElementBlock(Fragment, { key: 7 }, [
+    $options.widget == "group" ? (openBlock(), createElementBlock(Fragment, { key: 8 }, [
       $options.asObject ? (openBlock(), createBlock(_component_field_group, {
         key: 0,
         submission: $props.submission,
@@ -16167,7 +16169,7 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["submission", "onForm:state", "onTouched", "field", "parentModel", "modelValue"]))
     ], 64)) : createCommentVNode("", true),
     $options.widget == "form" ? (openBlock(), createBlock(_component_field_group, {
-      key: 8,
+      key: 9,
       submission: $props.submission,
       "onForm:state": $options.groupStateAltered,
       ref: "group",
@@ -16178,99 +16180,99 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
       "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["submission", "onForm:state", "onTouched", "field", "parentModel", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "select" ? (openBlock(), createBlock(_component_native_select, {
-      key: 9,
+      key: 10,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "button" ? (openBlock(), createBlock(_component_button_select, {
-      key: 10,
+      key: 11,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[11] || (_cache[11] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "textfield" ? (openBlock(), createBlock(_component_text_field, {
-      key: 11,
+      key: 12,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "currency" ? (openBlock(), createBlock(_component_currency_field, {
-      key: 12,
+      key: 13,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[13] || (_cache[13] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "datefield" ? (openBlock(), createBlock(_component_date_field, {
-      key: 13,
+      key: 14,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[14] || (_cache[14] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "content-select" ? (openBlock(), createBlock(_component_content_select, {
-      key: 14,
+      key: 15,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[15] || (_cache[15] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "type-select" ? (openBlock(), createBlock(_component_type_select, {
-      key: 15,
+      key: 16,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "richtext" ? (openBlock(), createBlock(_component_rich_text_field, {
-      key: 16,
+      key: 17,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[17] || (_cache[17] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "textarea" ? (openBlock(), createBlock(_component_text_area, {
-      key: 17,
+      key: 18,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[18] || (_cache[18] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "timezone" ? (openBlock(), createBlock(_component_timezone_select, {
-      key: 18,
+      key: 19,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[19] || (_cache[19] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "phone" ? (openBlock(), createBlock(_component_phone_number_input, {
-      key: 19,
+      key: 20,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[20] || (_cache[20] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
-    $options.widget == "value" ? (openBlock(), createElementBlock(Fragment, { key: 20 }, [], 64)) : createCommentVNode("", true),
+    $options.widget == "value" ? (openBlock(), createElementBlock(Fragment, { key: 21 }, [], 64)) : createCommentVNode("", true),
     $options.widget == "object" ? (openBlock(), createBlock(_component_object_field, {
-      key: 21,
+      key: 22,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[21] || (_cache[21] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "options" ? (openBlock(), createBlock(_component_options_manager, {
-      key: 22,
+      key: 23,
       onTouched: $options.touch,
       field: $options.actualField,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[22] || (_cache[22] = ($event) => $options.fieldModel = $event)
     }, null, 8, ["onTouched", "field", "modelValue"])) : createCommentVNode("", true),
     $options.widget == "code" ? (openBlock(), createBlock(_component_flex_column, {
-      key: 23,
+      key: 24,
       style: { "min-height": "300px" }
     }, {
       default: withCtx(() => [
@@ -16286,7 +16288,7 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$a, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$d], ["__scopeId", "data-v-7e4ae2fb"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$d], ["__scopeId", "data-v-6c49b812"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$c = {
   props: {
