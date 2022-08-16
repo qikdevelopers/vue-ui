@@ -187,7 +187,13 @@ export default {
 
             ///////////////////////////////////////////////////
 
-            return self.$sdk.api.post(`/file/upload`, body, config)
+            let uploadURL = `/file/upload`;
+            if(self.$sdk.fileAPI) {
+                // Upload binaries to the main API
+                uploadURL = `${self.$sdk.fileAPI}${uploadURL}`;
+            }
+
+            return self.$sdk.api.post(uploadURL, body, config)
                 .then(function(res) {
                     fileItem.state = 'complete';
                     fileItem.result = res.data;
