@@ -67,7 +67,7 @@ export default {
             this.state = STATE_READY;
             this.error = null;
             this.submitAttempted = false;
-            self.$emit('reset');
+            this.$emit('reset');
 
         },
         async submit() {

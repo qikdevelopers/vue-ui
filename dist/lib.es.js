@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.71";
+const version$1 = "0.1.72";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -16612,7 +16612,7 @@ const _sfc_main$b = {
       this.state = STATE_READY;
       this.error = null;
       this.submitAttempted = false;
-      self.$emit("reset");
+      this.$emit("reset");
     },
     async submit() {
       const self2 = this;
@@ -16711,7 +16711,7 @@ const _sfc_main$b = {
     }
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-0eb82701"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-5d5b3222"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$9 = { class: "ux-submission-form" };
 const _hoisted_2$7 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("h3", null, "An error occurred", -1));
 const _hoisted_3$5 = { key: 0 };
@@ -16784,7 +16784,7 @@ function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ]);
 }
-var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$b], ["__scopeId", "data-v-0eb82701"]]);
+var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$b], ["__scopeId", "data-v-5d5b3222"]]);
 var search_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$a = {
   props: {
