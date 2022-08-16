@@ -8,7 +8,8 @@
             </div>
             <pre v-else>{{error}}</pre>
             <ux-button color="primary" @click="softReset">
-                Try again <ux-icon right icon="fa-undo"/>
+                Try again
+                <ux-icon right icon="fa-undo" />
             </ux-button>
         </template>
         <template v-else-if="state === 'form.complete'">
@@ -20,12 +21,11 @@
         <template v-else>
             <ux-form submission ref="form" v-model="model" @form:state="formStateUpdated" :fields="fields" />
             <span :tooltip="tooltip">
-            <ux-button :disabled="buttonDisabled"  color="primary" @click="submit" :loading="state === 'form.processing'">
-                Submit
-            </ux-button>
-        </span>
+                <ux-button :disabled="buttonDisabled" color="primary" @click="submit" :loading="state === 'form.processing'">
+                    Submit
+                </ux-button>
+            </span>
         </template>
-
         <!-- <a @click="touch()">Touch</a> |
         <a @click="untouch()">Untouch</a> |
         <a @click="reset()">Reset</a> -->
@@ -49,23 +49,25 @@ export default {
             this.state = STATE_READY;
         },
         touch() {
-             if(this.$refs.form) {
-            this.$refs.form.touch()
-        }
+            if (this.$refs.form) {
+                this.$refs.form.touch()
+            }
         },
         untouch() {
-            if(this.$refs.form) {
-            this.$refs.form.untouch()
+            if (this.$refs.form) {
+                this.$refs.form.untouch()
             }
+
         },
         reset() {
             this.model = {};
-            if(this.$refs.form) {
+            if (this.$refs.form) {
                 this.$refs.form.reset()
             }
             this.state = STATE_READY;
             this.error = null;
             this.submitAttempted = false;
+            self.$emit('reset');
 
         },
         async submit() {
@@ -73,18 +75,19 @@ export default {
             const self = this;
             self.touch();
 
-            if(!self.submitAttempted) {
+            if (!self.submitAttempted) {
                 self.submitAttempted = true;
                 self.touch();
             }
 
 
-            if(self.buttonDisabled) {
+            if (self.buttonDisabled) {
                 console.log('Form is invalid', this.formState);
                 return
             }
 
             self.state = STATE_PROCESSING;
+            self.$emit('processing');
 
             // Run pre submission functions
             await self.preSubmit();
@@ -102,6 +105,7 @@ export default {
                 await self.postSubmit();
                 // Set the state to ready
                 self.state = STATE_COMPLETE;
+                self.$emit('success', res.data);
             }
 
             async function submissionFailed(err) {
@@ -109,6 +113,7 @@ export default {
                 err = err.response?.data || err;
                 self.error = err;
                 self.state = STATE_ERROR;
+                self.$emit('error', err);
             }
 
         },
@@ -124,7 +129,7 @@ export default {
     },
     provide() {
         return {
-            form:this.form,
+            form: this.form,
         }
     },
     props: {
@@ -143,11 +148,14 @@ export default {
         modelValue(val, old) {
             this.model = val;
         },
+        model(m) {
+            this.$emit('update:modelValue', m);
+        }
     },
     data() {
         return {
-            submitAttempted:false,
-            formState:null,
+            submitAttempted: false,
+            formState: null,
             state: STATE_READY,
             mounted: false,
             model: this.modelValue,
@@ -182,32 +190,31 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
 [tooltip] {
-  position: relative;
-  cursor: help
+    position: relative;
+    cursor: help
 }
 
 [tooltip]::after {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  content: attr(tooltip);
-  left: 0;
-  top: calc(100% + 10px);
-  border-radius: 3px;
-  box-shadow: 0 0 5px 2px rgba(100, 100, 100, 0.6);
-  background-color: white;
-  z-index: 10;
-  padding: 8px;
-  width: 300px;
-  transform: translateY(-20px);
-  transition: all 150ms cubic-bezier(.25, .8, .25, 1);
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    content: attr(tooltip);
+    left: 0;
+    top: calc(100% + 10px);
+    border-radius: 3px;
+    box-shadow: 0 0 5px 2px rgba(100, 100, 100, 0.6);
+    background-color: white;
+    z-index: 10;
+    padding: 8px;
+    width: 300px;
+    transform: translateY(-20px);
+    transition: all 150ms cubic-bezier(.25, .8, .25, 1);
 }
 
 [tooltip]:hover::after {
-  opacity: 1;
-  transform: translateY(0);
-  transition-duration: 300ms;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: 300ms;
 }
 </style>
