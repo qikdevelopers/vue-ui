@@ -167,10 +167,11 @@ export default {
                 content:'▼';
                 position:absolute;
                 right:0;
-                line-height: 3.5em;
-                top:0;
+                line-height: 1;
+                top:50%;
+                transform: translateY(-50%);
                 bottom: 0;
-                height:100%;
+                height:1em;
                 font-size: 0.6em;
                 width:4em;
                 text-align: center;

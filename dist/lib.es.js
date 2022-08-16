@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.73";
+const version$1 = "0.1.74";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -6649,7 +6649,7 @@ function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var NativeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["render", _sfc_render$H], ["__scopeId", "data-v-1d53b270"]]);
+var NativeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["render", _sfc_render$H], ["__scopeId", "data-v-be09a2cc"]]);
 var phoneNumberInput_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$G = {
   props: {
@@ -10287,8 +10287,18 @@ const _sfc_main$D = {
     }
   },
   computed: {
+    showList() {
+      const self2 = this;
+      if (self2.field.list === false) {
+        return false;
+      }
+      return true;
+    },
     canAdd() {
       const self2 = this;
+      if (!self2.showList) {
+        return true;
+      }
       if (!self2.maximum) {
         return true;
       }
@@ -10296,6 +10306,9 @@ const _sfc_main$D = {
     },
     canCreate() {
       var _a;
+      if (this.field.create === false) {
+        return;
+      }
       if (!((_a = this.$sdk.global) == null ? void 0 : _a.create)) {
         return;
       }
@@ -10312,6 +10325,13 @@ const _sfc_main$D = {
       if (this.multiValue) {
         if (this.model && this.model.length) {
           var length = this.model.length;
+          if (!this.showList) {
+            if (length === 1) {
+              return this.model[0].title || this.model[0].name || this.model[0].firstName;
+            } else {
+              return `${length} selected`;
+            }
+          }
           var difference = Math.max(length - 3, 0);
           var summary;
           var cropped = this.model.slice(0, 3);
@@ -10330,7 +10350,11 @@ const _sfc_main$D = {
         }
       } else {
         if (this.model) {
-          return "Click to select";
+          if (this.showList) {
+            return "Click to select";
+          } else {
+            return this.model.title || this.model.name || this.model.firstName;
+          }
         } else {
           return `Click to select`;
         }
@@ -10351,7 +10375,7 @@ const _hoisted_3$q = {
   class: "ux-field-description"
 };
 const _hoisted_4$n = {
-  key: 3,
+  key: 1,
   class: "items"
 };
 const _hoisted_5$i = /* @__PURE__ */ createTextVNode(" Create ");
@@ -10369,72 +10393,74 @@ function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
       _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$t, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
     _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$q, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.multiValue ? (openBlock(), createElementBlock(Fragment, { key: 2 }, [
-      _ctx.model && _ctx.model.length ? (openBlock(), createBlock(_component_draggable, {
-        key: 0,
-        class: "items",
-        modelValue: _ctx.model,
-        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => _ctx.model = $event)
-      }, {
-        item: withCtx(({ element, index: index2 }) => [
-          (openBlock(), createBlock(_component_item, {
-            key: element._id,
-            item: element
-          }, {
-            actions: withCtx(() => [
-              $options.canEdit(element) ? (openBlock(), createBlock(_component_ux_button, {
-                key: 0,
-                icon: "",
-                onClick: withModifiers(($event) => $options.edit(element), ["stop", "prevent"])
-              }, {
-                default: withCtx(() => [
-                  createVNode(_component_ux_icon, { icon: "fa-pencil" })
-                ]),
-                _: 2
-              }, 1032, ["onClick"])) : createCommentVNode("", true),
-              createVNode(_component_ux_button, {
-                icon: "",
-                onClick: withModifiers(($event) => _ctx.remove(element), ["stop", "prevent"])
-              }, {
-                default: withCtx(() => [
-                  createVNode(_component_ux_icon, { icon: "fa-times" })
-                ]),
-                _: 2
-              }, 1032, ["onClick"])
-            ]),
-            _: 2
-          }, 1032, ["item"]))
-        ]),
-        _: 1
-      }, 8, ["modelValue"])) : createCommentVNode("", true)
-    ], 64)) : _ctx.model ? (openBlock(), createElementBlock("div", _hoisted_4$n, [
-      createVNode(_component_item, { item: _ctx.model }, {
-        actions: withCtx(() => [
-          $options.canEdit(_ctx.model) ? (openBlock(), createBlock(_component_ux_button, {
-            key: 0,
-            icon: "",
-            onClick: _cache[1] || (_cache[1] = withModifiers(($event) => $options.edit(_ctx.model), ["stop", "prevent"]))
-          }, {
-            default: withCtx(() => [
-              createVNode(_component_ux_icon, { icon: "fa-pencil" })
-            ]),
-            _: 1
-          })) : createCommentVNode("", true),
-          createVNode(_component_ux_button, {
-            icon: "",
-            onClick: withModifiers($options.clear, ["stop", "prevent"])
-          }, {
-            default: withCtx(() => [
-              createVNode(_component_ux_icon, { icon: "fa-times" })
-            ]),
-            _: 1
-          }, 8, ["onClick"])
-        ]),
-        _: 1
-      }, 8, ["item"])
-    ])) : createCommentVNode("", true),
+    $options.showList ? (openBlock(), createElementBlock(Fragment, { key: 2 }, [
+      _ctx.multiValue ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
+        _ctx.model && _ctx.model.length ? (openBlock(), createBlock(_component_draggable, {
+          key: 0,
+          class: "items",
+          modelValue: _ctx.model,
+          "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => _ctx.model = $event)
+        }, {
+          item: withCtx(({ element, index: index2 }) => [
+            (openBlock(), createBlock(_component_item, {
+              key: element._id,
+              item: element
+            }, {
+              actions: withCtx(() => [
+                $options.canEdit(element) ? (openBlock(), createBlock(_component_ux_button, {
+                  key: 0,
+                  icon: "",
+                  onClick: withModifiers(($event) => $options.edit(element), ["stop", "prevent"])
+                }, {
+                  default: withCtx(() => [
+                    createVNode(_component_ux_icon, { icon: "fa-pencil" })
+                  ]),
+                  _: 2
+                }, 1032, ["onClick"])) : createCommentVNode("", true),
+                createVNode(_component_ux_button, {
+                  icon: "",
+                  onClick: withModifiers(($event) => _ctx.remove(element), ["stop", "prevent"])
+                }, {
+                  default: withCtx(() => [
+                    createVNode(_component_ux_icon, { icon: "fa-times" })
+                  ]),
+                  _: 2
+                }, 1032, ["onClick"])
+              ]),
+              _: 2
+            }, 1032, ["item"]))
+          ]),
+          _: 1
+        }, 8, ["modelValue"])) : createCommentVNode("", true)
+      ], 64)) : _ctx.model ? (openBlock(), createElementBlock("div", _hoisted_4$n, [
+        createVNode(_component_item, { item: _ctx.model }, {
+          actions: withCtx(() => [
+            $options.canEdit(_ctx.model) ? (openBlock(), createBlock(_component_ux_button, {
+              key: 0,
+              icon: "",
+              onClick: _cache[1] || (_cache[1] = withModifiers(($event) => $options.edit(_ctx.model), ["stop", "prevent"]))
+            }, {
+              default: withCtx(() => [
+                createVNode(_component_ux_icon, { icon: "fa-pencil" })
+              ]),
+              _: 1
+            })) : createCommentVNode("", true),
+            createVNode(_component_ux_button, {
+              icon: "",
+              onClick: withModifiers($options.clear, ["stop", "prevent"])
+            }, {
+              default: withCtx(() => [
+                createVNode(_component_ux_icon, { icon: "fa-times" })
+              ]),
+              _: 1
+            }, 8, ["onClick"])
+          ]),
+          _: 1
+        }, 8, ["item"])
+      ])) : createCommentVNode("", true)
+    ], 64)) : createCommentVNode("", true),
     $options.canAdd ? (openBlock(), createBlock(_component_flex_row, {
-      key: 4,
+      key: 3,
       gap: ""
     }, {
       default: withCtx(() => [
@@ -10476,7 +10502,7 @@ function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
     })) : createCommentVNode("", true)
   ], 64);
 }
-var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["render", _sfc_render$D], ["__scopeId", "data-v-60b312d0"]]);
+var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["render", _sfc_render$D], ["__scopeId", "data-v-236b5d48"]]);
 var typeSelect_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined$3(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
@@ -11574,7 +11600,7 @@ const _sfc_main$v = {
             break;
           default:
             set.push({
-              title: entry.titles.join(" > "),
+              title: entry.titles.join(" \u2192 "),
               value: entry.path || entry.key
             });
             break;
@@ -11759,7 +11785,9 @@ const _sfc_main$v = {
         type: "reference",
         referenceType: this.referenceType,
         maximum: 1,
-        minimum: 1
+        minimum: 1,
+        create: false,
+        list: false
       };
     },
     multiReferenceField() {
@@ -11767,7 +11795,9 @@ const _sfc_main$v = {
         type: "reference",
         referenceType: this.referenceType,
         maximum: 0,
-        minimum: 1
+        minimum: 1,
+        create: false,
+        list: false
       };
     }
   },
@@ -11775,7 +11805,8 @@ const _sfc_main$v = {
   components: {
     TextField,
     DateField,
-    NativeSelect
+    NativeSelect,
+    ContentSelect
   }
 };
 const _hoisted_1$p = {
@@ -11805,7 +11836,10 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
   const _component_ux_button = resolveComponent("ux-button");
   return $data.comparators ? (openBlock(), createElementBlock("div", _hoisted_1$p, [
-    createVNode(_component_flex_row, null, {
+    createVNode(_component_flex_row, {
+      gap: "",
+      vcenter: ""
+    }, {
       default: withCtx(() => [
         createVNode(_component_flex_cell, null, {
           default: withCtx(() => [

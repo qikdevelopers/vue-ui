@@ -1,6 +1,7 @@
 <template>
     <label class="ux-field-title" v-if="showLabel">{{label}} <span class="ux-required-marker" v-if="required">*</span></label>
     <div class="ux-field-description" v-if="showDescription">{{description}}</div>
+    <template v-if="showList">
     <template v-if="multiValue">
         <draggable class="items" v-if="model && model.length" v-model="model">
             <template #item="{element, index}">
@@ -31,10 +32,9 @@
             </item>
         </div>
     </template>
-
+</template>
     <flex-row gap v-if="canAdd">
         <flex-cell shrink>
-
             <ux-button @click="open">{{summary}}</ux-button>
         </flex-cell>
         <flex-cell shrink v-if="canCreate">
@@ -178,8 +178,20 @@ export default {
         },
     },
     computed: {
+        showList() {
+            const self = this;
+
+            if(self.field.list === false) {
+                return false;
+            }
+
+            return true;
+        },
         canAdd() {
             const self = this;
+            if(!self.showList) {
+                return true;
+            }
 
             if(!self.maximum) {
                 return true;
@@ -187,6 +199,10 @@ export default {
             return self.multiValue ? self.model.length < self.maximum : !self.model;
         },
         canCreate() {
+
+            if(this.field.create === false) {
+                return;
+            }
 
             if(!this.$sdk.global?.create) {
                 return;
@@ -208,9 +224,21 @@ export default {
         },
         summary() {
             if (this.multiValue) {
+
+
                 if (this.model && this.model.length) {
 
+
+
                     var length = this.model.length;
+
+                    if(!this.showList) {
+                        if(length === 1) {
+                            return this.model[0].title || this.model[0].name || this.model[0].firstName; 
+                        } else {
+                            return `${length} selected`;
+                        }
+                    }
 
 
                     var difference = Math.max(length - 3, 0);
@@ -237,7 +265,12 @@ export default {
                 }
             } else {
                 if (this.model) {
-                    return 'Click to select';
+                    if(this.showList) {
+                        return 'Click to select';
+                    } else {
+                        return this.model.title || this.model.name || this.model.firstName;
+                    }
+                    
                 } else {
                     return `Click to select`;
                 }

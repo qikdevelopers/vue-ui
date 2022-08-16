@@ -1,6 +1,6 @@
 <template>
     <div class="filter-condition" v-if="comparators">
-        <flex-row>
+        <flex-row gap vcenter>
             <flex-cell>
                 <native-select title="Select field" v-model="model.key" :field="keyField" />
             </flex-cell>
@@ -79,6 +79,7 @@
 import DateField from '../form/inputs/datefield.vue';
 import TextField from '../form/inputs/textfield.vue';
 import NativeSelect from '../form/inputs/select.vue';
+import ContentSelect from '../form/inputs/content-select.vue';
 
 export default {
     props: {
@@ -139,7 +140,7 @@ export default {
                         break;
                     default:
                         set.push({
-                            title: entry.titles.join(' > '),
+                            title: entry.titles.join(' → '),
                             value: entry.path || entry.key,
                         })
                         break;
@@ -343,6 +344,8 @@ export default {
                 referenceType:this.referenceType,
                 maximum: 1,
                 minimum: 1,
+                create:false,
+                list:false,
             }
         },
         multiReferenceField() {
@@ -351,6 +354,8 @@ export default {
                 referenceType:this.referenceType,
                 maximum: 0,
                 minimum: 1,
+                create:false,
+                list:false,
             }
         },
     },
@@ -360,6 +365,7 @@ export default {
         TextField,
         DateField,
         NativeSelect,
+        ContentSelect,
     },
 }
 </script>
