@@ -189,8 +189,12 @@ export default {
 
             let uploadURL = `/file/upload`;
             if(self.$sdk.fileAPI) {
+
                 // Upload binaries to the main API
                 uploadURL = `${self.$sdk.fileAPI}${uploadURL}`;
+                 console.log('UPLOADING BINARY', uploadURL)
+            } else {
+                 console.log('PROXY UPLOAD')
             }
 
             return self.$sdk.api.post(uploadURL, body, config)

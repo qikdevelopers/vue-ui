@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.65";
+const version$1 = "0.1.66";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -12870,6 +12870,9 @@ const _sfc_main$p = {
       let uploadURL = `/file/upload`;
       if (self2.$sdk.fileAPI) {
         uploadURL = `${self2.$sdk.fileAPI}${uploadURL}`;
+        console.log("UPLOADING BINARY", uploadURL);
+      } else {
+        console.log("PROXY UPLOAD");
       }
       return self2.$sdk.api.post(uploadURL, body, config).then(function(res) {
         fileItem.state = "complete";
@@ -13035,7 +13038,7 @@ function _sfc_render$p(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["onFiles"]))
   ], 64);
 }
-var Upload = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["render", _sfc_render$p], ["__scopeId", "data-v-2ca27f78"]]);
+var Upload = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["render", _sfc_render$p], ["__scopeId", "data-v-5c2c5882"]]);
 var group_vue_vue_type_style_index_0_scoped_true_lang$1 = "";
 const _sfc_main$o = {
   mixins: [InputMixin],
