@@ -3,7 +3,7 @@
         <template v-if="svg">
         <object type="image/svg+xml" :data="src"></object>
     </template>
-        <img v-else :src="src" />
+        <img v-else :src="src" :style="aspectStyle" />
     </div>
 </template>
 <script>
@@ -20,6 +20,14 @@ export default {
         },
         quality: {
             type: Number,
+        },
+        contain:{
+            type:Boolean,
+            default:true,
+        },
+        preview:{
+            type:Boolean,
+            default:false,
         },
         crop: {
             type: Boolean,
@@ -46,6 +54,12 @@ export default {
     },
     
     computed: {
+        aspectStyle() {
+            return {
+                'aspect-ratio':`${this.imageHeight/this.imageWidth}`,
+                'object-fit':'contain',
+            }
+        },
         isSvg() {
             if(this.svg) {
                 return true;
@@ -92,7 +106,9 @@ export default {
             if (this.crop) {
                 params.c = true;
             } else {
-                params.c = (this.imageWidth && this.imageHeight);
+                if(!this.contain) {
+                    params.c = (this.imageWidth && this.imageHeight);
+                }
             }
 
             if (this.quality) {
@@ -149,7 +165,9 @@ export default {
             if(this.isSvg) {
                 // No preview image
             } else {
-                style.backgroundImage = `url(${this.previewSrc})`
+                if(this.preview) {
+                    style.backgroundImage = `url(${this.previewSrc})`
+                }
             }
 
             ///////////////////////////////////////////
@@ -165,7 +183,7 @@ export default {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-color: rgba(#000, 0.1);
+    // background-color: rgba(#000, 0.1);
     width: 100%;
     height: 0;
     overflow: hidden;

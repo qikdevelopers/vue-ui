@@ -1,7 +1,9 @@
 <template>
 	<td class="table-image-cell">
 		<template v-if="type == 'image' || type == 'video'">
-			<ux-image :item="row" :type="type" :width="50"/>
+			<div class="image-wrapper">
+			<ux-image :item="row" :type="type" :width="100" :height="100"/>
+		</div>
 		</template>
 		<template v-else>
 			<ux-icon icon="fa-file"/>
@@ -30,6 +32,10 @@ td {
 	width:60px;
 	padding:0.3em !important;
 
+	.image-wrapper {
+		width:50px;
+		height: 50px;
+	}
 	.ux-image {
 		border-radius:0.1em;
 	}

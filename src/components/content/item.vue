@@ -1,12 +1,17 @@
 <template>
     <div class="content-item" @click="clicked">
-        <flex-row>
-            <flex-cell shrink>
+        <flex-row gap vcenter>
+            <flex-cell shrink v-if="hasImage">
+                <div class="image-wrapper">
+                <ux-image :item="item" :width="100" :height="100"/>
+            </div>
             </flex-cell>
             <flex-cell vcenter>
+                <div>
                 <slot>
                     {{title}}
                 </slot>
+            </div>
             </flex-cell>
             <flex-cell shrink>
                 <slot name="actions"></slot>
@@ -23,6 +28,18 @@ export default {
         },
     },
     computed: {
+        basicType() {
+            return this.item?.meta?.type
+        },
+        hasImage() {
+            switch(this.basicType) {
+                case 'image':
+                case 'video':
+                case 'profile':
+                    return true;
+                break;
+            }
+        },
         title() {
             return this.item.title || this.item.name || this.item.label || (this.item.firstName ? `${this.item.firstName} ${this.item.lastName}` : '(Title unknown)');
         }
@@ -40,6 +57,10 @@ export default {
     border: 1px solid rgba(#000, 0.1);
     background: #fff;
     cursor: pointer;
+
+    .image-wrapper {
+        width:50px;
+    }
 
     &:hover {
         background: rgba(#000, 0.01);
