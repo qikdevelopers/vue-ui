@@ -26,6 +26,7 @@ import ThumbnailCell from './cells/Thumbnail.vue';
 import ButtonCell from './cells/Button.vue';
 import DateCell from './cells/DateCell.vue';
 import BooleanCell from './cells/BooleanCell.vue';
+import SecurityCell from './cells/SecurityCell.vue';
 import URLCell from './cells/URLCell.vue';
 import ValueRenderer from './cells/Value.vue';
 
@@ -93,6 +94,9 @@ export default {
             case 'button':
                 component = ButtonCell;
                 break;
+            case 'security':
+                component = SecurityCell
+            break;
             case 'boolean':
                 component = BooleanCell
             break;

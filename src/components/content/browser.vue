@@ -239,6 +239,12 @@ function defaultColumns(self, type) {
         case 'video':
             columns.push({
                 title: '',
+                key: 'meta.security',
+                renderer: 'security',
+                shrink: true,
+            })
+            columns.push({
+                title: '',
                 key: '_id',
                 renderer: 'button',
                 shrink: true,
