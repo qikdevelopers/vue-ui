@@ -1,9 +1,7 @@
 <template>
-    <div class="ux-image" :style="style">
-        <template v-if="svg">
-        <object type="image/svg+xml" :data="src"></object>
-    </template>
-        <img v-else :src="src" :style="aspectStyle" />
+    <div class="ux-image" :class="className" :style="style"> 
+        <object v-if="svg" type="image/svg+xml" :data="src"></object>
+        <img v-else :style="imageStyle" :src="src"/>
     </div>
 </template>
 <script>
@@ -13,10 +11,13 @@ export default {
             type: Object,
         },
         width: {
-            type: [Number, String]
+            type:Number,
         },
         height: {
-            type: [Number, String]
+            type:Number,
+        },
+        inline:{
+            type:Boolean,
         },
         quality: {
             type: Number,
@@ -54,11 +55,27 @@ export default {
     },
     
     computed: {
-        aspectStyle() {
-            return {
-                'aspect-ratio':`${this.imageHeight/this.imageWidth}`,
-                'object-fit':'contain',
+        className() {
+
+            var classes = [];
+
+            // if(this.height || this.width) {
+            //     classes.push('has-dimensions')
+            // }
+
+            // if(this.height > this.width) {
+            //     classes.push('portrait');
+            // } else if(this.height < this.width) {
+            //     classes.push('landscape');
+            // } else {
+            //     classes.push('square');
+            // }
+
+            if(this.portrait) {
+                classes.push('img-portrait')
             }
+
+            return classes.join(' ');
         },
         isSvg() {
             if(this.svg) {
@@ -72,17 +89,20 @@ export default {
                 break
             }
         },
-        defaultWidth() {
-            return;
-        },
-        defaultHeight() {
-            return;
+        portrait() {
+            return this.crop ? (this.dimensionHeight > this.dimensionWidth) : (this.modelHeight > this.modelWidth);
         },
         imageWidth() {
             return parseInt(this.width);
         },
         imageHeight() {
             return parseInt(this.height);
+        },
+        modelWidth() {
+            return parseInt(this.model?.width);
+        },
+        modelHeight() {
+            return parseInt(this.model?.height);
         },
         id() {
             return this.$sdk.utils.id(this.model);
@@ -96,11 +116,11 @@ export default {
 
 
             if (this.imageWidth) {
-                params.w = this.imageWidth ? this.imageWidth : this.defaultWidth;
+                params.w = this.imageWidth ? this.imageWidth : null;
             }
 
             if (this.imageHeight) {
-                params.h = this.imageHeight ? this.imageHeight : this.defaultHeight;
+                params.h = this.imageHeight ? this.imageHeight : null;
             }
 
             if (this.crop) {
@@ -135,30 +155,95 @@ export default {
             delete params.h;
             return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, params);
         },
+        imageStyle() {
+            var style = {}
+
+            if(!this.crop) {
+                style['object-fit'] = 'contain';
+            }
+
+            if(this.inline) {
+                style.maxWidth = '100%';
+            } else {
+
+                style.width = '100%';
+                style.height = '100%';
+                style.top = `0`;
+                style.left = `0`;
+                style.position = 'absolute';
+
+                // var transform = '';
+
+                // if(this.crop) {
+                //     style.width = '100%';
+                // } else {
+
+                //     if(this.portrait) {
+                //         style.height = '100%';
+                //     } else {
+                //         style.width = '100%';
+                //     }
+                //         style.left = `50%`;
+                //         transform += ` translateX(-50%) `;                    
+                // }
+
+                
+                // if (this.dimensionHeight && this.dimensionWidth) {
+                //         transform += ` translateY(-50%) `;
+                //         style.top = `50%`;
+                //         style.position = 'absolute';
+                // }
+
+                // style.transform = transform;
+            }
+
+            return style;
+        },
+        dimensionWidth() {
+            return this.imageWidth && this.imageHeight ? this.imageWidth : this.modelWidth;
+        },
+        dimensionHeight() {
+            return this.imageWidth && this.imageHeight ? this.imageHeight : this.modelHeight;
+        },
         style() {
 
             var style = {};
+
+            
+        
+
+            if(this.inline) {
+                style.display = 'inline-block';
+                // style.minHeight = this.dimensionHeight ? `${this.dimensionHeight}px` : undefined;
+                // style.minWidth = this.dimensionHeight ? `${this.dimensionWidth}px` : undefined;
+            } else {
+                if (this.dimensionHeight && this.dimensionWidth) {
+                    style.height = 0;
+                    style.overflow = 'hidden';
+                    style.paddingBottom = `${(this.dimensionHeight / this.dimensionWidth) * 100}%`;
+                    style.position = 'relative';
+                }
+            }
 
             var colors = this.model?.fileMeta?.colors?.colors;
             if (colors && colors.length) {
                 style.backgroundColor = colors[0];
             }
 
-            var dimensionWidth = this.model.width;
-            var dimensionHeight = this.model.height;
+            
 
+            // ///////////////////////////////////////////
+
+            // if (this.imageWidth && this.imageHeight) {
+            //     dimensionWidth = this.imageWidth;
+            //     dimensionHeight = this.imageHeight;
+            //     // style.width = `${dimensionWidth}px`;
+            //     // style.height = `${dimensionHeight}px`;
+            // }
             ///////////////////////////////////////////
 
-            if (this.width && this.height) {
-                dimensionWidth = this.width;
-                dimensionHeight = this.height;
-            }
-            ///////////////////////////////////////////
+           
 
-            if (dimensionHeight && dimensionWidth) {
-                style.height = 0;
-                style.paddingBottom = `${(dimensionHeight / dimensionWidth) * 100}%`;
-            }
 
             ///////////////////////////////////////////
 
@@ -184,16 +269,19 @@ export default {
     background-position: center center;
     background-repeat: no-repeat;
     // background-color: rgba(#000, 0.1);
-    width: 100%;
-    height: 0;
-    overflow: hidden;
+    // overflow: hidden;
+    
 
     img {
-        width: 100%;
+        // max-height:100%;
         display: block;
-        height: auto;
-        margin: 0;
+        margin: 0 auto;
         padding: 0;
     }
+
+    // &.has-dimensions {
+    //     width: 100%;
+    //     height: 0;
+    // }
 }
 </style>

@@ -357,6 +357,7 @@ export default {
     },
     async activated() {
         var self = this;
+
         var nowCacheKey = self.$sdk.global.cacheKeys[self.type];
         if (typeCacheKey != nowCacheKey) {
             typeCacheKey = nowCacheKey;
@@ -839,8 +840,6 @@ export default {
         },
         async load(includeAll) {
 
-
-
             var self = this;
             self.loading = true;
             if (cancelInflight) {
@@ -861,9 +860,11 @@ export default {
             cancelInflight = cancel;
 
             promise.then(function(res) {
+                 cancelInflight = null;
                 self.loading = false;
             })
             promise.catch(function(err) {
+                 cancelInflight = null;
                 // self.loading = false;
             });
 

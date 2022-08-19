@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.77";
+const version$1 = "0.1.78";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -5927,10 +5927,13 @@ const _sfc_main$L = {
       type: Object
     },
     width: {
-      type: [Number, String]
+      type: Number
     },
     height: {
-      type: [Number, String]
+      type: Number
+    },
+    inline: {
+      type: Boolean
     },
     quality: {
       type: Number
@@ -5967,11 +5970,12 @@ const _sfc_main$L = {
     };
   },
   computed: {
-    aspectStyle() {
-      return {
-        "aspect-ratio": `${this.imageHeight / this.imageWidth}`,
-        "object-fit": "contain"
-      };
+    className() {
+      var classes = [];
+      if (this.portrait) {
+        classes.push("img-portrait");
+      }
+      return classes.join(" ");
     },
     isSvg() {
       var _a;
@@ -5984,17 +5988,22 @@ const _sfc_main$L = {
           return true;
       }
     },
-    defaultWidth() {
-      return;
-    },
-    defaultHeight() {
-      return;
+    portrait() {
+      return this.crop ? this.dimensionHeight > this.dimensionWidth : this.modelHeight > this.modelWidth;
     },
     imageWidth() {
       return parseInt(this.width);
     },
     imageHeight() {
       return parseInt(this.height);
+    },
+    modelWidth() {
+      var _a;
+      return parseInt((_a = this.model) == null ? void 0 : _a.width);
+    },
+    modelHeight() {
+      var _a;
+      return parseInt((_a = this.model) == null ? void 0 : _a.height);
     },
     id() {
       return this.$sdk.utils.id(this.model);
@@ -6003,10 +6012,10 @@ const _sfc_main$L = {
       var params = {};
       params.access_token = this.$sdk.auth.getCurrentToken();
       if (this.imageWidth) {
-        params.w = this.imageWidth ? this.imageWidth : this.defaultWidth;
+        params.w = this.imageWidth ? this.imageWidth : null;
       }
       if (this.imageHeight) {
-        params.h = this.imageHeight ? this.imageHeight : this.defaultHeight;
+        params.h = this.imageHeight ? this.imageHeight : null;
       }
       if (this.crop) {
         params.c = true;
@@ -6035,22 +6044,44 @@ const _sfc_main$L = {
       delete params.h;
       return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, params);
     },
+    imageStyle() {
+      var style = {};
+      if (!this.crop) {
+        style["object-fit"] = "contain";
+      }
+      if (this.inline) {
+        style.maxWidth = "100%";
+      } else {
+        style.width = "100%";
+        style.height = "100%";
+        style.top = `0`;
+        style.left = `0`;
+        style.position = "absolute";
+      }
+      return style;
+    },
+    dimensionWidth() {
+      return this.imageWidth && this.imageHeight ? this.imageWidth : this.modelWidth;
+    },
+    dimensionHeight() {
+      return this.imageWidth && this.imageHeight ? this.imageHeight : this.modelHeight;
+    },
     style() {
       var _a, _b, _c;
       var style = {};
+      if (this.inline) {
+        style.display = "inline-block";
+      } else {
+        if (this.dimensionHeight && this.dimensionWidth) {
+          style.height = 0;
+          style.overflow = "hidden";
+          style.paddingBottom = `${this.dimensionHeight / this.dimensionWidth * 100}%`;
+          style.position = "relative";
+        }
+      }
       var colors = (_c = (_b = (_a = this.model) == null ? void 0 : _a.fileMeta) == null ? void 0 : _b.colors) == null ? void 0 : _c.colors;
       if (colors && colors.length) {
         style.backgroundColor = colors[0];
-      }
-      var dimensionWidth = this.model.width;
-      var dimensionHeight = this.model.height;
-      if (this.width && this.height) {
-        dimensionWidth = this.width;
-        dimensionHeight = this.height;
-      }
-      if (dimensionHeight && dimensionWidth) {
-        style.height = 0;
-        style.paddingBottom = `${dimensionHeight / dimensionWidth * 100}%`;
       }
       if (this.isSvg)
         ;
@@ -6067,7 +6098,7 @@ const _hoisted_1$F = ["data"];
 const _hoisted_2$y = ["src"];
 function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
-    class: "ux-image",
+    class: normalizeClass(["ux-image", $options.className]),
     style: normalizeStyle($options.style)
   }, [
     $props.svg ? (openBlock(), createElementBlock("object", {
@@ -6076,12 +6107,12 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
       data: $options.src
     }, null, 8, _hoisted_1$F)) : (openBlock(), createElementBlock("img", {
       key: 1,
-      src: $options.src,
-      style: normalizeStyle($options.aspectStyle)
+      style: normalizeStyle($options.imageStyle),
+      src: $options.src
     }, null, 12, _hoisted_2$y))
-  ], 4);
+  ], 6);
 }
-var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["render", _sfc_render$L], ["__scopeId", "data-v-0013b853"]]);
+var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["render", _sfc_render$L], ["__scopeId", "data-v-1f7127ce"]]);
 var progressbar_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$K = {
   props: {
@@ -18441,9 +18472,11 @@ const _sfc_main$5 = {
       const { promise, cancel } = await self2.$sdk.content.list(self2.type, loadCriteria, { cancellable: true });
       cancelInflight = cancel;
       promise.then(function(res) {
+        cancelInflight = null;
         self2.loading = false;
       });
       promise.catch(function(err) {
+        cancelInflight = null;
       });
       const { data } = await promise;
       data.items.forEach(self2.ensureMeta);
@@ -18476,7 +18509,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-2e0c57ea"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-4d612010"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { class: "footer" };
 function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
@@ -18650,7 +18683,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-2e0c57ea"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-4d612010"]]);
 var ModalMixin = {
   props: {
     options: {
