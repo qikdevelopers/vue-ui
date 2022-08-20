@@ -1,5 +1,5 @@
 <template>
-    <div class="filter-rule">
+    <div class="filter-rule" v-if="definition">
         <div class="top">
             <flex-row>
                 <flex-cell>
@@ -25,7 +25,9 @@
                 <filter-condition :enableRemove="model.filters.length > 1" :fields="fields" @remove="removeCondition(index)" v-model="model.filters[index]" />
             </flex-cell>
         </flex-row>
-        <ux-button @click="addCondition">Add Condition</ux-button>
+        <ux-button size="sm" @click="addCondition">
+        Add Condition <ux-icon icon="fa-plus" right/>
+    </ux-button>
     </div>
 </template>
 <script>

@@ -11,7 +11,7 @@
                 </div>
                 <!-- :enableRemove="model.filters.length > 1" -->
                 <filter-rule enableRemove :key="`rule-${index}`" @remove="removeRule(index)" :definition="definition" v-model="model.filters[index]" :index="index" v-for="(rule, index) in model.filters" />
-                <ux-button @click="addRule()">Add Filter Rule</ux-button>
+                <ux-button size="sm" @click="addRule()">Add Filter Rule</ux-button>
             </div>
         </flex-body>
     </flex-column>

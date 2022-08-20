@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelSelect, withKeys, vModelText, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.79";
+const version$1 = "0.1.80";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -12394,14 +12394,17 @@ const _sfc_main$u = {
     NativeSelect
   }
 };
-const _hoisted_1$o = { class: "filter-rule" };
+const _hoisted_1$o = {
+  key: 0,
+  class: "filter-rule"
+};
 const _hoisted_2$k = { class: "top" };
 const _hoisted_3$h = { class: "summary" };
 const _hoisted_4$g = /* @__PURE__ */ createTextVNode(" Match ");
 const _hoisted_5$b = /* @__PURE__ */ createTextVNode(" of the following conditions ");
 const _hoisted_6$a = /* @__PURE__ */ createElementVNode("span", { class: "line" }, null, -1);
 const _hoisted_7$7 = { class: "operator" };
-const _hoisted_8$3 = /* @__PURE__ */ createTextVNode("Add Condition");
+const _hoisted_8$3 = /* @__PURE__ */ createTextVNode(" Add Condition ");
 function _sfc_render$u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_native_select = resolveComponent("native-select");
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -12409,7 +12412,7 @@ function _sfc_render$u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_button = resolveComponent("ux-button");
   const _component_flex_row = resolveComponent("flex-row");
   const _component_filter_condition = resolveComponent("filter-condition");
-  return openBlock(), createElementBlock("div", _hoisted_1$o, [
+  return $props.definition ? (openBlock(), createElementBlock("div", _hoisted_1$o, [
     createElementVNode("div", _hoisted_2$k, [
       createVNode(_component_flex_row, null, {
         default: withCtx(() => [
@@ -12487,13 +12490,20 @@ function _sfc_render$u(_ctx, _cache, $props, $setup, $data, $options) {
         _: 2
       }, 1024);
     }), 128)),
-    createVNode(_component_ux_button, { onClick: $options.addCondition }, {
+    createVNode(_component_ux_button, {
+      size: "sm",
+      onClick: $options.addCondition
+    }, {
       default: withCtx(() => [
-        _hoisted_8$3
+        _hoisted_8$3,
+        createVNode(_component_ux_icon, {
+          icon: "fa-plus",
+          right: ""
+        })
       ]),
       _: 1
     }, 8, ["onClick"])
-  ]);
+  ])) : createCommentVNode("", true);
 }
 var FilterRule = /* @__PURE__ */ _export_sfc(_sfc_main$u, [["render", _sfc_render$u]]);
 var FilterBuilder_vue_vue_type_style_index_0_scoped_true_lang = "";
@@ -12646,6 +12656,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
               }, null, 8, ["onRemove", "definition", "modelValue", "onUpdate:modelValue", "index"]);
             }), 128)),
             createVNode(_component_ux_button, {
+              size: "sm",
               onClick: _cache[1] || (_cache[1] = ($event) => $options.addRule())
             }, {
               default: withCtx(() => [
@@ -12661,7 +12672,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var FilterBuilder = /* @__PURE__ */ _export_sfc(_sfc_main$t, [["render", _sfc_render$t], ["__scopeId", "data-v-2a26bc0c"]]);
+var FilterBuilder = /* @__PURE__ */ _export_sfc(_sfc_main$t, [["render", _sfc_render$t], ["__scopeId", "data-v-7933a5ee"]]);
 var filter_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$s = {
   mixins: [InputMixin],
@@ -12771,6 +12782,7 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
       }), 128)),
       _ctx.canAddValue ? (openBlock(), createBlock(_component_ux_button, {
         key: 0,
+        size: "sm",
         onClick: _cache[0] || (_cache[0] = ($event) => _ctx.add())
       }, {
         default: withCtx(() => [
@@ -12786,7 +12798,7 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["definition", "modelValue"]))
   ], 64);
 }
-var FilterInput = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-1721388e"]]);
+var FilterInput = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-4aae9a4a"]]);
 var switch_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$r = {
   mixins: [InputMixin],
@@ -18199,12 +18211,25 @@ const _sfc_main$5 = {
       return view;
     },
     sort() {
-      var defaultSort = {
+      var _a;
+      var defaultSort = ((_a = this.definition) == null ? void 0 : _a.defaultSort) || {
         key: "title",
         direction: "asc",
         type: "string"
       };
       switch (this.basicType) {
+        case "email":
+        case "notification":
+        case "transaction":
+        case "campaign":
+        case "transaction":
+        case "componentsnapshot":
+        case "interfacesnapshot":
+        case "image":
+        case "video":
+        case "audio":
+        case "file":
+        case "submission":
         case "log":
           defaultSort = {
             key: "meta.created",
@@ -18509,7 +18534,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-4d612010"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-34d46a88"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { class: "footer" };
 function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
@@ -18683,7 +18708,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-4d612010"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-34d46a88"]]);
 var ModalMixin = {
   props: {
     options: {

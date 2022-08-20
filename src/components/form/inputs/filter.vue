@@ -12,7 +12,7 @@
                 </ux-button>
             </flex-cell>
         </flex-row>
-        <ux-button v-if="canAddValue" @click="add()">{{addLabel}}</ux-button>
+        <ux-button size="sm" v-if="canAddValue" @click="add()">{{addLabel}}</ux-button>
     </div>
     <template v-else>
         <filter-builder :definition="definition" v-model="model" />

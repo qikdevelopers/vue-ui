@@ -459,13 +459,26 @@ export default {
 
             //TODO Update to allow for a prop
             //And user sort by clicking on the table headers
-            var defaultSort = {
+            var defaultSort = this.definition?.defaultSort || {
                 key: 'title',
                 direction: 'asc',
                 type: 'string',
             }
 
+
             switch (this.basicType) {
+                case 'email':
+                case 'notification':
+                case 'transaction':
+                case 'campaign':
+                case 'transaction':
+                case 'componentsnapshot':
+                case 'interfacesnapshot':
+                case 'image':
+                case 'video':
+                case 'audio':
+                case 'file':
+                case 'submission':
                 case 'log':
                     defaultSort = {
                         key: 'meta.created',
