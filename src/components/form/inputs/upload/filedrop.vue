@@ -1,5 +1,5 @@
 <template>
-    <label class="file-drop" @dragover.prevent.stop="fileover" @drop.prevent.stop="filedrop">
+    <label class="file-drop" :class="{over}" @dragover.prevent.stop="fileover" @dragleave.prevent.stop="fileout" @drop.prevent.stop="filedrop">
         <input ref="file" :accept="accept" type="file" :multiple="multiple" @change="filesSelected($event.target.files)">
         <div class="file-drop-ux" @click="clicked">
             <slot>
@@ -22,6 +22,11 @@ export default {
             type:String,
         },
     },
+    data() {
+        return {
+            over:false,
+        }
+    },
     methods: {
         clicked() {
             if(!this.multiple) {
@@ -29,11 +34,20 @@ export default {
             }
             this.$refs.file.click();
         },
-        fileover(event) {
+        fileout(event) {
+            this.over = true;
 
         },
-        filedrop(event) {
-
+        fileover(event) {
+            this.over = true;
+        },
+        filedrop(e) {
+            const self = this;
+            if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
+                e.preventDefault();
+                e.stopPropagation();
+                self.filesSelected(e.dataTransfer.files);
+            }
         },
         filesSelected(files) {
             console.log('FILES SELECTED', files);
@@ -57,9 +71,34 @@ export default {
 </script>
 <style lang="scss" scoped>
 .file-drop {
-    // display: block;
+    display: block;
+    border:2px solid transparent;
+    position:relative;
+
     // border: 2px solid green;
     // position:relative;
+    // 
+
+    &:before {
+        content:'';
+        position: absolute;
+        left:0;
+        top:0;
+        right:0;
+        bottom:0;
+        width:100%;
+        height: 100%;
+        background: var(--primary);
+        opacity: 0;
+    }
+
+    &.over {
+        border: 2px dashed var(--primary);
+
+        &:before {
+            opacity: 0.2;
+        }
+    }
 
     input {
         // position:absolute;

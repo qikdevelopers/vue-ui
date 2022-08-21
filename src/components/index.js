@@ -39,6 +39,8 @@ export { default as Spinner } from './ui/spinner.vue';
 export { default as ProgressBar } from './ui/progressbar.vue';
 export { default as UXList } from './ui/list.vue';
 export { default as UXListItem } from './ui/list-item.vue';
+export { default as DateRange } from './ui/daterange.vue';
+
 
 export { default as UXForm } from './form/form.vue';
 export { default as UXSubmissionForm } from './form/submissionform.vue';

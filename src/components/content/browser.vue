@@ -55,7 +55,13 @@
                     <flex-column class="filter-column" v-if="showFilters">
                         <flex-body>
                             <search v-model="keywords" :loading="searching" :debounce="500" placeholder="Keyword Search" />
+                            <p></p>      
+                            <div v-if="dateFilterEnabled">
+                                <ux-field :field="dateRangeField" v-model="dateRangeFilter" />
+                            </div>
+
                             <p></p>
+
                             <filter-builder :definition="definition" v-model="filter" />
                         </flex-body>
                     </flex-column>
@@ -79,6 +85,7 @@ import FilterBuilder from '../filter/FilterBuilder.vue';
 import Selection from '../services/selection.js';
 import Search from '../form/inputs/search.vue';
 import Pager from '../ui/pager.vue';
+import UXFormField from '../form/field.vue';
 
 //////////////////////////////////////////////
 
@@ -307,6 +314,10 @@ export default {
             type: String,
             default: '',
         },
+        dateRange: {
+            type: Object,
+            default:{},
+        },
         options: {
             type: Object,
             default () {
@@ -328,6 +339,9 @@ export default {
                 return 0;
             }
         },
+        dateFilterEnabled:{
+            type:Boolean,
+        },
         selectionManager: {
             type: Object,
         },
@@ -345,6 +359,7 @@ export default {
         NativeTable,
         FilterBuilder,
         Search,
+        UxField: UXFormField,
     },
     deactivated() {
         typeCacheKey = this.$sdk.global.cacheKeys[this.type];
@@ -398,6 +413,9 @@ export default {
         keywords(k) {
             this.$emit('update:search', k)
         },
+        dateRangeFilter(d) {
+            this.$emit('update:dateRange', d)
+        },
         search(k) {
             this.keywords = k;
         },
@@ -412,6 +430,15 @@ export default {
         },
     },
     computed: {
+        dateRangeField() {
+             return {
+                type:'object',
+                widget:'daterange',
+                key:'dateRange',
+                minimum:0,
+                maximum:1,
+            }
+        },
         combinedFilter() {
 
             const self = this
@@ -713,7 +740,7 @@ export default {
             return string;
         },
         change() {
-            return `${JSON.stringify([this.page, this.sort, this.keywords, this.selectFields, this.type, this.filterChangeString])}-${this.cacheKey}-${this.$sdk.global.cacheKeys[this.type]}`;
+            return `${JSON.stringify([this.page, this.dateRangeFilter, this.sort, this.keywords, this.selectFields, this.type, this.filterChangeString])}-${this.cacheKey}-${this.$sdk.global.cacheKeys[this.type]}`;
         },
         items() {
             return this.dataSource.items;
@@ -867,6 +894,32 @@ export default {
                 loadCriteria.trash = true;
             }
 
+            // If the date filter is enabled and we aren't doing a keyword search
+            if(self.dateFilterEnabled && !loadCriteria.search) {
+                
+                let startDate = self.dateRangeFilter?.dateRange?.startDate;
+                let endDate = self.dateRangeFilter?.dateRange?.endDate;
+                if(startDate || endDate) {
+                    let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    
+                    if(startDate.toISOString() == endDate.toISOString()) {
+                        startDate = new Date(startDate)
+                        startDate.setHours(0,0,0,0);
+                        endDate = new Date(startDate)
+                        endDate.setHours(23, 59, 59, 999)
+                    } else {
+                        endDate = new Date(endDate)
+                        endDate.setHours(23, 59, 59, 999)
+                    }
+
+                    loadCriteria.date = {
+                        startDate,
+                        endDate,
+                        timezone,
+                    }
+                }
+            }
+
 
             const { promise, cancel } = await self.$sdk.content.list(self.type, loadCriteria, { cancellable: true })
 
@@ -922,6 +975,9 @@ export default {
                 filters: [],
             },
             keywords: this.search,
+            dateRangeFilter:{
+                dateRange:this.dateRange
+            },
             dataSource: null,
         }
     },

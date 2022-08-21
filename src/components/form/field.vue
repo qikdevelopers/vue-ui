@@ -50,6 +50,9 @@
         <template v-if="widget == 'datefield'">
             <date-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
+        <template v-if="widget == 'daterange'">
+            <date-range @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <template v-if="widget == 'content-select'">
             <content-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -102,6 +105,7 @@ import CurrencyField from './inputs/currency.vue';
 import TextField from './inputs/textfield.vue';
 import TextArea from './inputs/textarea.vue';
 import DateField from './inputs/datefield.vue';
+import DateRange from './inputs/daterange.vue';
 import Checkbox from './inputs/checkbox.vue';
 import CustomHTML from './inputs/html.vue';
 import FilterInput from './inputs/filter.vue';
@@ -174,6 +178,7 @@ export default {
         ButtonSelect,
         NativeSelect,
         DateField,
+        DateRange,
         TextField,
         CurrencyField,
         TextArea,
@@ -649,6 +654,7 @@ export default {
                 case 'content-select':
                 case 'select':
                 case 'checkbox':
+                case 'daterange':
                 case 'datefield':
                 case 'richtext':
                 case 'textarea':

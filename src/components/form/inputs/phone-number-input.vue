@@ -2,16 +2,18 @@
     <label class="ux-field-title" v-if="showLabel">{{label}} <span class="ux-required-marker" v-if="required">*</span></label>
     <div class="ux-field-description" v-if="showDescription">{{description}}</div>
     <div v-if="multiValue">
-        <flex-row wrap class="ux-text-row" :key="index" v-for="(entry, index) in model">
+        <flex-row gap vcenter wrap class="ux-text-row" :key="index" v-for="(entry, index) in model">
             <flex-cell shrink>
                 <native-select v-model="entry.countryCode" :field="countryCodeField">
-                    <template v-if="!entry.countryCode">
-                        Country Code
-                    </template>
-                    <template v-else>
-                        <div v-if="lookup[entry.countryCode]">{{lookup[entry.countryCode].emoji}} - {{lookup[entry.countryCode].alpha2}}</div>
-                        <div v-else>Loading</div>
-                    </template>
+                    <ux-button tag="a">
+                        <template v-if="!entry.countryCode">
+                            Country Code
+                        </template>
+                        <template v-else>
+                            <div v-if="lookup[entry.countryCode]">{{lookup[entry.countryCode].emoji}} - {{lookup[entry.countryCode].alpha2}}</div>
+                            <div v-else>Loading</div>
+                        </template>
+                    </ux-button>
                 </native-select>
                 <!-- <select class="ux-country-code-select" v-model="entry.countryCode">
                     <option value="">None</option>
