@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.83";
+const version$1 = "0.1.84";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -6412,6 +6412,9 @@ var safeJsonStringify = safeJsonStringify$1.exports;
 function isUndefined$6(v, type) {
   return v === void 0 || v === null || type == "date" && v.toString && v.toString() === "Invalid Date";
 }
+function isNotEmpty(value) {
+  return value !== void 0 && value !== null;
+}
 var InputMixin = {
   props: {
     field: {
@@ -6639,13 +6642,15 @@ var InputMixin = {
     },
     getValue(option2) {
       if (!option2) {
-        return;
+        return this.cleanTextInput(option2);
       }
-      var value = option2._id || option2.value;
-      if (!value && option2.title && !this.returnObject) {
+      var value = this.cleanTextInput(option2._id || option2.value);
+      var hasValue = isNotEmpty(value);
+      if (!hasValue && option2.title && !this.returnObject) {
         value = option2.title;
       }
-      return value || option2;
+      value = this.cleanTextInput(value);
+      return isNotEmpty(value) ? value : option2;
     },
     getLabel(option2) {
       if (!option2) {
@@ -6787,7 +6792,9 @@ const _sfc_main$I = {
         }
       } else {
         if (self2.multiValue) {
-          val = (val || []).filter(Boolean).map(function(i2) {
+          val = (val || []).filter(function(i2) {
+            return i2 !== void 0 && i2 !== null;
+          }).map(function(i2) {
             return self2.getValue(i2);
           });
         } else {
@@ -6810,13 +6817,27 @@ const _sfc_main$I = {
             val.length = self2.maximum;
           }
         }
-        val = val.filter(Boolean).map(function(v) {
+        val = val.filter(function(v) {
+          return v !== void 0 && v !== null;
+        }).map(function(v) {
           var valueKey2 = self2.getValue(v);
           return self2.returnObject ? self2.optionLookup[valueKey2] : valueKey2;
         });
       } else {
         var valueKey = self2.getValue(val);
         val = self2.returnObject ? self2.optionLookup[valueKey] : valueKey;
+        switch (val) {
+          case "":
+            switch (self2.type) {
+              case "decimal":
+              case "float":
+              case "number":
+              case "integer":
+                val = void 0;
+                break;
+            }
+            break;
+        }
       }
       return val;
     }
@@ -6908,7 +6929,7 @@ function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var NativeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$I, [["render", _sfc_render$I], ["__scopeId", "data-v-be09a2cc"]]);
+var NativeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$I, [["render", _sfc_render$I], ["__scopeId", "data-v-a06c20f2"]]);
 var phoneNumberInput_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$H = {
   props: {

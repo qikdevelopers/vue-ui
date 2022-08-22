@@ -52,7 +52,10 @@ export default {
                 }
             } else {
                 if (self.multiValue) {
-                    val = (val || []).filter(Boolean).map(function(i) {
+                    val = (val || []).filter(function(i) {
+                        return i !== undefined && i !== null;
+                    })
+                    .map(function(i) {
                         return self.getValue(i);
                     })
                 } else {
@@ -84,14 +87,29 @@ export default {
                 }
 
 
-                val = val.filter(Boolean).map(function(v) {
+                val = val.filter(function(v) {
+                    return v !== undefined && v !== null;
+                })
+                .map(function(v) {
                     var valueKey = self.getValue(v);
                     return self.returnObject ? self.optionLookup[valueKey] : valueKey;
                 })
-
             } else {
                 var valueKey = self.getValue(val);
                 val = self.returnObject ? self.optionLookup[valueKey] : valueKey;
+
+                switch(val){
+                    case '':
+                        switch(self.type) {
+                            case 'decimal':
+                            case 'float':
+                            case 'number':
+                            case 'integer':
+                                val = undefined;
+                            break;
+                        }
+                    break;
+                }
             }
 
             return val;

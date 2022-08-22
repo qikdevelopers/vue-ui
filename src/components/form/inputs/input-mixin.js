@@ -7,6 +7,11 @@ function isUndefined(v, type) {
 
 import safeJsonStringify from 'safe-json-stringify';
 
+
+function isNotEmpty(value) {
+    return value !== undefined && value !== null;
+} 
+
 //////////////////////////////////////
 
 export default {
@@ -256,20 +261,22 @@ export default {
         },
         getValue(option) {
             if (!option) {
-                return;
+                return this.cleanTextInput(option);
             }
 
             //Get the value of the object
-            var value = option._id || option.value;
-
-            //If we have a title but no value
-            if (!value && option.title && !this.returnObject) {
+            var value = this.cleanTextInput(option._id || option.value);
+            var hasValue = isNotEmpty(value)
+            if (!hasValue && option.title && !this.returnObject) {
                 //user the title as the value
                 value = option.title;
             }
 
+
+            value = this.cleanTextInput(value)
+
             //Return the value or the option itself
-            return value || option;
+            return isNotEmpty(value) ? value : option;
         },
         getLabel(option) {
             if (!option) {
