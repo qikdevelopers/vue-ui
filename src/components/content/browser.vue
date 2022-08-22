@@ -8,7 +8,7 @@
                             <component :cacheKey="viewModeCacheKey" :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
                         </template>
                         <template v-else>
-                            <native-table :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
+                            <native-table v-model:sort="sort" :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
                                 <template #corner>
                                     <ux-menu right>
                                         <template #activator="{ on }">
@@ -485,7 +485,7 @@ export default {
 
             return view;
         },
-        sort() {
+        defaultSort() {
 
             //TODO Update to allow for a prop
             //And user sort by clicking on the table headers
@@ -757,7 +757,7 @@ export default {
         loadCriteria() {
 
             var self = this;
-            var sort = self.sort;
+            var sort = self.sort || self.defaultSort;
             var search = self.keywords;
             var select = self.selectFields;
             var page = self.page;
@@ -953,6 +953,7 @@ export default {
     },
     data() {
 
+
         var manager = this.selectionManager;
         if (!manager) {
             manager = new Selection({ minimum: this.minimum, maximum: this.maximum });
@@ -979,6 +980,7 @@ export default {
                 operator: 'and',
                 filters: [],
             },
+            sort:this.defaultSort,
             keywords: this.search,
             dateRangeFilter:{
                 dateRange:this.dateRange

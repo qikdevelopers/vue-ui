@@ -25,8 +25,8 @@
                                 </ux-list>
                             </ux-menu>
                         </th>
-                        <th @click="toggleSort(column)" :class="column.class" v-for="column in renderColumns">
-                            {{column.title}}
+                        <th @click="toggleSort(column)" :class="[{sortable:column.sortable !== false, active:column.key === sorting?.key}, column.class]" v-for="column in renderColumns">
+                            <flex-row gap vcenter><flex-cell>{{column.title}}</flex-cell><flex-cell v-if="column.key === sorting?.key" shrink>{{currentSortDirection === 'asc' ? '▴' : '▾'}}</flex-cell></flex-row>
                         </th>
                         <th v-if="enableActions" class="last shrink">
                             <slot name="corner"></slot>
@@ -59,6 +59,12 @@ export default {
                 top: 0,
                 left: 0,
             });
+        },
+        sort(s) {
+            this.sorting = s;
+        },
+        sorting(s) {
+            this.$emit('update:sort', s);
         }
     },
     props: {
@@ -95,6 +101,16 @@ export default {
                 return true;
             },
         },
+        sort:{
+            type:Object,
+            default() {
+                return {
+                    key:'title',
+                    type:'string',
+                    direction:'asc',
+                }
+            }
+        },
         selection: {
             type: Array,
             default () {
@@ -108,7 +124,15 @@ export default {
             type: Function,
         },
     },
+    data() {
+        return {
+            sorting:this.sort,
+        }
+    },
     computed: {
+        currentSortDirection() {
+            return this.sorting?.direction || 'asc';
+        },
         selectionHash() {
             var self = this;
             return self.selection.reduce(function(set, row) {
@@ -189,6 +213,20 @@ export default {
 
         toggleSort(column) {
 
+            const currentKey = this.sorting?.key;
+            const currentDirection = this.sorting?.direction || 'asc';
+
+            let {key, direction} = column;
+
+            if(key === currentKey) {
+                direction = currentDirection === 'dsc' ? 'asc' : 'dsc';
+            }
+
+            this.sorting = {
+                key,
+                direction,
+                type:column.type,
+            }
         },
         clickRow(row) {
 
@@ -244,9 +282,38 @@ export default {
                 z-index: 2;
                 text-align: left;
 
+                &:before {
+                    content:'';
+                    display: none;
+                    background:rgba(#000, 0.05);
+                    position: absolute;
+                    width:100%;
+                    height: 100%;
+                    left:0;
+                    top:0;
+                }
+
                 &.table-select {
                     font-size: clamp(17px, 1em, 20px);
                     z-index: 3;
+                }
+
+                &.sortable {
+                    cursor: pointer;
+
+                    &:hover {
+                        &:before {
+                            display: block;
+                        }
+                    }
+                }
+
+                &.active {
+
+                    &:before {
+                            display: block;
+                        }
+                    
                 }
             }
 

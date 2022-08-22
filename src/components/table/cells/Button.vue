@@ -1,6 +1,6 @@
 <template>
 	<td class="table-button-cell">
-		<ux-button :size="button.size" :loading="processing" @click.stop.prevent="clicked">
+		<ux-button :color="button.color" :size="button.size" :loading="processing" @click.stop.prevent="clicked">
 			<template v-if="button.text">{{button.text}}</template><ux-icon v-if="button.icon" :icon="button.icon" right/>
 		</ux-button>
     </td>

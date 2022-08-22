@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.82";
+const version$1 = "0.1.83";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -762,6 +762,7 @@ function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_button = resolveComponent("ux-button");
   return openBlock(), createElementBlock("td", _hoisted_1$P, [
     createVNode(_component_ux_button, {
+      color: $options.button.color,
       size: $options.button.size,
       loading: $data.processing,
       onClick: withModifiers($options.clicked, ["stop", "prevent"])
@@ -777,10 +778,10 @@ function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
         }, null, 8, ["icon"])) : createCommentVNode("", true)
       ]),
       _: 1
-    }, 8, ["size", "loading", "onClick"])
+    }, 8, ["color", "size", "loading", "onClick"])
   ]);
 }
-var ButtonCell = /* @__PURE__ */ _export_sfc(_sfc_main$12, [["render", _sfc_render$12], ["__scopeId", "data-v-3cbecb7e"]]);
+var ButtonCell = /* @__PURE__ */ _export_sfc(_sfc_main$12, [["render", _sfc_render$12], ["__scopeId", "data-v-1c498011"]]);
 class LuxonError extends Error {
 }
 class InvalidDateTimeError extends LuxonError {
@@ -5076,6 +5077,12 @@ const _sfc_main$W = {
         top: 0,
         left: 0
       });
+    },
+    sort(s2) {
+      this.sorting = s2;
+    },
+    sorting(s2) {
+      this.$emit("update:sort", s2);
     }
   },
   props: {
@@ -5112,6 +5119,16 @@ const _sfc_main$W = {
         return true;
       }
     },
+    sort: {
+      type: Object,
+      default() {
+        return {
+          key: "title",
+          type: "string",
+          direction: "asc"
+        };
+      }
+    },
     selection: {
       type: Array,
       default() {
@@ -5125,7 +5142,16 @@ const _sfc_main$W = {
       type: Function
     }
   },
+  data() {
+    return {
+      sorting: this.sort
+    };
+  },
   computed: {
+    currentSortDirection() {
+      var _a;
+      return ((_a = this.sorting) == null ? void 0 : _a.direction) || "asc";
+    },
     selectionHash() {
       var self2 = this;
       return self2.selection.reduce(function(set, row) {
@@ -5193,6 +5219,18 @@ const _sfc_main$W = {
       return array;
     },
     toggleSort(column) {
+      var _a, _b;
+      const currentKey = (_a = this.sorting) == null ? void 0 : _a.key;
+      const currentDirection = ((_b = this.sorting) == null ? void 0 : _b.direction) || "asc";
+      let { key, direction } = column;
+      if (key === currentKey) {
+        direction = currentDirection === "dsc" ? "asc" : "dsc";
+      }
+      this.sorting = {
+        key,
+        direction,
+        type: column.type
+      };
     },
     clickRow(row) {
       this.$emit("click:row", row);
@@ -5230,6 +5268,8 @@ function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_list_item = resolveComponent("ux-list-item");
   const _component_ux_list = resolveComponent("ux-list");
   const _component_ux_menu = resolveComponent("ux-menu");
+  const _component_flex_cell = resolveComponent("flex-cell");
+  const _component_flex_row = resolveComponent("flex-row");
   const _component_table_row = resolveComponent("table-row");
   return openBlock(), createElementBlock("div", _hoisted_1$K, [
     createElementVNode("div", _hoisted_2$C, [
@@ -5287,10 +5327,38 @@ function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
               })
             ])) : createCommentVNode("", true),
             (openBlock(true), createElementBlock(Fragment, null, renderList($options.renderColumns, (column) => {
+              var _a;
               return openBlock(), createElementBlock("th", {
                 onClick: ($event) => $options.toggleSort(column),
-                class: normalizeClass(column.class)
-              }, toDisplayString(column.title), 11, _hoisted_7$f);
+                class: normalizeClass([{ sortable: column.sortable !== false, active: column.key === ((_a = $data.sorting) == null ? void 0 : _a.key) }, column.class])
+              }, [
+                createVNode(_component_flex_row, {
+                  gap: "",
+                  vcenter: ""
+                }, {
+                  default: withCtx(() => {
+                    var _a2;
+                    return [
+                      createVNode(_component_flex_cell, null, {
+                        default: withCtx(() => [
+                          createTextVNode(toDisplayString(column.title), 1)
+                        ]),
+                        _: 2
+                      }, 1024),
+                      column.key === ((_a2 = $data.sorting) == null ? void 0 : _a2.key) ? (openBlock(), createBlock(_component_flex_cell, {
+                        key: 0,
+                        shrink: ""
+                      }, {
+                        default: withCtx(() => [
+                          createTextVNode(toDisplayString($options.currentSortDirection === "asc" ? "\u25B4" : "\u25BE"), 1)
+                        ]),
+                        _: 1
+                      })) : createCommentVNode("", true)
+                    ];
+                  }),
+                  _: 2
+                }, 1024)
+              ], 10, _hoisted_7$f);
             }), 256)),
             $props.enableActions ? (openBlock(), createElementBlock("th", _hoisted_8$8, [
               renderSlot(_ctx.$slots, "corner", {}, void 0, true)
@@ -5317,7 +5385,7 @@ function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
     ], 512)
   ]);
 }
-var NativeTable = /* @__PURE__ */ _export_sfc(_sfc_main$W, [["render", _sfc_render$W], ["__scopeId", "data-v-e626ef3a"]]);
+var NativeTable = /* @__PURE__ */ _export_sfc(_sfc_main$W, [["render", _sfc_render$W], ["__scopeId", "data-v-129ac46c"]]);
 var spinner_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$V = {
   props: {
@@ -18503,7 +18571,7 @@ const _sfc_main$5 = {
       }
       return view;
     },
-    sort() {
+    defaultSort() {
       var _a;
       var defaultSort = ((_a = this.definition) == null ? void 0 : _a.defaultSort) || {
         key: "title",
@@ -18684,7 +18752,7 @@ const _sfc_main$5 = {
     },
     loadCriteria() {
       var self2 = this;
-      var sort2 = self2.sort;
+      var sort2 = self2.sort || self2.defaultSort;
       var search = self2.keywords;
       var select = self2.selectFields;
       var page = self2.page;
@@ -18846,6 +18914,7 @@ const _sfc_main$5 = {
         operator: "and",
         filters: []
       },
+      sort: this.defaultSort,
       keywords: this.search,
       dateRangeFilter: {
         dateRange: this.dateRange
@@ -18854,7 +18923,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-90e9b06e"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-651a3eab"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { key: 0 };
 const _hoisted_3$4 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
@@ -18901,6 +18970,8 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
                       "onClick:item": $options.rowClicked
                     }, null, 8, ["cacheKey", "selection", "items", "onClick:actions", "onSelect:item:toggle", "onClick:item"])) : (openBlock(), createBlock(_component_native_table, {
                       key: 1,
+                      sort: $data.sort,
+                      "onUpdate:sort": _cache[0] || (_cache[0] = ($event) => $data.sort = $event),
                       enableActions: $props.enableActions,
                       total: $options.totalItems,
                       selectAll: $options.selectAll,
@@ -18950,7 +19021,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
                         })
                       ]),
                       _: 1
-                    }, 8, ["enableActions", "total", "selectAll", "deselectAll", "selection", "onClick:row", "onClick:actions", "onSelect:row:toggle", "onSelect:multiple", "onDeselect:multiple", "rows", "columns"]))
+                    }, 8, ["sort", "enableActions", "total", "selectAll", "deselectAll", "selection", "onClick:row", "onClick:actions", "onSelect:row:toggle", "onSelect:multiple", "onDeselect:multiple", "rows", "columns"]))
                   ]),
                   _: 1
                 })) : !$data.loading ? (openBlock(), createBlock(_component_flex_column, {
@@ -18986,7 +19057,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
                       default: withCtx(() => [
                         createVNode(_component_search, {
                           modelValue: $data.keywords,
-                          "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $data.keywords = $event),
+                          "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $data.keywords = $event),
                           loading: $options.searching,
                           debounce: 500,
                           placeholder: "Keyword Search"
@@ -18996,14 +19067,14 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
                           createVNode(_component_ux_field, {
                             field: $options.dateRangeField,
                             modelValue: $data.dateRangeFilter,
-                            "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $data.dateRangeFilter = $event)
+                            "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => $data.dateRangeFilter = $event)
                           }, null, 8, ["field", "modelValue"])
                         ])) : createCommentVNode("", true),
                         _hoisted_3$4,
                         createVNode(_component_filter_builder, {
                           definition: $data.definition,
                           modelValue: $data.filter,
-                          "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => $data.filter = $event)
+                          "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => $data.filter = $event)
                         }, null, 8, ["definition", "modelValue"])
                       ]),
                       _: 1
@@ -19023,7 +19094,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
             createElementVNode("div", _hoisted_4$4, [
               createVNode(_component_pager, {
                 page: $data.page,
-                "onUpdate:page": _cache[3] || (_cache[3] = ($event) => $data.page = $event),
+                "onUpdate:page": _cache[4] || (_cache[4] = ($event) => $data.page = $event),
                 total: $options.totalItems
               }, null, 8, ["page", "total"])
             ]),
@@ -19040,7 +19111,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-90e9b06e"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-651a3eab"]]);
 var ModalMixin = {
   props: {
     options: {
