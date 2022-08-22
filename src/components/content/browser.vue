@@ -5,7 +5,7 @@
                 <flex-row>
                     <flex-column v-if="items.length">
                         <template v-if="viewMode && viewMode.component">
-                            <component :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
+                            <component :cacheKey="viewModeCacheKey" :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
                         </template>
                         <template v-else>
                             <native-table :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
@@ -430,6 +430,9 @@ export default {
         },
     },
     computed: {
+        viewModeCacheKey() {
+            return `${this.cacheKey}-${this.loadKey}`
+        },
         dateRangeField() {
              return {
                 type:'object',
@@ -926,8 +929,9 @@ export default {
             cancelInflight = cancel;
 
             promise.then(function(res) {
-                 cancelInflight = null;
+                cancelInflight = null;
                 self.loading = false;
+                self.loadKey++;
             })
             promise.catch(function(err) {
                  cancelInflight = null;
@@ -966,6 +970,7 @@ export default {
             manager,
             loading: true,
             additionalFields: [],
+            loadKey:1,
             page: {
                 size: 50,
                 index: 1,
