@@ -992,7 +992,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content-browser {
-    background: #fff;
     position: relative;
 }
 

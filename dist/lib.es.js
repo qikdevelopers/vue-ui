@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.84";
+const version$1 = "0.1.85";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -5347,10 +5347,11 @@ function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
                       }, 1024),
                       column.key === ((_a2 = $data.sorting) == null ? void 0 : _a2.key) ? (openBlock(), createBlock(_component_flex_cell, {
                         key: 0,
+                        class: "caret",
                         shrink: ""
                       }, {
                         default: withCtx(() => [
-                          createTextVNode(toDisplayString($options.currentSortDirection === "asc" ? "\u25B4" : "\u25BE"), 1)
+                          createTextVNode(toDisplayString($options.currentSortDirection === "asc" ? "\u25B2" : "\u25BC"), 1)
                         ]),
                         _: 1
                       })) : createCommentVNode("", true)
@@ -5385,7 +5386,7 @@ function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
     ], 512)
   ]);
 }
-var NativeTable = /* @__PURE__ */ _export_sfc(_sfc_main$W, [["render", _sfc_render$W], ["__scopeId", "data-v-129ac46c"]]);
+var NativeTable = /* @__PURE__ */ _export_sfc(_sfc_main$W, [["render", _sfc_render$W], ["__scopeId", "data-v-23402222"]]);
 var spinner_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$V = {
   props: {
@@ -18944,7 +18945,7 @@ const _sfc_main$5 = {
     };
   }
 };
-const _withScopeId = (n2) => (pushScopeId("data-v-651a3eab"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-2bc8da05"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$4 = { key: 0 };
 const _hoisted_3$4 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
@@ -19132,7 +19133,7 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-651a3eab"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5], ["__scopeId", "data-v-2bc8da05"]]);
 var ModalMixin = {
   props: {
     options: {

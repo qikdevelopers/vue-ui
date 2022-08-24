@@ -26,7 +26,7 @@
                             </ux-menu>
                         </th>
                         <th @click="toggleSort(column)" :class="[{sortable:column.sortable !== false, active:column.key === sorting?.key}, column.class]" v-for="column in renderColumns">
-                            <flex-row gap vcenter><flex-cell>{{column.title}}</flex-cell><flex-cell v-if="column.key === sorting?.key" shrink>{{currentSortDirection === 'asc' ? '▴' : '▾'}}</flex-cell></flex-row>
+                            <flex-row gap vcenter><flex-cell>{{column.title}}</flex-cell><flex-cell class="caret" v-if="column.key === sorting?.key" shrink>{{currentSortDirection === 'asc' ? '▲' : '▼'}}</flex-cell></flex-row>
                         </th>
                         <th v-if="enableActions" class="last shrink">
                             <slot name="corner"></slot>
@@ -250,6 +250,15 @@ export default {
 <style scoped lang="scss">
 .table-wrapper {
     // box-sizing:border-box;
+    // 
+    background: var(--lightbg, #fff);
+    @media (prefers-color-scheme: dark) {
+        background: var(--darkbg, #111);
+        color: var(--darkfg, #eee);
+    }
+
+
+
     display: flex;
     flex: 1;
     overflow: hidden;
@@ -278,9 +287,20 @@ export default {
                 white-space: nowrap;
                 font-size: 11px;
                 padding: 0.5em;
-                background: #fff;
                 z-index: 2;
                 text-align: left;
+                border-bottom: 1px solid rgba(#000, 0.05);
+
+
+                background: var(--lightbg, #fff);
+                @media (prefers-color-scheme: dark) {
+                    background: var(--darkbg, #111);
+                }
+
+
+                .caret {
+                    opacity: 0.5;
+                }
 
                 &:before {
                     content:'';
@@ -317,7 +337,7 @@ export default {
                 }
             }
 
-            border-bottom: 1px solid rgba(#000, 0.05);
+            
 
         }
 
@@ -355,13 +375,21 @@ export default {
         }
 
         tr:nth-child(even) {
-            background: darken(#fff, 1%);
+           
+            background: var(--lightshade, #fff);
+                @media (prefers-color-scheme: dark) {
+                    background: var(--darkshade, #222);
+                }
+
 
             th.first,
             td.first,
             th.last,
             td.last {
-                background: darken(#fff, 1%);
+                background: var(--lightshade, #fff);
+                @media (prefers-color-scheme: dark) {
+                    background: var(--darkshade, #222);
+                }
             }
         }
 
@@ -371,7 +399,11 @@ export default {
             td.first,
             th.last,
             td.last {
-                background: #fff;
+                background: var(--lightbg, #fff);
+                @media (prefers-color-scheme: dark) {
+                    background: var(--darkbg, #111);
+                }
+                
             }
         }
 
