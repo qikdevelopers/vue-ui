@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.87";
+const version$1 = "0.1.88";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -18905,6 +18905,7 @@ const _sfc_main$9 = {
         cancelInflight = null;
         self2.loading = false;
         self2.loadKey++;
+        self2.$emit("loaded");
       });
       promise.catch(function(err) {
         cancelInflight = null;
@@ -18945,7 +18946,7 @@ const _sfc_main$9 = {
     };
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-2bc8da05"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-7783955b"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$7 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$6 = { key: 0 };
 const _hoisted_3$5 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
@@ -19133,7 +19134,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-2bc8da05"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-7783955b"]]);
 var ScopeItem_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$8 = {
   props: {
@@ -19898,7 +19899,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
                   default: withCtx(() => [
                     createVNode(_component_flex_cell, { shrink: "" }, {
                       default: withCtx(() => [
-                        createTextVNode(" Select " + toDisplayString($options.maximum == 1 ? $options.title : $options.plural), 1)
+                        createElementVNode("h3", null, "Select " + toDisplayString($options.maximum == 1 ? $options.title : $options.plural), 1)
                       ]),
                       _: 1
                     }),
@@ -19957,7 +19958,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var UxContentModal = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-57c31aea"]]);
+var UxContentModal = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-7a6efddc"]]);
 var ScopeModal_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main = {
   components: {

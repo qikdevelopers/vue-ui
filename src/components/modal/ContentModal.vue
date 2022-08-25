@@ -9,7 +9,7 @@
                     <div class="header">
                         <flex-row vcenter gap>
                             <flex-cell shrink>
-                                Select {{maximum == 1 ? title : plural}}
+                                <h3>Select {{maximum == 1 ? title : plural}}</h3>
                             </flex-cell>
                             <flex-cell v-if="maximum">
                                 <span class="font-muted font-sm">({{model.length}} of {{maximum}})</span>
@@ -106,5 +106,9 @@ export default {
     background: #fff;
     padding: 1em;
     border-bottom: 1px solid rgba(#000, 0.1);
+
+    h1, h2, h3, h4, h5 {
+        margin:0;
+    }
 }
 </style>

@@ -932,6 +932,7 @@ export default {
                 cancelInflight = null;
                 self.loading = false;
                 self.loadKey++;
+                self.$emit('loaded');
             })
             promise.catch(function(err) {
                  cancelInflight = null;
