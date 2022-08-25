@@ -428,6 +428,9 @@ export default {
         selectedItems(items) {
             this.$emit('update:modelValue', items);
         },
+        loadKey() {
+            this.$emit('loaded');
+        },
     },
     computed: {
         viewModeCacheKey() {
@@ -932,7 +935,7 @@ export default {
                 cancelInflight = null;
                 self.loading = false;
                 self.loadKey++;
-                self.$emit('loaded');
+                
             })
             promise.catch(function(err) {
                  cancelInflight = null;
