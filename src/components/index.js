@@ -56,6 +56,8 @@ export { default as UXRenderField } from './content/render/field.vue';
 ////////////////////////////////////////////
 
 export { default as ContentBrowser } from './content/browser.vue';
+export { default as ScopeSelect } from './scope/ScopeSelect.vue';
+export { default as ScopeSelectButton } from './scope/ScopeSelectButton.vue';
 
 ////////////////////////////////////////////
 
@@ -70,6 +72,7 @@ export { default as UxConfirmModal } from './modal/ConfirmModal.vue';
 export { default as UxOptionsModal } from './modal/OptionsModal.vue';
 export { default as UxPromptModal } from './modal/PromptModal.vue';
 export { default as UxContentModal } from './modal/ContentModal.vue';
+export { default as UxScopeModal } from './modal/ScopeModal.vue';
 
 //Services
 export { default as Device } from './services/device.js';
@@ -136,6 +139,7 @@ import UxConfirmModal from './modal/ConfirmModal.vue';
 import UxOptionsModal from './modal/OptionsModal.vue';
 import UxPromptModal from './modal/PromptModal.vue';
 import UxContentModal from './modal/ContentModal.vue';
+import UxScopeModal from './modal/ScopeModal.vue';
 
 const defaultComponents = {
     FlexColumn,
@@ -210,6 +214,20 @@ const QikUI = {
 
             return sdk.modal({
                 component: UxContentModal,
+                options,
+            })
+
+        }
+
+        //Quick function for asking the user to select scopes
+        sdk.selectScopes = function(options) {
+            options = options || {}
+            // options.action = action;
+            // options.type = type;
+            options.model = options.model || [];
+
+            return sdk.modal({
+                component: UxScopeModal,
                 options,
             })
 
