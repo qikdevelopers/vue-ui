@@ -1,5 +1,5 @@
 <template>
-    <div @keydown.enter.stop="enterPress($event)">
+    <div>
     <label class="ux-field-title" v-if="showLabel">{{label}} <span class="ux-required-marker" v-if="required">*</span></label>   
     <div class="ux-field-description" v-if="showDescription">{{description}}</div>
     <div v-if="multiValue">

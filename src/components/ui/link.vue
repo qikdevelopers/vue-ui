@@ -1,7 +1,10 @@
 <template>
+
+
     <component @click="clicked" :is="element" :to="to" :href="actualHref" :target="target" :class="class" class="ux-link">
         <slot />
     </component>
+    
 </template>
 <script>
 export default {
@@ -86,9 +89,10 @@ export default {
 
             if (this.to) {
                 return `router-link`;
-            } else {
-                return 'a';
             }
+            
+            return 'a';
+            
         }
     },
 }

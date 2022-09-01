@@ -1,6 +1,6 @@
 <template>
     <flex-column v-if="mounted">
-        <v-ace-editor @blur="format" class="editor-wrap" v-model:value="model" :options="{ useWorker: true }" @init="editorInit" :lang="lang" theme="tomorrow_night_eighties" style="height: 300px" />
+        <v-ace-editor @blur="format" :readonly="readonly" class="editor-wrap" v-model:value="model" :options="{ useWorker: true }" @init="editorInit" :lang="lang" theme="tomorrow_night_eighties" style="height: 300px" />
     </flex-column>
 </template>
 <script>
@@ -64,6 +64,9 @@ export default {
         },
         lang: {
             type: String,
+        },
+        readonly:{
+            type:Boolean,
         },
     },
     watch: {

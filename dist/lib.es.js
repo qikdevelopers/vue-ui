@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.90";
+const version$1 = "0.1.92";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -5672,9 +5672,8 @@ const _sfc_main$V = {
       }
       if (this.to) {
         return `router-link`;
-      } else {
-        return "a";
       }
+      return "a";
     }
   }
 };
@@ -5692,7 +5691,7 @@ function _sfc_render$V(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["onClick", "to", "href", "target", "class"]);
 }
-var UXLink = /* @__PURE__ */ _export_sfc(_sfc_main$V, [["render", _sfc_render$V], ["__scopeId", "data-v-efa81728"]]);
+var UXLink = /* @__PURE__ */ _export_sfc(_sfc_main$V, [["render", _sfc_render$V], ["__scopeId", "data-v-8b82829a"]]);
 var icon_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$U = {
   props: {
@@ -14644,6 +14643,9 @@ const _sfc_main$n = {
     },
     lang: {
       type: String
+    },
+    readonly: {
+      type: Boolean
     }
   },
   watch: {
@@ -14676,6 +14678,7 @@ function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
     default: withCtx(() => [
       createVNode(_component_v_ace_editor, {
         onBlur: $options.format,
+        readonly: $props.readonly,
         class: "editor-wrap",
         value: $data.model,
         "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.model = $event),
@@ -14684,12 +14687,12 @@ function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
         lang: $props.lang,
         theme: "tomorrow_night_eighties",
         style: { "height": "300px" }
-      }, null, 8, ["onBlur", "value", "onInit", "lang"])
+      }, null, 8, ["onBlur", "readonly", "value", "onInit", "lang"])
     ]),
     _: 1
   })) : createCommentVNode("", true);
 }
-var CodeEditor = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$n], ["__scopeId", "data-v-ff0cfcf4"]]);
+var CodeEditor = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$n], ["__scopeId", "data-v-edf89936"]]);
 var codeEditorField_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$m = {
   components: {
@@ -14906,9 +14909,7 @@ function _sfc_render$k(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
   const _component_ux_button = resolveComponent("ux-button");
   const _component_flex_row = resolveComponent("flex-row");
-  return openBlock(), createElementBlock("div", {
-    onKeydown: _cache[2] || (_cache[2] = withKeys(withModifiers(($event) => _ctx.enterPress($event), ["stop"]), ["enter"]))
-  }, [
+  return openBlock(), createElementBlock("div", null, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$f, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
       _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$c, "*")) : createCommentVNode("", true)
@@ -14976,9 +14977,9 @@ function _sfc_render$k(_ctx, _cache, $props, $setup, $data, $options) {
         "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => _ctx.model = $event)
       }, null, 8, ["onFocus", "modelValue"])
     ]))
-  ], 32);
+  ]);
 }
-var RichTextField = /* @__PURE__ */ _export_sfc(_sfc_main$k, [["render", _sfc_render$k], ["__scopeId", "data-v-ba71f3d6"]]);
+var RichTextField = /* @__PURE__ */ _export_sfc(_sfc_main$k, [["render", _sfc_render$k], ["__scopeId", "data-v-46ce3b2b"]]);
 var InternalRouteSelect_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined$1(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
