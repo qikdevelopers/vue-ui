@@ -26,6 +26,9 @@ export default {
         selected: {
             type: Boolean,
         },
+        index:{
+            type:Number,
+        },
         row: {
             type: Object,
             required: true,
@@ -56,7 +59,9 @@ export default {
             this.$emit('click:actions', row);
         },
         clickSelect(row) {
-            this.$emit('click:select', row);
+
+            const index = this.index;
+            this.$emit('click:select', row, index);
             // this.$emit('click:row', this.row);
         },
     },

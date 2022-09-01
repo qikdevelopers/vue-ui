@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <table-row :enableSelection="enableSelection" :enableActions="enableActions" :key="row._id" @click:cell="clickCell" @click:row="clickRow" @click:select="clickSelect" @click:actions="clickActions" :selected="isSelected(row)" :row="row" :columns="columns" v-for="row in renderRows" />
+                    <table-row :enableSelection="enableSelection" :enableActions="enableActions" :key="row._id" @click:cell="clickCell" @click:row="clickRow" @click:select="clickSelect" @click:actions="clickActions" :selected="isSelected(row)" :row="row" :index="index" :columns="columns" v-for="(row, index) in renderRows" />
                 </tbody>
             </table>
         </div>
@@ -127,7 +127,22 @@ export default {
     data() {
         return {
             sorting:this.sort,
+            lastSelectedIndex:null,
+            shift:false,
+            keyListenersAdded:false,
         }
+    },
+    mounted() {
+        this.addKeyListeners()
+    },
+    activated() {
+        this.addKeyListeners();
+    },
+    beforeUnmount() {
+        this.removeKeyListeners()
+    },
+    deactivated() {
+        this.removeKeyListeners();
     },
     computed: {
         currentSortDirection() {
@@ -174,6 +189,33 @@ export default {
         },
     },
     methods: {
+        keyDown(event) {
+            if(event.keyCode == 16) {
+                this.shift = true;
+            }
+        },
+        keyUp(event) {
+            if(event.keyCode == 16) {
+                this.shift = false;
+           }
+        },
+        addKeyListeners() {
+
+            if (this.keyListenersAdded) {
+                return;
+            }
+            window.addEventListener('keydown', this.keyDown, true)
+            window.addEventListener('keyup', this.keyUp, true)
+            this.keyListenersAdded = true;
+        },
+        removeKeyListeners() {
+            if (!this.keyListenersAdded) {
+                return;
+            }
+            window.removeEventListener('keydown', this.keyDown, true)
+            window.removeEventListener('keyup', this.keyUp, true)
+            this.keyListenersAdded = false;
+        },
         togglePage() {
 
             var self = this;
@@ -210,7 +252,14 @@ export default {
             }
             return array;
         },
+        selectRange(start, end) {
+            const self = this;
+            const startIndex = Math.min(start, end);
+            const endIndex = Math.max(start, end)+1;
 
+            var targetRows = self.renderRows.slice(startIndex, endIndex);
+            self.$emit('select:multiple', targetRows);
+        },
         toggleSort(column) {
 
             const currentKey = this.sorting?.key;
@@ -239,8 +288,18 @@ export default {
         clickActions(row) {
             this.$emit('click:actions', row);
         },
-        clickSelect(row) {
+        clickSelect(row, index) {
+            // console.log('CLICK SELECT', index, row);
+            
+            const currentSelectedIndex = this.lastSelectedIndex;
 
+            if(this.shift) {
+                if(currentSelectedIndex != index) {
+                    console.log('FROM', currentSelectedIndex, '-', index);
+                    return this.selectRange(currentSelectedIndex, index);
+                }
+            }
+            this.lastSelectedIndex = index;
             this.$emit('select:row:toggle', row);
         },
 

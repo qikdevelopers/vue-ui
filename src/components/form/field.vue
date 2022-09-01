@@ -166,7 +166,8 @@ function computedExpression(key) {
         }
 
         let context = self.expressionsContext;
-        return Expressions.evaluateExpression(expression, context);
+        let result = Expressions.evaluateExpression(expression, context);
+        return result;
     }
 }
 
@@ -236,7 +237,7 @@ export default {
             isDirtyBeforeInput: false,
         }
     },
-    inject:['parentFormElement'],
+    inject:['parentFormElement', 'additionalContext'],
     provide() {
         return {
             fieldPath:this.fieldPath,
@@ -546,11 +547,17 @@ export default {
             return this.field.expressions;
         },
         expressionsContext() {
-            return {
+
+            const context = {
                 this: this.model,
                 model: this.model,
                 data: this.parentModel,
+                additional:{
+                    ...this.additionalContext.value,
+                }
             }
+
+            return context;
         },
         hidden() {
             if (this.actualField.readOnly) {

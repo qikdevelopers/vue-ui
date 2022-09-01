@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.92";
+const version$1 = "0.1.93";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -4949,6 +4949,9 @@ const _sfc_main$$ = {
     selected: {
       type: Boolean
     },
+    index: {
+      type: Number
+    },
     row: {
       type: Object,
       required: true
@@ -4979,7 +4982,8 @@ const _sfc_main$$ = {
       this.$emit("click:actions", row);
     },
     clickSelect(row) {
-      this.$emit("click:select", row);
+      const index2 = this.index;
+      this.$emit("click:select", row, index2);
     }
   },
   computed: {
@@ -5144,8 +5148,23 @@ const _sfc_main$_ = {
   },
   data() {
     return {
-      sorting: this.sort
+      sorting: this.sort,
+      lastSelectedIndex: null,
+      shift: false,
+      keyListenersAdded: false
     };
+  },
+  mounted() {
+    this.addKeyListeners();
+  },
+  activated() {
+    this.addKeyListeners();
+  },
+  beforeUnmount() {
+    this.removeKeyListeners();
+  },
+  deactivated() {
+    this.removeKeyListeners();
   },
   computed: {
     currentSortDirection() {
@@ -5187,6 +5206,32 @@ const _sfc_main$_ = {
     }
   },
   methods: {
+    keyDown(event) {
+      if (event.keyCode == 16) {
+        this.shift = true;
+      }
+    },
+    keyUp(event) {
+      if (event.keyCode == 16) {
+        this.shift = false;
+      }
+    },
+    addKeyListeners() {
+      if (this.keyListenersAdded) {
+        return;
+      }
+      window.addEventListener("keydown", this.keyDown, true);
+      window.addEventListener("keyup", this.keyUp, true);
+      this.keyListenersAdded = true;
+    },
+    removeKeyListeners() {
+      if (!this.keyListenersAdded) {
+        return;
+      }
+      window.removeEventListener("keydown", this.keyDown, true);
+      window.removeEventListener("keyup", this.keyUp, true);
+      this.keyListenersAdded = false;
+    },
     togglePage() {
       var self2 = this;
       if (self2.pageSelected) {
@@ -5218,6 +5263,13 @@ const _sfc_main$_ = {
       }
       return array;
     },
+    selectRange(start, end) {
+      const self2 = this;
+      const startIndex = Math.min(start, end);
+      const endIndex = Math.max(start, end) + 1;
+      var targetRows = self2.renderRows.slice(startIndex, endIndex);
+      self2.$emit("select:multiple", targetRows);
+    },
     toggleSort(column) {
       var _a, _b;
       const currentKey = (_a = this.sorting) == null ? void 0 : _a.key;
@@ -5241,7 +5293,15 @@ const _sfc_main$_ = {
     clickActions(row) {
       this.$emit("click:actions", row);
     },
-    clickSelect(row) {
+    clickSelect(row, index2) {
+      const currentSelectedIndex = this.lastSelectedIndex;
+      if (this.shift) {
+        if (currentSelectedIndex != index2) {
+          console.log("FROM", currentSelectedIndex, "-", index2);
+          return this.selectRange(currentSelectedIndex, index2);
+        }
+      }
+      this.lastSelectedIndex = index2;
       this.$emit("select:row:toggle", row);
     }
   }
@@ -5367,7 +5427,7 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
           ])
         ]),
         createElementVNode("tbody", null, [
-          (openBlock(true), createElementBlock(Fragment, null, renderList($options.renderRows, (row) => {
+          (openBlock(true), createElementBlock(Fragment, null, renderList($options.renderRows, (row, index2) => {
             return openBlock(), createBlock(_component_table_row, {
               enableSelection: $props.enableSelection,
               enableActions: $props.enableActions,
@@ -5378,15 +5438,16 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
               "onClick:actions": $options.clickActions,
               selected: $options.isSelected(row),
               row,
+              index: index2,
               columns: $props.columns
-            }, null, 8, ["enableSelection", "enableActions", "onClick:cell", "onClick:row", "onClick:select", "onClick:actions", "selected", "row", "columns"]);
+            }, null, 8, ["enableSelection", "enableActions", "onClick:cell", "onClick:row", "onClick:select", "onClick:actions", "selected", "row", "index", "columns"]);
           }), 128))
         ])
       ])
     ], 512)
   ]);
 }
-var NativeTable = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-23402222"]]);
+var NativeTable = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-2b235040"]]);
 var spinner_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$Z = {
   props: {
@@ -16154,7 +16215,8 @@ function computedExpression(key) {
       return;
     }
     let context = self2.expressionsContext;
-    return service.evaluateExpression(expression, context);
+    let result = service.evaluateExpression(expression, context);
+    return result;
   };
 }
 const _sfc_main$h = {
@@ -16220,7 +16282,7 @@ const _sfc_main$h = {
       isDirtyBeforeInput: false
     };
   },
-  inject: ["parentFormElement"],
+  inject: ["parentFormElement", "additionalContext"],
   provide() {
     return {
       fieldPath: this.fieldPath
@@ -16470,11 +16532,13 @@ const _sfc_main$h = {
       return this.field.expressions;
     },
     expressionsContext() {
-      return {
+      const context = {
         this: this.model,
         model: this.model,
-        data: this.parentModel
+        data: this.parentModel,
+        additional: __spreadValues({}, this.additionalContext.value)
       };
+      return context;
     },
     hidden() {
       if (this.actualField.readOnly) {
@@ -16847,7 +16911,7 @@ function _sfc_render$h(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$c, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-1d0f7c92"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-64d30f70"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$g = {
   props: {
