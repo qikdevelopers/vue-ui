@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.96";
+const version$1 = "0.2.0";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -5990,6 +5990,13 @@ const _sfc_main$S = {
       default: "none"
     }
   },
+  computed: {
+    filteredItems() {
+      return this.items.filter(function(item) {
+        return !item.disabled;
+      });
+    }
+  },
   methods: {
     toggle(item) {
       item.expanded = !item.expanded;
@@ -6004,7 +6011,7 @@ function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_link = resolveComponent("ux-link");
   const _component_menulist = resolveComponent("menulist", true);
   return openBlock(), createElementBlock("ul", null, [
-    (openBlock(true), createElementBlock(Fragment, null, renderList($props.items, (item) => {
+    (openBlock(true), createElementBlock(Fragment, null, renderList($options.filteredItems, (item) => {
       var _a;
       return openBlock(), createElementBlock("li", {
         class: normalizeClass({ expanded: item.expanded, collapsed: item.collapsed })

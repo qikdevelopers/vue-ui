@@ -1,6 +1,6 @@
 <template>
 	<ul>
-		<li :class="{expanded:item.expanded, collapsed:item.collapsed}" v-for="item in items">
+		<li :class="{expanded:item.expanded, collapsed:item.collapsed}" v-for="item in filteredItems">
 			<template v-if="expandOn === 'click' && item.items?.length">
 				<ux-link @click.stop.prevent="toggle(item)" :class="item.class">{{item.title}}</ux-link>
 			</template>
@@ -29,9 +29,17 @@ export default {
 				return [];
 			}
 		},
+
 		expandOn:{
 			type:String,
 			default:'none',
+		}
+	},
+	computed:{
+		filteredItems() {
+			return this.items.filter(function(item) {
+				return !item.disabled;
+			})
 		}
 	},
 	methods:{
