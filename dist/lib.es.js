@@ -14427,8 +14427,8 @@ const _hoisted_3$c = {
 const _hoisted_4$c = { key: 2 };
 const _hoisted_5$7 = { class: "ux-text-wrap prefixed" };
 const _hoisted_6$7 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", { class: "ux-text-prefix" }, "Label", -1));
-const _hoisted_7$5 = ["onBlur", "onUpdate:modelValue"];
-const _hoisted_8$2 = ["onBlur", "onUpdate:modelValue"];
+const _hoisted_7$5 = ["onBlur", "on:update:modelValue", "onUpdate:modelValue"];
+const _hoisted_8$2 = ["onBlur", "on:update:modelValue", "onUpdate:modelValue"];
 const _hoisted_9$2 = { class: "ux-text-wrap prefixed" };
 const _hoisted_10$2 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", { class: "ux-text-prefix" }, "Value", -1));
 const _hoisted_11$1 = ["onFocus", "onUpdate:modelValue"];
@@ -14468,7 +14468,8 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
                     ref: "input",
                     onKeydown: _cache[1] || (_cache[1] = withKeys(withModifiers(($event) => _ctx.add(), ["stop", "prevent"]), ["enter"])),
                     onBlur: ($event) => $options.titleBlurred(index2),
-                    "onUpdate:modelValue": [($event) => $options.entryTitleChanged(index2), ($event) => _ctx.model[index2].title = $event]
+                    "on:update:modelValue": ($event) => $options.entryTitleChanged(index2),
+                    "onUpdate:modelValue": ($event) => _ctx.model[index2].title = $event
                   }, null, 40, _hoisted_7$5)), [
                     [
                       vModelText,
@@ -14486,7 +14487,8 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
                     ref: "input",
                     onKeydown: _cache[3] || (_cache[3] = withKeys(withModifiers(($event) => _ctx.add(), ["stop", "prevent"]), ["enter"])),
                     onBlur: ($event) => $options.titleBlurred(index2),
-                    "onUpdate:modelValue": [($event) => $options.entryTitleChanged(index2), ($event) => _ctx.model[index2].title = $event]
+                    "on:update:modelValue": ($event) => $options.entryTitleChanged(index2),
+                    "onUpdate:modelValue": ($event) => _ctx.model[index2].title = $event
                   }, null, 40, _hoisted_8$2)), [
                     [vModelText, _ctx.model[index2].title]
                   ]) : createCommentVNode("", true)
@@ -14584,10 +14586,8 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
                 ref: "input",
                 onKeydown: _cache[8] || (_cache[8] = withKeys(withModifiers(($event) => _ctx.add(), ["stop", "prevent"]), ["enter"])),
                 onBlur: _cache[9] || (_cache[9] = ($event) => $options.titleBlurred(_ctx.index)),
-                "onUpdate:modelValue": [
-                  _cache[10] || (_cache[10] = (...args) => $options.entryTitleChanged && $options.entryTitleChanged(...args)),
-                  _cache[11] || (_cache[11] = ($event) => _ctx.model.title = $event)
-                ]
+                "on:update:modelValue": _cache[10] || (_cache[10] = (...args) => $options.entryTitleChanged && $options.entryTitleChanged(...args)),
+                "onUpdate:modelValue": _cache[11] || (_cache[11] = ($event) => _ctx.model.title = $event)
               }, null, 544)), [
                 [
                   vModelText,
@@ -14604,10 +14604,8 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
                 ref: "input",
                 onKeydown: _cache[13] || (_cache[13] = withKeys(withModifiers(($event) => _ctx.add(), ["stop", "prevent"]), ["enter"])),
                 onBlur: _cache[14] || (_cache[14] = ($event) => $options.titleBlurred(_ctx.index)),
-                "onUpdate:modelValue": [
-                  _cache[15] || (_cache[15] = (...args) => $options.entryTitleChanged && $options.entryTitleChanged(...args)),
-                  _cache[16] || (_cache[16] = ($event) => _ctx.model.title = $event)
-                ]
+                "on:update:modelValue": _cache[15] || (_cache[15] = (...args) => $options.entryTitleChanged && $options.entryTitleChanged(...args)),
+                "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => _ctx.model.title = $event)
               }, null, 544)), [
                 [vModelText, _ctx.model.title]
               ]) : createCommentVNode("", true)
@@ -19058,7 +19056,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
                       "onClick:actions": $options.actionsClicked,
                       "onSelect:item:toggle": $options.rowToggled,
                       "onClick:item": $options.rowClicked
-                    }, null, 8, ["cacheKey", "selection", "items", "onClick:actions", "onSelect:item:toggle", "onClick:item"])) : (openBlock(), createBlock(_component_native_table, {
+                    }, null, 40, ["cacheKey", "selection", "items", "onClick:actions", "onSelect:item:toggle", "onClick:item"])) : (openBlock(), createBlock(_component_native_table, {
                       key: 1,
                       sort: $data.sort,
                       "onUpdate:sort": _cache[0] || (_cache[0] = ($event) => $data.sort = $event),
