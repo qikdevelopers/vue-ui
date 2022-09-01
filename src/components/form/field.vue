@@ -548,12 +548,13 @@ export default {
         },
         expressionsContext() {
 
+            var additionalContext = this.additionalContext?.value || {}
             const context = {
                 this: this.model,
                 model: this.model,
                 data: this.parentModel,
                 additional:{
-                    ...this.additionalContext.value,
+                    ...additionalContext,
                 }
             }
 
