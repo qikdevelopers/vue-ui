@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.1.93";
+const version$1 = "0.1.96";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -6165,13 +6165,13 @@ const _sfc_main$R = {
       return params;
     },
     src() {
-      return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, this.params);
+      return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, this.params, { file: true });
     },
     previewSrc() {
       var params = Object.assign({}, this.params);
       params.w = 50;
       delete params.h;
-      return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, params);
+      return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, params, { file: true });
     },
     imageStyle() {
       var style = {};
@@ -6241,7 +6241,7 @@ function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 12, _hoisted_2$C))
   ], 6);
 }
-var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["render", _sfc_render$R], ["__scopeId", "data-v-1f7127ce"]]);
+var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["render", _sfc_render$R], ["__scopeId", "data-v-a5d2a840"]]);
 var progressbar_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$Q = {
   props: {
