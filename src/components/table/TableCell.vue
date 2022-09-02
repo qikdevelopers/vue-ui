@@ -1,4 +1,6 @@
 <template>
+
+
     <component v-if="component" :is="component" :column="column" :row="row" :value="value" />
     <td v-else class="table-cell">
         <template v-if="multiValue">
@@ -85,8 +87,14 @@ export default {
 
         ///////////////////////////////
 
-        const cellType = self.column.type;
-        const cellRenderer = self.column.renderer;
+        let cellType = self.column.type;
+        let cellRenderer = self.column.renderer;
+
+        if(cellType == 'reference') {
+            if(self.column.referenceType === 'image') {
+                cellRenderer = 'thumbnail';
+            }
+        }
 
         ///////////////////////////////
 

@@ -1,7 +1,7 @@
 <template>
     <div class="ux-image" :class="className" :style="style"> 
-        <object v-if="svg" type="image/svg+xml" :data="src"></object>
-        <img v-else :style="imageStyle" :src="src"/>
+        <object :alt="altText" v-if="svg" type="image/svg+xml" :data="src"></object>
+        <img :alt="altText" v-else :style="imageStyle" :src="src"/>
     </div>
 </template>
 <script>
@@ -9,6 +9,9 @@ export default {
     props: {
         item: {
             type: Object,
+        },
+        alt: {
+            type:String,
         },
         width: {
             type:Number,
@@ -55,6 +58,9 @@ export default {
     },
     
     computed: {
+        altText() {
+            return this.alt || this.model.title;
+        },
         className() {
 
             var classes = [];

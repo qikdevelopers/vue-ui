@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.1";
+const version$1 = "0.2.3";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -702,24 +702,32 @@ var Thumbnail_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$17 = {
   mixins: [TableCellMixin],
   computed: {
+    imageSource() {
+      return this.value && this.value._id ? this.value : this.row;
+    },
     type() {
       var _a, _b;
-      return (_b = (_a = this.row) == null ? void 0 : _a.meta) == null ? void 0 : _b.type;
+      return (_b = (_a = this.imageSource) == null ? void 0 : _a.meta) == null ? void 0 : _b.type;
+    }
+  },
+  methods: {
+    clicked(item) {
+      this.$sdk.dispatch("item:view", this.imageSource);
     }
   }
 };
 const _hoisted_1$S = { class: "table-image-cell" };
-const _hoisted_2$I = {
-  key: 0,
-  class: "image-wrapper"
-};
 function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_image = resolveComponent("ux-image");
   const _component_ux_icon = resolveComponent("ux-icon");
   return openBlock(), createElementBlock("td", _hoisted_1$S, [
-    $options.type == "image" || $options.type == "video" ? (openBlock(), createElementBlock("div", _hoisted_2$I, [
+    $options.type == "image" || $options.type == "video" ? (openBlock(), createElementBlock("div", {
+      key: 0,
+      onClick: _cache[0] || (_cache[0] = withModifiers(($event) => $options.clicked(_ctx.value), ["stop", "prevent"])),
+      class: "image-wrapper"
+    }, [
       createVNode(_component_ux_image, {
-        item: _ctx.row,
+        item: $options.imageSource,
         type: $options.type,
         width: 100,
         height: 100
@@ -730,7 +738,7 @@ function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
     }))
   ]);
 }
-var ThumbnailCell = /* @__PURE__ */ _export_sfc(_sfc_main$17, [["render", _sfc_render$17], ["__scopeId", "data-v-8ce152b2"]]);
+var ThumbnailCell = /* @__PURE__ */ _export_sfc(_sfc_main$17, [["render", _sfc_render$17], ["__scopeId", "data-v-246a2688"]]);
 var Button_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$16 = {
   data() {
@@ -4827,8 +4835,13 @@ const _sfc_main$10 = {
   async created() {
     const self2 = this;
     let component;
-    const cellType = self2.column.type;
-    const cellRenderer = self2.column.renderer;
+    let cellType = self2.column.type;
+    let cellRenderer = self2.column.renderer;
+    if (cellType == "reference") {
+      if (self2.column.referenceType === "image") {
+        cellRenderer = "thumbnail";
+      }
+    }
     switch (cellRenderer) {
       case "button":
         component = ButtonCell;
@@ -4940,7 +4953,7 @@ function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["type", "value"]))
   ]));
 }
-var TableCell = /* @__PURE__ */ _export_sfc(_sfc_main$10, [["render", _sfc_render$10], ["__scopeId", "data-v-c6534cd4"]]);
+var TableCell = /* @__PURE__ */ _export_sfc(_sfc_main$10, [["render", _sfc_render$10], ["__scopeId", "data-v-6c8f100b"]]);
 const _sfc_main$$ = {
   components: {
     TableCell
@@ -6062,6 +6075,9 @@ const _sfc_main$R = {
     item: {
       type: Object
     },
+    alt: {
+      type: String
+    },
     width: {
       type: Number
     },
@@ -6106,6 +6122,9 @@ const _sfc_main$R = {
     };
   },
   computed: {
+    altText() {
+      return this.alt || this.model.title;
+    },
     className() {
       var classes = [];
       if (this.portrait) {
@@ -6230,8 +6249,8 @@ const _sfc_main$R = {
     }
   }
 };
-const _hoisted_1$J = ["data"];
-const _hoisted_2$C = ["src"];
+const _hoisted_1$J = ["alt", "data"];
+const _hoisted_2$C = ["alt", "src"];
 function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["ux-image", $options.className]),
@@ -6239,16 +6258,18 @@ function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
   }, [
     $props.svg ? (openBlock(), createElementBlock("object", {
       key: 0,
+      alt: $options.altText,
       type: "image/svg+xml",
       data: $options.src
     }, null, 8, _hoisted_1$J)) : (openBlock(), createElementBlock("img", {
       key: 1,
+      alt: $options.altText,
       style: normalizeStyle($options.imageStyle),
       src: $options.src
     }, null, 12, _hoisted_2$C))
   ], 6);
 }
-var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["render", _sfc_render$R], ["__scopeId", "data-v-a5d2a840"]]);
+var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["render", _sfc_render$R], ["__scopeId", "data-v-a7872864"]]);
 var progressbar_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$Q = {
   props: {
