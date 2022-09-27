@@ -13,10 +13,14 @@
             </ux-button>
         </template>
         <template v-else-if="state === 'form.complete'">
-            Complete!
-            <ux-button @click="reset">
-                Back to form
-            </ux-button>
+            <slot :reset="reset">
+                Thank you
+
+                <ux-button @click="reset">
+                    Back to form
+                </ux-button>
+            </slot>
+            
         </template>
         <template v-else>
             <ux-form submission ref="form" v-model="model" @form:state="formStateUpdated" :fields="fields" />

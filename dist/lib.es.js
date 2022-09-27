@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.4";
+const version$1 = "0.2.5";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -17325,14 +17325,14 @@ const _sfc_main$f = {
     }
   }
 };
-const _withScopeId$2 = (n2) => (pushScopeId("data-v-5d5b3222"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$2 = (n2) => (pushScopeId("data-v-670d0b78"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$b = { class: "ux-submission-form" };
 const _hoisted_2$9 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("h3", null, "An error occurred", -1));
 const _hoisted_3$7 = { key: 0 };
 const _hoisted_4$7 = { key: 1 };
 const _hoisted_5$2 = { key: 2 };
 const _hoisted_6$2 = /* @__PURE__ */ createTextVNode(" Try again ");
-const _hoisted_7$2 = /* @__PURE__ */ createTextVNode(" Complete! ");
+const _hoisted_7$2 = /* @__PURE__ */ createTextVNode(" Thank you ");
 const _hoisted_8$1 = /* @__PURE__ */ createTextVNode(" Back to form ");
 const _hoisted_9$1 = ["tooltip"];
 const _hoisted_10$1 = /* @__PURE__ */ createTextVNode(" Submit ");
@@ -17365,7 +17365,10 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
         ]),
         _: 1
       }, 8, ["onClick"])
-    ], 64)) : $data.state === "form.complete" ? (openBlock(), createElementBlock(Fragment, { key: 1 }, [
+    ], 64)) : $data.state === "form.complete" ? renderSlot(_ctx.$slots, "default", {
+      key: 1,
+      reset: $options.reset
+    }, () => [
       _hoisted_7$2,
       createVNode(_component_ux_button, { onClick: $options.reset }, {
         default: withCtx(() => [
@@ -17373,7 +17376,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
         ]),
         _: 1
       }, 8, ["onClick"])
-    ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 2 }, [
+    ], true) : (openBlock(), createElementBlock(Fragment, { key: 2 }, [
       createVNode(_component_ux_form, {
         submission: "",
         ref: "form",
@@ -17398,7 +17401,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ]);
 }
-var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-5d5b3222"]]);
+var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-670d0b78"]]);
 var search_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$e = {
   props: {
