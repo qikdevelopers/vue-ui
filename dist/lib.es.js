@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.5";
+const version$1 = "0.2.6";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -7112,7 +7112,7 @@ const _hoisted_8$7 = { class: "ux-text-wrap" };
 const _hoisted_9$6 = ["placeholder", "onUpdate:modelValue"];
 const _hoisted_10$5 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("option", { value: "" }, "None", -1));
 const _hoisted_11$4 = ["value"];
-const _hoisted_12$4 = { class: "ux-text-wrap" };
+const _hoisted_12$3 = { class: "ux-text-wrap" };
 const _hoisted_13$3 = ["placeholder"];
 function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_button = resolveComponent("ux-button");
@@ -7240,7 +7240,7 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         createVNode(_component_flex_cell, null, {
           default: withCtx(() => [
-            createElementVNode("div", _hoisted_12$4, [
+            createElementVNode("div", _hoisted_12$3, [
               withDirectives(createElementVNode("input", {
                 class: "ux-field-focus ux-text-input-multiple",
                 placeholder: $options.actualPlaceholder,
@@ -11397,7 +11397,7 @@ const _hoisted_11$3 = {
   key: 0,
   class: "ux-text-prefix"
 };
-const _hoisted_12$3 = ["type", "placeholder"];
+const _hoisted_12$2 = ["type", "placeholder"];
 const _hoisted_13$2 = ["type", "placeholder"];
 const _hoisted_14$2 = {
   key: 3,
@@ -11507,7 +11507,7 @@ function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
         placeholder: $options.actualPlaceholder,
         onFocus: _cache[5] || (_cache[5] = (...args) => _ctx.touch && _ctx.touch(...args)),
         "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => _ctx.model = $event)
-      }, null, 40, _hoisted_12$3)), [
+      }, null, 40, _hoisted_12$2)), [
         [
           vModelDynamic,
           _ctx.model,
@@ -12360,7 +12360,7 @@ const _hoisted_8$4 = { key: 4 };
 const _hoisted_9$3 = { key: 5 };
 const _hoisted_10$3 = { key: 6 };
 const _hoisted_11$2 = { key: 7 };
-const _hoisted_12$2 = { key: 8 };
+const _hoisted_12$1 = { key: 8 };
 const _hoisted_13$1 = { key: 9 };
 const _hoisted_14$1 = { key: 10 };
 function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
@@ -12497,7 +12497,7 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
                 [vModelCheckbox, $data.model.value]
               ])
             ])) : createCommentVNode("", true),
-            $options.inputType == "none" ? (openBlock(), createElementBlock("div", _hoisted_12$2)) : createCommentVNode("", true),
+            $options.inputType == "none" ? (openBlock(), createElementBlock("div", _hoisted_12$1)) : createCommentVNode("", true),
             $options.inputType == "number" ? (openBlock(), createElementBlock("div", _hoisted_13$1, [
               createVNode(_component_text_field, {
                 field: $options.normalField,
@@ -14460,7 +14460,7 @@ const _hoisted_8$2 = ["onBlur", "on:update:modelValue", "onUpdate:modelValue"];
 const _hoisted_9$2 = { class: "ux-text-wrap prefixed" };
 const _hoisted_10$2 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", { class: "ux-text-prefix" }, "Value", -1));
 const _hoisted_11$1 = ["onFocus", "onUpdate:modelValue"];
-const _hoisted_12$1 = ["onFocus", "onUpdate:modelValue"];
+const _hoisted_12 = ["onFocus", "onUpdate:modelValue"];
 const _hoisted_13 = { class: "ux-text-wrap prefixed" };
 const _hoisted_14 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", { class: "ux-text-prefix" }, "Label", -1));
 const _hoisted_15 = { class: "ux-text-wrap prefixed" };
@@ -14554,7 +14554,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
                     ref: "valueInput",
                     onKeydown: _cache[5] || (_cache[5] = withKeys(withModifiers(($event) => _ctx.add(), ["stop", "prevent"]), ["enter"])),
                     "onUpdate:modelValue": ($event) => _ctx.model[index2].value = $event
-                  }, null, 40, _hoisted_12$1)), [
+                  }, null, 40, _hoisted_12)), [
                     [vModelText, _ctx.model[index2].value]
                   ]) : createCommentVNode("", true)
                 ])
@@ -17608,15 +17608,6 @@ const _sfc_main$d = {
   },
   methods: {
     multiLabel(entry, index2) {
-      if (entry.title) {
-        return entry.title;
-      }
-      if (entry.name) {
-        return entry.name;
-      }
-      if (entry.firstName) {
-        return entry.firstName;
-      }
       return `${this.label} ${index2 + 1}`;
     }
   }
@@ -17685,7 +17676,7 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => _ctx.model = $event)
   }, null, 8, ["submission", "fields", "flex", "parentModel", "modelValue"]));
 }
-var FieldGroup = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$d], ["__scopeId", "data-v-5d97d5ca"]]);
+var FieldGroup = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$d], ["__scopeId", "data-v-32d789d7"]]);
 var field_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$c = {
   components: {
@@ -17827,6 +17818,10 @@ const _sfc_main$c = {
       array.push(`ux-field-render-${this.type}`);
       if (this.layoutGroup) {
         array.push("ux-layout-only");
+      } else {
+        if (!this.fieldModel || Array.isArray(this.fieldModel) && !this.fieldModel.length) {
+          array.push("ux-empty");
+        }
       }
       return array;
     },
@@ -17878,17 +17873,16 @@ const _sfc_main$c = {
   }
 };
 const _hoisted_1$8 = { class: "ux-field-title" };
-const _hoisted_2$7 = { class: "ux-field-description" };
+const _hoisted_2$7 = { key: 1 };
 const _hoisted_3$6 = { key: 1 };
 const _hoisted_4$6 = { key: 1 };
-const _hoisted_5$1 = { key: 1 };
-const _hoisted_6$1 = ["href"];
-const _hoisted_7$1 = { key: 1 };
+const _hoisted_5$1 = ["href"];
+const _hoisted_6$1 = { key: 1 };
+const _hoisted_7$1 = ["href"];
 const _hoisted_8 = ["href"];
-const _hoisted_9 = ["href"];
-const _hoisted_10 = { key: 1 };
-const _hoisted_11 = ["href"];
-const _hoisted_12 = { key: 1 };
+const _hoisted_9 = { key: 1 };
+const _hoisted_10 = ["href"];
+const _hoisted_11 = { key: 1 };
 function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_field_group = resolveComponent("field-group");
   const _component_item = resolveComponent("item");
@@ -17897,7 +17891,6 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
     class: normalizeClass(["ux-field-render", $options.classes])
   }, [
     createElementVNode("label", _hoisted_1$8, toDisplayString($options.title), 1),
-    createElementVNode("div", _hoisted_2$7, toDisplayString($props.field.description), 1),
     $options.widget === "group" ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
       $options.asObject ? (openBlock(), createBlock(_component_field_group, {
         key: 0,
@@ -17938,49 +17931,49 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
       $options.type == "string" ? (openBlock(), createElementBlock(Fragment, { key: 1 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, toDisplayString(value), 1);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_3$6, toDisplayString($options.fieldModel), 1))
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_2$7, toDisplayString($options.fieldModel), 1))
       ], 64)) : createCommentVNode("", true),
       $options.type == "boolean" ? (openBlock(), createElementBlock(Fragment, { key: 2 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, toDisplayString(!!value), 1);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_4$6, toDisplayString(!!$options.fieldModel), 1))
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_3$6, toDisplayString(!!$options.fieldModel), 1))
       ], 64)) : createCommentVNode("", true),
       $options.type == "date" ? (openBlock(), createElementBlock(Fragment, { key: 3 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, toDisplayString(value), 1);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_5$1, toDisplayString($options.fieldModel), 1))
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_4$6, toDisplayString($options.fieldModel), 1))
       ], 64)) : createCommentVNode("", true),
       $options.type == "email" ? (openBlock(), createElementBlock(Fragment, { key: 4 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, [
             createElementVNode("a", {
               href: `mailto:${value}`
-            }, toDisplayString(value), 9, _hoisted_6$1)
+            }, toDisplayString(value), 9, _hoisted_5$1)
           ]);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_7$1, [
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_6$1, [
           createElementVNode("a", {
             href: `mailto:${$options.fieldModel}`
-          }, toDisplayString($options.fieldModel), 9, _hoisted_8)
+          }, toDisplayString($options.fieldModel), 9, _hoisted_7$1)
         ]))
       ], 64)) : createCommentVNode("", true),
       $options.type == "url" ? (openBlock(), createElementBlock(Fragment, { key: 5 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, [
-            createElementVNode("a", { href: value }, toDisplayString(value), 9, _hoisted_9)
+            createElementVNode("a", { href: value }, toDisplayString(value), 9, _hoisted_8)
           ]);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_10, [
-          createElementVNode("a", { href: $options.fieldModel }, toDisplayString($options.fieldModel), 9, _hoisted_11)
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_9, [
+          createElementVNode("a", { href: $options.fieldModel }, toDisplayString($options.fieldModel), 9, _hoisted_10)
         ]))
       ], 64)) : createCommentVNode("", true),
       $options.isNumber ? (openBlock(), createElementBlock(Fragment, { key: 6 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, toDisplayString(value), 1);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_12, toDisplayString($options.fieldModel), 1))
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_11, toDisplayString($options.fieldModel), 1))
       ], 64)) : createCommentVNode("", true)
     ], 64))
   ], 2)) : createCommentVNode("", true);
 }
-var UXRenderField = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-05569ffc"]]);
+var UXRenderField = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-c4aac172"]]);
 var render_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$b = {
   props: {

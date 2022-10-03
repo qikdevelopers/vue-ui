@@ -1,8 +1,7 @@
 <template>
     <div class="ux-field-render" v-if="visible" :class="classes">
-
         <label class="ux-field-title">{{title}}</label>
-        <div class="ux-field-description">{{field.description}}</div>
+        <!-- <div class="ux-field-description">{{field.description}}</div> -->
 
     
 
@@ -306,8 +305,14 @@ export default {
             var array = [];
             array.push(`ux-field-render-${this.type}`)
 
+            
+
             if (this.layoutGroup) {
                 array.push('ux-layout-only');
+            } else {
+                if(!this.fieldModel || (Array.isArray(this.fieldModel) && !this.fieldModel.length)) {
+                 array.push('ux-empty');
+            }
             }
 
             return array;
@@ -374,11 +379,20 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+.ux-empty {
+    display: none !important;
+}
 .ux-field-render {
     margin-bottom: 1.5em;
 
     &.ux-layout-only {
         margin-bottom: 0;
+        & > .ux-field-title,
+        & > .ux-field-description {
+            display: none;
+        }
+
     }
 }
 
@@ -389,15 +403,17 @@ export default {
     margin-top: 0.5em;
     display: block;
     margin-bottom: 0.2em;
-    font-size: 0.9em;
-    font-weight: bold;
+    // font-size: 0.9em;
+    font-weight: normal;
+    opacity: 0.5;
 }
 
 
 :deep(.ux-field-description) {
     // .ux-field-description {
-    font-size: 0.8em;
-    opacity: 0.5;
+    font-size: 0.7em;
+    opacity: 0.3;
+    font-style: italic;
     margin-bottom: 0.5em;
 
 }

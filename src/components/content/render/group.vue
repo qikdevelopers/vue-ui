@@ -44,17 +44,17 @@ export default {
 
             
 
-            if (entry.title) {
-                return entry.title;
-            }
+            // if (entry.title) {
+            //     return entry.title;
+            // }
 
-            if (entry.name) {
-                return entry.name;
-            }
+            // if (entry.name) {
+            //     return entry.name;
+            // }
 
-            if (entry.firstName) {
-                return entry.firstName;
-            }
+            // if (entry.firstName) {
+            //     return entry.firstName;
+            // }
 
             return `${this.label} ${index+1}`
         },
