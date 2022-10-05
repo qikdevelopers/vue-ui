@@ -28,12 +28,12 @@
             </template>
             <template v-if="type == 'string'">
                 <template v-if="multiValue">
-                    <div v-for="(value, index) in fieldModel">
-                        {{value}}
+                    <div v-html="value" v-for="(value, index) in fieldModel">
+                        <!-- {{value}} -->
                     </div>
                 </template>
                 <template v-else>
-                    <div>{{fieldModel}}</div>
+                    <div v-html="fieldModel"/>
                 </template>
             </template>
             <template v-if="type == 'boolean'">
