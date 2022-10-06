@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.7";
+const version$1 = "0.2.8";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -151,7 +151,14 @@ const _sfc_main$19 = {
   },
   computed: {
     tabs() {
-      var slotChildren = this.$slots.default();
+      const self2 = this;
+      const slotChildren = self2.$slots.default().map(function(child) {
+        if (child.props.enabled === false) {
+          return;
+        }
+        return child;
+      }).filter(Boolean);
+      console.log("TABS", slotChildren);
       return slotChildren;
     }
   }
@@ -170,9 +177,10 @@ function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
               (openBlock(true), createElementBlock(Fragment, null, renderList($options.tabs, (tab, index2) => {
                 return openBlock(), createElementBlock("a", {
                   class: normalizeClass({ active: index2 === $data.activeIndex }),
+                  key: `tab-link-${tab.props.heading}`,
                   onClick: ($event) => $options.select(index2)
                 }, toDisplayString(tab.props.heading), 11, _hoisted_1$T);
-              }), 256))
+              }), 128))
             ]),
             _: 1
           })
@@ -182,7 +190,9 @@ function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
       createVNode(_component_flex_column, null, {
         default: withCtx(() => [
           (openBlock(true), createElementBlock(Fragment, null, renderList($options.tabs, (tab, index2) => {
-            return withDirectives((openBlock(), createBlock(_component_flex_column, { key: index2 }, {
+            return withDirectives((openBlock(), createBlock(_component_flex_column, {
+              key: `tab-panel-${tab.props.heading}`
+            }, {
               default: withCtx(() => [
                 (openBlock(), createBlock(resolveDynamicComponent(tab)))
               ]),
@@ -198,12 +208,16 @@ function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$19, [["render", _sfc_render$19], ["__scopeId", "data-v-1449f192"]]);
+var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$19, [["render", _sfc_render$19], ["__scopeId", "data-v-7e39d77e"]]);
 const _sfc_main$18 = {
   props: {
     heading: {
       type: String,
       required: true
+    },
+    enabled: {
+      type: Boolean,
+      default: true
     }
   },
   data() {

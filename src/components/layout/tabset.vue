@@ -2,11 +2,12 @@
     <flex-column>
         <flex-header class="tabset-menu">
             <flex-row>
-                <a :class="{active:index === activeIndex}" v-for="(tab, index) in tabs" @click="select(index)">{{tab.props.heading}}</a>
+
+                <a :class="{active:index === activeIndex}" :key="`tab-link-${tab.props.heading}`" v-for="(tab, index) in tabs" @click="select(index)">{{tab.props.heading}}</a>
             </flex-row>
         </flex-header>
         <flex-column>
-            <flex-column v-show="index === activeIndex" :key="index" v-for="(tab, index) in tabs">
+            <flex-column v-show="index === activeIndex" :key="`tab-panel-${tab.props.heading}`"  v-for="(tab, index) in tabs">
                 <component :is="tab" />
             </flex-column>
             <!--  -->
@@ -28,8 +29,25 @@ export default {
     },
     computed: {
         tabs() {
+            const self = this;
+            const slotChildren = self.$slots.default()
+            .map(function(child) {
 
-            var slotChildren = this.$slots.default()
+                if(child.props.enabled === false) {
+                    return;
+                }
+
+                // if(!child.el) {
+                //     return;
+                // }
+
+                // child.guid = self.$sdk.utils.guid()
+
+                return child;
+            })
+            .filter(Boolean);
+
+            console.log('TABS', slotChildren)
             // .map(function(t) {
             //     return t.children;
             // });
