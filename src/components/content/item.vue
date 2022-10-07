@@ -2,7 +2,7 @@
     <div class="content-item" @click="clicked">
         <flex-row gap vcenter>
             <flex-cell shrink v-if="hasImage">
-                <div class="image-wrapper">
+                <div class="image-wrapper" :class="basicType">
                 <ux-image :item="item" :width="100" :height="100"/>
             </div>
             </flex-cell>
@@ -60,6 +60,12 @@ export default {
 
     .image-wrapper {
         width:50px;
+
+        &.profile {
+            height:50px;
+            background: rgba(#000, 0.1);
+            border-radius:100%;
+        }
     }
 
     &:hover {

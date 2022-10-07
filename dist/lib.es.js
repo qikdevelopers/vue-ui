@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.8";
+const version$1 = "0.2.9";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -42,97 +42,97 @@ var _export_sfc = (sfc, props2) => {
   return target;
 };
 const _sfc_main$1k = {};
-const _hoisted_1$12 = { class: "flex-column" };
+const _hoisted_1$11 = { class: "flex-column" };
 function _sfc_render$1k(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$12, [
+  return openBlock(), createElementBlock("div", _hoisted_1$11, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
 var FlexColumn = /* @__PURE__ */ _export_sfc(_sfc_main$1k, [["render", _sfc_render$1k], ["__scopeId", "data-v-203ea86f"]]);
 var flexBody_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1j = {};
-const _hoisted_1$11 = { class: "flex-column-body" };
+const _hoisted_1$10 = { class: "flex-column-body" };
 function _sfc_render$1j(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$11, [
+  return openBlock(), createElementBlock("div", _hoisted_1$10, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
 var FlexBody = /* @__PURE__ */ _export_sfc(_sfc_main$1j, [["render", _sfc_render$1j], ["__scopeId", "data-v-64850355"]]);
 var flexHeader_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1i = {};
-const _hoisted_1$10 = { class: "flex-column-header" };
+const _hoisted_1$$ = { class: "flex-column-header" };
 function _sfc_render$1i(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$10, [
+  return openBlock(), createElementBlock("div", _hoisted_1$$, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
 var FlexHeader = /* @__PURE__ */ _export_sfc(_sfc_main$1i, [["render", _sfc_render$1i], ["__scopeId", "data-v-10b28f00"]]);
 var flexFooter_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1h = {};
-const _hoisted_1$$ = { class: "flex-column-footer" };
+const _hoisted_1$_ = { class: "flex-column-footer" };
 function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$$, [
+  return openBlock(), createElementBlock("div", _hoisted_1$_, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
 var FlexFooter = /* @__PURE__ */ _export_sfc(_sfc_main$1h, [["render", _sfc_render$1h], ["__scopeId", "data-v-68216a72"]]);
 var flexCell_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1g = {};
-const _hoisted_1$_ = { class: "flex-cell" };
+const _hoisted_1$Z = { class: "flex-cell" };
 function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$_, [
+  return openBlock(), createElementBlock("div", _hoisted_1$Z, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
 var FlexCell = /* @__PURE__ */ _export_sfc(_sfc_main$1g, [["render", _sfc_render$1g], ["__scopeId", "data-v-644bb279"]]);
 var flexRow_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1f = {};
-const _hoisted_1$Z = { class: "flex-row" };
+const _hoisted_1$Y = { class: "flex-row" };
 function _sfc_render$1f(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$Z, [
+  return openBlock(), createElementBlock("div", _hoisted_1$Y, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
 var FlexRow = /* @__PURE__ */ _export_sfc(_sfc_main$1f, [["render", _sfc_render$1f], ["__scopeId", "data-v-5b76ad1f"]]);
 var flexSpacer_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1e = {};
-const _hoisted_1$Y = { class: "flex-spacer" };
+const _hoisted_1$X = { class: "flex-spacer" };
 function _sfc_render$1e(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$Y);
+  return openBlock(), createElementBlock("div", _hoisted_1$X);
 }
 var FlexSpacer = /* @__PURE__ */ _export_sfc(_sfc_main$1e, [["render", _sfc_render$1e], ["__scopeId", "data-v-35b15579"]]);
 var panel_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1d = {};
-const _hoisted_1$X = { class: "panel" };
+const _hoisted_1$W = { class: "panel" };
 function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$X, [
+  return openBlock(), createElementBlock("div", _hoisted_1$W, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
 var Panel = /* @__PURE__ */ _export_sfc(_sfc_main$1d, [["render", _sfc_render$1d], ["__scopeId", "data-v-50ae77fc"]]);
 var panelBody_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1c = {};
-const _hoisted_1$W = { class: "panel-body" };
+const _hoisted_1$V = { class: "panel-body" };
 function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$W, [
+  return openBlock(), createElementBlock("div", _hoisted_1$V, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
 var PanelBody = /* @__PURE__ */ _export_sfc(_sfc_main$1c, [["render", _sfc_render$1c], ["__scopeId", "data-v-c82dca76"]]);
 var panelHeader_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1b = {};
-const _hoisted_1$V = { class: "panel-header" };
+const _hoisted_1$U = { class: "panel-header" };
 function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$V, [
+  return openBlock(), createElementBlock("div", _hoisted_1$U, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
 var PanelHeader = /* @__PURE__ */ _export_sfc(_sfc_main$1b, [["render", _sfc_render$1b], ["__scopeId", "data-v-13bf11da"]]);
 var panelFooter_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1a = {};
-const _hoisted_1$U = { class: "panel-footer" };
+const _hoisted_1$T = { class: "panel-footer" };
 function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$U, [
+  return openBlock(), createElementBlock("div", _hoisted_1$T, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
@@ -163,7 +163,7 @@ const _sfc_main$19 = {
     }
   }
 };
-const _hoisted_1$T = ["onClick"];
+const _hoisted_1$S = ["onClick"];
 function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_row = resolveComponent("flex-row");
   const _component_flex_header = resolveComponent("flex-header");
@@ -179,7 +179,7 @@ function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
                   class: normalizeClass({ active: index2 === $data.activeIndex }),
                   key: `tab-link-${tab.props.heading}`,
                   onClick: ($event) => $options.select(index2)
-                }, toDisplayString(tab.props.heading), 11, _hoisted_1$T);
+                }, toDisplayString(tab.props.heading), 11, _hoisted_1$S);
               }), 128))
             ]),
             _: 1
@@ -730,11 +730,11 @@ const _sfc_main$17 = {
     }
   }
 };
-const _hoisted_1$S = { class: "table-image-cell" };
+const _hoisted_1$R = { class: "table-image-cell" };
 function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_image = resolveComponent("ux-image");
   const _component_ux_icon = resolveComponent("ux-icon");
-  return openBlock(), createElementBlock("td", _hoisted_1$S, [
+  return openBlock(), createElementBlock("td", _hoisted_1$R, [
     $options.type == "image" || $options.type == "video" ? (openBlock(), createElementBlock("div", {
       key: 0,
       onClick: _cache[0] || (_cache[0] = withModifiers(($event) => $options.clicked(_ctx.value), ["stop", "prevent"])),
@@ -778,11 +778,11 @@ const _sfc_main$16 = {
     }
   }
 };
-const _hoisted_1$R = { class: "table-button-cell" };
+const _hoisted_1$Q = { class: "table-button-cell" };
 function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
   const _component_ux_button = resolveComponent("ux-button");
-  return openBlock(), createElementBlock("td", _hoisted_1$R, [
+  return openBlock(), createElementBlock("td", _hoisted_1$Q, [
     createVNode(_component_ux_button, {
       color: $options.button.color,
       size: $options.button.size,
@@ -4658,13 +4658,13 @@ const _sfc_main$15 = {
     }
   }
 };
-const _hoisted_1$Q = { class: "table-date-cell" };
+const _hoisted_1$P = { class: "table-date-cell" };
 const _hoisted_2$H = { key: 0 };
 const _hoisted_3$z = { class: "off" };
 const _hoisted_4$v = { class: "on" };
 const _hoisted_5$n = { class: "spacer" };
 function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("td", _hoisted_1$Q, [
+  return openBlock(), createElementBlock("td", _hoisted_1$P, [
     $options.hasValue ? (openBlock(), createElementBlock("div", _hoisted_2$H, [
       createElementVNode("span", _hoisted_3$z, toDisplayString($options.readable), 1),
       createElementVNode("span", _hoisted_4$v, toDisplayString($options.timeago), 1),
@@ -4730,11 +4730,11 @@ const _sfc_main$12 = {
     }
   }
 };
-const _hoisted_1$P = { class: "table-url-cell" };
+const _hoisted_1$O = { class: "table-url-cell" };
 const _hoisted_2$G = ["href"];
 function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
-  return openBlock(), createElementBlock("td", _hoisted_1$P, [
+  return openBlock(), createElementBlock("td", _hoisted_1$O, [
     createElementVNode("a", {
       href: $options.href,
       onClick: _cache[0] || (_cache[0] = withModifiers((...args) => $options.open && $options.open(...args), ["stop", "prevent"])),
@@ -4798,7 +4798,7 @@ const _sfc_main$11 = {
     }
   }
 };
-const _hoisted_1$O = /* @__PURE__ */ createTextVNode(",\xA0");
+const _hoisted_1$N = /* @__PURE__ */ createTextVNode(",\xA0");
 function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
   return $options.reference ? (openBlock(), createElementBlock("a", {
     key: 0,
@@ -4808,7 +4808,7 @@ function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 2 }, [
     createTextVNode(toDisplayString($options.renderValue), 1),
     $props.multi && !$props.last ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
-      _hoisted_1$O
+      _hoisted_1$N
     ], 64)) : createCommentVNode("", true)
   ], 64));
 }
@@ -4926,7 +4926,7 @@ const _sfc_main$10 = {
     }
   }
 };
-const _hoisted_1$N = {
+const _hoisted_1$M = {
   key: 1,
   class: "table-cell"
 };
@@ -4939,7 +4939,7 @@ function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
     column: $props.column,
     row: $props.row,
     value: $options.value
-  }, null, 8, ["column", "row", "value"])) : (openBlock(), createElementBlock("td", _hoisted_1$N, [
+  }, null, 8, ["column", "row", "value"])) : (openBlock(), createElementBlock("td", _hoisted_1$M, [
     $options.multiValue ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
       $options.complex ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.value, (entry, index2) => {
         return openBlock(), createElementBlock("span", _hoisted_2$F, [
@@ -5333,7 +5333,7 @@ const _sfc_main$_ = {
     }
   }
 };
-const _hoisted_1$M = { class: "table-wrapper" };
+const _hoisted_1$L = { class: "table-wrapper" };
 const _hoisted_2$E = {
   class: "table-scroll",
   ref: "scroll"
@@ -5358,7 +5358,7 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_cell = resolveComponent("flex-cell");
   const _component_flex_row = resolveComponent("flex-row");
   const _component_table_row = resolveComponent("table-row");
-  return openBlock(), createElementBlock("div", _hoisted_1$M, [
+  return openBlock(), createElementBlock("div", _hoisted_1$L, [
     createElementVNode("div", _hoisted_2$E, [
       createElementVNode("table", null, [
         createElementVNode("thead", null, [
@@ -5484,9 +5484,9 @@ const _sfc_main$Z = {
   }
 };
 const _withScopeId$7 = (n2) => (pushScopeId("data-v-27f20370"), n2 = n2(), popScopeId(), n2);
-const _hoisted_1$L = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ createElementVNode("i", { class: "fa fa-spin fa-spinner" }, null, -1));
+const _hoisted_1$K = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ createElementVNode("i", { class: "fa fa-spin fa-spinner" }, null, -1));
 const _hoisted_2$D = [
-  _hoisted_1$L
+  _hoisted_1$K
 ];
 function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
@@ -5589,7 +5589,7 @@ const _sfc_main$Y = {
     }
   }
 };
-const _hoisted_1$K = { class: "ux-btn-text" };
+const _hoisted_1$J = { class: "ux-btn-text" };
 function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_spinner = resolveComponent("spinner");
   return openBlock(), createBlock(resolveDynamicComponent($options.element), {
@@ -5604,7 +5604,7 @@ function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     default: withCtx(() => [
       $props.loading ? (openBlock(), createBlock(_component_spinner, { key: 0 })) : createCommentVNode("", true),
-      createElementVNode("span", _hoisted_1$K, [
+      createElementVNode("span", _hoisted_1$J, [
         renderSlot(_ctx.$slots, "default", {}, void 0, true)
       ])
     ]),
@@ -6263,7 +6263,7 @@ const _sfc_main$R = {
     }
   }
 };
-const _hoisted_1$J = ["alt", "data"];
+const _hoisted_1$I = ["alt", "data"];
 const _hoisted_2$C = ["alt", "src"];
 function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
@@ -6275,7 +6275,7 @@ function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
       alt: $options.altText,
       type: "image/svg+xml",
       data: $options.src
-    }, null, 8, _hoisted_1$J)) : (openBlock(), createElementBlock("img", {
+    }, null, 8, _hoisted_1$I)) : (openBlock(), createElementBlock("img", {
       key: 1,
       alt: $options.altText,
       style: normalizeStyle($options.imageStyle),
@@ -6320,10 +6320,10 @@ const _sfc_main$Q = {
   }
 };
 const _withScopeId$6 = (n2) => (pushScopeId("data-v-317a7690"), n2 = n2(), popScopeId(), n2);
-const _hoisted_1$I = { class: "ux-progress" };
+const _hoisted_1$H = { class: "ux-progress" };
 const _hoisted_2$B = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ createElementVNode("div", { class: "ux-progress-bg" }, null, -1));
 function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$I, [
+  return openBlock(), createElementBlock("div", _hoisted_1$H, [
     _hoisted_2$B,
     createElementVNode("div", {
       class: "ux-progress-fg",
@@ -6334,18 +6334,18 @@ function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
 var ProgressBar = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$Q], ["__scopeId", "data-v-317a7690"]]);
 var list_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$P = {};
-const _hoisted_1$H = { class: "ux-list" };
+const _hoisted_1$G = { class: "ux-list" };
 function _sfc_render$P(_ctx, _cache) {
-  return openBlock(), createElementBlock("ul", _hoisted_1$H, [
+  return openBlock(), createElementBlock("ul", _hoisted_1$G, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
 var UXList = /* @__PURE__ */ _export_sfc(_sfc_main$P, [["render", _sfc_render$P], ["__scopeId", "data-v-98e1e4e2"]]);
 var listItem_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$O = {};
-const _hoisted_1$G = { class: "ux-list-item" };
+const _hoisted_1$F = { class: "ux-list-item" };
 function _sfc_render$O(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$G, [
+  return openBlock(), createElementBlock("div", _hoisted_1$F, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
@@ -6409,7 +6409,7 @@ const _sfc_main$N = {
   }
 };
 const _withScopeId$5 = (n2) => (pushScopeId("data-v-61cbf45e"), n2 = n2(), popScopeId(), n2);
-const _hoisted_1$F = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("label", null, "From Date", -1));
+const _hoisted_1$E = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("label", null, "From Date", -1));
 const _hoisted_2$A = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("label", null, "To Date", -1));
 function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -6424,7 +6424,7 @@ function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
         createVNode(_component_flex_cell, { class: "cell" }, {
           default: withCtx(() => [
             createElementVNode("div", null, [
-              _hoisted_1$F,
+              _hoisted_1$E,
               withDirectives(createElementVNode("input", {
                 type: "date",
                 class: "ux-field-focus ux-text-input-multiple",
@@ -6974,7 +6974,7 @@ const _sfc_main$M = {
     }
   }
 };
-const _hoisted_1$E = {
+const _hoisted_1$D = {
   key: 0,
   class: "ux-field-title"
 };
@@ -7001,7 +7001,7 @@ function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["native-select", $options.classes])
   }, [
-    _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$E, [
+    _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$D, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
       _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$z, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
@@ -7106,7 +7106,7 @@ const _sfc_main$L = {
   }
 };
 const _withScopeId$4 = (n2) => (pushScopeId("data-v-32219a94"), n2 = n2(), popScopeId(), n2);
-const _hoisted_1$D = {
+const _hoisted_1$C = {
   key: 0,
   class: "ux-field-title"
 };
@@ -7135,7 +7135,7 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
   const _component_flex_row = resolveComponent("flex-row");
   return openBlock(), createElementBlock(Fragment, null, [
-    _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$D, [
+    _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$C, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
       _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$y, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
@@ -7804,7 +7804,7 @@ const _sfc_main$K = {
     }
   }
 };
-const _hoisted_1$C = {
+const _hoisted_1$B = {
   key: 0,
   class: "ux-field-title"
 };
@@ -7831,7 +7831,7 @@ function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["native-select", $options.classes])
   }, [
-    _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$C, [
+    _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$B, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
       _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$x, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
@@ -7894,7 +7894,6 @@ const _sfc_main$J = {
     }
   }
 };
-const _hoisted_1$B = { class: "image-wrapper" };
 function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_image = resolveComponent("ux-image");
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -7913,13 +7912,15 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
           shrink: ""
         }, {
           default: withCtx(() => [
-            createElementVNode("div", _hoisted_1$B, [
+            createElementVNode("div", {
+              class: normalizeClass(["image-wrapper", $options.basicType])
+            }, [
               createVNode(_component_ux_image, {
                 item: $props.item,
                 width: 100,
                 height: 100
               }, null, 8, ["item"])
-            ])
+            ], 2)
           ]),
           _: 1
         })) : createCommentVNode("", true),
@@ -7944,7 +7945,7 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ]);
 }
-var Item = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-bae08240"]]);
+var Item = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-a859ba7a"]]);
 /**!
  * Sortable 1.14.0
  * @author	RubaXa   <trash@rubaxa.org>
@@ -16513,6 +16514,9 @@ const _sfc_main$h = {
       if (this.getExpressionWidgetType) {
         actual = Object.assign({}, actual, { widget: this.getExpressionWidgetType });
       }
+      if (this.getExpressionDataType) {
+        actual = Object.assign({}, actual, { type: this.getExpressionDataType });
+      }
       if (this.getExpressionOptions) {
         actual = Object.assign({}, actual, { options: this.getExpressionOptions });
       }
@@ -16564,6 +16568,7 @@ const _sfc_main$h = {
     getExpressionValue: computedExpression("value"),
     getExpressionReferenceType: computedExpression("referenceType"),
     getExpressionWidgetType: computedExpression("widget"),
+    getExpressionDataType: computedExpression("type"),
     getExpressionOptions: computedExpression("options"),
     getExpressionSyntax: computedExpression("syntax"),
     getExpressionCurrency: computedExpression("currency"),
@@ -16953,7 +16958,7 @@ function _sfc_render$h(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$c, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-2d97aad1"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-fe4ffb7c"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$g = {
   props: {
@@ -18414,14 +18419,12 @@ function defaultColumns(self2, type) {
         shrink: true
       });
       columns.push({
-        title: "Gender",
-        key: "gender",
-        shrink: true
+        title: "Email",
+        key: "emails"
       });
       columns.push({
-        title: "Age",
-        key: "age",
-        shrink: true
+        title: "Phone Number",
+        key: "phoneNumbersInternational"
       });
       break;
     case "definition":
@@ -19055,7 +19058,7 @@ const _sfc_main$9 = {
     };
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-1a77f116"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-cc04f516"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$7 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$6 = { key: 0 };
 const _hoisted_3$5 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
@@ -19243,7 +19246,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-1a77f116"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-cc04f516"]]);
 var ScopeItem_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$8 = {
   props: {

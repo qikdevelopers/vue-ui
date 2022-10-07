@@ -470,6 +470,10 @@ export default {
                 actual = Object.assign({}, actual, { widget:this.getExpressionWidgetType });
             }
 
+            if (this.getExpressionDataType) {
+                actual = Object.assign({}, actual, { type:this.getExpressionDataType });
+            }
+
             if (this.getExpressionOptions) {
                 actual = Object.assign({}, actual, { options:this.getExpressionOptions });
             }
@@ -539,6 +543,7 @@ export default {
         getExpressionValue: computedExpression('value'),
         getExpressionReferenceType: computedExpression('referenceType'),
         getExpressionWidgetType:computedExpression('widget'),
+        getExpressionDataType:computedExpression('type'),
         getExpressionOptions:computedExpression('options'),
         getExpressionSyntax:computedExpression('syntax'),
         getExpressionCurrency:computedExpression('currency'),

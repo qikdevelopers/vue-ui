@@ -130,16 +130,16 @@ function defaultColumns(self, type) {
             })
 
             columns.push({
-                title: 'Gender',
-                key: 'gender',
-                shrink: true,
+                title: 'Email',
+                key: 'emails',
             })
 
             columns.push({
-                title: 'Age',
-                key: 'age',
-                shrink: true,
+                title: 'Phone Number',
+                key: 'phoneNumbersInternational',
             })
+
+            
             break;
         case 'definition':
             columns.push({
