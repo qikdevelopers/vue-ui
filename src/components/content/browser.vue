@@ -53,7 +53,9 @@
                         </ux-panel> -->
                     </flex-column>
                     <flex-column class="filter-column" v-if="showFilters">
+                        <slot name="abovefilter"/>
                         <flex-body>
+                            
                             <search v-model="keywords" :loading="searching" :debounce="500" placeholder="Keyword Search" />
                             <p></p>      
                             <div v-if="dateFilterEnabled">
@@ -63,7 +65,9 @@
                             <p></p>
 
                             <filter-builder :definition="definition" v-model="filter" />
+                            
                         </flex-body>
+                        <slot name="belowfilter"/>
                     </flex-column>
                 </flex-row>
             </flex-column>

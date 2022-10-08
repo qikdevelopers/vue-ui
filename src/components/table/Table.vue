@@ -315,9 +315,7 @@ export default {
         background: var(--darkbg, #111);
         color: var(--darkfg, #eee);
     }
-
-
-
+    
     display: flex;
     flex: 1;
     overflow: hidden;

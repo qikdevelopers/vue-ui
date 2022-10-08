@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.9";
+const version$1 = "0.2.10";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -5474,7 +5474,7 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
     ], 512)
   ]);
 }
-var NativeTable = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-2b235040"]]);
+var NativeTable = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-2df96240"]]);
 var spinner_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$Z = {
   props: {
@@ -19058,7 +19058,7 @@ const _sfc_main$9 = {
     };
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-cc04f516"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-044b04e3"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$7 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$6 = { key: 0 };
 const _hoisted_3$5 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
@@ -19188,6 +19188,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
                   class: "filter-column"
                 }, {
                   default: withCtx(() => [
+                    renderSlot(_ctx.$slots, "abovefilter", {}, void 0, true),
                     createVNode(_component_flex_body, null, {
                       default: withCtx(() => [
                         createVNode(_component_search, {
@@ -19213,15 +19214,16 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
                         }, null, 8, ["definition", "modelValue"])
                       ]),
                       _: 1
-                    })
+                    }),
+                    renderSlot(_ctx.$slots, "belowfilter", {}, void 0, true)
                   ]),
-                  _: 1
+                  _: 3
                 })) : createCommentVNode("", true)
               ]),
-              _: 1
+              _: 3
             })
           ]),
-          _: 1
+          _: 3
         }, 8, ["class"]),
         createVNode(_component_flex_footer, null, {
           default: withCtx(() => [
@@ -19246,7 +19248,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-cc04f516"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-044b04e3"]]);
 var ScopeItem_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$8 = {
   props: {
