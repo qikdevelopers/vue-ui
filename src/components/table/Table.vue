@@ -339,10 +339,9 @@ export default {
                 top: 0;
                 position: sticky;
                 text-transform: uppercase;
-                letter-spacing: 0.05em;
-                line-height: 20px;
+                letter-spacing: 0.03em;
                 white-space: nowrap;
-                font-size: 11px;
+                font-size: 0.6em;
                 padding: 0.5em;
                 z-index: 2;
                 text-align: left;
@@ -371,7 +370,6 @@ export default {
                 }
 
                 &.table-select {
-                    font-size: clamp(17px, 1em, 20px);
                     z-index: 3;
                 }
 
@@ -416,8 +414,8 @@ export default {
 
         td,
         th {
-            padding: 0.5em;
-            font-size: clamp(17px, 1em, 20px);
+            padding: 0.6em;
+            line-height: 1;
 
             &.shrink {
                 width: 1px;
