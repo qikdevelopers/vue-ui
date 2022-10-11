@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.10";
+const version$1 = "0.2.11";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -16608,6 +16608,9 @@ const _sfc_main$h = {
     asObject() {
       return this.widget === "form" || this.isGroup && this.actualField.asObject;
     },
+    visualHide() {
+      return this.actualField.visualHide;
+    },
     layoutGroup() {
       return this.isGroup && !this.actualField.asObject;
     },
@@ -16653,6 +16656,9 @@ const _sfc_main$h = {
       }
       if (this.error) {
         array.push("ux-field-error");
+      }
+      if (this.visualHide) {
+        array.push("ux-field-hide");
       }
       return array;
     },
@@ -16958,7 +16964,7 @@ function _sfc_render$h(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$c, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-fe4ffb7c"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-86ad7a7a"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$g = {
   props: {

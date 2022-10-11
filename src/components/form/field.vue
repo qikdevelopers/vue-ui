@@ -586,6 +586,9 @@ export default {
         asObject() {
             return this.widget === 'form' || this.isGroup && this.actualField.asObject;
         },
+        visualHide() {
+            return this.actualField.visualHide;
+        },
         layoutGroup() {
             return this.isGroup && !this.actualField.asObject;
         },
@@ -639,6 +642,10 @@ export default {
 
             if (this.error) {
                 array.push('ux-field-error');
+            }
+
+            if (this.visualHide) {
+                array.push('ux-field-hide');
             }
 
             return array;
@@ -765,14 +772,16 @@ export default {
     font-weight: bold;
 }
 
+.ux-field.ux-field-hide {
+    display:none !important;
+}
+
 
 :deep(.ux-field-description) {
     // .ux-field-description {
-
     font-size: clamp(12px, 0.8em, 16px);
     opacity: 0.5;
     margin-bottom: 0.5em;
-
 }
 
 .ux-field.ux-field-error> :deep(.ux-field-title) {
