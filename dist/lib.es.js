@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.13";
+const version$1 = "0.2.15";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -4659,15 +4659,15 @@ const _sfc_main$15 = {
   }
 };
 const _hoisted_1$P = { class: "table-date-cell" };
-const _hoisted_2$H = { key: 0 };
-const _hoisted_3$z = { class: "off" };
-const _hoisted_4$v = { class: "on" };
+const _hoisted_2$I = { key: 0 };
+const _hoisted_3$A = { class: "off" };
+const _hoisted_4$w = { class: "on" };
 const _hoisted_5$n = { class: "spacer" };
 function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("td", _hoisted_1$P, [
-    $options.hasValue ? (openBlock(), createElementBlock("div", _hoisted_2$H, [
-      createElementVNode("span", _hoisted_3$z, toDisplayString($options.readable), 1),
-      createElementVNode("span", _hoisted_4$v, toDisplayString($options.timeago), 1),
+    $options.hasValue ? (openBlock(), createElementBlock("div", _hoisted_2$I, [
+      createElementVNode("span", _hoisted_3$A, toDisplayString($options.readable), 1),
+      createElementVNode("span", _hoisted_4$w, toDisplayString($options.timeago), 1),
       createElementVNode("span", _hoisted_5$n, toDisplayString($options.readable), 1)
     ])) : createCommentVNode("", true)
   ]);
@@ -4731,7 +4731,7 @@ const _sfc_main$12 = {
   }
 };
 const _hoisted_1$O = { class: "table-url-cell" };
-const _hoisted_2$G = ["href"];
+const _hoisted_2$H = ["href"];
 function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
   return openBlock(), createElementBlock("td", _hoisted_1$O, [
@@ -4745,7 +4745,7 @@ function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
         right: "",
         icon: "fa-external-link"
       })
-    ], 8, _hoisted_2$G)
+    ], 8, _hoisted_2$H)
   ]);
 }
 var URLCell = /* @__PURE__ */ _export_sfc(_sfc_main$12, [["render", _sfc_render$12], ["__scopeId", "data-v-17cf3a86"]]);
@@ -4930,8 +4930,8 @@ const _hoisted_1$M = {
   key: 1,
   class: "table-cell"
 };
-const _hoisted_2$F = { class: "value" };
-const _hoisted_3$y = { class: "value" };
+const _hoisted_2$G = { class: "value" };
+const _hoisted_3$z = { class: "value" };
 function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_value_renderer = resolveComponent("value-renderer");
   return $data.component ? (openBlock(), createBlock(resolveDynamicComponent($data.component), {
@@ -4942,7 +4942,7 @@ function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8, ["column", "row", "value"])) : (openBlock(), createElementBlock("td", _hoisted_1$M, [
     $options.multiValue ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
       $options.complex ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.value, (entry, index2) => {
-        return openBlock(), createElementBlock("span", _hoisted_2$F, [
+        return openBlock(), createElementBlock("span", _hoisted_2$G, [
           createVNode(_component_value_renderer, {
             type: $props.column.type,
             multi: "",
@@ -4951,7 +4951,7 @@ function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8, ["type", "last", "value"])
         ]);
       }), 256)) : (openBlock(true), createElementBlock(Fragment, { key: 1 }, renderList($options.value, (entry, index2) => {
-        return openBlock(), createElementBlock("span", _hoisted_3$y, [
+        return openBlock(), createElementBlock("span", _hoisted_3$z, [
           createVNode(_component_value_renderer, {
             type: $props.column.type,
             multi: "",
@@ -5334,15 +5334,15 @@ const _sfc_main$_ = {
   }
 };
 const _hoisted_1$L = { class: "table-wrapper" };
-const _hoisted_2$E = {
+const _hoisted_2$F = {
   class: "table-scroll",
   ref: "scroll"
 };
-const _hoisted_3$x = {
+const _hoisted_3$y = {
   key: 0,
   class: "first table-select shrink"
 };
-const _hoisted_4$u = /* @__PURE__ */ createTextVNode(" Select Page ");
+const _hoisted_4$v = /* @__PURE__ */ createTextVNode(" Select Page ");
 const _hoisted_5$m = /* @__PURE__ */ createTextVNode(" Deselect Page ");
 const _hoisted_6$i = /* @__PURE__ */ createTextVNode(" Deselect All ");
 const _hoisted_7$f = ["onClick"];
@@ -5359,11 +5359,11 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_row = resolveComponent("flex-row");
   const _component_table_row = resolveComponent("table-row");
   return openBlock(), createElementBlock("div", _hoisted_1$L, [
-    createElementVNode("div", _hoisted_2$E, [
+    createElementVNode("div", _hoisted_2$F, [
       createElementVNode("table", null, [
         createElementVNode("thead", null, [
           createElementVNode("tr", null, [
-            $props.enableSelection ? (openBlock(), createElementBlock("th", _hoisted_3$x, [
+            $props.enableSelection ? (openBlock(), createElementBlock("th", _hoisted_3$y, [
               createVNode(_component_ux_menu, null, {
                 activator: withCtx(({ on: on2 }) => [
                   createVNode(_component_ux_checkbox, mergeProps(toHandlers(on2), { value: $options.pageSelected }), null, 16, ["value"])
@@ -5375,7 +5375,7 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
                         onClick: _cache[0] || (_cache[0] = ($event) => $options.selectPage())
                       }, {
                         default: withCtx(() => [
-                          _hoisted_4$u
+                          _hoisted_4$v
                         ]),
                         _: 1
                       }),
@@ -5474,7 +5474,7 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
     ], 512)
   ]);
 }
-var NativeTable = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-5a2ca224"]]);
+var NativeTable = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$_], ["__scopeId", "data-v-20035b8b"]]);
 var spinner_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$Z = {
   props: {
@@ -5485,13 +5485,13 @@ const _sfc_main$Z = {
 };
 const _withScopeId$7 = (n2) => (pushScopeId("data-v-27f20370"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$K = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ createElementVNode("i", { class: "fa fa-spin fa-spinner" }, null, -1));
-const _hoisted_2$D = [
+const _hoisted_2$E = [
   _hoisted_1$K
 ];
 function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["ux-spinner", { large: $props.large }])
-  }, _hoisted_2$D, 2);
+  }, _hoisted_2$E, 2);
 }
 var Spinner = /* @__PURE__ */ _export_sfc(_sfc_main$Z, [["render", _sfc_render$Z], ["__scopeId", "data-v-27f20370"]]);
 var button_vue_vue_type_style_index_0_scoped_true_lang = "";
@@ -5645,7 +5645,7 @@ function _sfc_render$X(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ], 2);
 }
-var UXCheckbox = /* @__PURE__ */ _export_sfc(_sfc_main$X, [["render", _sfc_render$X], ["__scopeId", "data-v-73f2c6b6"]]);
+var UXCheckbox = /* @__PURE__ */ _export_sfc(_sfc_main$X, [["render", _sfc_render$X], ["__scopeId", "data-v-6b7b7539"]]);
 var switch_vue_vue_type_style_index_0_scoped_true_lang$1 = "";
 const _sfc_main$W = {
   props: {
@@ -6264,7 +6264,7 @@ const _sfc_main$R = {
   }
 };
 const _hoisted_1$I = ["alt", "data"];
-const _hoisted_2$C = ["alt", "src"];
+const _hoisted_2$D = ["alt", "src"];
 function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["ux-image", $options.className]),
@@ -6280,7 +6280,7 @@ function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
       alt: $options.altText,
       style: normalizeStyle($options.imageStyle),
       src: $options.src
-    }, null, 12, _hoisted_2$C))
+    }, null, 12, _hoisted_2$D))
   ], 6);
 }
 var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["render", _sfc_render$R], ["__scopeId", "data-v-a7872864"]]);
@@ -6321,10 +6321,10 @@ const _sfc_main$Q = {
 };
 const _withScopeId$6 = (n2) => (pushScopeId("data-v-317a7690"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$H = { class: "ux-progress" };
-const _hoisted_2$B = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ createElementVNode("div", { class: "ux-progress-bg" }, null, -1));
+const _hoisted_2$C = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ createElementVNode("div", { class: "ux-progress-bg" }, null, -1));
 function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$H, [
-    _hoisted_2$B,
+    _hoisted_2$C,
     createElementVNode("div", {
       class: "ux-progress-fg",
       style: normalizeStyle($options.barStyle)
@@ -6410,7 +6410,7 @@ const _sfc_main$N = {
 };
 const _withScopeId$5 = (n2) => (pushScopeId("data-v-61cbf45e"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$E = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("label", null, "From Date", -1));
-const _hoisted_2$A = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("label", null, "To Date", -1));
+const _hoisted_2$B = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("label", null, "To Date", -1));
 function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_cell = resolveComponent("flex-cell");
   const _component_flex_row = resolveComponent("flex-row");
@@ -6440,7 +6440,7 @@ function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
         createVNode(_component_flex_cell, { class: "cell" }, {
           default: withCtx(() => [
             createElementVNode("div", null, [
-              _hoisted_2$A,
+              _hoisted_2$B,
               withDirectives(createElementVNode("input", {
                 type: "date",
                 class: "ux-field-focus ux-text-input-multiple",
@@ -6640,6 +6640,9 @@ var InputMixin = {
     },
     label() {
       return this.field.title;
+    },
+    plural() {
+      return this.field.plural;
     },
     description() {
       return this.field.description;
@@ -6978,15 +6981,15 @@ const _hoisted_1$D = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$z = {
+const _hoisted_2$A = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$w = {
+const _hoisted_3$x = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$t = {
+const _hoisted_4$u = {
   key: 2,
   class: "ui-select-button"
 };
@@ -7003,10 +7006,10 @@ function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
   }, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$D, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$z, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$A, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$w, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.singleValue ? (openBlock(), createElementBlock("div", _hoisted_4$t, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$x, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.singleValue ? (openBlock(), createElementBlock("div", _hoisted_4$u, [
       renderSlot(_ctx.$slots, "default", {}, () => [
         createVNode(_component_ux_button, { tag: "div" }, {
           default: withCtx(() => [
@@ -7110,15 +7113,15 @@ const _hoisted_1$C = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$y = {
+const _hoisted_2$z = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$v = {
+const _hoisted_3$w = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$s = { key: 2 };
+const _hoisted_4$t = { key: 2 };
 const _hoisted_5$k = /* @__PURE__ */ createTextVNode(" Country Code ");
 const _hoisted_6$g = { key: 0 };
 const _hoisted_7$d = { key: 1 };
@@ -7137,10 +7140,10 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$C, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$y, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$z, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$v, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$s, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$w, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$t, [
       (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.model, (entry, index2) => {
         return openBlock(), createBlock(_component_flex_row, {
           gap: "",
@@ -7808,15 +7811,15 @@ const _hoisted_1$B = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$x = {
+const _hoisted_2$y = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$u = {
+const _hoisted_3$v = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$r = {
+const _hoisted_4$s = {
   key: 2,
   class: "ui-select-button"
 };
@@ -7833,10 +7836,10 @@ function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
   }, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$B, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$x, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$y, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$u, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.singleValue ? (openBlock(), createElementBlock("div", _hoisted_4$r, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$v, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.singleValue ? (openBlock(), createElementBlock("div", _hoisted_4$s, [
       renderSlot(_ctx.$slots, "default", {}, () => [
         createVNode(_component_ux_button, { tag: "div" }, {
           default: withCtx(() => [
@@ -10790,15 +10793,15 @@ const _hoisted_1$A = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$w = {
+const _hoisted_2$x = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$t = {
+const _hoisted_3$u = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$q = {
+const _hoisted_4$r = {
   key: 1,
   class: "items"
 };
@@ -10814,9 +10817,9 @@ function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$A, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$w, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$x, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$t, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$u, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
     $options.showList ? (openBlock(), createElementBlock(Fragment, { key: 2 }, [
       _ctx.multiValue ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
         _ctx.model && _ctx.model.length ? (openBlock(), createBlock(_component_draggable, {
@@ -10856,7 +10859,7 @@ function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
           ]),
           _: 1
         }, 8, ["modelValue"])) : createCommentVNode("", true)
-      ], 64)) : _ctx.model ? (openBlock(), createElementBlock("div", _hoisted_4$q, [
+      ], 64)) : _ctx.model ? (openBlock(), createElementBlock("div", _hoisted_4$r, [
         createVNode(_component_item, { item: _ctx.model }, {
           actions: withCtx(() => [
             $options.canEdit(_ctx.model) ? (openBlock(), createBlock(_component_ux_button, {
@@ -11044,15 +11047,15 @@ const _hoisted_1$z = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$v = {
+const _hoisted_2$w = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$s = {
+const _hoisted_3$t = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$p = {
+const _hoisted_4$q = {
   key: 2,
   class: "ui-select-button"
 };
@@ -11069,10 +11072,10 @@ function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
   }, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$z, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$v, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$w, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$s, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.singleValue ? (openBlock(), createElementBlock("div", _hoisted_4$p, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$t, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.singleValue ? (openBlock(), createElementBlock("div", _hoisted_4$q, [
       renderSlot(_ctx.$slots, "default", {}, () => [
         createVNode(_component_ux_button, { tag: "div" }, {
           default: withCtx(() => [
@@ -11181,15 +11184,15 @@ const _hoisted_1$y = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$u = {
+const _hoisted_2$v = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$r = {
+const _hoisted_3$s = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$o = { key: 2 };
+const _hoisted_4$p = { key: 2 };
 const _hoisted_5$g = {
   key: 0,
   class: "ux-text-prefix"
@@ -11215,10 +11218,10 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$y, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$u, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$v, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$r, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$o, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$s, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$p, [
       (openBlock(true), createElementBlock(Fragment, null, renderList($options.model, (entry, index2) => {
         return openBlock(), createBlock(_component_flex_row, {
           class: "ux-text-row",
@@ -11384,15 +11387,15 @@ const _hoisted_1$x = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$t = {
+const _hoisted_2$u = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$q = {
+const _hoisted_3$r = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$n = { key: 2 };
+const _hoisted_4$o = { key: 2 };
 const _hoisted_5$f = { class: "ux-text-wrap" };
 const _hoisted_6$c = {
   key: 0,
@@ -11426,10 +11429,10 @@ function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$x, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$t, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$u, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$q, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$n, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$r, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$o, [
       (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.model, (entry, index2) => {
         return openBlock(), createBlock(_component_flex_row, {
           class: "ux-text-row",
@@ -11564,15 +11567,15 @@ const _hoisted_1$w = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$s = {
+const _hoisted_2$t = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$p = {
+const _hoisted_3$q = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$m = { key: 2 };
+const _hoisted_4$n = { key: 2 };
 const _hoisted_5$e = ["onUpdate:modelValue"];
 function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -11582,10 +11585,10 @@ function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$w, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$s, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$t, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$p, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$m, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$q, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$n, [
       (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.model, (entry, index2) => {
         return openBlock(), createBlock(_component_flex_row, {
           class: "ux-text-row",
@@ -11712,15 +11715,15 @@ const _hoisted_1$v = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$r = {
+const _hoisted_2$s = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$o = {
+const _hoisted_3$p = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$l = { key: 2 };
+const _hoisted_4$m = { key: 2 };
 const _hoisted_5$d = ["onUpdate:modelValue"];
 function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -11730,10 +11733,10 @@ function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$v, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$r, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$s, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$o, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$l, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$p, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$m, [
       (openBlock(true), createElementBlock(Fragment, null, renderList($options.model, (entry, index2) => {
         return openBlock(), createBlock(_component_flex_row, {
           class: "ux-text-row",
@@ -11849,15 +11852,15 @@ const _hoisted_1$u = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$q = {
+const _hoisted_2$r = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$n = {
+const _hoisted_3$o = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$k = { key: 2 };
+const _hoisted_4$l = { key: 2 };
 function _sfc_render$C(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_daterange = resolveComponent("daterange", true);
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -11867,10 +11870,10 @@ function _sfc_render$C(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$u, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$q, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$r, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$n, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$k, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$o, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$l, [
       (openBlock(true), createElementBlock(Fragment, null, renderList($options.model, (entry, index2) => {
         return openBlock(), createBlock(_component_flex_row, {
           class: "ux-text-row",
@@ -11975,11 +11978,11 @@ const _hoisted_1$t = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$p = {
+const _hoisted_2$q = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$m = {
+const _hoisted_3$n = {
   key: 1,
   class: "ux-field-description"
 };
@@ -12009,9 +12012,9 @@ function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
           createElementVNode("div", null, [
             _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$t, [
               createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-              _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$p, "*")) : createCommentVNode("", true)
+              _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$q, "*")) : createCommentVNode("", true)
             ])) : createCommentVNode("", true),
-            _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$m, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true)
+            _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$n, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true)
           ])
         ]),
         _: 1
@@ -12035,8 +12038,8 @@ const _sfc_main$A = {
   }
 };
 const _hoisted_1$s = { key: 0 };
-const _hoisted_2$o = ["innerHTML"];
-const _hoisted_3$l = ["innerHTML"];
+const _hoisted_2$p = ["innerHTML"];
+const _hoisted_3$m = ["innerHTML"];
 function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_cell = resolveComponent("flex-cell");
   const _component_ux_icon = resolveComponent("ux-icon");
@@ -12051,7 +12054,7 @@ function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
               return openBlock(), createElementBlock("div", {
                 innerHTML: _ctx.field.template,
                 key: index2
-              }, null, 8, _hoisted_2$o);
+              }, null, 8, _hoisted_2$p);
             }), 128))
           ]),
           _: 1
@@ -12090,7 +12093,7 @@ function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
   ])) : (openBlock(), createElementBlock("div", {
     key: 1,
     innerHTML: _ctx.field.template
-  }, null, 8, _hoisted_3$l));
+  }, null, 8, _hoisted_3$m));
 }
 var CustomHTML = /* @__PURE__ */ _export_sfc(_sfc_main$A, [["render", _sfc_render$A]]);
 var FilterCondition_vue_vue_type_style_index_0_lang = "";
@@ -12365,9 +12368,9 @@ const _hoisted_1$r = {
   key: 0,
   class: "filter-condition"
 };
-const _hoisted_2$n = { key: 0 };
-const _hoisted_3$k = { key: 1 };
-const _hoisted_4$j = /* @__PURE__ */ createTextVNode(" And ");
+const _hoisted_2$o = { key: 0 };
+const _hoisted_3$l = { key: 1 };
+const _hoisted_4$k = /* @__PURE__ */ createTextVNode(" And ");
 const _hoisted_5$c = { key: 2 };
 const _hoisted_6$b = { key: 3 };
 const _hoisted_7$8 = /* @__PURE__ */ createTextVNode(" And ");
@@ -12417,7 +12420,7 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
         })) : createCommentVNode("", true),
         $data.model.comparator ? (openBlock(), createBlock(_component_flex_cell, { key: 1 }, {
           default: withCtx(() => [
-            $options.inputType == "array" ? (openBlock(), createElementBlock("div", _hoisted_2$n, [
+            $options.inputType == "array" ? (openBlock(), createElementBlock("div", _hoisted_2$o, [
               $options.hasOptions ? (openBlock(), createBlock(_component_native_select, {
                 key: 0,
                 modelValue: $data.model.values,
@@ -12430,13 +12433,13 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
                 "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => $data.model.values = $event)
               }, null, 8, ["field", "modelValue"]))
             ])) : createCommentVNode("", true),
-            $options.inputType == "range" ? (openBlock(), createElementBlock("div", _hoisted_3$k, [
+            $options.inputType == "range" ? (openBlock(), createElementBlock("div", _hoisted_3$l, [
               createVNode(_component_text_field, {
                 field: $options.normalField,
                 modelValue: $data.model.value,
                 "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => $data.model.value = $event)
               }, null, 8, ["field", "modelValue"]),
-              _hoisted_4$j,
+              _hoisted_4$k,
               createVNode(_component_text_field, {
                 field: $options.normalField,
                 modelValue: $data.model.value2,
@@ -12835,9 +12838,9 @@ const _hoisted_1$q = {
   key: 0,
   class: "filter-rule"
 };
-const _hoisted_2$m = { class: "top" };
-const _hoisted_3$j = { class: "summary" };
-const _hoisted_4$i = /* @__PURE__ */ createTextVNode(" Match ");
+const _hoisted_2$n = { class: "top" };
+const _hoisted_3$k = { class: "summary" };
+const _hoisted_4$j = /* @__PURE__ */ createTextVNode(" Match ");
 const _hoisted_5$b = /* @__PURE__ */ createTextVNode(" of the following conditions ");
 const _hoisted_6$a = /* @__PURE__ */ createElementVNode("span", { class: "line" }, null, -1);
 const _hoisted_7$7 = { class: "operator" };
@@ -12850,13 +12853,13 @@ function _sfc_render$y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_row = resolveComponent("flex-row");
   const _component_filter_condition = resolveComponent("filter-condition");
   return $props.definition ? (openBlock(), createElementBlock("div", _hoisted_1$q, [
-    createElementVNode("div", _hoisted_2$m, [
+    createElementVNode("div", _hoisted_2$n, [
       createVNode(_component_flex_row, null, {
         default: withCtx(() => [
           createVNode(_component_flex_cell, null, {
             default: withCtx(() => [
-              createElementVNode("div", _hoisted_3$j, [
-                _hoisted_4$i,
+              createElementVNode("div", _hoisted_3$k, [
+                _hoisted_4$j,
                 createVNode(_component_native_select, {
                   modelValue: $data.model.operator,
                   "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $data.model.operator = $event),
@@ -13046,12 +13049,12 @@ const _sfc_main$x = {
   }
 };
 const _hoisted_1$p = { class: "filters" };
-const _hoisted_2$l = {
+const _hoisted_2$m = {
   key: 0,
   class: "top"
 };
-const _hoisted_3$i = { class: "summary" };
-const _hoisted_4$h = /* @__PURE__ */ createTextVNode(" Match ");
+const _hoisted_3$j = { class: "summary" };
+const _hoisted_4$i = /* @__PURE__ */ createTextVNode(" Match ");
 const _hoisted_5$a = /* @__PURE__ */ createTextVNode(" of the following rules ");
 const _hoisted_6$9 = /* @__PURE__ */ createTextVNode("Add Filter Rule");
 function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
@@ -13065,9 +13068,9 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
       createVNode(_component_flex_body, null, {
         default: withCtx(() => [
           createElementVNode("div", _hoisted_1$p, [
-            $data.model && $data.model.filters && $data.model.filters.length ? (openBlock(), createElementBlock("div", _hoisted_2$l, [
-              createElementVNode("div", _hoisted_3$i, [
-                _hoisted_4$h,
+            $data.model && $data.model.filters && $data.model.filters.length ? (openBlock(), createElementBlock("div", _hoisted_2$m, [
+              createElementVNode("div", _hoisted_3$j, [
+                _hoisted_4$i,
                 createVNode(_component_native_select, {
                   modelValue: $data.model.operator,
                   "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $data.model.operator = $event),
@@ -13156,15 +13159,15 @@ const _hoisted_1$o = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$k = {
+const _hoisted_2$l = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$h = {
+const _hoisted_3$i = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$g = { key: 2 };
+const _hoisted_4$h = { key: 2 };
 function _sfc_render$w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_filter_builder = resolveComponent("filter-builder");
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -13174,10 +13177,10 @@ function _sfc_render$w(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$o, [
       createTextVNode(toDisplayString(_ctx.label) + " (" + toDisplayString($options.definitionTitle) + ") ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$k, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$l, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$h, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$g, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$i, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_4$h, [
       (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.model, (entry, index2) => {
         return openBlock(), createBlock(_component_flex_row, {
           class: "ux-text-row",
@@ -13280,11 +13283,11 @@ const _hoisted_1$n = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$j = {
+const _hoisted_2$k = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$g = {
+const _hoisted_3$h = {
   key: 1,
   class: "ux-field-description"
 };
@@ -13314,9 +13317,9 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
           createElementVNode("div", null, [
             _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$n, [
               createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-              _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$j, "*")) : createCommentVNode("", true)
+              _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$k, "*")) : createCommentVNode("", true)
             ])) : createCommentVNode("", true),
-            _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$g, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true)
+            _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$h, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true)
           ])
         ]),
         _: 1
@@ -13380,7 +13383,7 @@ const _sfc_main$u = {
   }
 };
 const _hoisted_1$m = ["accept", "multiple"];
-const _hoisted_2$i = /* @__PURE__ */ createTextVNode("Select Files");
+const _hoisted_2$j = /* @__PURE__ */ createTextVNode("Select Files");
 function _sfc_render$u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_button = resolveComponent("ux-button");
   return openBlock(), createElementBlock("label", {
@@ -13403,7 +13406,7 @@ function _sfc_render$u(_ctx, _cache, $props, $setup, $data, $options) {
       renderSlot(_ctx.$slots, "default", {}, () => [
         createVNode(_component_ux_button, null, {
           default: withCtx(() => [
-            _hoisted_2$i
+            _hoisted_2$j
           ]),
           _: 1
         })
@@ -13551,15 +13554,15 @@ const _hoisted_1$l = {
   key: 0,
   class: "ux-field-title"
 };
-const _hoisted_2$h = {
+const _hoisted_2$i = {
   key: 0,
   class: "ux-required-marker"
 };
-const _hoisted_3$f = {
+const _hoisted_3$g = {
   key: 1,
   class: "ux-field-description"
 };
-const _hoisted_4$f = {
+const _hoisted_4$g = {
   key: 2,
   class: "files"
 };
@@ -13576,10 +13579,10 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     _ctx.showLabel ? (openBlock(), createElementBlock("label", _hoisted_1$l, [
       createTextVNode(toDisplayString(_ctx.label) + " ", 1),
-      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$h, "*")) : createCommentVNode("", true)
+      _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_2$i, "*")) : createCommentVNode("", true)
     ])) : createCommentVNode("", true),
-    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$f, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
-    $data.files && $data.files.length ? (openBlock(), createElementBlock("div", _hoisted_4$f, [
+    _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_3$g, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true),
+    $data.files && $data.files.length ? (openBlock(), createElementBlock("div", _hoisted_4$g, [
       (openBlock(true), createElementBlock(Fragment, null, renderList($data.files, (file, index2) => {
         return openBlock(), createElementBlock("div", {
           class: "file-item",
@@ -13683,6 +13686,9 @@ const _sfc_main$s = {
     collapsible() {
       return this.field.collapsible;
     },
+    showLabel() {
+      return this.field.showLabel;
+    },
     reorderable() {
       return this.multiValue && this.field.reorderable;
     },
@@ -13740,6 +13746,18 @@ const _hoisted_1$k = {
   key: 0,
   class: "ux-multi-group"
 };
+const _hoisted_2$h = {
+  key: 0,
+  class: "ux-field-title"
+};
+const _hoisted_3$f = {
+  key: 0,
+  class: "ux-required-marker"
+};
+const _hoisted_4$f = {
+  key: 1,
+  class: "ux-field-description"
+};
 function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -13751,8 +13769,15 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_panel = resolveComponent("ux-panel");
   const _component_draggable = resolveComponent("draggable");
   return _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_1$k, [
+    $options.showLabel ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
+      $options.showLabel ? (openBlock(), createElementBlock("label", _hoisted_2$h, [
+        createTextVNode(toDisplayString(_ctx.plural) + " ", 1),
+        _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_3$f, "*")) : createCommentVNode("", true)
+      ])) : createCommentVNode("", true),
+      _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_4$f, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true)
+    ], 64)) : createCommentVNode("", true),
     $options.reorderable ? (openBlock(), createBlock(_component_draggable, {
-      key: 0,
+      key: 1,
       modelValue: _ctx.model,
       "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => _ctx.model = $event),
       group: $options.groupKey,
@@ -13858,7 +13883,7 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
         }, 1536)
       ]),
       _: 1
-    }, 8, ["modelValue", "group"])) : (openBlock(true), createElementBlock(Fragment, { key: 1 }, renderList(_ctx.model, (element, index2) => {
+    }, 8, ["modelValue", "group"])) : (openBlock(true), createElementBlock(Fragment, { key: 2 }, renderList(_ctx.model, (element, index2) => {
       return openBlock(), createBlock(_component_ux_panel, {
         ref_for: true,
         ref: "row"
@@ -13961,7 +13986,7 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
       }, 1536);
     }), 256)),
     _ctx.canAddValue ? (openBlock(), createBlock(_component_ux_button, {
-      key: 2,
+      key: 3,
       onClick: _cache[5] || (_cache[5] = ($event) => _ctx.add())
     }, {
       default: withCtx(() => [
@@ -14074,7 +14099,7 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["trail", "submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"]))
   ], 64));
 }
-var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-71c41d3a"]]);
+var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-5188e4ee"]]);
 const _sfc_main$r = {
   props: {
     option: {

@@ -371,6 +371,7 @@ export default {
 
                 &.table-select {
                     z-index: 3;
+                    font-size: 1em;
                 }
 
                 &.sortable {

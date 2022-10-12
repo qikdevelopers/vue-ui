@@ -43,7 +43,8 @@ export default {
     height:0;
     overflow: hidden;
     width:$size;
-    padding: 0 0 $size;
+    height:$size;
+    padding: 0;
     text-align: center;
     line-height: 2em;
     appearance:none;

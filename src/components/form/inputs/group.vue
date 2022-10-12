@@ -1,5 +1,11 @@
 <template>
     <div class="ux-multi-group" v-if="multiValue">
+
+        <template v-if="showLabel">
+            <label class="ux-field-title" v-if="showLabel">{{plural}} <span class="ux-required-marker" v-if="required">*</span></label>
+    <div class="ux-field-description" v-if="showDescription">{{description}}</div>
+        </template>
+
         <template v-if="reorderable">
             <!-- item-key="guid" -->
             <draggable v-model="model" :group="groupKey" @start="drag=true" @end="drag=false">
@@ -156,6 +162,9 @@ export default {
         },
         collapsible() {
             return this.field.collapsible;
+        },
+        showLabel() {
+            return this.field.showLabel;
         },
         reorderable() {
             return this.multiValue && this.field.reorderable;
