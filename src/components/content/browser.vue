@@ -8,6 +8,7 @@
                             <component :cacheKey="viewModeCacheKey" :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
                         </template>
                         <template v-else>
+
                             <native-table v-model:sort="sort" :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
                                 <template #corner>
                                     <ux-menu right>
@@ -393,25 +394,24 @@ export default {
         var self = this;
 
         //Get the type details
-        await Promise.all([
-            new Promise(async function(resolve, reject) {
-                var glossary = await self.$sdk.content.glossary({ hash: true });
-                var definition = glossary[self.type]
-                self.definition = definition;
+        await new Promise(async function(resolve, reject) {
+            var glossary = await self.$sdk.content.glossary({ hash: true });
+            var definition = glossary[self.type]
+            self.definition = definition;
+            if (!definition) {
+                return reject();
+            }
+            resolve();
+        })
 
+        // Set default sort
+        self.sort = self.defaultSort;
 
-                if (!definition) {
-                    return reject();
-                }
-                resolve();
-            }),
-            new Promise(async function(resolve, reject) {
-
-                var dataSource = await self.load();
-                self.dataSource = dataSource;
-                resolve();
-            }),
-        ]);
+        await new Promise(async function(resolve, reject) {
+            var dataSource = await self.load();
+            self.dataSource = dataSource;
+            resolve();
+        })
     },
     watch: {
         keywords(k) {
@@ -496,14 +496,29 @@ export default {
 
             //TODO Update to allow for a prop
             //And user sort by clicking on the table headers
-            var defaultSort = this.definition?.defaultSort || {
+            var defaultSort = this.definition?.defaultSort;
+
+            if(defaultSort) {
+                return defaultSort;
+            }
+
+            // Default to title alphabetically
+            defaultSort = {
                 key: 'title',
                 direction: 'asc',
                 type: 'string',
             }
 
-
             switch (this.basicType) {
+                case 'profile':
+                case 'persona':
+                case 'user':
+                    defaultSort = {
+                        key: 'lastName',
+                        direction: 'asc',
+                        type: 'string',
+                    }
+                break;
                 case 'email':
                 case 'notification':
                 case 'transaction':
@@ -764,6 +779,8 @@ export default {
         loadCriteria() {
 
             var self = this;
+
+            console.log('Load Criteria now', self.sort)
             var sort = self.sort || self.defaultSort;
             var search = self.keywords;
             var select = self.selectFields;

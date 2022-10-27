@@ -65,7 +65,7 @@ export default {
         },
         sorting(s) {
             this.$emit('update:sort', s);
-        }
+        },
     },
     props: {
         total: {
@@ -105,9 +105,9 @@ export default {
             type:Object,
             default() {
                 return {
-                    key:'title',
-                    type:'string',
-                    direction:'asc',
+                    key:'meta.created',
+                    type:'date',
+                    direction:'desc',
                 }
             }
         },
@@ -132,6 +132,7 @@ export default {
             keyListenersAdded:false,
         }
     },
+   
     mounted() {
         this.addKeyListeners()
     },
@@ -276,6 +277,8 @@ export default {
                 direction,
                 type:column.type,
             }
+
+            this.$emit('')
         },
         clickRow(row) {
 

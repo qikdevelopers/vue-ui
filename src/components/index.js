@@ -27,6 +27,7 @@ export { default as UXTable } from './table/Table.vue';
 
 
 
+export { default as Avatar } from './ui/avatar.vue';
 export { default as UXButton } from './ui/button.vue';
 export { default as UXCheckbox } from './ui/checkbox.vue';
 export { default as UXSwitch } from './ui/switch.vue';
@@ -103,6 +104,7 @@ import UXTable from './table/Table.vue';
 import UXTabset from './layout/tabset.vue';
 import UXTab from './layout/tab.vue';
 
+import Avatar from './ui/avatar.vue';
 import UXButton from './ui/button.vue';
 import UXSwitch from './ui/switch.vue';
 import UXCheckbox from './ui/checkbox.vue';
@@ -171,6 +173,7 @@ const defaultComponents = {
     UxLink: UXLink,
     UxTabset: UXTabset,
     UxTab: UXTab,
+    Avatar,
     Spinner,
     ProgressBar,
     UxModal,
