@@ -55,6 +55,7 @@ export default {
 .content-item {
     padding: 0.8em;
     border: 1px solid rgba(#000, 0.1);
+    border-radius:0.3em;
     background: #fff;
     cursor: pointer;
 
@@ -69,7 +70,8 @@ export default {
     }
 
     &:hover {
-        background: rgba(#000, 0.01);
+        cursor: pointer;
+        background: rgba(#000, 0.02);
     }
 }
 </style>

@@ -146,6 +146,9 @@ export default {
         label() {
             return this.field.title;
         },
+        title() {
+            return this.label;
+        },
         plural() {
             return this.field.plural;
         },

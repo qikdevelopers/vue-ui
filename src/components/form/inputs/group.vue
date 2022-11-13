@@ -1,11 +1,9 @@
 <template>
     <div class="ux-multi-group" v-if="multiValue">
-
-        <template v-if="showLabel">
-            <label class="ux-field-title" v-if="showLabel">{{plural}} <span class="ux-required-marker" v-if="required">*</span></label>
-    <div class="ux-field-description" v-if="showDescription">{{description}}</div>
-        </template>
-
+        <div v-if="showLabel" class="ux-group-title">
+            <label class="ux-field-title" v-if="showLabel">{{plural || title}} <span class="ux-required-marker" v-if="required">*</span></label>
+            <div class="ux-field-description" v-if="showDescription">{{description}}</div>
+        </div>
         <template v-if="reorderable">
             <!-- item-key="guid" -->
             <draggable v-model="model" :group="groupKey" @start="drag=true" @end="drag=false">
@@ -69,7 +67,7 @@
                     </flex-row>
                 </ux-panel-header>
                 <ux-panel-body @keydown.enter="enterPress($event)" v-show="!element.collapsed">
-                    <ux-form ref="form" :trail="trail"  :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
+                    <ux-form ref="form" :trail="trail" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model[index]" :flex="sameLine" :fields="field.fields" />
                 </ux-panel-body>
             </ux-panel>
         </template>
@@ -114,7 +112,20 @@
             </ux-button>
         </template>
         <template v-else>
-            <ux-form ref="form" :trail="trail" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+            <div class="ux-single-group" v-if="showLabel">
+                <div class="ux-group-title">
+                    <label class="ux-field-title" v-if="showLabel">{{title}}</label>
+                    <div class="ux-field-description" v-if="showDescription">{{description}}</div>
+                </div>
+                <ux-panel>
+                    <ux-panel-body>
+                        <ux-form ref="form" :trail="trail" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+                    </ux-panel-body>
+                </ux-panel>
+            </div>
+            <template v-else>
+                <ux-form ref="form" :trail="trail" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="field.fields" />
+            </template>
         </template>
     </template>
 </template>
@@ -136,9 +147,9 @@ export default {
         modelValue: {
             type: [Object, Array],
         },
-        trail:{
-            type:Array,
-            default() {
+        trail: {
+            type: Array,
+            default () {
                 return [];
             }
         },
@@ -197,9 +208,6 @@ export default {
             return `${this.label} ${index+1}`
         },
         enterPress(event) {
-
-            console.log('EVENT', event);
-            
             if (this.canAddValue) {
                 event.stopImmediatePropagation();
                 event.preventDefault();
@@ -233,7 +241,19 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.ux-multi-group {
+.ux-multi-group,
+.ux-single-group {
+    margin-bottom: 2.5em;
+}
+
+.ux-group-title {
+    font-size: 1.2em;
     margin-bottom: 1em;
 }
+
+:deep(.panel) {
+    margin-bottom:0.5em;
+}
+
+
 </style>

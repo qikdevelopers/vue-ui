@@ -25,6 +25,7 @@ import _get from 'lodash/get';
 import { defineAsyncComponent } from 'vue';
 
 import ThumbnailCell from './cells/Thumbnail.vue';
+import CurrencyCell from './cells/Currency.vue';
 import ButtonCell from './cells/Button.vue';
 import DateCell from './cells/DateCell.vue';
 import BooleanCell from './cells/BooleanCell.vue';
@@ -88,7 +89,7 @@ export default {
         ///////////////////////////////
 
         let cellType = self.column.type;
-        let cellRenderer = self.column.renderer;
+        let cellRenderer = self.column.renderer || self.column.widget;
 
         if(cellType == 'reference') {
             if(self.column.referenceType === 'image') {
@@ -115,6 +116,9 @@ export default {
             case 'url':
                 component = URLCell;
                 break;
+            case 'currency':
+                component = CurrencyCell;
+            break;
             case 'thumbnail':
                 component = ThumbnailCell;
                 break;

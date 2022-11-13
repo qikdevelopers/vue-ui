@@ -17,6 +17,18 @@
         <template v-else-if="widget === 'form'">
             <field-group :submission="submission" :field="field" :parentModel="parentModel" v-model="fieldModel" />
         </template>
+        <template v-else-if="widget === 'currency'">
+            <template v-if="multiValue">
+                    <div v-for="(value, index) in fieldModel">
+                        {{formatCurrency(value)}} <span class="currency">{{field.currency}}</span>
+                    </div>
+                </template>
+                <template v-else>
+                    <div>
+                        {{formatCurrency(fieldModel)}} <span class="currency">{{field.currency}}</span>
+                    </div>
+                </template>
+        </template>
         <template v-else>
             <template v-if="type === 'reference'">
                 <template v-if="multiValue">
@@ -185,6 +197,9 @@ export default {
 
     // },
     methods: {
+        formatCurrency(val) {
+            return `${this.$sdk.utils.formatCurrency(val, this.field.currency)}`.toUpperCase() ;
+        },
         cleanInput(val) {
             return val;
         },
@@ -396,7 +411,11 @@ export default {
     }
 }
 
-
+.currency {
+    text-transform: uppercase;
+    opacity: 0.5;
+    font-size:0.7em;
+}
 
 :deep(.ux-field-title) {
     // .ux-field-title {

@@ -30,9 +30,9 @@ var __objRest = (source, exclude) => {
     }
   return target;
 };
-import { openBlock, createElementBlock, renderSlot, resolveComponent, createBlock, withCtx, createVNode, Fragment, renderList, normalizeClass, toDisplayString, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
+import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createVNode, withCtx, renderList, toDisplayString, withDirectives, createBlock, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.17";
+const version$1 = "0.2.20";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -41,104 +41,109 @@ var _export_sfc = (sfc, props2) => {
   }
   return target;
 };
-const _sfc_main$1l = {};
+const _sfc_main$1m = {};
 const _hoisted_1$12 = { class: "flex-column" };
-function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1m(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$12, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexColumn = /* @__PURE__ */ _export_sfc(_sfc_main$1l, [["render", _sfc_render$1l], ["__scopeId", "data-v-203ea86f"]]);
+var FlexColumn = /* @__PURE__ */ _export_sfc(_sfc_main$1m, [["render", _sfc_render$1m], ["__scopeId", "data-v-203ea86f"]]);
 var flexBody_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1k = {};
+const _sfc_main$1l = {};
 const _hoisted_1$11 = { class: "flex-column-body" };
-function _sfc_render$1k(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$11, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexBody = /* @__PURE__ */ _export_sfc(_sfc_main$1k, [["render", _sfc_render$1k], ["__scopeId", "data-v-64850355"]]);
+var FlexBody = /* @__PURE__ */ _export_sfc(_sfc_main$1l, [["render", _sfc_render$1l], ["__scopeId", "data-v-64850355"]]);
 var flexHeader_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1j = {};
+const _sfc_main$1k = {};
 const _hoisted_1$10 = { class: "flex-column-header" };
-function _sfc_render$1j(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1k(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$10, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexHeader = /* @__PURE__ */ _export_sfc(_sfc_main$1j, [["render", _sfc_render$1j], ["__scopeId", "data-v-10b28f00"]]);
+var FlexHeader = /* @__PURE__ */ _export_sfc(_sfc_main$1k, [["render", _sfc_render$1k], ["__scopeId", "data-v-10b28f00"]]);
 var flexFooter_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1i = {};
+const _sfc_main$1j = {};
 const _hoisted_1$$ = { class: "flex-column-footer" };
-function _sfc_render$1i(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1j(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$$, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexFooter = /* @__PURE__ */ _export_sfc(_sfc_main$1i, [["render", _sfc_render$1i], ["__scopeId", "data-v-68216a72"]]);
+var FlexFooter = /* @__PURE__ */ _export_sfc(_sfc_main$1j, [["render", _sfc_render$1j], ["__scopeId", "data-v-68216a72"]]);
 var flexCell_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1h = {};
+const _sfc_main$1i = {};
 const _hoisted_1$_ = { class: "flex-cell" };
-function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1i(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$_, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexCell = /* @__PURE__ */ _export_sfc(_sfc_main$1h, [["render", _sfc_render$1h], ["__scopeId", "data-v-644bb279"]]);
+var FlexCell = /* @__PURE__ */ _export_sfc(_sfc_main$1i, [["render", _sfc_render$1i], ["__scopeId", "data-v-644bb279"]]);
 var flexRow_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1g = {};
+const _sfc_main$1h = {};
 const _hoisted_1$Z = { class: "flex-row" };
-function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$Z, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var FlexRow = /* @__PURE__ */ _export_sfc(_sfc_main$1g, [["render", _sfc_render$1g], ["__scopeId", "data-v-5b76ad1f"]]);
+var FlexRow = /* @__PURE__ */ _export_sfc(_sfc_main$1h, [["render", _sfc_render$1h], ["__scopeId", "data-v-5b76ad1f"]]);
 var flexSpacer_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1f = {};
+const _sfc_main$1g = {};
 const _hoisted_1$Y = { class: "flex-spacer" };
-function _sfc_render$1f(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$Y);
 }
-var FlexSpacer = /* @__PURE__ */ _export_sfc(_sfc_main$1f, [["render", _sfc_render$1f], ["__scopeId", "data-v-35b15579"]]);
+var FlexSpacer = /* @__PURE__ */ _export_sfc(_sfc_main$1g, [["render", _sfc_render$1g], ["__scopeId", "data-v-35b15579"]]);
 var panel_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1e = {};
+const _sfc_main$1f = {};
 const _hoisted_1$X = { class: "panel" };
-function _sfc_render$1e(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1f(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$X, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var Panel = /* @__PURE__ */ _export_sfc(_sfc_main$1e, [["render", _sfc_render$1e], ["__scopeId", "data-v-50ae77fc"]]);
+var Panel = /* @__PURE__ */ _export_sfc(_sfc_main$1f, [["render", _sfc_render$1f], ["__scopeId", "data-v-50ae77fc"]]);
 var panelBody_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1d = {};
+const _sfc_main$1e = {};
 const _hoisted_1$W = { class: "panel-body" };
-function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1e(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$W, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var PanelBody = /* @__PURE__ */ _export_sfc(_sfc_main$1d, [["render", _sfc_render$1d], ["__scopeId", "data-v-c82dca76"]]);
+var PanelBody = /* @__PURE__ */ _export_sfc(_sfc_main$1e, [["render", _sfc_render$1e], ["__scopeId", "data-v-c82dca76"]]);
 var panelHeader_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1c = {};
+const _sfc_main$1d = {};
 const _hoisted_1$V = { class: "panel-header" };
-function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$V, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var PanelHeader = /* @__PURE__ */ _export_sfc(_sfc_main$1c, [["render", _sfc_render$1c], ["__scopeId", "data-v-13bf11da"]]);
+var PanelHeader = /* @__PURE__ */ _export_sfc(_sfc_main$1d, [["render", _sfc_render$1d], ["__scopeId", "data-v-13bf11da"]]);
 var panelFooter_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1b = {};
+const _sfc_main$1c = {};
 const _hoisted_1$U = { class: "panel-footer" };
-function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$U, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var PanelFooter = /* @__PURE__ */ _export_sfc(_sfc_main$1b, [["render", _sfc_render$1b], ["__scopeId", "data-v-b4f4786a"]]);
+var PanelFooter = /* @__PURE__ */ _export_sfc(_sfc_main$1c, [["render", _sfc_render$1c], ["__scopeId", "data-v-b4f4786a"]]);
 var tabset_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$1a = {
+const _sfc_main$1b = {
+  props: {
+    vertical: {
+      type: Boolean
+    }
+  },
   data() {
     return {
       activeIndex: 0
@@ -158,21 +163,24 @@ const _sfc_main$1a = {
         }
         return child;
       }).filter(Boolean);
-      console.log("TABS", slotChildren);
       return slotChildren;
     }
   }
 };
 const _hoisted_1$T = ["onClick"];
-function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_2$J = ["onClick"];
+function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_flex_body = resolveComponent("flex-body");
+  const _component_flex_column = resolveComponent("flex-column");
   const _component_flex_row = resolveComponent("flex-row");
   const _component_flex_header = resolveComponent("flex-header");
-  const _component_flex_column = resolveComponent("flex-column");
-  return openBlock(), createBlock(_component_flex_column, null, {
-    default: withCtx(() => [
-      createVNode(_component_flex_header, { class: "tabset-menu" }, {
+  return openBlock(), createElementBlock("div", {
+    class: normalizeClass(["ux-tabset", { vertical: $props.vertical, horizontal: !$props.vertical }])
+  }, [
+    $props.vertical ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
+      createVNode(_component_flex_column, { class: "tabset-menu" }, {
         default: withCtx(() => [
-          createVNode(_component_flex_row, null, {
+          createVNode(_component_flex_body, null, {
             default: withCtx(() => [
               (openBlock(true), createElementBlock(Fragment, null, renderList($options.tabs, (tab, index2) => {
                 return openBlock(), createElementBlock("a", {
@@ -204,12 +212,46 @@ function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
         ]),
         _: 1
       })
-    ]),
-    _: 1
-  });
+    ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
+      createVNode(_component_flex_header, { class: "tabset-menu" }, {
+        default: withCtx(() => [
+          createVNode(_component_flex_row, null, {
+            default: withCtx(() => [
+              (openBlock(true), createElementBlock(Fragment, null, renderList($options.tabs, (tab, index2) => {
+                return openBlock(), createElementBlock("a", {
+                  class: normalizeClass({ active: index2 === $data.activeIndex }),
+                  key: `tab-link-${tab.props.heading}`,
+                  onClick: ($event) => $options.select(index2)
+                }, toDisplayString(tab.props.heading), 11, _hoisted_2$J);
+              }), 128))
+            ]),
+            _: 1
+          })
+        ]),
+        _: 1
+      }),
+      createVNode(_component_flex_column, null, {
+        default: withCtx(() => [
+          (openBlock(true), createElementBlock(Fragment, null, renderList($options.tabs, (tab, index2) => {
+            return withDirectives((openBlock(), createBlock(_component_flex_column, {
+              key: `tab-panel-${tab.props.heading}`
+            }, {
+              default: withCtx(() => [
+                (openBlock(), createBlock(resolveDynamicComponent(tab)))
+              ]),
+              _: 2
+            }, 1024)), [
+              [vShow, index2 === $data.activeIndex]
+            ]);
+          }), 128))
+        ]),
+        _: 1
+      })
+    ], 64))
+  ], 2);
 }
-var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$1a, [["render", _sfc_render$1a], ["__scopeId", "data-v-7e39d77e"]]);
-const _sfc_main$19 = {
+var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$1b, [["render", _sfc_render$1b], ["__scopeId", "data-v-2a0551fe"]]);
+const _sfc_main$1a = {
   props: {
     heading: {
       type: String,
@@ -236,7 +278,7 @@ const _sfc_main$19 = {
     }
   }
 };
-function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_column = resolveComponent("flex-column");
   return openBlock(), createBlock(_component_flex_column, null, {
     default: withCtx(() => [
@@ -245,10 +287,10 @@ function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   });
 }
-var UXTab = /* @__PURE__ */ _export_sfc(_sfc_main$19, [["render", _sfc_render$19]]);
+var UXTab = /* @__PURE__ */ _export_sfc(_sfc_main$1a, [["render", _sfc_render$1a]]);
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
-var isArray$3 = Array.isArray;
-var isArray_1 = isArray$3;
+var isArray$5 = Array.isArray;
+var isArray_1 = isArray$5;
 var freeGlobal$1 = typeof commonjsGlobal == "object" && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
 var _freeGlobal = freeGlobal$1;
 var freeGlobal = _freeGlobal;
@@ -259,12 +301,12 @@ var root$3 = _root;
 var Symbol$4 = root$3.Symbol;
 var _Symbol = Symbol$4;
 var Symbol$3 = _Symbol;
-var objectProto$4 = Object.prototype;
-var hasOwnProperty$4 = objectProto$4.hasOwnProperty;
-var nativeObjectToString$1 = objectProto$4.toString;
+var objectProto$8 = Object.prototype;
+var hasOwnProperty$7 = objectProto$8.hasOwnProperty;
+var nativeObjectToString$1 = objectProto$8.toString;
 var symToStringTag$1 = Symbol$3 ? Symbol$3.toStringTag : void 0;
 function getRawTag$1(value) {
-  var isOwn = hasOwnProperty$4.call(value, symToStringTag$1), tag = value[symToStringTag$1];
+  var isOwn = hasOwnProperty$7.call(value, symToStringTag$1), tag = value[symToStringTag$1];
   try {
     value[symToStringTag$1] = void 0;
     var unmasked = true;
@@ -281,8 +323,8 @@ function getRawTag$1(value) {
   return result;
 }
 var _getRawTag = getRawTag$1;
-var objectProto$3 = Object.prototype;
-var nativeObjectToString = objectProto$3.toString;
+var objectProto$7 = Object.prototype;
+var nativeObjectToString = objectProto$7.toString;
 function objectToString$1(value) {
   return nativeObjectToString.call(value);
 }
@@ -290,27 +332,27 @@ var _objectToString = objectToString$1;
 var Symbol$2 = _Symbol, getRawTag = _getRawTag, objectToString = _objectToString;
 var nullTag = "[object Null]", undefinedTag = "[object Undefined]";
 var symToStringTag = Symbol$2 ? Symbol$2.toStringTag : void 0;
-function baseGetTag$2(value) {
+function baseGetTag$5(value) {
   if (value == null) {
     return value === void 0 ? undefinedTag : nullTag;
   }
   return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
 }
-var _baseGetTag = baseGetTag$2;
-function isObjectLike$1(value) {
+var _baseGetTag = baseGetTag$5;
+function isObjectLike$5(value) {
   return value != null && typeof value == "object";
 }
-var isObjectLike_1 = isObjectLike$1;
-var baseGetTag$1 = _baseGetTag, isObjectLike = isObjectLike_1;
+var isObjectLike_1 = isObjectLike$5;
+var baseGetTag$4 = _baseGetTag, isObjectLike$4 = isObjectLike_1;
 var symbolTag = "[object Symbol]";
 function isSymbol$4(value) {
-  return typeof value == "symbol" || isObjectLike(value) && baseGetTag$1(value) == symbolTag;
+  return typeof value == "symbol" || isObjectLike$4(value) && baseGetTag$4(value) == symbolTag;
 }
 var isSymbol_1 = isSymbol$4;
-var isArray$2 = isArray_1, isSymbol$3 = isSymbol_1;
+var isArray$4 = isArray_1, isSymbol$3 = isSymbol_1;
 var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/, reIsPlainProp = /^\w*$/;
 function isKey$1(value, object) {
-  if (isArray$2(value)) {
+  if (isArray$4(value)) {
     return false;
   }
   var type = typeof value;
@@ -325,16 +367,16 @@ function isObject$4(value) {
   return value != null && (type == "object" || type == "function");
 }
 var isObject_1 = isObject$4;
-var baseGetTag = _baseGetTag, isObject$3 = isObject_1;
-var asyncTag = "[object AsyncFunction]", funcTag = "[object Function]", genTag = "[object GeneratorFunction]", proxyTag = "[object Proxy]";
-function isFunction$1(value) {
+var baseGetTag$3 = _baseGetTag, isObject$3 = isObject_1;
+var asyncTag = "[object AsyncFunction]", funcTag$1 = "[object Function]", genTag = "[object GeneratorFunction]", proxyTag = "[object Proxy]";
+function isFunction$2(value) {
   if (!isObject$3(value)) {
     return false;
   }
-  var tag = baseGetTag(value);
-  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+  var tag = baseGetTag$3(value);
+  return tag == funcTag$1 || tag == genTag || tag == asyncTag || tag == proxyTag;
 }
-var isFunction_1 = isFunction$1;
+var isFunction_1 = isFunction$2;
 var root$2 = _root;
 var coreJsData$1 = root$2["__core-js_shared__"];
 var _coreJsData = coreJsData$1;
@@ -363,18 +405,18 @@ function toSource$1(func) {
   return "";
 }
 var _toSource = toSource$1;
-var isFunction = isFunction_1, isMasked = _isMasked, isObject$2 = isObject_1, toSource = _toSource;
+var isFunction$1 = isFunction_1, isMasked = _isMasked, isObject$2 = isObject_1, toSource = _toSource;
 var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
 var reIsHostCtor = /^\[object .+?Constructor\]$/;
-var funcProto = Function.prototype, objectProto$2 = Object.prototype;
+var funcProto = Function.prototype, objectProto$6 = Object.prototype;
 var funcToString = funcProto.toString;
-var hasOwnProperty$3 = objectProto$2.hasOwnProperty;
-var reIsNative = RegExp("^" + funcToString.call(hasOwnProperty$3).replace(reRegExpChar, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");
+var hasOwnProperty$6 = objectProto$6.hasOwnProperty;
+var reIsNative = RegExp("^" + funcToString.call(hasOwnProperty$6).replace(reRegExpChar, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");
 function baseIsNative$1(value) {
   if (!isObject$2(value) || isMasked(value)) {
     return false;
   }
-  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+  var pattern = isFunction$1(value) ? reIsNative : reIsHostCtor;
   return pattern.test(toSource(value));
 }
 var _baseIsNative = baseIsNative$1;
@@ -405,23 +447,23 @@ function hashDelete$1(key) {
 var _hashDelete = hashDelete$1;
 var nativeCreate$2 = _nativeCreate;
 var HASH_UNDEFINED$1 = "__lodash_hash_undefined__";
-var objectProto$1 = Object.prototype;
-var hasOwnProperty$2 = objectProto$1.hasOwnProperty;
+var objectProto$5 = Object.prototype;
+var hasOwnProperty$5 = objectProto$5.hasOwnProperty;
 function hashGet$1(key) {
   var data = this.__data__;
   if (nativeCreate$2) {
     var result = data[key];
     return result === HASH_UNDEFINED$1 ? void 0 : result;
   }
-  return hasOwnProperty$2.call(data, key) ? data[key] : void 0;
+  return hasOwnProperty$5.call(data, key) ? data[key] : void 0;
 }
 var _hashGet = hashGet$1;
 var nativeCreate$1 = _nativeCreate;
-var objectProto = Object.prototype;
-var hasOwnProperty$1 = objectProto.hasOwnProperty;
+var objectProto$4 = Object.prototype;
+var hasOwnProperty$4 = objectProto$4.hasOwnProperty;
 function hashHas$1(key) {
   var data = this.__data__;
-  return nativeCreate$1 ? data[key] !== void 0 : hasOwnProperty$1.call(data, key);
+  return nativeCreate$1 ? data[key] !== void 0 : hasOwnProperty$4.call(data, key);
 }
 var _hashHas = hashHas$1;
 var nativeCreate = _nativeCreate;
@@ -635,29 +677,29 @@ var stringToPath$1 = memoizeCapped(function(string) {
   return result;
 });
 var _stringToPath = stringToPath$1;
-function arrayMap$1(array, iteratee) {
+function arrayMap$2(array, iteratee) {
   var index2 = -1, length = array == null ? 0 : array.length, result = Array(length);
   while (++index2 < length) {
     result[index2] = iteratee(array[index2], index2, array);
   }
   return result;
 }
-var _arrayMap = arrayMap$1;
-var Symbol$1 = _Symbol, arrayMap = _arrayMap, isArray$1 = isArray_1, isSymbol$2 = isSymbol_1;
-var INFINITY$1 = 1 / 0;
+var _arrayMap = arrayMap$2;
+var Symbol$1 = _Symbol, arrayMap$1 = _arrayMap, isArray$3 = isArray_1, isSymbol$2 = isSymbol_1;
+var INFINITY$2 = 1 / 0;
 var symbolProto = Symbol$1 ? Symbol$1.prototype : void 0, symbolToString = symbolProto ? symbolProto.toString : void 0;
 function baseToString$1(value) {
   if (typeof value == "string") {
     return value;
   }
-  if (isArray$1(value)) {
-    return arrayMap(value, baseToString$1) + "";
+  if (isArray$3(value)) {
+    return arrayMap$1(value, baseToString$1) + "";
   }
   if (isSymbol$2(value)) {
     return symbolToString ? symbolToString.call(value) : "";
   }
   var result = value + "";
-  return result == "0" && 1 / value == -INFINITY$1 ? "-0" : result;
+  return result == "0" && 1 / value == -INFINITY$2 ? "-0" : result;
 }
 var _baseToString = baseToString$1;
 var baseToString = _baseToString;
@@ -665,22 +707,22 @@ function toString$1(value) {
   return value == null ? "" : baseToString(value);
 }
 var toString_1 = toString$1;
-var isArray = isArray_1, isKey = _isKey, stringToPath = _stringToPath, toString = toString_1;
+var isArray$2 = isArray_1, isKey = _isKey, stringToPath = _stringToPath, toString = toString_1;
 function castPath$1(value, object) {
-  if (isArray(value)) {
+  if (isArray$2(value)) {
     return value;
   }
   return isKey(value, object) ? [value] : stringToPath(toString(value));
 }
 var _castPath = castPath$1;
 var isSymbol$1 = isSymbol_1;
-var INFINITY = 1 / 0;
+var INFINITY$1 = 1 / 0;
 function toKey$1(value) {
   if (typeof value == "string" || isSymbol$1(value)) {
     return value;
   }
   var result = value + "";
-  return result == "0" && 1 / value == -INFINITY ? "-0" : result;
+  return result == "0" && 1 / value == -INFINITY$1 ? "-0" : result;
 }
 var _toKey = toKey$1;
 var castPath = _castPath, toKey = _toKey;
@@ -713,7 +755,7 @@ var TableCellMixin = {
   }
 };
 var Thumbnail_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$18 = {
+const _sfc_main$19 = {
   mixins: [TableCellMixin],
   computed: {
     imageSource() {
@@ -731,7 +773,7 @@ const _sfc_main$18 = {
   }
 };
 const _hoisted_1$S = { class: "table-image-cell" };
-function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_image = resolveComponent("ux-image");
   const _component_ux_icon = resolveComponent("ux-icon");
   return openBlock(), createElementBlock("td", _hoisted_1$S, [
@@ -752,7 +794,37 @@ function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
     }))
   ]);
 }
-var ThumbnailCell = /* @__PURE__ */ _export_sfc(_sfc_main$18, [["render", _sfc_render$18], ["__scopeId", "data-v-246a2688"]]);
+var ThumbnailCell = /* @__PURE__ */ _export_sfc(_sfc_main$19, [["render", _sfc_render$19], ["__scopeId", "data-v-246a2688"]]);
+var Currency_vue_vue_type_style_index_0_scoped_true_lang = "";
+const _sfc_main$18 = {
+  mixins: [TableCellMixin],
+  computed: {
+    string() {
+      return this.amount.toFixed(2);
+    },
+    amount() {
+      return Number(parseInt(this.value) / 100);
+    },
+    credit() {
+      return this.amount > 0;
+    },
+    debit() {
+      return this.amount < 0;
+    },
+    empty() {
+      return parseInt(this.value) === 0;
+    },
+    currency() {
+      return this.column.currency || this.row.currency;
+    }
+  }
+};
+function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("td", {
+    class: normalizeClass(["table-currency-cell", { credit: $options.credit, empty: $options.empty, debit: $options.debit }])
+  }, toDisplayString($options.string), 3);
+}
+var CurrencyCell = /* @__PURE__ */ _export_sfc(_sfc_main$18, [["render", _sfc_render$18], ["__scopeId", "data-v-33a0b926"]]);
 var Button_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$17 = {
   data() {
@@ -992,7 +1064,7 @@ function isNumber(o) {
 function isInteger(o) {
   return typeof o === "number" && o % 1 === 0;
 }
-function isString(o) {
+function isString$2(o) {
   return typeof o === "string";
 }
 function isDate(o) {
@@ -1023,13 +1095,13 @@ function bestBy(arr, by, compare) {
     }
   }, null)[1];
 }
-function pick(obj, keys) {
-  return keys.reduce((a2, k) => {
+function pick(obj, keys2) {
+  return keys2.reduce((a2, k) => {
     a2[k] = obj[k];
     return a2;
   }, {});
 }
-function hasOwnProperty(obj, prop) {
+function hasOwnProperty$3(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 function integerBetween(thing, bottom, top) {
@@ -1139,7 +1211,7 @@ function asNumber(value) {
 function normalizeObject(obj, normalizer) {
   const normalized = {};
   for (const u2 in obj) {
-    if (hasOwnProperty(obj, u2)) {
+    if (hasOwnProperty$3(obj, u2)) {
       const v = obj[u2];
       if (v === void 0 || v === null)
         continue;
@@ -1836,7 +1908,7 @@ function normalizeZone(input, defaultZone2) {
     return defaultZone2;
   } else if (input instanceof Zone) {
     return input;
-  } else if (isString(input)) {
+  } else if (isString$2(input)) {
     const lowered = input.toLowerCase();
     if (lowered === "local" || lowered === "system")
       return defaultZone2;
@@ -2230,12 +2302,12 @@ function parse(s2, ...patterns) {
   }
   return [null, null];
 }
-function simpleParse(...keys) {
+function simpleParse(...keys2) {
   return (match2, cursor) => {
     const ret = {};
     let i2;
-    for (i2 = 0; i2 < keys.length; i2++) {
-      ret[keys[i2]] = parseInteger(match2[cursor + i2]);
+    for (i2 = 0; i2 < keys2.length; i2++) {
+      ret[keys2[i2]] = parseInteger(match2[cursor + i2]);
     }
     return [ret, null, cursor + i2];
   };
@@ -2683,7 +2755,7 @@ class Duration {
       return this;
     const dur = Duration.fromDurationLike(duration), result = {};
     for (const k of orderedUnits$1) {
-      if (hasOwnProperty(dur.values, k) || hasOwnProperty(this.values, k)) {
+      if (hasOwnProperty$3(dur.values, k) || hasOwnProperty$3(this.values, k)) {
         result[k] = dur.get(k) + this.get(k);
       }
     }
@@ -2707,10 +2779,10 @@ class Duration {
   get(unit) {
     return this[Duration.normalizeUnit(unit)];
   }
-  set(values) {
+  set(values2) {
     if (!this.isValid)
       return this;
-    const mixed = __spreadValues(__spreadValues({}, this.values), normalizeObject(values, Duration.normalizeUnit));
+    const mixed = __spreadValues(__spreadValues({}, this.values), normalizeObject(values2, Duration.normalizeUnit));
     return clone$2(this, { values: mixed });
   }
   reconfigure({ locale, numberingSystem, conversionAccuracy } = {}) {
@@ -3484,7 +3556,7 @@ function match(input, regex2, handlers) {
     const all = {};
     let matchIndex = 1;
     for (const i2 in handlers) {
-      if (hasOwnProperty(handlers, i2)) {
+      if (hasOwnProperty$3(handlers, i2)) {
         const h2 = handlers[i2], groups = h2.groups ? h2.groups + 1 : 1;
         if (!h2.literal && h2.token) {
           all[h2.token.val[0]] = h2.deser(matches2.slice(matchIndex, matchIndex + groups));
@@ -3599,7 +3671,7 @@ function explainFromTokens(locale, input, format) {
     return { input, tokens, invalidReason: disqualifyingUnit.invalidReason };
   } else {
     const [regexString, handlers] = buildRegex(units), regex2 = RegExp(regexString, "i"), [rawMatches, matches2] = match(input, regex2, handlers), [result, zone, specificOffset] = matches2 ? dateTimeFromMatches(matches2) : [null, null, void 0];
-    if (hasOwnProperty(matches2, "a") && hasOwnProperty(matches2, "H")) {
+    if (hasOwnProperty$3(matches2, "a") && hasOwnProperty$3(matches2, "H")) {
       throw new ConflictingSpecificationError("Can't include meridiem when specifying 24-hour format");
     }
     return { input, tokens, regex: regex2, rawMatches, matches: matches2, result, zone, specificOffset };
@@ -4304,10 +4376,10 @@ class DateTime {
   setLocale(locale) {
     return this.reconfigure({ locale });
   }
-  set(values) {
+  set(values2) {
     if (!this.isValid)
       return this;
-    const normalized = normalizeObject(values, normalizeUnit), settingWeekStuff = !isUndefined$7(normalized.weekYear) || !isUndefined$7(normalized.weekNumber) || !isUndefined$7(normalized.weekday), containsOrdinal = !isUndefined$7(normalized.ordinal), containsGregorYear = !isUndefined$7(normalized.year), containsGregorMD = !isUndefined$7(normalized.month) || !isUndefined$7(normalized.day), containsGregor = containsGregorYear || containsGregorMD, definiteWeekDef = normalized.weekYear || normalized.weekNumber;
+    const normalized = normalizeObject(values2, normalizeUnit), settingWeekStuff = !isUndefined$7(normalized.weekYear) || !isUndefined$7(normalized.weekNumber) || !isUndefined$7(normalized.weekday), containsOrdinal = !isUndefined$7(normalized.ordinal), containsGregorYear = !isUndefined$7(normalized.year), containsGregorMD = !isUndefined$7(normalized.month) || !isUndefined$7(normalized.day), containsGregor = containsGregorYear || containsGregorMD, definiteWeekDef = normalized.weekYear || normalized.weekNumber;
     if ((containsGregor || containsOrdinal) && definiteWeekDef) {
       throw new ConflictingSpecificationError("Can't mix weekYear/weekNumber units with year/month/day or ordinals");
     }
@@ -4662,13 +4734,13 @@ const _hoisted_1$Q = { class: "table-date-cell" };
 const _hoisted_2$I = { key: 0 };
 const _hoisted_3$A = { class: "off" };
 const _hoisted_4$w = { class: "on" };
-const _hoisted_5$n = { class: "spacer" };
+const _hoisted_5$o = { class: "spacer" };
 function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("td", _hoisted_1$Q, [
     $options.hasValue ? (openBlock(), createElementBlock("div", _hoisted_2$I, [
       createElementVNode("span", _hoisted_3$A, toDisplayString($options.readable), 1),
       createElementVNode("span", _hoisted_4$w, toDisplayString($options.timeago), 1),
-      createElementVNode("span", _hoisted_5$n, toDisplayString($options.readable), 1)
+      createElementVNode("span", _hoisted_5$o, toDisplayString($options.readable), 1)
     ])) : createCommentVNode("", true)
   ]);
 }
@@ -4850,7 +4922,7 @@ const _sfc_main$11 = {
     const self2 = this;
     let component;
     let cellType = self2.column.type;
-    let cellRenderer = self2.column.renderer;
+    let cellRenderer = self2.column.renderer || self2.column.widget;
     if (cellType == "reference") {
       if (self2.column.referenceType === "image") {
         cellRenderer = "thumbnail";
@@ -4872,6 +4944,9 @@ const _sfc_main$11 = {
         break;
       case "url":
         component = URLCell;
+        break;
+      case "currency":
+        component = CurrencyCell;
         break;
       case "thumbnail":
         component = ThumbnailCell;
@@ -4967,7 +5042,7 @@ function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["type", "value"]))
   ]));
 }
-var TableCell = /* @__PURE__ */ _export_sfc(_sfc_main$11, [["render", _sfc_render$11], ["__scopeId", "data-v-6c8f100b"]]);
+var TableCell = /* @__PURE__ */ _export_sfc(_sfc_main$11, [["render", _sfc_render$11], ["__scopeId", "data-v-44c51175"]]);
 const _sfc_main$10 = {
   components: {
     TableCell
@@ -5344,10 +5419,10 @@ const _hoisted_3$y = {
   class: "first table-select shrink"
 };
 const _hoisted_4$v = /* @__PURE__ */ createTextVNode(" Select Page ");
-const _hoisted_5$m = /* @__PURE__ */ createTextVNode(" Deselect Page ");
-const _hoisted_6$i = /* @__PURE__ */ createTextVNode(" Deselect All ");
-const _hoisted_7$f = ["onClick"];
-const _hoisted_8$8 = {
+const _hoisted_5$n = /* @__PURE__ */ createTextVNode(" Deselect Page ");
+const _hoisted_6$j = /* @__PURE__ */ createTextVNode(" Deselect All ");
+const _hoisted_7$g = ["onClick"];
+const _hoisted_8$9 = {
   key: 1,
   class: "last shrink"
 };
@@ -5385,7 +5460,7 @@ function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
                         onClick: _cache[1] || (_cache[1] = ($event) => $options.deselectPage())
                       }, {
                         default: withCtx(() => [
-                          _hoisted_5$m
+                          _hoisted_5$n
                         ]),
                         _: 1
                       })) : createCommentVNode("", true),
@@ -5403,7 +5478,7 @@ function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
                         onClick: _cache[3] || (_cache[3] = ($event) => $props.deselectAll())
                       }, {
                         default: withCtx(() => [
-                          _hoisted_6$i
+                          _hoisted_6$j
                         ]),
                         _: 1
                       })) : createCommentVNode("", true)
@@ -5447,9 +5522,9 @@ function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
                   }),
                   _: 2
                 }, 1024)
-              ], 10, _hoisted_7$f);
+              ], 10, _hoisted_7$g);
             }), 256)),
-            $props.enableActions ? (openBlock(), createElementBlock("th", _hoisted_8$8, [
+            $props.enableActions ? (openBlock(), createElementBlock("th", _hoisted_8$9, [
               renderSlot(_ctx.$slots, "corner", {}, void 0, true)
             ])) : createCommentVNode("", true)
           ])
@@ -6662,6 +6737,9 @@ var InputMixin = {
     label() {
       return this.field.title;
     },
+    title() {
+      return this.label;
+    },
     plural() {
       return this.field.plural;
     },
@@ -7014,12 +7092,12 @@ const _hoisted_4$u = {
   key: 2,
   class: "ui-select-button"
 };
-const _hoisted_5$l = ["multiple"];
-const _hoisted_6$h = {
+const _hoisted_5$m = ["multiple"];
+const _hoisted_6$i = {
   key: 0,
   value: ""
 };
-const _hoisted_7$e = ["value"];
+const _hoisted_7$f = ["value"];
 function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_button = resolveComponent("ux-button");
   return openBlock(), createElementBlock("div", {
@@ -7045,13 +7123,13 @@ function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
       multiple: _ctx.multiValue,
       "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => _ctx.model = $event)
     }, [
-      _ctx.singleValue && !_ctx.minimum ? (openBlock(), createElementBlock("option", _hoisted_6$h, "None")) : createCommentVNode("", true),
+      _ctx.singleValue && !_ctx.minimum ? (openBlock(), createElementBlock("option", _hoisted_6$i, "None")) : createCommentVNode("", true),
       (openBlock(true), createElementBlock(Fragment, null, renderList($options.selectableOptions, (option2) => {
         return openBlock(), createElementBlock("option", {
           value: option2.value
-        }, toDisplayString(option2.title), 9, _hoisted_7$e);
+        }, toDisplayString(option2.title), 9, _hoisted_7$f);
       }), 256))
-    ], 40, _hoisted_5$l), [
+    ], 40, _hoisted_5$m), [
       [vModelSelect, _ctx.model]
     ])
   ], 2);
@@ -7143,15 +7221,15 @@ const _hoisted_3$w = {
   class: "ux-field-description"
 };
 const _hoisted_4$t = { key: 2 };
-const _hoisted_5$k = /* @__PURE__ */ createTextVNode(" Country Code ");
-const _hoisted_6$g = { key: 0 };
-const _hoisted_7$d = { key: 1 };
-const _hoisted_8$7 = { class: "ux-text-wrap" };
-const _hoisted_9$6 = ["placeholder", "onUpdate:modelValue"];
+const _hoisted_5$l = /* @__PURE__ */ createTextVNode(" Country Code ");
+const _hoisted_6$h = { key: 0 };
+const _hoisted_7$e = { key: 1 };
+const _hoisted_8$8 = { class: "ux-text-wrap" };
+const _hoisted_9$7 = ["placeholder", "onUpdate:modelValue"];
 const _hoisted_10$5 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("option", { value: "" }, "None", -1));
 const _hoisted_11$4 = ["value"];
 const _hoisted_12$4 = { class: "ux-text-wrap" };
-const _hoisted_13$3 = ["placeholder"];
+const _hoisted_13$4 = ["placeholder"];
 function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_button = resolveComponent("ux-button");
   const _component_native_select = resolveComponent("native-select");
@@ -7185,9 +7263,9 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
                     createVNode(_component_ux_button, { tag: "a" }, {
                       default: withCtx(() => [
                         !entry.countryCode ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
-                          _hoisted_5$k
+                          _hoisted_5$l
                         ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
-                          $data.lookup[entry.countryCode] ? (openBlock(), createElementBlock("div", _hoisted_6$g, toDisplayString($data.lookup[entry.countryCode].emoji) + " - " + toDisplayString($data.lookup[entry.countryCode].alpha2), 1)) : (openBlock(), createElementBlock("div", _hoisted_7$d, "Loading"))
+                          $data.lookup[entry.countryCode] ? (openBlock(), createElementBlock("div", _hoisted_6$h, toDisplayString($data.lookup[entry.countryCode].emoji) + " - " + toDisplayString($data.lookup[entry.countryCode].alpha2), 1)) : (openBlock(), createElementBlock("div", _hoisted_7$e, "Loading"))
                         ], 64))
                       ]),
                       _: 2
@@ -7200,7 +7278,7 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
             }, 1024),
             createVNode(_component_flex_cell, null, {
               default: withCtx(() => [
-                createElementVNode("div", _hoisted_8$7, [
+                createElementVNode("div", _hoisted_8$8, [
                   withDirectives(createElementVNode("input", {
                     class: "ux-field-focus ux-text-input-multiple",
                     placeholder: $options.actualPlaceholder,
@@ -7209,7 +7287,7 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
                     ref: "input",
                     onKeydown: _cache[1] || (_cache[1] = withKeys(withModifiers(($event) => _ctx.add(), ["stop", "prevent"]), ["enter"])),
                     "onUpdate:modelValue": ($event) => entry.number = $event
-                  }, null, 40, _hoisted_9$6), [
+                  }, null, 40, _hoisted_9$7), [
                     [vModelText, entry.number]
                   ])
                 ])
@@ -7286,7 +7364,7 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
                 ref: "input",
                 onKeydown: _cache[5] || (_cache[5] = withKeys(withModifiers(($event) => _ctx.add(), ["stop", "prevent"]), ["enter"])),
                 "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => _ctx.model.number = $event)
-              }, null, 40, _hoisted_13$3), [
+              }, null, 40, _hoisted_13$4), [
                 [vModelText, _ctx.model.number]
               ])
             ])
@@ -7844,12 +7922,12 @@ const _hoisted_4$s = {
   key: 2,
   class: "ui-select-button"
 };
-const _hoisted_5$j = ["multiple"];
-const _hoisted_6$f = {
+const _hoisted_5$k = ["multiple"];
+const _hoisted_6$g = {
   key: 0,
   value: ""
 };
-const _hoisted_7$c = ["value"];
+const _hoisted_7$d = ["value"];
 function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_button = resolveComponent("ux-button");
   return openBlock(), createElementBlock("div", {
@@ -7875,13 +7953,13 @@ function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
       multiple: _ctx.multiValue,
       "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => _ctx.model = $event)
     }, [
-      _ctx.singleValue && !_ctx.minimum ? (openBlock(), createElementBlock("option", _hoisted_6$f, "None")) : createCommentVNode("", true),
+      _ctx.singleValue && !_ctx.minimum ? (openBlock(), createElementBlock("option", _hoisted_6$g, "None")) : createCommentVNode("", true),
       (openBlock(true), createElementBlock(Fragment, null, renderList($options.selectableOptions, (option2) => {
         return openBlock(), createElementBlock("option", {
           value: option2.value
-        }, toDisplayString(option2.title), 9, _hoisted_7$c);
+        }, toDisplayString(option2.title), 9, _hoisted_7$d);
       }), 256))
-    ], 40, _hoisted_5$j), [
+    ], 40, _hoisted_5$k), [
       [vModelSelect, _ctx.model]
     ])
   ], 2);
@@ -7969,7 +8047,7 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ]);
 }
-var Item = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-a859ba7a"]]);
+var Item = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], ["__scopeId", "data-v-055fac6a"]]);
 /**!
  * Sortable 1.14.0
  * @author	RubaXa   <trash@rubaxa.org>
@@ -7977,7 +8055,7 @@ var Item = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["render", _sfc_render$J], 
  * @license MIT
  */
 function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
+  var keys2 = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
     if (enumerableOnly) {
@@ -7985,9 +8063,9 @@ function ownKeys(object, enumerableOnly) {
         return Object.getOwnPropertyDescriptor(object, sym).enumerable;
       });
     }
-    keys.push.apply(keys, symbols);
+    keys2.push.apply(keys2, symbols);
   }
-  return keys;
+  return keys2;
 }
 function _objectSpread2(target) {
   for (var i2 = 1; i2 < arguments.length; i2++) {
@@ -10826,7 +10904,7 @@ const _hoisted_4$r = {
   key: 1,
   class: "items"
 };
-const _hoisted_5$i = /* @__PURE__ */ createTextVNode(" Create ");
+const _hoisted_5$j = /* @__PURE__ */ createTextVNode(" Create ");
 function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
   const _component_ux_button = resolveComponent("ux-button");
@@ -10933,7 +11011,7 @@ function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
               onClick: $options.create
             }, {
               default: withCtx(() => [
-                _hoisted_5$i,
+                _hoisted_5$j,
                 createVNode(_component_ux_icon, {
                   right: "",
                   icon: "fa-plus"
@@ -11080,12 +11158,12 @@ const _hoisted_4$q = {
   key: 2,
   class: "ui-select-button"
 };
-const _hoisted_5$h = ["multiple"];
-const _hoisted_6$e = {
+const _hoisted_5$i = ["multiple"];
+const _hoisted_6$f = {
   key: 0,
   value: ""
 };
-const _hoisted_7$b = ["value"];
+const _hoisted_7$c = ["value"];
 function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_button = resolveComponent("ux-button");
   return openBlock(), createElementBlock("div", {
@@ -11111,13 +11189,13 @@ function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
       multiple: _ctx.multiValue,
       "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => _ctx.model = $event)
     }, [
-      _ctx.singleValue && !_ctx.minimum ? (openBlock(), createElementBlock("option", _hoisted_6$e, "None")) : createCommentVNode("", true),
+      _ctx.singleValue && !_ctx.minimum ? (openBlock(), createElementBlock("option", _hoisted_6$f, "None")) : createCommentVNode("", true),
       (openBlock(true), createElementBlock(Fragment, null, renderList($options.selectableOptions, (option2) => {
         return openBlock(), createElementBlock("option", {
           value: option2.value
-        }, toDisplayString(option2.title), 9, _hoisted_7$b);
+        }, toDisplayString(option2.title), 9, _hoisted_7$c);
       }), 256))
-    ], 40, _hoisted_5$h), [
+    ], 40, _hoisted_5$i), [
       [vModelSelect, _ctx.model]
     ])
   ], 2);
@@ -11214,20 +11292,20 @@ const _hoisted_3$s = {
   class: "ux-field-description"
 };
 const _hoisted_4$p = { key: 2 };
-const _hoisted_5$g = {
+const _hoisted_5$h = {
   key: 0,
   class: "ux-text-prefix"
 };
-const _hoisted_6$d = ["onBlur", "onUpdate:modelValue"];
-const _hoisted_7$a = {
+const _hoisted_6$e = ["onBlur", "onUpdate:modelValue"];
+const _hoisted_7$b = {
   key: 1,
   class: "ux-text-suffix"
 };
-const _hoisted_8$6 = {
+const _hoisted_8$7 = {
   key: 0,
   class: "ux-text-prefix"
 };
-const _hoisted_9$5 = {
+const _hoisted_9$6 = {
   key: 1,
   class: "ux-text-suffix"
 };
@@ -11254,7 +11332,7 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
                 createElementVNode("div", {
                   class: normalizeClass(["ux-text-wrap", { prefixed: $options.prefix, suffixed: $options.suffix }])
                 }, [
-                  $options.prefix ? (openBlock(), createElementBlock("span", _hoisted_5$g, toDisplayString($options.prefix), 1)) : createCommentVNode("", true),
+                  $options.prefix ? (openBlock(), createElementBlock("span", _hoisted_5$h, toDisplayString($options.prefix), 1)) : createCommentVNode("", true),
                   withDirectives((openBlock(), createElementBlock("input", {
                     class: "ux-field-focus ux-text-input-multiple",
                     ref_for: true,
@@ -11265,7 +11343,7 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
                     onBlur: ($event) => $options.update($event, index2),
                     "onUpdate:modelValue": ($event) => $options.proxy[index2] = $event,
                     onFocus: _cache[1] || (_cache[1] = (...args) => _ctx.touch && _ctx.touch(...args))
-                  }, null, 40, _hoisted_6$d)), [
+                  }, null, 40, _hoisted_6$e)), [
                     [
                       vModelText,
                       $options.proxy[index2],
@@ -11273,7 +11351,7 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
                       { lazy: true }
                     ]
                   ]),
-                  $options.suffix ? (openBlock(), createElementBlock("span", _hoisted_7$a, toDisplayString($options.suffix), 1)) : createCommentVNode("", true)
+                  $options.suffix ? (openBlock(), createElementBlock("span", _hoisted_7$b, toDisplayString($options.suffix), 1)) : createCommentVNode("", true)
                 ], 2)
               ]),
               _: 2
@@ -11318,7 +11396,7 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
       key: 3,
       class: normalizeClass(["ux-text-wrap", { prefixed: $options.prefix, suffixed: $options.suffix }])
     }, [
-      $options.prefix ? (openBlock(), createElementBlock("span", _hoisted_8$6, toDisplayString($options.prefix), 1)) : createCommentVNode("", true),
+      $options.prefix ? (openBlock(), createElementBlock("span", _hoisted_8$7, toDisplayString($options.prefix), 1)) : createCommentVNode("", true),
       withDirectives((openBlock(), createElementBlock("input", {
         class: "ux-field-focus ux-text-input-single",
         ref: "input",
@@ -11335,7 +11413,7 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
           { lazy: true }
         ]
       ]),
-      $options.suffix ? (openBlock(), createElementBlock("span", _hoisted_9$5, toDisplayString($options.suffix), 1)) : createCommentVNode("", true)
+      $options.suffix ? (openBlock(), createElementBlock("span", _hoisted_9$6, toDisplayString($options.suffix), 1)) : createCommentVNode("", true)
     ], 2))
   ], 64);
 }
@@ -11417,14 +11495,14 @@ const _hoisted_3$r = {
   class: "ux-field-description"
 };
 const _hoisted_4$o = { key: 2 };
-const _hoisted_5$f = { class: "ux-text-wrap" };
-const _hoisted_6$c = {
+const _hoisted_5$g = { class: "ux-text-wrap" };
+const _hoisted_6$d = {
   key: 0,
   class: "ux-text-prefix"
 };
-const _hoisted_7$9 = ["type", "placeholder", "onUpdate:modelValue"];
-const _hoisted_8$5 = ["type", "placeholder", "onUpdate:modelValue"];
-const _hoisted_9$4 = {
+const _hoisted_7$a = ["type", "placeholder", "onUpdate:modelValue"];
+const _hoisted_8$6 = ["type", "placeholder", "onUpdate:modelValue"];
+const _hoisted_9$5 = {
   key: 3,
   class: "ux-text-suffix"
 };
@@ -11437,8 +11515,8 @@ const _hoisted_11$3 = {
   class: "ux-text-prefix"
 };
 const _hoisted_12$3 = ["type", "placeholder"];
-const _hoisted_13$2 = ["type", "placeholder"];
-const _hoisted_14$2 = {
+const _hoisted_13$3 = ["type", "placeholder"];
+const _hoisted_14$3 = {
   key: 3,
   class: "ux-text-suffix"
 };
@@ -11462,8 +11540,8 @@ function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
           default: withCtx(() => [
             createVNode(_component_flex_cell, null, {
               default: withCtx(() => [
-                createElementVNode("div", _hoisted_5$f, [
-                  _ctx.prefix ? (openBlock(), createElementBlock("span", _hoisted_6$c, toDisplayString(_ctx.prefix), 1)) : createCommentVNode("", true),
+                createElementVNode("div", _hoisted_5$g, [
+                  _ctx.prefix ? (openBlock(), createElementBlock("span", _hoisted_6$d, toDisplayString(_ctx.prefix), 1)) : createCommentVNode("", true),
                   $options.lazy ? withDirectives((openBlock(), createElementBlock("input", {
                     key: 1,
                     type: $options.inputType,
@@ -11474,7 +11552,7 @@ function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
                     ref: "input",
                     onKeydown: _cache[1] || (_cache[1] = withKeys(withModifiers(($event) => _ctx.add(), ["stop", "prevent"]), ["enter"])),
                     "onUpdate:modelValue": ($event) => _ctx.model[index2] = $event
-                  }, null, 40, _hoisted_7$9)), [
+                  }, null, 40, _hoisted_7$a)), [
                     [
                       vModelDynamic,
                       _ctx.model[index2],
@@ -11492,10 +11570,10 @@ function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
                     ref: "input",
                     onKeydown: _cache[3] || (_cache[3] = withKeys(withModifiers(($event) => _ctx.add(), ["stop", "prevent"]), ["enter"])),
                     "onUpdate:modelValue": ($event) => _ctx.model[index2] = $event
-                  }, null, 40, _hoisted_8$5)), [
+                  }, null, 40, _hoisted_8$6)), [
                     [vModelDynamic, _ctx.model[index2]]
                   ]) : createCommentVNode("", true),
-                  _ctx.suffix ? (openBlock(), createElementBlock("span", _hoisted_9$4, toDisplayString(_ctx.suffix), 1)) : createCommentVNode("", true)
+                  _ctx.suffix ? (openBlock(), createElementBlock("span", _hoisted_9$5, toDisplayString(_ctx.suffix), 1)) : createCommentVNode("", true)
                 ])
               ]),
               _: 2
@@ -11562,10 +11640,10 @@ function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
         placeholder: $options.actualPlaceholder,
         onFocus: _cache[7] || (_cache[7] = (...args) => _ctx.touch && _ctx.touch(...args)),
         "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => _ctx.model = $event)
-      }, null, 40, _hoisted_13$2)), [
+      }, null, 40, _hoisted_13$3)), [
         [vModelDynamic, _ctx.model]
       ]) : createCommentVNode("", true),
-      _ctx.suffix ? (openBlock(), createElementBlock("span", _hoisted_14$2, toDisplayString(_ctx.suffix), 1)) : createCommentVNode("", true)
+      _ctx.suffix ? (openBlock(), createElementBlock("span", _hoisted_14$3, toDisplayString(_ctx.suffix), 1)) : createCommentVNode("", true)
     ]))
   ], 64);
 }
@@ -11597,7 +11675,7 @@ const _hoisted_3$q = {
   class: "ux-field-description"
 };
 const _hoisted_4$n = { key: 2 };
-const _hoisted_5$e = ["onUpdate:modelValue"];
+const _hoisted_5$f = ["onUpdate:modelValue"];
 function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_cell = resolveComponent("flex-cell");
   const _component_ux_icon = resolveComponent("ux-icon");
@@ -11625,7 +11703,7 @@ function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
                   ref: "input",
                   "onUpdate:modelValue": ($event) => _ctx.model[index2] = $event,
                   class: "ux-textarea ux-field-focus ux-text-area-multiple"
-                }, null, 40, _hoisted_5$e), [
+                }, null, 40, _hoisted_5$f), [
                   [vModelText, _ctx.model[index2]]
                 ])
               ]),
@@ -11745,7 +11823,7 @@ const _hoisted_3$p = {
   class: "ux-field-description"
 };
 const _hoisted_4$m = { key: 2 };
-const _hoisted_5$d = ["onUpdate:modelValue"];
+const _hoisted_5$e = ["onUpdate:modelValue"];
 function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_cell = resolveComponent("flex-cell");
   const _component_ux_icon = resolveComponent("ux-icon");
@@ -11774,7 +11852,7 @@ function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
                   ref: "input",
                   onKeydown: _cache[1] || (_cache[1] = withKeys(withModifiers(($event) => _ctx.add(), ["stop", "prevent"]), ["enter"])),
                   "onUpdate:modelValue": ($event) => $options.model[index2] = $event
-                }, null, 40, _hoisted_5$d), [
+                }, null, 40, _hoisted_5$e), [
                   [vModelText, $options.model[index2]]
                 ])
               ]),
@@ -12392,16 +12470,16 @@ const _hoisted_1$r = {
 const _hoisted_2$o = { key: 0 };
 const _hoisted_3$l = { key: 1 };
 const _hoisted_4$k = /* @__PURE__ */ createTextVNode(" And ");
-const _hoisted_5$c = { key: 2 };
-const _hoisted_6$b = { key: 3 };
-const _hoisted_7$8 = /* @__PURE__ */ createTextVNode(" And ");
-const _hoisted_8$4 = { key: 4 };
-const _hoisted_9$3 = { key: 5 };
+const _hoisted_5$d = { key: 2 };
+const _hoisted_6$c = { key: 3 };
+const _hoisted_7$9 = /* @__PURE__ */ createTextVNode(" And ");
+const _hoisted_8$5 = { key: 4 };
+const _hoisted_9$4 = { key: 5 };
 const _hoisted_10$3 = { key: 6 };
 const _hoisted_11$2 = { key: 7 };
 const _hoisted_12$2 = { key: 8 };
-const _hoisted_13$1 = { key: 9 };
-const _hoisted_14$1 = { key: 10 };
+const _hoisted_13$2 = { key: 9 };
+const _hoisted_14$2 = { key: 10 };
 function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_native_select = resolveComponent("native-select");
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -12467,7 +12545,7 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
                 "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => $data.model.value2 = $event)
               }, null, 8, ["field", "modelValue"])
             ])) : createCommentVNode("", true),
-            $options.inputType == "daterelative" ? (openBlock(), createElementBlock("div", _hoisted_5$c, [
+            $options.inputType == "daterelative" ? (openBlock(), createElementBlock("div", _hoisted_5$d, [
               createVNode(_component_flex_row, null, {
                 default: withCtx(() => [
                   createVNode(_component_flex_cell, { style: { "width": "80px" } }, {
@@ -12494,27 +12572,27 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
                 _: 1
               })
             ])) : createCommentVNode("", true),
-            $options.inputType == "daterange" ? (openBlock(), createElementBlock("div", _hoisted_6$b, [
+            $options.inputType == "daterange" ? (openBlock(), createElementBlock("div", _hoisted_6$c, [
               createVNode(_component_date_field, {
                 field: $options.dateField,
                 modelValue: $data.model.value,
                 "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => $data.model.value = $event)
               }, null, 8, ["field", "modelValue"]),
-              _hoisted_7$8,
+              _hoisted_7$9,
               createVNode(_component_date_field, {
                 field: $options.dateField,
                 modelValue: $data.model.value2,
                 "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $data.model.value2 = $event)
               }, null, 8, ["field", "modelValue"])
             ])) : createCommentVNode("", true),
-            $options.inputType == "date" ? (openBlock(), createElementBlock("div", _hoisted_8$4, [
+            $options.inputType == "date" ? (openBlock(), createElementBlock("div", _hoisted_8$5, [
               createVNode(_component_date_field, {
                 field: $options.dateField,
                 modelValue: $data.model.value,
                 "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => $data.model.value = $event)
               }, null, 8, ["field", "modelValue"])
             ])) : createCommentVNode("", true),
-            $options.inputType == "reference" ? (openBlock(), createElementBlock("div", _hoisted_9$3, [
+            $options.inputType == "reference" ? (openBlock(), createElementBlock("div", _hoisted_9$4, [
               createVNode(_component_content_select, {
                 field: $options.singleReferenceField,
                 modelValue: $data.model.value,
@@ -12537,14 +12615,14 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
               ])
             ])) : createCommentVNode("", true),
             $options.inputType == "none" ? (openBlock(), createElementBlock("div", _hoisted_12$2)) : createCommentVNode("", true),
-            $options.inputType == "number" ? (openBlock(), createElementBlock("div", _hoisted_13$1, [
+            $options.inputType == "number" ? (openBlock(), createElementBlock("div", _hoisted_13$2, [
               createVNode(_component_text_field, {
                 field: $options.normalField,
                 modelValue: $data.model.value,
                 "onUpdate:modelValue": _cache[14] || (_cache[14] = ($event) => $data.model.value = $event)
               }, null, 8, ["field", "modelValue"])
             ])) : createCommentVNode("", true),
-            $options.inputType == "normal" ? (openBlock(), createElementBlock("div", _hoisted_14$1, [
+            $options.inputType == "normal" ? (openBlock(), createElementBlock("div", _hoisted_14$2, [
               $options.hasOptions ? (openBlock(), createBlock(_component_native_select, {
                 key: 0,
                 modelValue: $data.model.value,
@@ -12609,7 +12687,7 @@ var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
 var reIsBinary = /^0b[01]+$/i;
 var reIsOctal = /^0o[0-7]+$/i;
 var freeParseInt = parseInt;
-function toNumber$1(value) {
+function toNumber$2(value) {
   if (typeof value == "number") {
     return value;
   }
@@ -12627,20 +12705,20 @@ function toNumber$1(value) {
   var isBinary = reIsBinary.test(value);
   return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
 }
-var toNumber_1 = toNumber$1;
-var isObject = isObject_1, now = now_1, toNumber = toNumber_1;
+var toNumber_1 = toNumber$2;
+var isObject = isObject_1, now = now_1, toNumber$1 = toNumber_1;
 var FUNC_ERROR_TEXT = "Expected a function";
-var nativeMax = Math.max, nativeMin = Math.min;
+var nativeMax$1 = Math.max, nativeMin = Math.min;
 function debounce(func, wait, options) {
   var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
   if (typeof func != "function") {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
-  wait = toNumber(wait) || 0;
+  wait = toNumber$1(wait) || 0;
   if (isObject(options)) {
     leading = !!options.leading;
     maxing = "maxWait" in options;
-    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    maxWait = maxing ? nativeMax$1(toNumber$1(options.maxWait) || 0, wait) : maxWait;
     trailing = "trailing" in options ? !!options.trailing : trailing;
   }
   function invokeFunc(time) {
@@ -12862,10 +12940,10 @@ const _hoisted_1$q = {
 const _hoisted_2$n = { class: "top" };
 const _hoisted_3$k = { class: "summary" };
 const _hoisted_4$j = /* @__PURE__ */ createTextVNode(" Match ");
-const _hoisted_5$b = /* @__PURE__ */ createTextVNode(" of the following conditions ");
-const _hoisted_6$a = /* @__PURE__ */ createElementVNode("span", { class: "line" }, null, -1);
-const _hoisted_7$7 = { class: "operator" };
-const _hoisted_8$3 = /* @__PURE__ */ createTextVNode(" Add Condition ");
+const _hoisted_5$c = /* @__PURE__ */ createTextVNode(" of the following conditions ");
+const _hoisted_6$b = /* @__PURE__ */ createElementVNode("span", { class: "line" }, null, -1);
+const _hoisted_7$8 = { class: "operator" };
+const _hoisted_8$4 = /* @__PURE__ */ createTextVNode(" Add Condition ");
 function _sfc_render$y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_native_select = resolveComponent("native-select");
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -12891,7 +12969,7 @@ function _sfc_render$y(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }, 8, ["modelValue", "field"]),
-                _hoisted_5$b
+                _hoisted_5$c
               ])
             ]),
             _: 1
@@ -12930,8 +13008,8 @@ function _sfc_render$y(_ctx, _cache, $props, $setup, $data, $options) {
             shrink: ""
           }, {
             default: withCtx(() => [
-              _hoisted_6$a,
-              createElementVNode("div", _hoisted_7$7, toDisplayString($data.model.operator), 1)
+              _hoisted_6$b,
+              createElementVNode("div", _hoisted_7$8, toDisplayString($data.model.operator), 1)
             ]),
             _: 2
           }, 1032, ["class"])) : createCommentVNode("", true),
@@ -12956,7 +13034,7 @@ function _sfc_render$y(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: $options.addCondition
     }, {
       default: withCtx(() => [
-        _hoisted_8$3,
+        _hoisted_8$4,
         createVNode(_component_ux_icon, {
           icon: "fa-plus",
           right: ""
@@ -13076,8 +13154,8 @@ const _hoisted_2$m = {
 };
 const _hoisted_3$j = { class: "summary" };
 const _hoisted_4$i = /* @__PURE__ */ createTextVNode(" Match ");
-const _hoisted_5$a = /* @__PURE__ */ createTextVNode(" of the following rules ");
-const _hoisted_6$9 = /* @__PURE__ */ createTextVNode("Add Filter Rule");
+const _hoisted_5$b = /* @__PURE__ */ createTextVNode(" of the following rules ");
+const _hoisted_6$a = /* @__PURE__ */ createTextVNode("Add Filter Rule");
 function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_native_select = resolveComponent("native-select");
   const _component_filter_rule = resolveComponent("filter-rule");
@@ -13102,7 +13180,7 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }, 8, ["modelValue", "field"]),
-                _hoisted_5$a
+                _hoisted_5$b
               ])
             ])) : createCommentVNode("", true),
             (openBlock(true), createElementBlock(Fragment, null, renderList($data.model.filters, (rule, index2) => {
@@ -13121,7 +13199,7 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
               onClick: _cache[1] || (_cache[1] = ($event) => $options.addRule())
             }, {
               default: withCtx(() => [
-                _hoisted_6$9
+                _hoisted_6$a
               ]),
               _: 1
             })
@@ -13587,9 +13665,9 @@ const _hoisted_4$g = {
   key: 2,
   class: "files"
 };
-const _hoisted_5$9 = { class: "size" };
-const _hoisted_6$8 = /* @__PURE__ */ createTextVNode("Select Files");
-const _hoisted_7$6 = /* @__PURE__ */ createTextVNode("Select File");
+const _hoisted_5$a = { class: "size" };
+const _hoisted_6$9 = /* @__PURE__ */ createTextVNode("Select Files");
+const _hoisted_7$7 = /* @__PURE__ */ createTextVNode("Select File");
 function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_progress_bar = resolveComponent("progress-bar");
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -13614,7 +13692,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
               createVNode(_component_flex_cell, null, {
                 default: withCtx(() => [
                   createElementVNode("strong", null, toDisplayString(file.name), 1),
-                  createElementVNode("div", _hoisted_5$9, toDisplayString($options.filesize(file.size)), 1),
+                  createElementVNode("div", _hoisted_5$a, toDisplayString($options.filesize(file.size)), 1),
                   createVNode(_component_progress_bar, {
                     value: file.progress
                   }, null, 8, ["value"])
@@ -13650,7 +13728,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
         default: withCtx(() => [
           createVNode(_component_ux_button, null, {
             default: withCtx(() => [
-              _hoisted_6$8
+              _hoisted_6$9
             ]),
             _: 1
           })
@@ -13664,7 +13742,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
       default: withCtx(() => [
         createVNode(_component_ux_button, null, {
           default: withCtx(() => [
-            _hoisted_7$6
+            _hoisted_7$7
           ]),
           _: 1
         })
@@ -13737,7 +13815,6 @@ const _sfc_main$s = {
       return `${this.label} ${index2 + 1}`;
     },
     enterPress(event) {
-      console.log("EVENT", event);
       if (this.canAddValue) {
         event.stopImmediatePropagation();
         event.preventDefault();
@@ -13769,13 +13846,30 @@ const _hoisted_1$k = {
 };
 const _hoisted_2$h = {
   key: 0,
-  class: "ux-field-title"
+  class: "ux-group-title"
 };
 const _hoisted_3$f = {
   key: 0,
-  class: "ux-required-marker"
+  class: "ux-field-title"
 };
 const _hoisted_4$f = {
+  key: 0,
+  class: "ux-required-marker"
+};
+const _hoisted_5$9 = {
+  key: 1,
+  class: "ux-field-description"
+};
+const _hoisted_6$8 = {
+  key: 0,
+  class: "ux-single-group"
+};
+const _hoisted_7$6 = { class: "ux-group-title" };
+const _hoisted_8$3 = {
+  key: 0,
+  class: "ux-field-title"
+};
+const _hoisted_9$3 = {
   key: 1,
   class: "ux-field-description"
 };
@@ -13790,13 +13884,13 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_panel = resolveComponent("ux-panel");
   const _component_draggable = resolveComponent("draggable");
   return _ctx.multiValue ? (openBlock(), createElementBlock("div", _hoisted_1$k, [
-    $options.showLabel ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
-      $options.showLabel ? (openBlock(), createElementBlock("label", _hoisted_2$h, [
-        createTextVNode(toDisplayString(_ctx.plural) + " ", 1),
-        _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_3$f, "*")) : createCommentVNode("", true)
+    $options.showLabel ? (openBlock(), createElementBlock("div", _hoisted_2$h, [
+      $options.showLabel ? (openBlock(), createElementBlock("label", _hoisted_3$f, [
+        createTextVNode(toDisplayString(_ctx.plural || _ctx.title) + " ", 1),
+        _ctx.required ? (openBlock(), createElementBlock("span", _hoisted_4$f, "*")) : createCommentVNode("", true)
       ])) : createCommentVNode("", true),
-      _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_4$f, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true)
-    ], 64)) : createCommentVNode("", true),
+      _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_5$9, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true)
+    ])) : createCommentVNode("", true),
     $options.reorderable ? (openBlock(), createBlock(_component_draggable, {
       key: 1,
       modelValue: _ctx.model,
@@ -14106,21 +14200,49 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
         ]),
         _: 1
       }))
-    ], 64)) : (openBlock(), createBlock(_component_ux_form, {
-      key: 1,
-      ref: "form",
-      trail: $props.trail,
-      submission: $props.submission,
-      "onForm:state": $options.stateChange,
-      parentModel: _ctx.parentModel,
-      modelValue: _ctx.model,
-      "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => _ctx.model = $event),
-      flex: $options.sameLine,
-      fields: _ctx.field.fields
-    }, null, 8, ["trail", "submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"]))
+    ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
+      $options.showLabel ? (openBlock(), createElementBlock("div", _hoisted_6$8, [
+        createElementVNode("div", _hoisted_7$6, [
+          $options.showLabel ? (openBlock(), createElementBlock("label", _hoisted_8$3, toDisplayString(_ctx.title), 1)) : createCommentVNode("", true),
+          _ctx.showDescription ? (openBlock(), createElementBlock("div", _hoisted_9$3, toDisplayString(_ctx.description), 1)) : createCommentVNode("", true)
+        ]),
+        createVNode(_component_ux_panel, null, {
+          default: withCtx(() => [
+            createVNode(_component_ux_panel_body, null, {
+              default: withCtx(() => [
+                createVNode(_component_ux_form, {
+                  ref: "form",
+                  trail: $props.trail,
+                  submission: $props.submission,
+                  "onForm:state": $options.stateChange,
+                  parentModel: _ctx.parentModel,
+                  modelValue: _ctx.model,
+                  "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => _ctx.model = $event),
+                  flex: $options.sameLine,
+                  fields: _ctx.field.fields
+                }, null, 8, ["trail", "submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"])
+              ]),
+              _: 1
+            })
+          ]),
+          _: 1
+        })
+      ])) : (openBlock(), createBlock(_component_ux_form, {
+        key: 1,
+        ref: "form",
+        trail: $props.trail,
+        submission: $props.submission,
+        "onForm:state": $options.stateChange,
+        parentModel: _ctx.parentModel,
+        modelValue: _ctx.model,
+        "onUpdate:modelValue": _cache[11] || (_cache[11] = ($event) => _ctx.model = $event),
+        flex: $options.sameLine,
+        fields: _ctx.field.fields
+      }, null, 8, ["trail", "submission", "onForm:state", "parentModel", "modelValue", "flex", "fields"]))
+    ], 64))
   ], 64));
 }
-var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-5188e4ee"]]);
+var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-500e8025"]]);
 const _sfc_main$r = {
   props: {
     option: {
@@ -14522,9 +14644,9 @@ const _hoisted_9$2 = { class: "ux-text-wrap prefixed" };
 const _hoisted_10$2 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", { class: "ux-text-prefix" }, "Value", -1));
 const _hoisted_11$1 = ["onFocus", "onUpdate:modelValue"];
 const _hoisted_12$1 = ["onFocus", "onUpdate:modelValue"];
-const _hoisted_13 = { class: "ux-text-wrap prefixed" };
-const _hoisted_14 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", { class: "ux-text-prefix" }, "Label", -1));
-const _hoisted_15 = { class: "ux-text-wrap prefixed" };
+const _hoisted_13$1 = { class: "ux-text-wrap prefixed" };
+const _hoisted_14$1 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", { class: "ux-text-prefix" }, "Label", -1));
+const _hoisted_15$1 = { class: "ux-text-wrap prefixed" };
 const _hoisted_16 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", { class: "ux-text-prefix" }, "Value", -1));
 function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_cell = resolveComponent("flex-cell");
@@ -14665,8 +14787,8 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
       default: withCtx(() => [
         createVNode(_component_flex_cell, null, {
           default: withCtx(() => [
-            createElementVNode("div", _hoisted_13, [
-              _hoisted_14,
+            createElementVNode("div", _hoisted_13$1, [
+              _hoisted_14$1,
               $options.lazy ? withDirectives((openBlock(), createElementBlock("input", {
                 key: 0,
                 class: "ux-field-focus ux-text-input-multiple",
@@ -14704,7 +14826,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         createVNode(_component_flex_cell, null, {
           default: withCtx(() => [
-            createElementVNode("div", _hoisted_15, [
+            createElementVNode("div", _hoisted_15$1, [
               _hoisted_16,
               $options.lazy ? withDirectives((openBlock(), createElementBlock("input", {
                 key: 0,
@@ -16033,7 +16155,302 @@ function a(r, e) {
       return;
   }
 }
+function baseFindIndex$1(array, predicate, fromIndex, fromRight) {
+  var length = array.length, index2 = fromIndex + (fromRight ? 1 : -1);
+  while (fromRight ? index2-- : ++index2 < length) {
+    if (predicate(array[index2], index2, array)) {
+      return index2;
+    }
+  }
+  return -1;
+}
+var _baseFindIndex = baseFindIndex$1;
+function baseIsNaN$1(value) {
+  return value !== value;
+}
+var _baseIsNaN = baseIsNaN$1;
+function strictIndexOf$1(array, value, fromIndex) {
+  var index2 = fromIndex - 1, length = array.length;
+  while (++index2 < length) {
+    if (array[index2] === value) {
+      return index2;
+    }
+  }
+  return -1;
+}
+var _strictIndexOf = strictIndexOf$1;
+var baseFindIndex = _baseFindIndex, baseIsNaN = _baseIsNaN, strictIndexOf = _strictIndexOf;
+function baseIndexOf$1(array, value, fromIndex) {
+  return value === value ? strictIndexOf(array, value, fromIndex) : baseFindIndex(array, baseIsNaN, fromIndex);
+}
+var _baseIndexOf = baseIndexOf$1;
+var MAX_SAFE_INTEGER$1 = 9007199254740991;
+function isLength$2(value) {
+  return typeof value == "number" && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER$1;
+}
+var isLength_1 = isLength$2;
+var isFunction = isFunction_1, isLength$1 = isLength_1;
+function isArrayLike$2(value) {
+  return value != null && isLength$1(value.length) && !isFunction(value);
+}
+var isArrayLike_1 = isArrayLike$2;
+var baseGetTag$2 = _baseGetTag, isArray$1 = isArray_1, isObjectLike$3 = isObjectLike_1;
+var stringTag$1 = "[object String]";
+function isString$1(value) {
+  return typeof value == "string" || !isArray$1(value) && isObjectLike$3(value) && baseGetTag$2(value) == stringTag$1;
+}
+var isString_1 = isString$1;
+var toNumber = toNumber_1;
+var INFINITY = 1 / 0, MAX_INTEGER = 17976931348623157e292;
+function toFinite$1(value) {
+  if (!value) {
+    return value === 0 ? value : 0;
+  }
+  value = toNumber(value);
+  if (value === INFINITY || value === -INFINITY) {
+    var sign = value < 0 ? -1 : 1;
+    return sign * MAX_INTEGER;
+  }
+  return value === value ? value : 0;
+}
+var toFinite_1 = toFinite$1;
+var toFinite = toFinite_1;
+function toInteger$1(value) {
+  var result = toFinite(value), remainder = result % 1;
+  return result === result ? remainder ? result - remainder : result : 0;
+}
+var toInteger_1 = toInteger$1;
+var arrayMap = _arrayMap;
+function baseValues$1(object, props2) {
+  return arrayMap(props2, function(key) {
+    return object[key];
+  });
+}
+var _baseValues = baseValues$1;
+function baseTimes$1(n2, iteratee) {
+  var index2 = -1, result = Array(n2);
+  while (++index2 < n2) {
+    result[index2] = iteratee(index2);
+  }
+  return result;
+}
+var _baseTimes = baseTimes$1;
+var baseGetTag$1 = _baseGetTag, isObjectLike$2 = isObjectLike_1;
+var argsTag$1 = "[object Arguments]";
+function baseIsArguments$1(value) {
+  return isObjectLike$2(value) && baseGetTag$1(value) == argsTag$1;
+}
+var _baseIsArguments = baseIsArguments$1;
+var baseIsArguments = _baseIsArguments, isObjectLike$1 = isObjectLike_1;
+var objectProto$3 = Object.prototype;
+var hasOwnProperty$2 = objectProto$3.hasOwnProperty;
+var propertyIsEnumerable = objectProto$3.propertyIsEnumerable;
+var isArguments$1 = baseIsArguments(function() {
+  return arguments;
+}()) ? baseIsArguments : function(value) {
+  return isObjectLike$1(value) && hasOwnProperty$2.call(value, "callee") && !propertyIsEnumerable.call(value, "callee");
+};
+var isArguments_1 = isArguments$1;
+var isBuffer$1 = { exports: {} };
+function stubFalse() {
+  return false;
+}
+var stubFalse_1 = stubFalse;
+(function(module, exports) {
+  var root2 = _root, stubFalse2 = stubFalse_1;
+  var freeExports = exports && !exports.nodeType && exports;
+  var freeModule = freeExports && true && module && !module.nodeType && module;
+  var moduleExports = freeModule && freeModule.exports === freeExports;
+  var Buffer2 = moduleExports ? root2.Buffer : void 0;
+  var nativeIsBuffer = Buffer2 ? Buffer2.isBuffer : void 0;
+  var isBuffer2 = nativeIsBuffer || stubFalse2;
+  module.exports = isBuffer2;
+})(isBuffer$1, isBuffer$1.exports);
+var MAX_SAFE_INTEGER = 9007199254740991;
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+function isIndex$1(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER : length;
+  return !!length && (type == "number" || type != "symbol" && reIsUint.test(value)) && (value > -1 && value % 1 == 0 && value < length);
+}
+var _isIndex = isIndex$1;
+var baseGetTag = _baseGetTag, isLength = isLength_1, isObjectLike = isObjectLike_1;
+var argsTag = "[object Arguments]", arrayTag = "[object Array]", boolTag = "[object Boolean]", dateTag = "[object Date]", errorTag = "[object Error]", funcTag = "[object Function]", mapTag = "[object Map]", numberTag = "[object Number]", objectTag = "[object Object]", regexpTag = "[object RegExp]", setTag = "[object Set]", stringTag = "[object String]", weakMapTag = "[object WeakMap]";
+var arrayBufferTag = "[object ArrayBuffer]", dataViewTag = "[object DataView]", float32Tag = "[object Float32Array]", float64Tag = "[object Float64Array]", int8Tag = "[object Int8Array]", int16Tag = "[object Int16Array]", int32Tag = "[object Int32Array]", uint8Tag = "[object Uint8Array]", uint8ClampedTag = "[object Uint8ClampedArray]", uint16Tag = "[object Uint16Array]", uint32Tag = "[object Uint32Array]";
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] = typedArrayTags[int8Tag] = typedArrayTags[int16Tag] = typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] = typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] = typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] = typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] = typedArrayTags[dataViewTag] = typedArrayTags[dateTag] = typedArrayTags[errorTag] = typedArrayTags[funcTag] = typedArrayTags[mapTag] = typedArrayTags[numberTag] = typedArrayTags[objectTag] = typedArrayTags[regexpTag] = typedArrayTags[setTag] = typedArrayTags[stringTag] = typedArrayTags[weakMapTag] = false;
+function baseIsTypedArray$1(value) {
+  return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+}
+var _baseIsTypedArray = baseIsTypedArray$1;
+function baseUnary$1(func) {
+  return function(value) {
+    return func(value);
+  };
+}
+var _baseUnary = baseUnary$1;
+var _nodeUtil = { exports: {} };
+(function(module, exports) {
+  var freeGlobal2 = _freeGlobal;
+  var freeExports = exports && !exports.nodeType && exports;
+  var freeModule = freeExports && true && module && !module.nodeType && module;
+  var moduleExports = freeModule && freeModule.exports === freeExports;
+  var freeProcess = moduleExports && freeGlobal2.process;
+  var nodeUtil2 = function() {
+    try {
+      var types = freeModule && freeModule.require && freeModule.require("util").types;
+      if (types) {
+        return types;
+      }
+      return freeProcess && freeProcess.binding && freeProcess.binding("util");
+    } catch (e) {
+    }
+  }();
+  module.exports = nodeUtil2;
+})(_nodeUtil, _nodeUtil.exports);
+var baseIsTypedArray = _baseIsTypedArray, baseUnary = _baseUnary, nodeUtil = _nodeUtil.exports;
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+var isTypedArray$1 = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+var isTypedArray_1 = isTypedArray$1;
+var baseTimes = _baseTimes, isArguments = isArguments_1, isArray = isArray_1, isBuffer = isBuffer$1.exports, isIndex = _isIndex, isTypedArray = isTypedArray_1;
+var objectProto$2 = Object.prototype;
+var hasOwnProperty$1 = objectProto$2.hasOwnProperty;
+function arrayLikeKeys$1(value, inherited) {
+  var isArr = isArray(value), isArg = !isArr && isArguments(value), isBuff = !isArr && !isArg && isBuffer(value), isType = !isArr && !isArg && !isBuff && isTypedArray(value), skipIndexes = isArr || isArg || isBuff || isType, result = skipIndexes ? baseTimes(value.length, String) : [], length = result.length;
+  for (var key in value) {
+    if ((inherited || hasOwnProperty$1.call(value, key)) && !(skipIndexes && (key == "length" || isBuff && (key == "offset" || key == "parent") || isType && (key == "buffer" || key == "byteLength" || key == "byteOffset") || isIndex(key, length)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+var _arrayLikeKeys = arrayLikeKeys$1;
+var objectProto$1 = Object.prototype;
+function isPrototype$1(value) {
+  var Ctor = value && value.constructor, proto = typeof Ctor == "function" && Ctor.prototype || objectProto$1;
+  return value === proto;
+}
+var _isPrototype = isPrototype$1;
+function overArg$1(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+var _overArg = overArg$1;
+var overArg = _overArg;
+var nativeKeys$1 = overArg(Object.keys, Object);
+var _nativeKeys = nativeKeys$1;
+var isPrototype = _isPrototype, nativeKeys = _nativeKeys;
+var objectProto = Object.prototype;
+var hasOwnProperty = objectProto.hasOwnProperty;
+function baseKeys$1(object) {
+  if (!isPrototype(object)) {
+    return nativeKeys(object);
+  }
+  var result = [];
+  for (var key in Object(object)) {
+    if (hasOwnProperty.call(object, key) && key != "constructor") {
+      result.push(key);
+    }
+  }
+  return result;
+}
+var _baseKeys = baseKeys$1;
+var arrayLikeKeys = _arrayLikeKeys, baseKeys = _baseKeys, isArrayLike$1 = isArrayLike_1;
+function keys$1(object) {
+  return isArrayLike$1(object) ? arrayLikeKeys(object) : baseKeys(object);
+}
+var keys_1 = keys$1;
+var baseValues = _baseValues, keys = keys_1;
+function values$1(object) {
+  return object == null ? [] : baseValues(object, keys(object));
+}
+var values_1 = values$1;
+var baseIndexOf = _baseIndexOf, isArrayLike = isArrayLike_1, isString = isString_1, toInteger = toInteger_1, values = values_1;
+var nativeMax = Math.max;
+function includes(collection, value, fromIndex, guard) {
+  collection = isArrayLike(collection) ? collection : values(collection);
+  fromIndex = fromIndex && !guard ? toInteger(fromIndex) : 0;
+  var length = collection.length;
+  if (fromIndex < 0) {
+    fromIndex = nativeMax(length + fromIndex, 0);
+  }
+  return isString(collection) ? fromIndex <= length && collection.indexOf(value, fromIndex) > -1 : !!length && baseIndexOf(collection, value, fromIndex) > -1;
+}
+var includes_1 = includes;
 const service = {};
+function arrayFilter(array, key, matchValue, operator) {
+  if (!array) {
+    return [];
+  }
+  if (!Array.isArray(array)) {
+    console.error("array.filter value was not provided as array", { input: array });
+    return [];
+  }
+  return array.filter(function(object) {
+    const extractedValue = get_1(object, key);
+    let isCorrect;
+    switch (operator) {
+      case ">":
+        isCorrect = extractedValue > matchValue;
+        break;
+      case "<":
+        isCorrect = extractedValue < matchValue;
+        break;
+      case ">=":
+        isCorrect = extractedValue >= matchValue;
+        break;
+      case "<=":
+        isCorrect = extractedValue <= matchValue;
+        break;
+      case "in":
+        isCorrect = includes_1(extractedValue, matchValue);
+        break;
+      default:
+        if (matchValue === void 0) {
+          isCorrect = extractedValue;
+        } else {
+          isCorrect = extractedValue == matchValue;
+        }
+        break;
+    }
+    return isCorrect;
+  });
+}
+function arraySum(array) {
+  return array.reduce(function(a2, b) {
+    return a2 + b;
+  }, 0);
+}
+function arrayExtract(array, key, flat, unique, options) {
+  if (!array) {
+    return [];
+  }
+  options = options || {};
+  options.flat = flat;
+  options.unique = unique;
+  if (!Array.isArray(array)) {
+    console.error("array.filter value was not provided as array", { input: array });
+    return [];
+  }
+  let results = array.reduce(function(memo, input) {
+    const extractedValue = get_1(input, key);
+    const isNull = !extractedValue && extractedValue !== false && extractedValue !== 0;
+    if (options.excludeNull && isNull) {
+      return memo;
+    }
+    memo.push(extractedValue);
+    return memo;
+  }, []);
+  if (options.unique) {
+    results = [...new Set(results)];
+  }
+  if (options.flat) {
+    results = results.flat();
+  }
+  return results;
+}
 service.evaluateExpression = function(expression, context) {
   if (typeof expression == "function") {
     return expression(context);
@@ -16046,6 +16463,11 @@ service.evaluateExpression = function(expression, context) {
     Boolean,
     parseInt,
     parseFloat,
+    array: {
+      filter: arrayFilter,
+      extract: arrayExtract,
+      sum: arraySum
+    },
     create(Class, ...rest) {
       return new Class(...rest);
     }
@@ -16057,9 +16479,10 @@ service.evaluateExpression = function(expression, context) {
     ast = exprParse(expression);
     result = a(ast, context);
   } catch (err) {
+    console.log("There was an error evaluating your expression", { expression, error: err });
   } finally {
-    return result;
   }
+  return result;
 };
 function parseBoolean(value) {
   switch (String(value).toLowerCase()) {
@@ -16279,18 +16702,6 @@ function getDefaultValue(fieldData, currentValue) {
   return output;
 }
 var field_vue_vue_type_style_index_0_scoped_true_lang$1 = "";
-function hasExpression(key) {
-  return function() {
-    var self2 = this;
-    if (!self2.expressions) {
-      return;
-    }
-    let expression = self2.expressions[key];
-    if (expression) {
-      return true;
-    }
-  };
-}
 function computedExpression(key) {
   return function() {
     var self2 = this;
@@ -16557,6 +16968,9 @@ const _sfc_main$h = {
       if (this.getExpressionReferenceType) {
         actual = Object.assign({}, actual, { referenceType: this.getExpressionReferenceType });
       }
+      if (this.getExpressionVisualHide) {
+        actual = Object.assign({}, actual, { visualHide: this.getExpressionVisualHide });
+      }
       if (this.getExpressionWidgetType) {
         actual = Object.assign({}, actual, { widget: this.getExpressionWidgetType });
       }
@@ -16618,7 +17032,7 @@ const _sfc_main$h = {
     getExpressionOptions: computedExpression("options"),
     getExpressionSyntax: computedExpression("syntax"),
     getExpressionCurrency: computedExpression("currency"),
-    hasExpressionDefaultValue: hasExpression("defaultValue"),
+    getExpressionVisualHide: computedExpression("visualHide"),
     expressions() {
       return this.field.expressions;
     },
@@ -16628,7 +17042,7 @@ const _sfc_main$h = {
       const context = {
         this: this.model,
         model: this.model,
-        data: this.parentModel,
+        data: this.parentModel || this.model,
         additional: __spreadValues({}, additionalContext)
       };
       return context;
@@ -17010,7 +17424,7 @@ function _sfc_render$h(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$c, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-86ad7a7a"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-04b49e9e"]]);
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$g = {
   props: {
@@ -17777,6 +18191,9 @@ const _sfc_main$c = {
     };
   },
   methods: {
+    formatCurrency(val) {
+      return `${this.$sdk.utils.formatCurrency(val, this.field.currency)}`.toUpperCase();
+    },
     cleanInput(val) {
       return val;
     },
@@ -17944,17 +18361,20 @@ const _sfc_main$c = {
   }
 };
 const _hoisted_1$8 = { class: "ux-field-title" };
-const _hoisted_2$7 = ["innerHTML"];
-const _hoisted_3$6 = ["innerHTML"];
-const _hoisted_4$6 = { key: 1 };
-const _hoisted_5$1 = { key: 1 };
-const _hoisted_6$1 = ["href"];
+const _hoisted_2$7 = { class: "currency" };
+const _hoisted_3$6 = { key: 1 };
+const _hoisted_4$6 = { class: "currency" };
+const _hoisted_5$1 = ["innerHTML"];
+const _hoisted_6$1 = ["innerHTML"];
 const _hoisted_7$1 = { key: 1 };
-const _hoisted_8 = ["href"];
+const _hoisted_8 = { key: 1 };
 const _hoisted_9 = ["href"];
 const _hoisted_10 = { key: 1 };
 const _hoisted_11 = ["href"];
-const _hoisted_12 = { key: 1 };
+const _hoisted_12 = ["href"];
+const _hoisted_13 = { key: 1 };
+const _hoisted_14 = ["href"];
+const _hoisted_15 = { key: 1 };
 function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_field_group = resolveComponent("field-group");
   const _component_item = resolveComponent("item");
@@ -17986,7 +18406,17 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
       parentModel: $props.parentModel,
       modelValue: $options.fieldModel,
       "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => $options.fieldModel = $event)
-    }, null, 8, ["submission", "field", "parentModel", "modelValue"])) : (openBlock(), createElementBlock(Fragment, { key: 2 }, [
+    }, null, 8, ["submission", "field", "parentModel", "modelValue"])) : $options.widget === "currency" ? (openBlock(), createElementBlock(Fragment, { key: 2 }, [
+      $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
+        return openBlock(), createElementBlock("div", null, [
+          createTextVNode(toDisplayString($options.formatCurrency(value)) + " ", 1),
+          createElementVNode("span", _hoisted_2$7, toDisplayString($props.field.currency), 1)
+        ]);
+      }), 256)) : (openBlock(), createElementBlock("div", _hoisted_3$6, [
+        createTextVNode(toDisplayString($options.formatCurrency($options.fieldModel)) + " ", 1),
+        createElementVNode("span", _hoisted_4$6, toDisplayString($props.field.currency), 1)
+      ]))
+    ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 3 }, [
       $options.type === "reference" ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (item, index2) => {
           return openBlock(), createBlock(_component_item, {
@@ -18002,53 +18432,53 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
       ], 64)) : createCommentVNode("", true),
       $options.type == "string" ? (openBlock(), createElementBlock(Fragment, { key: 1 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
-          return openBlock(), createElementBlock("div", { innerHTML: value }, null, 8, _hoisted_2$7);
+          return openBlock(), createElementBlock("div", { innerHTML: value }, null, 8, _hoisted_5$1);
         }), 256)) : (openBlock(), createElementBlock("div", {
           key: 1,
           innerHTML: $options.fieldModel
-        }, null, 8, _hoisted_3$6))
+        }, null, 8, _hoisted_6$1))
       ], 64)) : createCommentVNode("", true),
       $options.type == "boolean" ? (openBlock(), createElementBlock(Fragment, { key: 2 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, toDisplayString(!!value), 1);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_4$6, toDisplayString(!!$options.fieldModel), 1))
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_7$1, toDisplayString(!!$options.fieldModel), 1))
       ], 64)) : createCommentVNode("", true),
       $options.type == "date" ? (openBlock(), createElementBlock(Fragment, { key: 3 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, toDisplayString(value), 1);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_5$1, toDisplayString($options.fieldModel), 1))
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_8, toDisplayString($options.fieldModel), 1))
       ], 64)) : createCommentVNode("", true),
       $options.type == "email" ? (openBlock(), createElementBlock(Fragment, { key: 4 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, [
             createElementVNode("a", {
               href: `mailto:${value}`
-            }, toDisplayString(value), 9, _hoisted_6$1)
+            }, toDisplayString(value), 9, _hoisted_9)
           ]);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_7$1, [
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_10, [
           createElementVNode("a", {
             href: `mailto:${$options.fieldModel}`
-          }, toDisplayString($options.fieldModel), 9, _hoisted_8)
+          }, toDisplayString($options.fieldModel), 9, _hoisted_11)
         ]))
       ], 64)) : createCommentVNode("", true),
       $options.type == "url" ? (openBlock(), createElementBlock(Fragment, { key: 5 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, [
-            createElementVNode("a", { href: value }, toDisplayString(value), 9, _hoisted_9)
+            createElementVNode("a", { href: value }, toDisplayString(value), 9, _hoisted_12)
           ]);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_10, [
-          createElementVNode("a", { href: $options.fieldModel }, toDisplayString($options.fieldModel), 9, _hoisted_11)
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_13, [
+          createElementVNode("a", { href: $options.fieldModel }, toDisplayString($options.fieldModel), 9, _hoisted_14)
         ]))
       ], 64)) : createCommentVNode("", true),
       $options.isNumber ? (openBlock(), createElementBlock(Fragment, { key: 6 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
           return openBlock(), createElementBlock("div", null, toDisplayString(value), 1);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_12, toDisplayString($options.fieldModel), 1))
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_15, toDisplayString($options.fieldModel), 1))
       ], 64)) : createCommentVNode("", true)
     ], 64))
   ], 2)) : createCommentVNode("", true);
 }
-var UXRenderField = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-3ba53078"]]);
+var UXRenderField = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-240bc28f"]]);
 var render_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$b = {
   props: {
@@ -18891,7 +19321,7 @@ const _sfc_main$9 = {
     selectFields() {
       const self2 = this;
       var fields = self2.columns.map(function(column) {
-        return column.path || column.key;
+        return [column.path || column.key, ...column.select || []];
       }).flat().filter(Boolean).map(function(string) {
         return string.split("[]").join("");
       });
@@ -19123,7 +19553,7 @@ const _sfc_main$9 = {
     };
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-254f7eec"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-7a05893b"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$7 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$6 = { key: 0 };
 const _hoisted_3$5 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
@@ -19313,7 +19743,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-254f7eec"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-7a05893b"]]);
 var ScopeItem_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$8 = {
   props: {

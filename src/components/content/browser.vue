@@ -664,7 +664,7 @@ export default {
                 // if (column.fields) {
                 //     return [column.key, ...column.fields];
                 // }
-                return column.path || column.key;
+                return [column.path || column.key, ...(column.select || [])];
             })
             .flat()
             .filter(Boolean)

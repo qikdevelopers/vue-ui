@@ -466,6 +466,10 @@ export default {
                 actual = Object.assign({}, actual, { referenceType:this.getExpressionReferenceType });
             }
 
+            if (this.getExpressionVisualHide) {
+                actual = Object.assign({}, actual, { visualHide:this.getExpressionVisualHide });
+            }
+
             if (this.getExpressionWidgetType) {
                 actual = Object.assign({}, actual, { widget:this.getExpressionWidgetType });
             }
@@ -547,7 +551,8 @@ export default {
         getExpressionOptions:computedExpression('options'),
         getExpressionSyntax:computedExpression('syntax'),
         getExpressionCurrency:computedExpression('currency'),
-        hasExpressionDefaultValue: hasExpression('defaultValue'),
+        getExpressionVisualHide: computedExpression('visualHide'),
+        // hasExpressionDefaultValue: hasExpression('defaultValue'), // Not sure what this is for
         expressions() {
             return this.field.expressions;
         },
@@ -557,7 +562,7 @@ export default {
             const context = {
                 this: this.model,
                 model: this.model,
-                data: this.parentModel,
+                data: this.parentModel || this.model,
                 additional:{
                     ...additionalContext,
                 }
