@@ -3,7 +3,7 @@
         <flex-body>
             <div class="padder">
         	<h5>{{options.title}}</h5>
-            <div>{{options.description}}</div>
+            <div v-html="options.description"/>
         </div>
         </flex-body>
         <flex-footer>

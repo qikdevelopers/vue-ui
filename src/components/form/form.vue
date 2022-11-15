@@ -8,18 +8,18 @@
 <script>
 import UXField from './field.vue';
 import debounce from 'lodash/debounce';
-import {computed} from 'vue';
+import { computed } from 'vue';
 export default {
     props: {
         parentModel: {
             type: Object,
         },
-        parentForm:{
-            type:Object,
+        parentForm: {
+            type: Object,
         },
-        trail:{
-            type:Array,
-            default() {
+        trail: {
+            type: Array,
+            default () {
                 return [];
             }
         },
@@ -39,12 +39,12 @@ export default {
             type: Boolean,
             default: false,
         },
-        submission:{
-            type:Boolean,
-            default:false,
+        submission: {
+            type: Boolean,
+            default: false,
         }
     },
-    inject:['form', 'parentFormElement'],
+    inject: ['form', 'parentFormElement'],
     watch: {
         modelValue(val, old) {
             this.model = val;
@@ -59,7 +59,7 @@ export default {
             error: false,
             dirty: false,
             focussed: false,
-            childFormElements:[],
+            childFormElements: [],
         }
     },
     provide() {
@@ -78,25 +78,26 @@ export default {
         self.mounted = false;
     },
 
-   
+
     methods: {
-        touch() {  
-            ;(this.childFormElements || []).forEach(function(field) {
+        touch() {;
+            (this.childFormElements || []).forEach(function(field) {
                 field.touch();
             })
             this.touched = true;
         },
-        untouch() {
-            ;(this.childFormElements || []).forEach(function(field) {
+        untouch() {;
+            (this.childFormElements || []).forEach(function(field) {
                 field.untouch();
             })
-            
+
             this.touched = false;
         },
         reset() {
             this.untouch();
 
-            ;(this.childFormElements || []).forEach(function(field) {
+            ;
+            (this.childFormElements || []).forEach(function(field) {
                 field.reset();
             })
             this.model = {}
@@ -158,9 +159,9 @@ export default {
                     if (field.invalid) {
                         invalid = true;
                         invalidFields.push({
-                            title:field.field.title,
-                            key:field.field.key,
-                            message:field.invalidMessage,
+                            title: field.field.title,
+                            key: field.field.key,
+                            message: field.invalidMessage,
                         });
                     }
 
@@ -205,9 +206,9 @@ export default {
             return this.trail;
         },
         fieldHash() {
-            return this.renderFields.reduce(function(set,field) {
+            return this.renderFields.reduce(function(set, field) {
 
-                if(!field) {
+                if (!field) {
                     return set;
                 }
                 set[field.key] = field;
@@ -245,7 +246,19 @@ export default {
             },
         },
         renderFields() {
-            return this.fields.filter(Boolean);
+            return this.fields.filter(function(entry) {
+                if (!entry) {
+                    return;
+                }
+
+                if (entry.includeIf && typeof entry.includeIf === 'function') {
+                    return entry.includeIf(entry);
+                } else if (entry.excludeIf && typeof entry.excludeIf === 'function') {
+                    return !entry.excludeIf(entry);
+                }
+
+                return true;
+            });
         }
     }
 }
