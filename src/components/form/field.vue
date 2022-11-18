@@ -268,6 +268,7 @@ export default {
             var normalDefaultValue =  getDefaultValue(this.actualField);
 
             var defaultValue =  this.cleanInput(expressionDefaultValue || normalDefaultValue);
+            // console.log('GET DEFAULT VALUE', expressionDefaultValue, normalDefaultValue, defaultValue);
             return defaultValue;
         },
         checkDirtyState() {

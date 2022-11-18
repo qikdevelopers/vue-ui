@@ -47,7 +47,16 @@
                     <content-select :field="multiReferenceField" v-model="model.values" />
                 </div>
                 <div v-if="inputType == 'boolean'">
-                    <input type="checkbox" v-model="model.value" />
+                    <flex-row gap center>
+                        <flex-cell shrink>
+                            <ux-switch @click="model.value = !model.value" :value="model.value" />
+                        </flex-cell>
+                        <flex-cell>
+                            {{model.value ? 'True' : 'False'}}
+                        </flex-cell>
+                    
+                </flex-row>
+                   <!--  <input type="checkbox" v-model="model.value" /> -->
                 </div>
                 <div v-if="inputType == 'none'">
                 </div>

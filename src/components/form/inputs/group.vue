@@ -12,8 +12,8 @@
                         <!-- :key="guid" v-for="(element, index) in model" -->
                         <ux-panel-header>
                             <flex-row vcenter gap>
-                                <flex-cell shrink v-if="reorderable">
-                                    <ux-icon icon="fa-arrows" />
+                                <flex-cell class="arrows" shrink v-if="reorderable">
+                                    <ux-icon left icon="fa-arrows" />
                                 </flex-cell>
                                 <flex-cell vcenter>
                                     <div>
@@ -243,12 +243,16 @@ export default {
 <style lang="scss" scoped>
 .ux-multi-group,
 .ux-single-group {
-    margin-bottom: 2.5em;
+    margin: 2.5em 0;
 }
 
 .ux-group-title {
     font-size: 1.2em;
     margin-bottom: 1em;
+}
+
+.arrows .ux-icon {
+    opacity: 0.3;
 }
 
 :deep(.panel) {

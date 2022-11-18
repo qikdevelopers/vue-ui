@@ -28,7 +28,7 @@ export default {
 		async clicked() {
 
 			this.processing = true;
-			await this.button.action(this.row);
+			await this.button.action(this.row, this.column);
 			this.processing = false;
 		}
 	}

@@ -30,9 +30,9 @@ var __objRest = (source, exclude) => {
     }
   return target;
 };
-import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createVNode, withCtx, renderList, toDisplayString, withDirectives, createBlock, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, vModelCheckbox, reactive, watch } from "vue";
+import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createVNode, withCtx, renderList, toDisplayString, withDirectives, createBlock, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, vModelSelect, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.21";
+const version$1 = "0.2.23";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -703,16 +703,16 @@ function baseToString$1(value) {
 }
 var _baseToString = baseToString$1;
 var baseToString = _baseToString;
-function toString$1(value) {
+function toString$3(value) {
   return value == null ? "" : baseToString(value);
 }
-var toString_1 = toString$1;
-var isArray$2 = isArray_1, isKey = _isKey, stringToPath = _stringToPath, toString = toString_1;
+var toString_1 = toString$3;
+var isArray$2 = isArray_1, isKey = _isKey, stringToPath = _stringToPath, toString$2 = toString_1;
 function castPath$1(value, object) {
   if (isArray$2(value)) {
     return value;
   }
-  return isKey(value, object) ? [value] : stringToPath(toString(value));
+  return isKey(value, object) ? [value] : stringToPath(toString$2(value));
 }
 var _castPath = castPath$1;
 var isSymbol$1 = isSymbol_1;
@@ -845,7 +845,7 @@ const _sfc_main$17 = {
   methods: {
     async clicked() {
       this.processing = true;
-      await this.button.action(this.row);
+      await this.button.action(this.row, this.column);
       this.processing = false;
     }
   }
@@ -875,7 +875,7 @@ function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["color", "size", "loading", "onClick"])
   ]);
 }
-var ButtonCell = /* @__PURE__ */ _export_sfc(_sfc_main$17, [["render", _sfc_render$17], ["__scopeId", "data-v-1c498011"]]);
+var ButtonCell = /* @__PURE__ */ _export_sfc(_sfc_main$17, [["render", _sfc_render$17], ["__scopeId", "data-v-36768853"]]);
 class LuxonError extends Error {
 }
 class InvalidDateTimeError extends LuxonError {
@@ -6816,7 +6816,7 @@ var InputMixin = {
           val = instance.$sdk.utils.parseURL(val);
           break;
         case "key":
-          val = instance.$sdk.utils.machineName(val);
+          val = String(instance.$sdk.utils.machineName(val)).trim();
           break;
         case "integer":
           val = parseInt(String(val).replace(/[^0-9-]/g, ""));
@@ -12487,6 +12487,7 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_row = resolveComponent("flex-row");
   const _component_date_field = resolveComponent("date-field");
   const _component_content_select = resolveComponent("content-select");
+  const _component_ux_switch = resolveComponent("ux-switch");
   const _component_ux_icon = resolveComponent("ux-icon");
   const _component_ux_button = resolveComponent("ux-button");
   return $data.comparators ? (openBlock(), createElementBlock("div", _hoisted_1$r, [
@@ -12607,12 +12608,29 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
               }, null, 8, ["field", "modelValue"])
             ])) : createCommentVNode("", true),
             $options.inputType == "boolean" ? (openBlock(), createElementBlock("div", _hoisted_11$2, [
-              withDirectives(createElementVNode("input", {
-                type: "checkbox",
-                "onUpdate:modelValue": _cache[13] || (_cache[13] = ($event) => $data.model.value = $event)
-              }, null, 512), [
-                [vModelCheckbox, $data.model.value]
-              ])
+              createVNode(_component_flex_row, {
+                gap: "",
+                center: ""
+              }, {
+                default: withCtx(() => [
+                  createVNode(_component_flex_cell, { shrink: "" }, {
+                    default: withCtx(() => [
+                      createVNode(_component_ux_switch, {
+                        onClick: _cache[13] || (_cache[13] = ($event) => $data.model.value = !$data.model.value),
+                        value: $data.model.value
+                      }, null, 8, ["value"])
+                    ]),
+                    _: 1
+                  }),
+                  createVNode(_component_flex_cell, null, {
+                    default: withCtx(() => [
+                      createTextVNode(toDisplayString($data.model.value ? "True" : "False"), 1)
+                    ]),
+                    _: 1
+                  })
+                ]),
+                _: 1
+              })
             ])) : createCommentVNode("", true),
             $options.inputType == "none" ? (openBlock(), createElementBlock("div", _hoisted_12$2)) : createCommentVNode("", true),
             $options.inputType == "number" ? (openBlock(), createElementBlock("div", _hoisted_13$2, [
@@ -13911,10 +13929,14 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
                   default: withCtx(() => [
                     $options.reorderable ? (openBlock(), createBlock(_component_flex_cell, {
                       key: 0,
+                      class: "arrows",
                       shrink: ""
                     }, {
                       default: withCtx(() => [
-                        createVNode(_component_ux_icon, { icon: "fa-arrows" })
+                        createVNode(_component_ux_icon, {
+                          left: "",
+                          icon: "fa-arrows"
+                        })
                       ]),
                       _: 1
                     })) : createCommentVNode("", true),
@@ -14242,7 +14264,7 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ], 64));
 }
-var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-500e8025"]]);
+var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-190cfc06"]]);
 const _sfc_main$r = {
   props: {
     option: {
@@ -17424,7 +17446,280 @@ function _sfc_render$h(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$c, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-04b49e9e"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-299e79b2"]]);
+function arrayReduce$1(array, iteratee, accumulator, initAccum) {
+  var index2 = -1, length = array == null ? 0 : array.length;
+  if (initAccum && length) {
+    accumulator = array[++index2];
+  }
+  while (++index2 < length) {
+    accumulator = iteratee(accumulator, array[index2], index2, array);
+  }
+  return accumulator;
+}
+var _arrayReduce = arrayReduce$1;
+function basePropertyOf$1(object) {
+  return function(key) {
+    return object == null ? void 0 : object[key];
+  };
+}
+var _basePropertyOf = basePropertyOf$1;
+var basePropertyOf = _basePropertyOf;
+var deburredLetters = {
+  "\xC0": "A",
+  "\xC1": "A",
+  "\xC2": "A",
+  "\xC3": "A",
+  "\xC4": "A",
+  "\xC5": "A",
+  "\xE0": "a",
+  "\xE1": "a",
+  "\xE2": "a",
+  "\xE3": "a",
+  "\xE4": "a",
+  "\xE5": "a",
+  "\xC7": "C",
+  "\xE7": "c",
+  "\xD0": "D",
+  "\xF0": "d",
+  "\xC8": "E",
+  "\xC9": "E",
+  "\xCA": "E",
+  "\xCB": "E",
+  "\xE8": "e",
+  "\xE9": "e",
+  "\xEA": "e",
+  "\xEB": "e",
+  "\xCC": "I",
+  "\xCD": "I",
+  "\xCE": "I",
+  "\xCF": "I",
+  "\xEC": "i",
+  "\xED": "i",
+  "\xEE": "i",
+  "\xEF": "i",
+  "\xD1": "N",
+  "\xF1": "n",
+  "\xD2": "O",
+  "\xD3": "O",
+  "\xD4": "O",
+  "\xD5": "O",
+  "\xD6": "O",
+  "\xD8": "O",
+  "\xF2": "o",
+  "\xF3": "o",
+  "\xF4": "o",
+  "\xF5": "o",
+  "\xF6": "o",
+  "\xF8": "o",
+  "\xD9": "U",
+  "\xDA": "U",
+  "\xDB": "U",
+  "\xDC": "U",
+  "\xF9": "u",
+  "\xFA": "u",
+  "\xFB": "u",
+  "\xFC": "u",
+  "\xDD": "Y",
+  "\xFD": "y",
+  "\xFF": "y",
+  "\xC6": "Ae",
+  "\xE6": "ae",
+  "\xDE": "Th",
+  "\xFE": "th",
+  "\xDF": "ss",
+  "\u0100": "A",
+  "\u0102": "A",
+  "\u0104": "A",
+  "\u0101": "a",
+  "\u0103": "a",
+  "\u0105": "a",
+  "\u0106": "C",
+  "\u0108": "C",
+  "\u010A": "C",
+  "\u010C": "C",
+  "\u0107": "c",
+  "\u0109": "c",
+  "\u010B": "c",
+  "\u010D": "c",
+  "\u010E": "D",
+  "\u0110": "D",
+  "\u010F": "d",
+  "\u0111": "d",
+  "\u0112": "E",
+  "\u0114": "E",
+  "\u0116": "E",
+  "\u0118": "E",
+  "\u011A": "E",
+  "\u0113": "e",
+  "\u0115": "e",
+  "\u0117": "e",
+  "\u0119": "e",
+  "\u011B": "e",
+  "\u011C": "G",
+  "\u011E": "G",
+  "\u0120": "G",
+  "\u0122": "G",
+  "\u011D": "g",
+  "\u011F": "g",
+  "\u0121": "g",
+  "\u0123": "g",
+  "\u0124": "H",
+  "\u0126": "H",
+  "\u0125": "h",
+  "\u0127": "h",
+  "\u0128": "I",
+  "\u012A": "I",
+  "\u012C": "I",
+  "\u012E": "I",
+  "\u0130": "I",
+  "\u0129": "i",
+  "\u012B": "i",
+  "\u012D": "i",
+  "\u012F": "i",
+  "\u0131": "i",
+  "\u0134": "J",
+  "\u0135": "j",
+  "\u0136": "K",
+  "\u0137": "k",
+  "\u0138": "k",
+  "\u0139": "L",
+  "\u013B": "L",
+  "\u013D": "L",
+  "\u013F": "L",
+  "\u0141": "L",
+  "\u013A": "l",
+  "\u013C": "l",
+  "\u013E": "l",
+  "\u0140": "l",
+  "\u0142": "l",
+  "\u0143": "N",
+  "\u0145": "N",
+  "\u0147": "N",
+  "\u014A": "N",
+  "\u0144": "n",
+  "\u0146": "n",
+  "\u0148": "n",
+  "\u014B": "n",
+  "\u014C": "O",
+  "\u014E": "O",
+  "\u0150": "O",
+  "\u014D": "o",
+  "\u014F": "o",
+  "\u0151": "o",
+  "\u0154": "R",
+  "\u0156": "R",
+  "\u0158": "R",
+  "\u0155": "r",
+  "\u0157": "r",
+  "\u0159": "r",
+  "\u015A": "S",
+  "\u015C": "S",
+  "\u015E": "S",
+  "\u0160": "S",
+  "\u015B": "s",
+  "\u015D": "s",
+  "\u015F": "s",
+  "\u0161": "s",
+  "\u0162": "T",
+  "\u0164": "T",
+  "\u0166": "T",
+  "\u0163": "t",
+  "\u0165": "t",
+  "\u0167": "t",
+  "\u0168": "U",
+  "\u016A": "U",
+  "\u016C": "U",
+  "\u016E": "U",
+  "\u0170": "U",
+  "\u0172": "U",
+  "\u0169": "u",
+  "\u016B": "u",
+  "\u016D": "u",
+  "\u016F": "u",
+  "\u0171": "u",
+  "\u0173": "u",
+  "\u0174": "W",
+  "\u0175": "w",
+  "\u0176": "Y",
+  "\u0177": "y",
+  "\u0178": "Y",
+  "\u0179": "Z",
+  "\u017B": "Z",
+  "\u017D": "Z",
+  "\u017A": "z",
+  "\u017C": "z",
+  "\u017E": "z",
+  "\u0132": "IJ",
+  "\u0133": "ij",
+  "\u0152": "Oe",
+  "\u0153": "oe",
+  "\u0149": "'n",
+  "\u017F": "s"
+};
+var deburrLetter$1 = basePropertyOf(deburredLetters);
+var _deburrLetter = deburrLetter$1;
+var deburrLetter = _deburrLetter, toString$1 = toString_1;
+var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
+var rsComboMarksRange$1 = "\\u0300-\\u036f", reComboHalfMarksRange$1 = "\\ufe20-\\ufe2f", rsComboSymbolsRange$1 = "\\u20d0-\\u20ff", rsComboRange$1 = rsComboMarksRange$1 + reComboHalfMarksRange$1 + rsComboSymbolsRange$1;
+var rsCombo$1 = "[" + rsComboRange$1 + "]";
+var reComboMark = RegExp(rsCombo$1, "g");
+function deburr$1(string) {
+  string = toString$1(string);
+  return string && string.replace(reLatin, deburrLetter).replace(reComboMark, "");
+}
+var deburr_1 = deburr$1;
+var reAsciiWord = /[^\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]+/g;
+function asciiWords$1(string) {
+  return string.match(reAsciiWord) || [];
+}
+var _asciiWords = asciiWords$1;
+var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+function hasUnicodeWord$1(string) {
+  return reHasUnicodeWord.test(string);
+}
+var _hasUnicodeWord = hasUnicodeWord$1;
+var rsAstralRange = "\\ud800-\\udfff", rsComboMarksRange = "\\u0300-\\u036f", reComboHalfMarksRange = "\\ufe20-\\ufe2f", rsComboSymbolsRange = "\\u20d0-\\u20ff", rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange, rsDingbatRange = "\\u2700-\\u27bf", rsLowerRange = "a-z\\xdf-\\xf6\\xf8-\\xff", rsMathOpRange = "\\xac\\xb1\\xd7\\xf7", rsNonCharRange = "\\x00-\\x2f\\x3a-\\x40\\x5b-\\x60\\x7b-\\xbf", rsPunctuationRange = "\\u2000-\\u206f", rsSpaceRange = " \\t\\x0b\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000", rsUpperRange = "A-Z\\xc0-\\xd6\\xd8-\\xde", rsVarRange = "\\ufe0e\\ufe0f", rsBreakRange = rsMathOpRange + rsNonCharRange + rsPunctuationRange + rsSpaceRange;
+var rsApos$1 = "['\u2019]", rsBreak = "[" + rsBreakRange + "]", rsCombo = "[" + rsComboRange + "]", rsDigits = "\\d+", rsDingbat = "[" + rsDingbatRange + "]", rsLower = "[" + rsLowerRange + "]", rsMisc = "[^" + rsAstralRange + rsBreakRange + rsDigits + rsDingbatRange + rsLowerRange + rsUpperRange + "]", rsFitz = "\\ud83c[\\udffb-\\udfff]", rsModifier = "(?:" + rsCombo + "|" + rsFitz + ")", rsNonAstral = "[^" + rsAstralRange + "]", rsRegional = "(?:\\ud83c[\\udde6-\\uddff]){2}", rsSurrPair = "[\\ud800-\\udbff][\\udc00-\\udfff]", rsUpper = "[" + rsUpperRange + "]", rsZWJ = "\\u200d";
+var rsMiscLower = "(?:" + rsLower + "|" + rsMisc + ")", rsMiscUpper = "(?:" + rsUpper + "|" + rsMisc + ")", rsOptContrLower = "(?:" + rsApos$1 + "(?:d|ll|m|re|s|t|ve))?", rsOptContrUpper = "(?:" + rsApos$1 + "(?:D|LL|M|RE|S|T|VE))?", reOptMod = rsModifier + "?", rsOptVar = "[" + rsVarRange + "]?", rsOptJoin = "(?:" + rsZWJ + "(?:" + [rsNonAstral, rsRegional, rsSurrPair].join("|") + ")" + rsOptVar + reOptMod + ")*", rsOrdLower = "\\d*(?:1st|2nd|3rd|(?![123])\\dth)(?=\\b|[A-Z_])", rsOrdUpper = "\\d*(?:1ST|2ND|3RD|(?![123])\\dTH)(?=\\b|[a-z_])", rsSeq = rsOptVar + reOptMod + rsOptJoin, rsEmoji = "(?:" + [rsDingbat, rsRegional, rsSurrPair].join("|") + ")" + rsSeq;
+var reUnicodeWord = RegExp([
+  rsUpper + "?" + rsLower + "+" + rsOptContrLower + "(?=" + [rsBreak, rsUpper, "$"].join("|") + ")",
+  rsMiscUpper + "+" + rsOptContrUpper + "(?=" + [rsBreak, rsUpper + rsMiscLower, "$"].join("|") + ")",
+  rsUpper + "?" + rsMiscLower + "+" + rsOptContrLower,
+  rsUpper + "+" + rsOptContrUpper,
+  rsOrdUpper,
+  rsOrdLower,
+  rsDigits,
+  rsEmoji
+].join("|"), "g");
+function unicodeWords$1(string) {
+  return string.match(reUnicodeWord) || [];
+}
+var _unicodeWords = unicodeWords$1;
+var asciiWords = _asciiWords, hasUnicodeWord = _hasUnicodeWord, toString = toString_1, unicodeWords = _unicodeWords;
+function words$1(string, pattern, guard) {
+  string = toString(string);
+  pattern = guard ? void 0 : pattern;
+  if (pattern === void 0) {
+    return hasUnicodeWord(string) ? unicodeWords(string) : asciiWords(string);
+  }
+  return string.match(pattern) || [];
+}
+var words_1 = words$1;
+var arrayReduce = _arrayReduce, deburr = deburr_1, words = words_1;
+var rsApos = "['\u2019]";
+var reApos = RegExp(rsApos, "g");
+function createCompounder$1(callback) {
+  return function(string) {
+    return arrayReduce(words(deburr(string).replace(reApos, "")), callback, "");
+  };
+}
+var _createCompounder = createCompounder$1;
+var createCompounder = _createCompounder;
+var kebabCase = createCompounder(function(result, word, index2) {
+  return result + (index2 ? "-" : "") + word.toLowerCase();
+});
+var kebabCase_1 = kebabCase;
 var form_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$g = {
   props: {
@@ -17494,6 +17789,13 @@ const _sfc_main$g = {
     self2.mounted = false;
   },
   methods: {
+    getFieldKey(field) {
+      const key = kebabCase_1(`${field.title}-${field.key}`);
+      if (field.incrementor) {
+        key = `${key}-${field.incrementor}`;
+      }
+      return key;
+    },
     touch() {
       (this.childFormElements || []).forEach(function(field) {
         field.touch();
@@ -17683,13 +17985,13 @@ function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
           "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $options.formModel = $event),
           parentModel: $props.parentModel || $options.formModel,
           class: normalizeClass($options.fieldClass),
-          key: `ux-form-field-${field.key}-${index2}`
+          key: `ux-form-field-${$options.getFieldKey(field)}-${index2}`
         }, null, 8, ["trail", "submission", "onField:mount", "onField:unmount", "onField:dirty", "onField:invalid", "onField:valid", "onField:error", "onField:focus", "onField:blur", "onField:touched", "field", "modelValue", "parentModel", "class"]);
       }), 128))
     ], true)
   ], 2);
 }
-var UXForm = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["render", _sfc_render$g], ["__scopeId", "data-v-c0e7d104"]]);
+var UXForm = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["render", _sfc_render$g], ["__scopeId", "data-v-d200c51c"]]);
 var submissionform_vue_vue_type_style_index_0_scoped_true_lang = "";
 const STATE_READY = "form.ready";
 const STATE_PROCESSING = "form.processing";
@@ -18201,6 +18503,9 @@ const _sfc_main$c = {
     };
   },
   methods: {
+    renderDate(d) {
+      return DateTime.fromJSDate(new Date(d)).toFormat("h:mma - ccc, DD");
+    },
     formatCurrency(val) {
       return `${this.$sdk.utils.formatCurrency(val, this.field.currency)}`.toUpperCase();
     },
@@ -18455,8 +18760,8 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
       ], 64)) : createCommentVNode("", true),
       $options.type == "date" ? (openBlock(), createElementBlock(Fragment, { key: 3 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
-          return openBlock(), createElementBlock("div", null, toDisplayString(value), 1);
-        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_8, toDisplayString($options.fieldModel), 1))
+          return openBlock(), createElementBlock("div", null, toDisplayString($options.renderDate(value)), 1);
+        }), 256)) : (openBlock(), createElementBlock("div", _hoisted_8, toDisplayString($options.renderDate($options.fieldModel)), 1))
       ], 64)) : createCommentVNode("", true),
       $options.type == "email" ? (openBlock(), createElementBlock(Fragment, { key: 4 }, [
         $options.multiValue ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($options.fieldModel, (value, index2) => {
@@ -18488,7 +18793,7 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ], 2)) : createCommentVNode("", true);
 }
-var UXRenderField = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-240bc28f"]]);
+var UXRenderField = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-59217434"]]);
 var render_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$b = {
   props: {
@@ -19083,6 +19388,10 @@ const _sfc_main$9 = {
       type: Boolean,
       default: false
     },
+    enableSelection: {
+      type: Boolean,
+      default: true
+    },
     trash: {
       type: Boolean,
       default: false
@@ -19563,7 +19872,7 @@ const _sfc_main$9 = {
     };
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-7a05893b"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-50180812"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$7 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_2$6 = { key: 0 };
 const _hoisted_3$5 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
@@ -19612,6 +19921,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
                       key: 1,
                       sort: $data.sort,
                       "onUpdate:sort": _cache[0] || (_cache[0] = ($event) => $data.sort = $event),
+                      enableSelection: $props.enableSelection,
                       enableActions: $props.enableActions,
                       total: $options.totalItems,
                       selectAll: $options.selectAll,
@@ -19661,7 +19971,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
                         })
                       ]),
                       _: 1
-                    }, 8, ["sort", "enableActions", "total", "selectAll", "deselectAll", "selection", "onClick:row", "onClick:actions", "onSelect:row:toggle", "onSelect:multiple", "onDeselect:multiple", "rows", "columns"]))
+                    }, 8, ["sort", "enableSelection", "enableActions", "total", "selectAll", "deselectAll", "selection", "onClick:row", "onClick:actions", "onSelect:row:toggle", "onSelect:multiple", "onDeselect:multiple", "rows", "columns"]))
                   ]),
                   _: 1
                 })) : !$data.loading ? (openBlock(), createBlock(_component_flex_column, {
@@ -19753,7 +20063,7 @@ function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-7a05893b"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$9], ["__scopeId", "data-v-50180812"]]);
 var ScopeItem_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$8 = {
   props: {

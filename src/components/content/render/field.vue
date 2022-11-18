@@ -61,12 +61,12 @@
             <template v-if="type == 'date'">
                 <template v-if="multiValue">
                     <div v-for="(value, index) in fieldModel">
-                        {{value}}
+                        {{renderDate(value)}}
                     </div>
                 </template>
                 <template v-else>
                     <div>
-                        {{fieldModel}}
+                        {{renderDate(fieldModel)}}
                     </div>
                 </template>
             </template>
@@ -109,7 +109,7 @@
 </template>
 <script>
 import Item from '../item.vue';
-
+import {DateTime} from 'luxon';
 //Inputs
 // import ContentSelect from './inputs/content-select.vue';
 // import CurrencyField from './inputs/currency.vue';
@@ -197,6 +197,9 @@ export default {
 
     // },
     methods: {
+        renderDate(d) {
+            return DateTime.fromJSDate(new Date(d)).toFormat('h:mma - ccc, DD');
+        },
         formatCurrency(val) {
             return `${this.$sdk.utils.formatCurrency(val, this.field.currency)}`.toUpperCase() ;
         },

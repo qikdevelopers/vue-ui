@@ -9,7 +9,7 @@
                         </template>
                         <template v-else>
 
-                            <native-table v-model:sort="sort" :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
+                            <native-table v-model:sort="sort" :enableSelection="enableSelection" :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
                                 <template #corner>
                                     <ux-menu right>
                                         <template #activator="{ on }">
@@ -353,6 +353,10 @@ export default {
         enableActions: {
             type: Boolean,
             default: false,
+        },
+        enableSelection: {
+            type: Boolean,
+            default: true,
         },
         trash: {
             type: Boolean,
