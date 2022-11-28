@@ -42,6 +42,15 @@ export default {
                 return 0;
             }
         },
+        page: {
+            type: Object,
+            default () {
+                return {
+                    size: 50,
+                    index: 1,
+                }
+            }
+        },
     },
     components: {
         NativeSelect,
@@ -54,11 +63,11 @@ export default {
     computed: {
         perPage: {
             get() {
-                return this.page.size;
+                return this.pageModel.size;
             },
             set(i) {
                 i = Math.max(i, 1);
-                this.page.size = i;
+                this.pageModel.size = i;
                 this.dispatch();
             }
 
@@ -78,17 +87,17 @@ export default {
             return Math.ceil(this.total / this.perPage)
         },
         startIndex() {
-            return (this.currentPage - 1) * this.page.size;
+            return (this.currentPage - 1) * this.pageModel.size;
         },
         displayStartIndex() {
             return this.total ? this.startIndex + 1 : 0;
         },
         endIndex() {
-            return Math.min(this.startIndex + this.page.size, this.total);
+            return Math.min(this.startIndex + this.pageModel.size, this.total);
         },
         currentPage: {
             get() {
-                return this.page.index;
+                return this.pageModel.index;
             },
             set(index) {
 
@@ -99,7 +108,7 @@ export default {
 
                 index = Math.max(index, 1);
 
-                this.page.index = index;
+                this.pageModel.index = index;
                 this.dispatch();
             }
         },
@@ -107,7 +116,7 @@ export default {
     },
     methods: {
         dispatch() {
-            return this.$emit('update:page', this.page);
+            return this.$emit('update:page', this.pageModel);
         },
         previousPage() {
             this.currentPage--;
@@ -118,10 +127,7 @@ export default {
     },
     data() {
         return {
-            page: {
-                size: 50,
-                index: 1,
-            },
+            pageModel:this.page,
             perPageField: {
                 minimum: 1,
                 maximum: 1,
@@ -148,9 +154,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
-	.text {
-        opacity: 0.5;
-        font-size: 0.8em;
-    }
+.text {
+    opacity: 0.5;
+    font-size: 0.8em;
+}
 </style>

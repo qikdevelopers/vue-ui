@@ -51,7 +51,11 @@ export default {
     },
     computed: {
         definitionTitle() {
-            return this.definition ? this.definition.title : '';
+
+            const singular = this.definition ? this.definition.title : '';
+            const plural = this.definition ? this.definition.plural : '';
+            
+            return plural || singular;
         }
     },
 

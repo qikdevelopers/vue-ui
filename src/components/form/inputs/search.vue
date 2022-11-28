@@ -110,7 +110,7 @@ export default {
         // height: 2.5em;
 
         &:focus {
-            background: none;
+            background: #fff;
             border: 1px solid var(--primary);
             outline: none;
         }

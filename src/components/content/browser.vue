@@ -65,6 +65,7 @@
 
                             <p></p>
 
+
                             <filter-builder :definition="definition" v-model="filter" />
                             
                         </flex-body>
@@ -784,7 +785,6 @@ export default {
 
             var self = this;
 
-            console.log('Load Criteria now', self.sort)
             var sort = self.sort || self.defaultSort;
             var search = self.keywords;
             var select = self.selectFields;
@@ -1032,7 +1032,8 @@ export default {
 
 .filter-column {
     padding: 1em;
-    background: rgba(#000, 0.1);
+    background: rgba(#000, 0.03);
+    border-left: 1px solid rgba(#000, 0.1);
     max-width: 500px;
     width: 40%;
     flex: none;

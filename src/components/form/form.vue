@@ -82,7 +82,7 @@ export default {
 
     methods: {
         getFieldKey(field) {
-            const key = _kebabCase(`${field.title}-${field.key}`);
+            let key = _kebabCase(`${field.title}-${field.key}`);
 
             if(field.incrementor) {
                 key = `${key}-${field.incrementor}`;

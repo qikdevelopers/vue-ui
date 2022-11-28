@@ -190,6 +190,13 @@ export default {
                 case 'range':
                 case 'daterange':
                 case 'daterelative':
+
+                // If it's specified it's a number
+                case 'integer':
+                case 'decimal':
+                case 'float':
+                case 'number':
+                        // Keep it the same as specified
                     break;
                 case 'array':
                     switch (this.fieldType) {
@@ -297,12 +304,23 @@ export default {
                 ]
             }
         },
+        inputPlaceholder() {
+            switch(this.model.comparator) {
+            case 'valuesgreater':
+            case 'valuesgreaterequal':
+            case 'valueslesser':
+            case 'valueslesserequal':
+                return '0'
+                break;
+            }
+            return this.field.title;
+        },
         dateField() {
             return {
                 type: this.fieldType,
                 maximum: 1,
                 minimum: 1,
-                placeholder: this.field.title,
+                placeholder:this.inputPlaceholder,
             }
         },
         multiOptionsField() {
@@ -313,7 +331,7 @@ export default {
                 type: this.fieldType,
                 maximum: 0,
                 minimum: 1,
-                placeholder: this.field.title,
+                placeholder:this.inputPlaceholder,
             }
         },
         singleOptionsField() {
@@ -324,7 +342,7 @@ export default {
                 type: this.fieldType,
                 maximum: 1,
                 minimum: 0,
-                placeholder: this.field.title,
+                placeholder:this.inputPlaceholder,
             }
         },
         normalField() {
@@ -335,7 +353,7 @@ export default {
                 type: this.fieldType,
                 maximum: 1,
                 minimum: 1,
-                placeholder: this.field.title,
+                placeholder:this.inputPlaceholder,
             }
 
         },

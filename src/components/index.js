@@ -25,6 +25,8 @@ export { default as UXTab } from './layout/tab.vue';
 
 export { default as UXTable } from './table/Table.vue';
 
+export { default as Pager } from './ui/Pager.vue';
+
 
 
 export { default as Avatar } from './ui/avatar.vue';
