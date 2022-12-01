@@ -26,14 +26,14 @@
         </template>
         <template v-if="widget == 'group'">
             <template v-if="asObject">
-                <field-group :trail="currentTrail" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
+                <field-group :trail="currentTrail" :includeOfficeOnly="includeOfficeOnly" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
             </template>
             <template v-else>
-                <field-group :trail="trail" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="sourceModel" />
+                <field-group :trail="trail" :includeOfficeOnly="includeOfficeOnly" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="sourceModel" />
             </template>
         </template>
         <template v-if="widget == 'form'">
-            <field-group :trail="currentTrail" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
+            <field-group :trail="currentTrail" :includeOfficeOnly="includeOfficeOnly" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'field-select'">
             <field-select @touched="touch" :field="actualField" v-model="fieldModel"/>
@@ -225,6 +225,10 @@ export default {
             type: Object,
             required: true,
         },
+        includeOfficeOnly:{
+            type:Boolean,
+            default:false,
+        }
     },
     data() {
 
@@ -576,7 +580,15 @@ export default {
 
             return context;
         },
+        officeOnly() {
+            return this.submission && this.field.officeOnly;
+        },
         hidden() {
+
+            if(this.officeOnly && !this.includeOfficeOnly) {
+                return true;
+            }
+
             if (this.actualField.readOnly) {
                 return true;
             }
