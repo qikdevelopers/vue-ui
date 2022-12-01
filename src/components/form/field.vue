@@ -35,6 +35,9 @@
         <template v-if="widget == 'form'">
             <field-group :trail="currentTrail" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
         </template>
+        <template v-if="widget == 'field-select'">
+            <field-select @touched="touch" :field="actualField" v-model="fieldModel"/>
+        </template>
         <template v-if="widget == 'select'">
             <native-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -101,6 +104,7 @@ import PhoneNumberInput from './inputs/phone-number-input.vue';
 import TimezoneSelect from './inputs/timezone.vue';
 import ContentSelect from './inputs/content-select.vue';
 import TypeSelect from './inputs/type-select.vue';
+import FieldSelect from './inputs/field-select.vue';
 import CurrencyField from './inputs/currency.vue';
 import TextField from './inputs/textfield.vue';
 import TextArea from './inputs/textarea.vue';
@@ -190,6 +194,7 @@ export default {
         FieldGroup,
         ContentSelect,
         TypeSelect,
+        FieldSelect,
         TimezoneSelect,
         PhoneNumberInput,
         Upload,
@@ -690,12 +695,12 @@ export default {
                 case 'currency':
                 case 'timezone':
                 case 'country':
-                case 'typeselect':
                 case 'upload':
                 case 'code':
                 case 'options':
                 case 'button':
                 case 'type-select':
+                case 'field-select':
                 case 'html':
                 case 'filter':
                 case 'value':

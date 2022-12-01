@@ -64,8 +64,6 @@
                             </div>
 
                             <p></p>
-
-
                             <filter-builder :definition="definition" v-model="filter" />
                             
                         </flex-body>

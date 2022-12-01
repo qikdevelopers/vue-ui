@@ -232,7 +232,7 @@ export default {
                     val = instance.$sdk.utils.parseURL(val);
                     break;
                 case 'key':
-                    val = String(instance.$sdk.utils.machineName(val)).trim();
+                    val = String(instance.$sdk.utils.machineName(val || '') || '').trim();
                     break;
                 case 'integer':
                     val = parseInt(String(val).replace(/[^0-9-]/g, ''));
