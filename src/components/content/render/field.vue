@@ -29,6 +29,18 @@
                     </div>
                 </template>
         </template>
+        <template v-else-if="widget === 'code'">
+            <template v-if="multiValue">
+                    <div v-for="(value, index) in fieldModel">
+                        <v-ace-editor :readonly="true" class="editor-wrap" :value="value" :options="{ useWorker: true }" :lang="field.syntax" theme="tomorrow_night_eighties" style="min-height: 300px" />
+                    </div>
+                </template>
+                <template v-else>
+                    <div>
+                        <v-ace-editor :readonly="true" class="editor-wrap" :value="fieldModel" :options="{ useWorker: true }" :lang="field.syntax" theme="tomorrow_night_eighties" style="min-height: 300px" />
+                    </div>
+                </template>
+        </template>
         <template v-else>
             <template v-if="type === 'reference'">
                 <template v-if="multiValue">
@@ -369,6 +381,7 @@ export default {
                 case 'country':
                 case 'typeselect':
                 case 'upload':
+                case 'code':
                     break;
                 default:
                     switch (this.type) {

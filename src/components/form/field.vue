@@ -85,6 +85,9 @@
         <flex-column style="min-height:300px" v-if="widget == 'code'">
             <code-editor-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </flex-column>
+        <template v-if="widget == 'expression'">
+            <expression-field @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <div v-if="error && validateResults.message" class="ux-field-message">
             {{validateResults.message}}
         </div>
@@ -121,6 +124,7 @@ import ButtonSelect from './inputs/button-select.vue';
 import ObjectField from './inputs/object-field.vue';
 import OptionsManager from './inputs/options-manager.vue';
 import CodeEditorField from './inputs/code-editor-field.vue';
+import ExpressionField from './inputs/expression-field.vue';
 import RichTextField from './inputs/richtext-field.vue';
 
 ////////////////
@@ -201,6 +205,7 @@ export default {
         ObjectField,
         OptionsManager,
         CodeEditorField,
+        ExpressionField,
         RichTextField,
     },
     props: {
@@ -709,6 +714,7 @@ export default {
                 case 'country':
                 case 'upload':
                 case 'code':
+                case 'expression':
                 case 'options':
                 case 'button':
                 case 'type-select':
