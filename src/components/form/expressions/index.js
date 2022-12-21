@@ -121,11 +121,11 @@ service.evaluateExpression = function(expression, context) {
     	Boolean:Boolean,
     	parseInt:parseInt,
     	parseFloat:parseFloat,
-        array:{
-            filter:arrayFilter,
-            extract:arrayExtract,
-            sum:arraySum,
-        },
+      array:{
+          filter:arrayFilter,
+          extract:arrayExtract,
+          sum:arraySum,
+      },
     	create(Class, ...rest) {
     		return new Class(...rest);
     	},

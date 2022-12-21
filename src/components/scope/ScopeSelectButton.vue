@@ -10,10 +10,11 @@
 import ScopeSelect from './ScopeSelect.vue';
 
 export default {
-	created() {
+	async created() {
+        this.scopeGlossary = await this.$sdk.content.scopeGlossary({ hash: true });
 
-	},
-	props:{
+    },
+    props:{
 		action:{
 			type:String,
 		},
@@ -29,10 +30,13 @@ export default {
 	},
 	data() {
 		return {
+			scopeGlossary:{},
+			loading:true,
 			model:this.modelValue,
 			definition:null,
 		}
 	},
+
 	methods:{
 		async openSelection() {
 			const self = this;
@@ -46,6 +50,9 @@ export default {
 		}
 	},
 	computed:{
+		cacheKey() {
+			return this.user.cacheKey;
+		},
 		empty() {
 			return !this.model.length;
 		},
@@ -56,8 +63,12 @@ export default {
 				return 'Select Scopes';
 			}
 
-			return self.model.map(function(scope) {
-				return scope.title || '(hidden)';
+			return self.model.map(function(s) {
+
+				const scopeID = s._id || s;
+				const scope = self.scopeGlossary[scopeID] || s;
+
+				return scope.title || '(redacted)';
 			}).join(', ');
 		},
 		definitionDefaultScopes() {

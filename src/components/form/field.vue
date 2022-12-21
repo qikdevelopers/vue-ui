@@ -62,6 +62,9 @@
         <template v-if="widget == 'type-select'">
             <type-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
+        <template v-if="widget == 'scope-select'">
+            <scope-select @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <template v-if="widget == 'richtext'">
             <rich-text-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -107,6 +110,7 @@ import PhoneNumberInput from './inputs/phone-number-input.vue';
 import TimezoneSelect from './inputs/timezone.vue';
 import ContentSelect from './inputs/content-select.vue';
 import TypeSelect from './inputs/type-select.vue';
+import ScopeSelect from './inputs/scope-select.vue';
 import FieldSelect from './inputs/field-select.vue';
 import CurrencyField from './inputs/currency.vue';
 import TextField from './inputs/textfield.vue';
@@ -198,6 +202,7 @@ export default {
         FieldGroup,
         ContentSelect,
         TypeSelect,
+        ScopeSelect,
         FieldSelect,
         TimezoneSelect,
         PhoneNumberInput,
@@ -531,9 +536,10 @@ export default {
 
             //Check if our validator says this field is valid
             var isInvalid = !this.validateResults.valid;
-            // if (isInvalid) {
 
-            // }
+            if(this.hidden) {
+                return false;
+            }
 
             return isInvalid;
         },
@@ -576,6 +582,7 @@ export default {
             var additionalContext = this.additionalContext?.value || {}
             const context = {
                 this: this.model,
+                self: this.model,
                 model: this.model,
                 data: this.parentModel || this.model,
                 additional:{
@@ -718,6 +725,7 @@ export default {
                 case 'options':
                 case 'button':
                 case 'type-select':
+                case 'scope-select':
                 case 'field-select':
                 case 'html':
                 case 'filter':

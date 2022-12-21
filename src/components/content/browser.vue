@@ -8,7 +8,6 @@
                             <component :cacheKey="viewModeCacheKey" :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
                         </template>
                         <template v-else>
-
                             <native-table v-model:sort="sort" :enableSelection="enableSelection" :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
                                 <template #corner>
                                     <ux-menu right>
@@ -54,20 +53,17 @@
                         </ux-panel> -->
                     </flex-column>
                     <flex-column class="filter-column" v-if="showFilters">
-                        <slot name="abovefilter"/>
+                        <slot name="abovefilter" />
                         <flex-body>
-                            
                             <search v-model="keywords" :loading="searching" :debounce="500" placeholder="Keyword Search" />
-                            <p></p>      
+                            <p></p>
                             <div v-if="dateFilterEnabled">
                                 <ux-field :field="dateRangeField" v-model="dateRangeFilter" />
                             </div>
-
                             <p></p>
-                            <filter-builder :definition="definition" v-model="filter" />
-                            
+                            <filter-builder :definition="definition" v-model="actualFilter" />
                         </flex-body>
-                        <slot name="belowfilter"/>
+                        <slot name="belowfilter" />
                     </flex-column>
                 </flex-row>
             </flex-column>
@@ -90,6 +86,7 @@ import Selection from '../services/selection.js';
 import Search from '../form/inputs/search.vue';
 import Pager from '../ui/pager.vue';
 import UXFormField from '../form/field.vue';
+import _debounce from 'lodash/debounce';
 
 //////////////////////////////////////////////
 
@@ -143,7 +140,7 @@ function defaultColumns(self, type) {
                 key: 'phoneNumbersInternational',
             })
 
-            
+
             break;
         case 'definition':
             columns.push({
@@ -289,6 +286,14 @@ function defaultColumns(self, type) {
     return columns;
 }
 
+
+function emptyFilter() {
+    return {
+     operator: 'and',
+        filters: [],
+    }
+}
+
 //////////////////////////////////////////////
 
 let cancelInflight;
@@ -307,6 +312,12 @@ export default {
                 }
             },
         },
+        filter: {
+            type: Object,
+            default () {
+                return emptyFilter();
+            }
+        },
         type: {
             type: String,
             required: true,
@@ -320,7 +331,7 @@ export default {
         },
         dateRange: {
             type: Object,
-            default:{},
+            default: {},
         },
         options: {
             type: Object,
@@ -343,8 +354,8 @@ export default {
                 return 0;
             }
         },
-        dateFilterEnabled:{
-            type:Boolean,
+        dateFilterEnabled: {
+            type: Boolean,
         },
         selectionManager: {
             type: Object,
@@ -372,7 +383,7 @@ export default {
     deactivated() {
         typeCacheKey = this.$sdk.global.cacheKeys[this.type];
 
-        if(cancelInflight) {
+        if (cancelInflight) {
             cancelInflight();
             cancelInflight = null;
             cancelledUnmount = true;
@@ -387,7 +398,7 @@ export default {
             self.dataSource = await self.load();
         }
 
-        if(cancelledUnmount) {
+        if (cancelledUnmount) {
             cancelledUnmount = false;
             self.dataSource = await self.load();
         }
@@ -410,11 +421,11 @@ export default {
         // Set default sort
         self.sort = self.defaultSort;
 
-        await new Promise(async function(resolve, reject) {
-            var dataSource = await self.load();
-            self.dataSource = dataSource;
-            resolve();
-        })
+        // await new Promise(async function(resolve, reject) {
+        //     var dataSource = await self.load();
+        //     self.dataSource = dataSource;
+        //     resolve();
+        // })
     },
     watch: {
         keywords(k) {
@@ -426,8 +437,11 @@ export default {
         search(k) {
             this.keywords = k;
         },
-        async change() {
-            this.dataSource = await this.load();
+        change:{
+            handler:_debounce(async function () {
+                this.dataSource = await this.load();
+            }),
+            immediate:true,
         },
         loading() {
             this.$emit('loading', this.loading)
@@ -438,25 +452,35 @@ export default {
         loadKey() {
             this.$emit('loaded');
         },
+        options(o) {
+            this.actualOptions = o;
+        },
+        filter(f) {
+            if(!f) {
+                this.actualFilter = emptyFilter();
+            } else {
+                this.actualFilter = f;
+            }
+        }
     },
     computed: {
         viewModeCacheKey() {
             return `${this.cacheKey}-${this.loadKey}`
         },
         dateRangeField() {
-             return {
-                type:'object',
-                widget:'daterange',
-                key:'dateRange',
-                minimum:0,
-                maximum:1,
+            return {
+                type: 'object',
+                widget: 'daterange',
+                key: 'dateRange',
+                minimum: 0,
+                maximum: 1,
             }
         },
         combinedFilter() {
 
             const self = this
-            let userSelectedFilters = self.filter;
-            let lockFilter = self.options.lockFilter;
+            let userSelectedFilters = self.actualFilter;
+            let lockFilter = self.actualOptions.lockFilter;
 
             if (!lockFilter) {
                 return userSelectedFilters;
@@ -468,10 +492,10 @@ export default {
             userSelectedFilters = JSON.parse(JSON.stringify(userSelectedFilters));
             lockFilter = JSON.parse(JSON.stringify(lockFilter));
 
-            let combinedFilter; 
+            let combinedFilter;
 
             // If it's already an 'and'
-            if(userSelectedFilters.operator === 'and') {
+            if (userSelectedFilters.operator === 'and') {
                 // Add the locked filters to the list
                 combinedFilter = userSelectedFilters;
                 combinedFilter.filters.push(lockFilter);
@@ -501,7 +525,7 @@ export default {
             //And user sort by clicking on the table headers
             var defaultSort = this.definition?.defaultSort;
 
-            if(defaultSort) {
+            if (defaultSort) {
                 return defaultSort;
             }
 
@@ -521,7 +545,7 @@ export default {
                         direction: 'asc',
                         type: 'string',
                     }
-                break;
+                    break;
                 case 'email':
                 case 'notification':
                 case 'transaction':
@@ -571,7 +595,7 @@ export default {
                     allFields.push(formDataFields);
 
                     const cleanedDataFields = definedFields.map(function(field) {
-                        if(field.type === 'reference') {
+                        if (field.type === 'reference') {
                             field = JSON.parse(JSON.stringify(field))
                             delete field.fields;
                         }
@@ -632,22 +656,23 @@ export default {
             return this.manager.items.slice();
         },
         activeFilters() {
-            var activeFilters = this.$sdk.filter.activeFilters(this.filter)
-            .reduce(function(set, filter) {
-                if(!filter.key) {
+            const self = this;
+            var activeFilters = this.$sdk.filter.activeFilters(self.actualFilter)
+                .reduce(function(set, filter) {
+                    if (!filter.key) {
+                        return set;
+                    }
+
+                    filter = { ...filter };
+                    filter.title = `Filter ${set.length + 1}`;
+                    filter.key = filter.key.split('[]').join('');
+                    filter.class = 'active-filter';
+                    filter.shrink = true;
+                    set.push(filter);
+
                     return set;
-                }
+                }, [])
 
-                filter = {...filter};
-                filter.title = `Filter ${set.length + 1}`;
-                filter.key = filter.key.split('[]').join('');
-                filter.class = 'active-filter';
-                filter.shrink = true;
-                set.push(filter);
-
-                return set;
-            }, [])
-           
 
             return activeFilters;
         },
@@ -664,16 +689,16 @@ export default {
             const self = this;
 
             var fields = self.columns.map(function(column) {
-                // if (column.fields) {
-                //     return [column.key, ...column.fields];
-                // }
-                return [column.path || column.key, ...(column.select || [])];
-            })
-            .flat()
-            .filter(Boolean)
-            .map(function(string) {
-                return string.split('[]').join('');
-            })
+                    // if (column.fields) {
+                    //     return [column.key, ...column.fields];
+                    // }
+                    return [column.path || column.key, ...(column.select || [])];
+                })
+                .flat()
+                .filter(Boolean)
+                .map(function(string) {
+                    return string.split('[]').join('');
+                })
             // .map(function(field) {
             //     return field.key || field
             // })
@@ -683,8 +708,8 @@ export default {
             //     return column.key;
             // }).flat()
 
-            if (self.options.select) {
-                fields = [...fields, ...self.options.select];
+            if (self.actualOptions.select) {
+                fields = [...fields, ...self.actualOptions.select];
             }
 
             return fields;
@@ -714,13 +739,13 @@ export default {
 
 
             // If the interface is forcing to prefix columns
-            var prefixColumns = (this.options.prefixColumns || []);
+            var prefixColumns = (this.actualOptions.prefixColumns || []);
             prefixColumns.forEach(addColumn(true))
 
             /////////////////////////////////////
 
             //Add the default columns
-            var optionColumns = this.options.columns;
+            var optionColumns = this.actualOptions.columns;
             var basicColumns = optionColumns && optionColumns.length ? optionColumns : defaultColumns(this, this.basicType);
 
             if (!basicColumns.length) {
@@ -750,7 +775,7 @@ export default {
             /////////////////////////////////////
 
             // If the interface is forcing to suffix columns
-            var suffixColumns = (this.options.suffixColumns || []);
+            var suffixColumns = (this.actualOptions.suffixColumns || []);
             suffixColumns.forEach(addColumn(true))
 
             /////////////////////////////////////
@@ -764,7 +789,8 @@ export default {
             return columns;
         },
         filterChangeString() {
-            var string = this.$sdk.filter.filterChangeString(this.filter);
+            const self = this;
+            var string = this.$sdk.filter.filterChangeString(self.actualFilter);
             return string;
         },
         change() {
@@ -790,7 +816,7 @@ export default {
             var filter = self.combinedFilter;
 
 
-           
+
 
             return {
                 sort,
@@ -832,11 +858,11 @@ export default {
                 row.meta = {}
             }
 
-            if(!row.meta.type) {
+            if (!row.meta.type) {
                 row.meta.type = this.basicType;
             }
-            
-            if(!row.meta.definition) {
+
+            if (!row.meta.definition) {
                 row.meta.definition = this.definition.key;
             }
 
@@ -908,7 +934,6 @@ export default {
             this.manager.toggle(row);
         },
         async load(includeAll) {
-
             var self = this;
             self.loading = true;
             if (cancelInflight) {
@@ -924,16 +949,16 @@ export default {
             }
 
             // If the date filter is enabled and we aren't doing a keyword search
-            if(self.dateFilterEnabled && !loadCriteria.search) {
-                
+            if (self.dateFilterEnabled && !loadCriteria.search) {
+
                 let startDate = self.dateRangeFilter?.dateRange?.startDate;
                 let endDate = self.dateRangeFilter?.dateRange?.endDate;
-                if(startDate || endDate) {
+                if (startDate || endDate) {
                     let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                    
-                    if(startDate.toISOString() == endDate.toISOString()) {
+
+                    if (startDate.toISOString() == endDate.toISOString()) {
                         startDate = new Date(startDate)
-                        startDate.setHours(0,0,0,0);
+                        startDate.setHours(0, 0, 0, 0);
                         endDate = new Date(startDate)
                         endDate.setHours(23, 59, 59, 999)
                     } else {
@@ -958,17 +983,15 @@ export default {
                 cancelInflight = null;
                 self.loading = false;
                 self.loadKey++;
-                
+
             })
             promise.catch(function(err) {
-                 cancelInflight = null;
+                cancelInflight = null;
                 // self.loading = false;
             });
 
 
             const { data } = await promise;
-
-
             data.items.forEach(self.ensureMeta);
 
             return data;
@@ -998,21 +1021,19 @@ export default {
             manager,
             loading: true,
             additionalFields: [],
-            loadKey:1,
+            loadKey: 1,
             page: {
                 size: 50,
                 index: 1,
             },
-            filter: {
-                operator: 'and',
-                filters: [],
-            },
-            sort:this.defaultSort,
+            actualFilter: this.filter,
+            sort: this.defaultSort,
             keywords: this.search,
-            dateRangeFilter:{
-                dateRange:this.dateRange
+            dateRangeFilter: {
+                dateRange: this.dateRange
             },
             dataSource: null,
+            actualOptions: this.options,
         }
     },
 }

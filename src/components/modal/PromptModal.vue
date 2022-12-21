@@ -18,7 +18,7 @@
                     </flex-cell>
                     <flex-spacer/>
                     <flex-cell shrink>
-                        <ux-button type="submit" @click="close(model)">Confirm</ux-button>
+                        <ux-button color="primary" type="submit" @click="close(model)">Confirm</ux-button>
                     </flex-cell>
                 </flex-row>
             </div>
