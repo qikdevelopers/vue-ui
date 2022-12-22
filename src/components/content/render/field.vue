@@ -52,12 +52,11 @@
             </template>
             <template v-if="type == 'string'">
                 <template v-if="multiValue">
-                    <div v-html="value" v-for="(value, index) in fieldModel">
-                        <!-- {{value}} -->
-                    </div>
+                    <compiler :html="value" v-for="(value, index) in fieldModel"/>
                 </template>
                 <template v-else>
-                    <div v-html="fieldModel"/>
+                    <!-- <compile :html="fieldModel"/> -->
+                    <compiler :html="fieldModel"/>
                 </template>
             </template>
             <template v-if="type == 'boolean'">
@@ -122,6 +121,9 @@
 <script>
 import Item from '../item.vue';
 import {DateTime} from 'luxon';
+import Compiler from './compile.vue';
+
+
 //Inputs
 // import ContentSelect from './inputs/content-select.vue';
 // import CurrencyField from './inputs/currency.vue';
@@ -161,6 +163,7 @@ export default {
     components: {
         Item,
         FieldGroup,
+        Compiler,
         // ButtonSelect,
         // NativeSelect,
         // DateField,
