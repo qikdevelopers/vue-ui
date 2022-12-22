@@ -132,6 +132,7 @@ import UXSubmissionForm from './form/submissionform.vue';
 import UXFormField from './form/field.vue';
 
 import UXRender from './content/render/render.vue';
+import Compile from './content/render/compile.vue';
 import UXRenderField from './content/render/field.vue';
 
 
@@ -179,6 +180,7 @@ const defaultComponents = {
     Spinner,
     ProgressBar,
     UxModal,
+    Compile,
 }
 
 
