@@ -132,7 +132,8 @@ import UXSubmissionForm from './form/submissionform.vue';
 import UXFormField from './form/field.vue';
 
 import UXRender from './content/render/render.vue';
-import Compile from './content/render/compile.vue';
+// import Compile from './content/render/compile.vue';
+import Compile from 'vue3-runtime-template';
 import UXRenderField from './content/render/field.vue';
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@qikdev/vue-ui",
-  "version": "0.2.34",
+  "version": "0.2.36",
   "files": [
     "dist"
   ],
@@ -44,6 +44,7 @@
     "luxon": "^2.3.2",
     "maska": "^1.5.0",
     "safe-json-stringify": "^1.2.0",
+    "vue3-runtime-template": "^1.0.2",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
