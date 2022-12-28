@@ -14,16 +14,16 @@ export default {
             type:String,
         },
         width: {
-            type:Number,
+            type:[Number, String],
         },
         height: {
-            type:Number,
+            type:[Number, String],
         },
         inline:{
             type:Boolean,
         },
         quality: {
-            type: Number,
+            type: [Number, String],
         },
         contain:{
             type:Boolean,
