@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createVNode, withCtx, renderList, toDisplayString, withDirectives, createBlock, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, vModelSelect, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.37";
+const version$1 = "0.2.38";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -6975,7 +6975,7 @@ var image_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$T = {
   props: {
     item: {
-      type: Object
+      type: [Object, String]
     },
     alt: {
       type: String
@@ -7171,7 +7171,7 @@ function _sfc_render$T(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 12, _hoisted_2$E))
   ], 6);
 }
-var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["render", _sfc_render$T], ["__scopeId", "data-v-a7872864"]]);
+var UXImage = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["render", _sfc_render$T], ["__scopeId", "data-v-9cabfde6"]]);
 var progressbar_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$S = {
   props: {

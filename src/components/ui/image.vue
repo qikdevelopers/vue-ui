@@ -8,7 +8,7 @@
 export default {
     props: {
         item: {
-            type: Object,
+            type: [Object, String],
         },
         alt: {
             type:String,
