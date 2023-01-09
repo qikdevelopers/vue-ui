@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createVNode, withCtx, renderList, toDisplayString, withDirectives, createBlock, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, vModelSelect, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.39";
+const version$1 = "0.2.40";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -19246,6 +19246,12 @@ const _sfc_main$c = {
     };
   },
   props: {
+    submitText: {
+      type: String,
+      default() {
+        return "Submit";
+      }
+    },
     modelValue: {
       type: Object,
       default() {
@@ -19300,7 +19306,7 @@ const _sfc_main$c = {
     }
   }
 };
-const _withScopeId$2 = (n2) => (pushScopeId("data-v-670d0b78"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$2 = (n2) => (pushScopeId("data-v-e1425590"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$a = { class: "ux-submission-form" };
 const _hoisted_2$8 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("h3", null, "An error occurred", -1));
 const _hoisted_3$5 = { key: 0 };
@@ -19364,7 +19370,7 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
           loading: $data.state === "form.processing"
         }, {
           default: withCtx(() => [
-            createTextVNode(" Submit ")
+            createTextVNode(toDisplayString($props.submitText), 1)
           ]),
           _: 1
         }, 8, ["disabled", "onClick", "loading"])
@@ -19372,7 +19378,7 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ]);
 }
-var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-670d0b78"]]);
+var UXSubmissionForm = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$c], ["__scopeId", "data-v-e1425590"]]);
 var search_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$b = {
   props: {

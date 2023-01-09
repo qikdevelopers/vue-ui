@@ -26,7 +26,7 @@
             <ux-form submission ref="form" v-model="model" @form:state="formStateUpdated" :fields="fields" />
             <span :tooltip="tooltip">
                 <ux-button :disabled="buttonDisabled" color="primary" @click="submit" :loading="state === 'form.processing'">
-                    Submit
+                    {{submitText}}
                 </ux-button>
             </span>
         </template>
@@ -137,6 +137,12 @@ export default {
         }
     },
     props: {
+        submitText:{
+            type:String,
+            default() {
+                return 'Submit';
+            }
+        },
         modelValue: {
             type: Object,
             default () {
