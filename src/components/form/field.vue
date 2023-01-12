@@ -179,6 +179,7 @@ function computedExpression(key) {
 
         let context = self.expressionsContext;
         let result = Expressions.evaluateExpression(expression, context);
+
         return result;
     }
 }
@@ -394,6 +395,11 @@ export default {
             } else {
                 this.$emit('field:unmount', this);
             }
+
+            // if(this.expressions && this.expressions.show) {
+            //     console.log(this.field.title, this.expressions, this.expressionsContext)
+
+            // }
         },
         visible(now) {
             //Remove and clear all data

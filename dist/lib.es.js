@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createVNode, withCtx, renderList, toDisplayString, withDirectives, createBlock, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, vModelSelect, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.40";
+const version$1 = "0.2.41";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -158,7 +158,11 @@ const _sfc_main$1f = {
     tabs() {
       const self2 = this;
       const slotChildren = self2.$slots.default().map(function(child) {
-        if (child.props.enabled === false) {
+        var _a;
+        if (!child.props) {
+          return;
+        }
+        if (((_a = child.props) == null ? void 0 : _a.enabled) === false) {
           return;
         }
         return child;
@@ -250,7 +254,7 @@ function _sfc_render$1f(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ], 2);
 }
-var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$1f, [["render", _sfc_render$1f], ["__scopeId", "data-v-2a0551fe"]]);
+var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$1f, [["render", _sfc_render$1f], ["__scopeId", "data-v-621f2a2f"]]);
 const _sfc_main$1e = {
   props: {
     heading: {
@@ -18619,7 +18623,7 @@ function _sfc_render$e(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$b, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["render", _sfc_render$e], ["__scopeId", "data-v-eabe4bcc"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["render", _sfc_render$e], ["__scopeId", "data-v-791755b4"]]);
 function arrayReduce$1(array, iteratee, accumulator, initAccum) {
   var index2 = -1, length = array == null ? 0 : array.length;
   if (initAccum && length) {

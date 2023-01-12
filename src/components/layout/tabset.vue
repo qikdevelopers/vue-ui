@@ -53,13 +53,16 @@ export default {
             const slotChildren = self.$slots.default()
                 .map(function(child) {
 
-                    if (child.props.enabled === false) {
+                     if (!child.props) {
+                        return;
+                    }
+                    
+                    if (child.props?.enabled === false) {
                         return;
                     }
 
-                    // if(!child.el) {
-                    //     return;
-                    // }
+
+                   
 
                     // child.guid = self.$sdk.utils.guid()
 
