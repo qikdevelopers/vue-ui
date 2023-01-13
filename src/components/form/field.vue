@@ -479,6 +479,12 @@ export default {
         title() {
             return this.field.title;
         },
+        minimum() {
+            return parseInt(this.actualField.minimum);
+        },
+        maximum() {
+            return parseInt(this.actualField.maximum);
+        },
         actualField() {
 
             var field = this.field;
@@ -660,6 +666,12 @@ export default {
         classes() {
             var array = [];
             array.push(`ux-field-${this.type}`)
+            array.push(`ux-field-widget-${this.widget}`)
+
+            if(this.widget === 'form' && this.minimum === 1 && this.maximum === 1) {
+
+                array.push('ux-layout-only');
+            }
 
             if (this.layoutGroup) {
                 array.push('ux-layout-only');
@@ -777,7 +789,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .ux-field {
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
 
     &.ux-layout-only {
         margin-bottom: 0;

@@ -10,11 +10,11 @@
             <div class="padder">
         	<flex-row>
         		<flex-cell>
-        			<ux-button @click="dismiss">Cancel</ux-button>
+        			<ux-button color="dismiss" @click="dismiss">Cancel</ux-button>
         		</flex-cell>
 
         		<flex-cell>
-        			<ux-button @click="close">Confirm</ux-button>
+        			<ux-button color="primary" @click="close">Confirm</ux-button>
         		</flex-cell>
         	</flex-row>
         </div>
@@ -36,14 +36,16 @@ export default {
     overflow: hidden;
     background: #fff;
     text-align: center;
+    max-width: 400px;
+    padding:1.5em;
 
     h5 {
         font-size: 1.2em;
-        margin:0;
+        margin:0 0 0.5em;
     }
 
     .padder {
-        padding: 1em;
+        margin-bottom: 2em;
     }
 }
 

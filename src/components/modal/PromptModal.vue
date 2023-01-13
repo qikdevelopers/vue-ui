@@ -5,7 +5,7 @@
         <flex-body>
             <div class="padder">
                 <h5>{{options.title}}</h5>
-                <div>{{options.description}}</div>
+                <p v-if="options.description">{{options.description}}</p>
                 <ux-form ref="form" v-model="model" :fields="fields" />
 
             </div>

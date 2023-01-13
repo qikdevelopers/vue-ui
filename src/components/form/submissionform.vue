@@ -1,5 +1,5 @@
 <template>
-    <div class="ux-submission-form">
+    <div class="ux-submission-form" :class="classes">
         <template v-if="state === 'form.error'">
             <h3>An error occurred</h3>
             <pre v-if="error.message">{{error.message}}</pre>
@@ -180,6 +180,16 @@ export default {
     },
 
     computed: {
+        classes() {
+            const self = this;
+            const array = []
+
+            if(this.formID) {
+                array.push(`form-${this.formID}`);
+            }
+
+            return array;
+        },
         tooltip() {
             return this.buttonDisabled ? 'Please check the errors in your form' : undefined;
         },
