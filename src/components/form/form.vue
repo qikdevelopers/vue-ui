@@ -1,7 +1,7 @@
 <template>
     <div class="ux-form" :class="formClass">
         <slot name="fields" :fields="renderFields" :hash="fieldHash">
-            <ux-field ref="field" :trail="currentTrail" :submission="submission" :includeOfficeOnly="includeOfficeOnly" @field:mount="fieldMounted" @field:unmount="fieldUnmounted" @field:dirty="fieldDirty" @field:invalid="fieldInvalid" @field:valid="fieldValid" @field:error="fieldError" @field:focus="fieldFocus" @field:blur="fieldBlur" @field:touched="fieldTouch" :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="fieldClass" :key="`ux-form-field-${getFieldKey(field)}-${index}`" v-for="(field, index) in renderFields" />
+            <ux-field ref="field" :trail="currentTrail" :submission="submission" :includeOfficeOnly="includeOfficeOnly" @field:mount="fieldMounted" @field:unmount="fieldUnmounted" @field:dirty="fieldDirty" @field:invalid="fieldInvalid" @field:valid="fieldValid" @field:error="fieldError" @field:focus="fieldFocus" @field:blur="fieldBlur" @field:touched="fieldTouch" :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="[fieldClass, {'ux-field-clear':field.clear}]" :key="`ux-form-field-${getFieldKey(field)}-${index}`" v-for="(field, index) in renderFields" />
         </slot>
     </div>
 </template>
@@ -246,6 +246,8 @@ export default {
             if (this.flex) {
                 array.push('ux-field-flex');
             }
+
+
             return array;
         },
         formModel: {
@@ -279,6 +281,7 @@ export default {
 <style lang="scss" scoped>
 .ux-form-flex {
     display: flex;
+    flex-wrap: wrap;
     flex: 1;
     gap: 2em;
 
@@ -290,6 +293,11 @@ export default {
         // & > .ux-field {
         // flex:1;
         // }
+    }
+
+    .ux-field-clear {
+        flex:none;
+        width: 100%;
     }
 }
 </style>

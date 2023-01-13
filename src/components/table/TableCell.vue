@@ -31,6 +31,7 @@ import DateCell from './cells/DateCell.vue';
 import BooleanCell from './cells/BooleanCell.vue';
 import SecurityCell from './cells/SecurityCell.vue';
 import URLCell from './cells/URLCell.vue';
+import ComputedCell from './cells/ComputedCell.vue';
 import ValueRenderer from './cells/Value.vue';
 
 
@@ -112,6 +113,9 @@ export default {
             case 'date':
             case 'datetime':
                 component = DateCell;
+                break;
+            case 'computed':
+                component = ComputedCell
                 break;
             case 'url':
                 component = URLCell;
