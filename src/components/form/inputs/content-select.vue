@@ -7,6 +7,9 @@
             <template #item="{element, index}">
                 <item :key="element._id" :item="element">
                     <template #actions>
+                        <ux-button v-if="$actions" icon @click.stop.prevent="$actions.open([model])">
+                            <ux-icon icon="fa-ellipsis" />
+                        </ux-button>
                         <ux-button v-if="canEdit(element)" icon @click.stop.prevent="edit(element)">
                             <ux-icon icon="fa-pencil" />
                         </ux-button>
@@ -22,6 +25,9 @@
         <div class="items">
             <item :item="model">
                 <template #actions>
+                    <ux-button v-if="$actions" icon @click.stop.prevent="$actions.open([model])">
+                            <ux-icon icon="fa-ellipsis" />
+                        </ux-button>
                     <ux-button v-if="canEdit(model)" icon @click.stop.prevent="edit(model)">
                         <ux-icon icon="fa-pencil" />
                     </ux-button>

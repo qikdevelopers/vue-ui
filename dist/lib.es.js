@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createVNode, withCtx, renderList, toDisplayString, withDirectives, createBlock, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, mergeProps, toHandlers, vModelSelect, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, withKeys, TransitionGroup, defineComponent, h, nextTick, vModelDynamic, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.42";
+const version$1 = "0.2.43";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -4772,26 +4772,70 @@ var BooleanCell = /* @__PURE__ */ _export_sfc(_sfc_main$19, [["render", _sfc_ren
 var SecurityCell_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$18 = {
   mixins: [TableCellMixin],
+  methods: {
+    async clicked() {
+      const self2 = this;
+      const id = self2.$sdk.utils.id(self2.row);
+      const security = self2.public ? "secure" : "public";
+      self2.processing = true;
+      self2.$sdk.content.patch(id, {
+        meta: {
+          security
+        }
+      }).catch(function(err) {
+        self2.$sdk.error(err);
+        self2.processing = false;
+      }).then(function(res) {
+        self2.v = security;
+        self2.processing = false;
+        self2.$sdk.notify(`Set security to ${security}`);
+      });
+    }
+  },
+  data() {
+    return {
+      processing: false,
+      v: this.value
+    };
+  },
   computed: {
+    canEdit() {
+      var user = this.user;
+      return this.$sdk.access.canEditItem(user, this.row);
+    },
     public() {
       return this.security === "public";
     },
     security() {
-      return this.value || "secure";
+      return this.v || "secure";
     }
   }
 };
 function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
+  const _component_ux_button = resolveComponent("ux-button");
   return openBlock(), createElementBlock("td", {
     class: normalizeClass(["table-security-cell", $options.security])
   }, [
-    createVNode(_component_ux_icon, {
+    $options.canEdit ? (openBlock(), createBlock(_component_ux_button, {
+      key: 0,
+      size: "sm",
+      loading: $data.processing,
+      onClick: withModifiers($options.clicked, ["stop", "prevent"])
+    }, {
+      default: withCtx(() => [
+        createVNode(_component_ux_icon, {
+          icon: $options.public ? `fa-lock-open` : `fa-lock`
+        }, null, 8, ["icon"])
+      ]),
+      _: 1
+    }, 8, ["loading", "onClick"])) : (openBlock(), createBlock(_component_ux_icon, {
+      key: 1,
       icon: $options.public ? `fa-lock-open` : `fa-lock`
-    }, null, 8, ["icon"])
+    }, null, 8, ["icon"]))
   ], 2);
 }
-var SecurityCell = /* @__PURE__ */ _export_sfc(_sfc_main$18, [["render", _sfc_render$18], ["__scopeId", "data-v-51f8608e"]]);
+var SecurityCell = /* @__PURE__ */ _export_sfc(_sfc_main$18, [["render", _sfc_render$18], ["__scopeId", "data-v-8845b144"]]);
 var URLCell_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$17 = {
   mixins: [TableCellMixin],
@@ -11139,7 +11183,7 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
           key: 0,
           class: "items",
           modelValue: _ctx.model,
-          "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => _ctx.model = $event)
+          "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => _ctx.model = $event)
         }, {
           item: withCtx(({ element, index: index2 }) => [
             (openBlock(), createBlock(_component_item, {
@@ -11147,8 +11191,18 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
               item: element
             }, {
               actions: withCtx(() => [
-                $options.canEdit(element) ? (openBlock(), createBlock(_component_ux_button, {
+                _ctx.$actions ? (openBlock(), createBlock(_component_ux_button, {
                   key: 0,
+                  icon: "",
+                  onClick: _cache[0] || (_cache[0] = withModifiers(($event) => _ctx.$actions.open([_ctx.model]), ["stop", "prevent"]))
+                }, {
+                  default: withCtx(() => [
+                    createVNode(_component_ux_icon, { icon: "fa-ellipsis" })
+                  ]),
+                  _: 1
+                })) : createCommentVNode("", true),
+                $options.canEdit(element) ? (openBlock(), createBlock(_component_ux_button, {
+                  key: 1,
                   icon: "",
                   onClick: withModifiers(($event) => $options.edit(element), ["stop", "prevent"])
                 }, {
@@ -11175,10 +11229,20 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
       ], 64)) : _ctx.model ? (openBlock(), createElementBlock("div", _hoisted_4$o, [
         createVNode(_component_item, { item: _ctx.model }, {
           actions: withCtx(() => [
-            $options.canEdit(_ctx.model) ? (openBlock(), createBlock(_component_ux_button, {
+            _ctx.$actions ? (openBlock(), createBlock(_component_ux_button, {
               key: 0,
               icon: "",
-              onClick: _cache[1] || (_cache[1] = withModifiers(($event) => $options.edit(_ctx.model), ["stop", "prevent"]))
+              onClick: _cache[2] || (_cache[2] = withModifiers(($event) => _ctx.$actions.open([_ctx.model]), ["stop", "prevent"]))
+            }, {
+              default: withCtx(() => [
+                createVNode(_component_ux_icon, { icon: "fa-ellipsis" })
+              ]),
+              _: 1
+            })) : createCommentVNode("", true),
+            $options.canEdit(_ctx.model) ? (openBlock(), createBlock(_component_ux_button, {
+              key: 1,
+              icon: "",
+              onClick: _cache[3] || (_cache[3] = withModifiers(($event) => $options.edit(_ctx.model), ["stop", "prevent"]))
             }, {
               default: withCtx(() => [
                 createVNode(_component_ux_icon, { icon: "fa-pencil" })
@@ -11242,7 +11306,7 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
     })) : createCommentVNode("", true)
   ], 64);
 }
-var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["render", _sfc_render$L], ["__scopeId", "data-v-236b5d48"]]);
+var ContentSelect = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["render", _sfc_render$L], ["__scopeId", "data-v-391cbaa6"]]);
 var typeSelect_vue_vue_type_style_index_0_scoped_true_lang = "";
 function isUndefined$5(entry) {
   return entry === void 0 || typeof entry === "undefined" || entry === null || String(entry) === "null" || String(entry) === "undefined";
