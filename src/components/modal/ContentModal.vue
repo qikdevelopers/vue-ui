@@ -14,9 +14,15 @@
                             <flex-cell v-if="maximum">
                                 <span class="font-muted font-sm">({{model.length}} of {{maximum}})</span>
                             </flex-cell>
-                            
-                            <flex-cell>
+                            <flex-cell v-if="!showFilters">
                                 <search v-model="search" :loading="searching" :debounce="500" placeholder="Search" />
+                            </flex-cell>
+                            <flex-cell shrink>
+                                <ux-button :icon="$device.breakpoint.mobile" @click="showFilters = !showFilters">
+                                    <template v-if="$device.breakpoint.mobile">
+                                        <ux-icon icon="fa-search" /></template>
+                                    <template v-else>{{showFilters ? 'Hide' : 'Show'}} Filters</template>
+                                </ux-button>
                             </flex-cell>
                             <flex-cell shrink>
                                 <ux-button color="primary" @click="selectionComplete">Done</ux-button>
@@ -24,11 +30,18 @@
                         </flex-row>
                     </div>
                 </flex-header>
-               
-                <content-browser ref="browser" :search="search" @click:row="rowClicked" :maximum="options.maximum" v-model="model" :type="options.type" :options="browserOptions">
+                <content-browser v-model:rolodexPrimary="rolodexPrimary" :showFilters="showFilters" ref="browser" :search="search" @click:row="rowClicked" :maximum="options.maximum" v-model="model" :type="options.type" :options="browserOptions">
+                    <template #abovecontent>
+                        <flex-header v-if="rolodexEnabled">
+                            <div class="rolodex">
+                                <ux-button size="sm" @click="toggleRolodex(letter)" icon :color="rolodexPrimary === letter ? 'primary' : ''" v-for="letter in letters">{{letter}}</ux-button>
+                            </div>
+                        </flex-header>
+
+                        
+                    </template>
                 </content-browser>
             </template>
-
         </template>
     </flex-column>
 </template>
@@ -50,15 +63,67 @@ export default {
         self.loading = false;
         var definition = glossary[self.type]
 
-        if(!definition) {
+        if (!definition) {
             //Close immediately
             self.$sdk.notify('You do not have the required permissions to list content of this type');
             self.dismiss()
             return;
         }
+
         self.definition = definition;
+
+        if (self.bigData && self.rolodexEnabled) {
+            self.rolodexLetter = 'A';
+        }
+
+        
     },
     computed: {
+        bigData() {
+            return this.definition?.count > 20000;
+        },
+        rolodexEnabled() {
+            let enabled;
+
+            if (!this.bigData) {
+                return;
+            }
+
+            const basicType = this.definition.definesType || this.definition.key;
+            switch (basicType) {
+                case 'profile':
+                case 'persona':
+                    enabled = true;
+                    break;
+            }
+
+            if (this.search || this.shortcut) {
+                enabled = false;
+            }
+
+            return enabled;
+        },
+        rolodexPrimary: {
+            get() {
+                if (this.search || this.shortcut) {
+                    return;
+                }
+
+                return this.rolodexLetter;
+            },
+            set(r) {
+
+                if(this.search || this.shortcut) {
+                    return;
+                }
+
+                this.rolodexLetter = r;
+            }
+        },
+        letters() {
+            return 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
+
+        },
         type() {
             return this.options.type;
         },
@@ -75,16 +140,37 @@ export default {
             return this.options.browserOptions || {};
         },
     },
+    watch:{
+        search(s, before) {
+            const self = this;
+
+            if(!s && self.bigData) {
+                if(!self.rolodexLetter) {
+                    self.rolodexLetter = 'A';
+                }
+            }
+        }
+    },
     data() {
         return {
+            showFilters: false,
             search: '',
             searching: false,
             definition: null,
             loading: true,
             model: this.options.model.slice(),
+            rolodexLetter:'',
         }
     },
     methods: {
+        toggleRolodex(letter) {
+
+            if (this.rolodexLetter === letter) {
+                this.rolodexLetter = ''
+            } else {
+                this.rolodexLetter = letter
+            }
+        },
         rowClicked(row) {
             this.$refs.browser.toggle(row);
         },
@@ -107,8 +193,30 @@ export default {
     padding: 1em;
     border-bottom: 1px solid rgba(#000, 0.1);
 
-    h1, h2, h3, h4, h5 {
-        margin:0;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        margin: 0;
     }
+}
+
+.rolodex {
+    padding: 0.5em;
+    white-space: nowrap;
+    overflow-x: auto;
+    border-bottom: 1px solid rgba(#000, 0.1);
+    text-align: center;
+
+    .ux-btn {
+        font-weight: bold;
+    }
+
+    // a {
+    //     display: inline-block;
+    //     padding:0.5em;
+    //     text-align: center;
+    // }
 }
 </style>

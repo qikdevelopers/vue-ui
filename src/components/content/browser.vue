@@ -1,80 +1,85 @@
 <template>
     <flex-column class="content-browser" v-if="definition">
-        <template v-if="dataSource">
-            <flex-column class="browser-body" :class="{loading}">
-                <flex-row>
-                    <flex-column v-if="items.length">
-                        <template v-if="viewMode && viewMode.component">
-                            <component :cacheKey="viewModeCacheKey" :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
-                        </template>
-                        <template v-else>
-                            <native-table v-model:sort="sort" :enableSelection="enableSelection" :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
-                                <template #corner>
-                                    <ux-menu right>
-                                        <template #activator="{ on }">
-                                            <ux-button icon v-on="on">
-                                                <ux-icon icon="fa-cog" />
-                                            </ux-button>
-                                        </template>
-                                        <ux-list>
-                                            <ux-list-item @click="toggleField(field)" :key="field.path" v-for="field in fields">
-                                                <ux-icon :icon="fieldEnabled[field.path] ? 'fa-check-square' : 'fa-regular fa-square' " left /> {{field.title}}
-                                            </ux-list-item>
-                                            <!-- <ux-list-item @click="selectPage()">
-                                            Select Page
-                                        </ux-list-item>
-                                        <ux-list-item v-if="someSelectedOnPage" @click="deselectPage()">
-                                            Deselect Page
-                                        </ux-list-item>
-                                        <ux-list-item v-if="selectAll" @click="selectAll()">
-                                            Select All ({{total}})
-                                        </ux-list-item>
-                                        <ux-list-item v-if="deselectAll" @click="deselectAll()">
-                                            Deselect All
-                                        </ux-list-item> -->
-                                        </ux-list>
-                                    </ux-menu>
+        <flex-column class="browser-body">
+            <flex-row>
+                <flex-row :class="{loading}">
+                    <flex-column>
+                        <template v-if="dataSource">
+                            <slot name="abovecontent" />
+                            <flex-column v-if="items.length">
+                                <template v-if="viewMode && viewMode.component">
+                                    <component :cacheKey="viewModeCacheKey" :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
                                 </template>
-                            </native-table>
+                                <template v-else>
+                                    <native-table v-model:sort="sort" :enableSelection="enableSelection" :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
+                                        <template #corner>
+                                            <ux-menu right>
+                                                <template #activator="{ on }">
+                                                    <ux-button icon v-on="on">
+                                                        <ux-icon icon="fa-cog" />
+                                                    </ux-button>
+                                                </template>
+                                                <ux-list>
+                                                    <ux-list-item @click="toggleField(field)" :key="field.path" v-for="field in fields">
+                                                        <ux-icon :icon="fieldEnabled[field.path] ? 'fa-check-square' : 'fa-regular fa-square' " left /> {{field.title}}
+                                                    </ux-list-item>
+                                                    <!-- <ux-list-item @click="selectPage()">
+                                                Select Page
+                                            </ux-list-item>
+                                            <ux-list-item v-if="someSelectedOnPage" @click="deselectPage()">
+                                                Deselect Page
+                                            </ux-list-item>
+                                            <ux-list-item v-if="selectAll" @click="selectAll()">
+                                                Select All ({{total}})
+                                            </ux-list-item>
+                                            <ux-list-item v-if="deselectAll" @click="deselectAll()">
+                                                Deselect All
+                                            </ux-list-item> -->
+                                                </ux-list>
+                                            </ux-menu>
+                                        </template>
+                                    </native-table>
+                                </template>
+                            </flex-column>
+                            <flex-column class="empty" v-else-if="!loading" center>
+                                <ux-panel>
+                                    <ux-panel-body>
+                                        <div>No {{definition.plural}} found.</div>
+                                    </ux-panel-body>
+                                </ux-panel>
+                            </flex-column>
+                            <flex-column class="empty" v-else center>
+                                <!-- <ux-panel>
+                                <ux-panel-body>
+                                    <div>No {{definition.plural}} found.</div>
+                                </ux-panel-body>
+                            </ux-panel> -->
+                            </flex-column>
                         </template>
-                    </flex-column>
-                    <flex-column class="empty" v-else-if="!loading" center>
-                        <ux-panel>
-                            <ux-panel-body>
-                                <div>No {{definition.plural}} found.</div>
-                            </ux-panel-body>
-                        </ux-panel>
-                    </flex-column>
-                    <flex-column class="empty" v-else center>
-                        <!-- <ux-panel>
-                            <ux-panel-body>
-                                <div>No {{definition.plural}} found.</div>
-                            </ux-panel-body>
-                        </ux-panel> -->
-                    </flex-column>
-                    <flex-column class="filter-column" v-if="showFilters">
-                        <slot name="abovefilter" />
-                        <flex-body>
-                            <search v-model="keywords" :loading="searching" :debounce="500" placeholder="Keyword Search" />
-                            <p></p>
-                            <div v-if="dateFilterEnabled">
-                                <ux-field :field="dateRangeField" v-model="dateRangeFilter" />
-                            </div>
-                            <p></p>
-                            <filter-builder :definition="definition" v-model="actualFilter" />
-                        </flex-body>
-                        <slot name="belowfilter" />
                     </flex-column>
                 </flex-row>
-            </flex-column>
-            <flex-footer>
-                <slot name="footera"></slot>
-                <div class="footer">
-                    <pager v-model:page="page" :total="totalItems" />
-                </div>
-                <slot name="footerb"></slot>
-            </flex-footer>
-        </template>
+                <flex-column class="filter-column" v-if="showFilters">
+                    <slot name="abovefilter" />
+                    <flex-body>
+                        <search v-model="keywords" :loading="searching" :debounce="500" placeholder="Keyword Search" />
+                        <p></p>
+                        <div v-if="dateFilterEnabled">
+                            <ux-field :field="dateRangeField" v-model="dateRangeFilter" />
+                        </div>
+                        <p></p>
+                        <filter-builder :definition="definition" v-model="actualFilter" />
+                    </flex-body>
+                    <slot name="belowfilter" />
+                </flex-column>
+            </flex-row>
+        </flex-column>
+        <flex-footer v-if="dataSource">
+            <slot name="footera"></slot>
+            <div class="footer">
+                <pager v-model:page="page" :total="totalItems" />
+            </div>
+            <slot name="footerb"></slot>
+        </flex-footer>
         <spinner large v-if="loading" />
     </flex-column>
 </template>
@@ -289,7 +294,7 @@ function defaultColumns(self, type) {
 
 function emptyFilter() {
     return {
-     operator: 'and',
+        operator: 'and',
         filters: [],
     }
 }
@@ -332,6 +337,14 @@ export default {
         dateRange: {
             type: Object,
             default: {},
+        },
+        rolodexPrimary: {
+            type: String,
+            default: '',
+        },
+        rolodexSecondary: {
+            type: String,
+            default: '',
         },
         options: {
             type: Object,
@@ -431,17 +444,29 @@ export default {
         keywords(k) {
             this.$emit('update:search', k)
         },
+        roloPrimary(r) {
+            this.$emit('update:rolodexPrimary', r)
+        },
+        roloSecondary(r) {
+            this.$emit('update:rolodexSecondary', r)
+        },
         dateRangeFilter(d) {
             this.$emit('update:dateRange', d)
         },
         search(k) {
             this.keywords = k;
         },
-        change:{
-            handler:_debounce(async function () {
+        rolodexPrimary(r) {
+            this.roloPrimary = r;
+        },
+        rolodexSecondary(r) {
+            this.roloSecondary = r;
+        },
+        change: {
+            handler: _debounce(async function() {
                 this.dataSource = await this.load();
             }),
-            immediate:true,
+            immediate: true,
         },
         loading() {
             this.$emit('loading', this.loading)
@@ -456,7 +481,7 @@ export default {
             this.actualOptions = o;
         },
         filter(f) {
-            if(!f) {
+            if (!f) {
                 this.actualFilter = emptyFilter();
             } else {
                 this.actualFilter = f;
@@ -794,7 +819,7 @@ export default {
             return string;
         },
         change() {
-            return `${JSON.stringify([this.page, this.dateRangeFilter, this.sort, this.keywords, this.selectFields, this.type, this.filterChangeString])}-${this.cacheKey}-${this.$sdk.global.cacheKeys[this.type]}`;
+            return `${JSON.stringify([this.page, this.roloSecondary, this.rolodexPrimary, this.dateRangeFilter, this.sort, this.keywords, this.selectFields, this.type, this.filterChangeString])}-${this.cacheKey}-${this.$sdk.global.cacheKeys[this.type]}`;
         },
         items() {
             return this.dataSource.items;
@@ -807,13 +832,16 @@ export default {
         },
         loadCriteria() {
 
-            var self = this;
+            const self = this;
 
-            var sort = self.sort || self.defaultSort;
-            var search = self.keywords;
-            var select = self.selectFields;
-            var page = self.page;
-            var filter = self.combinedFilter;
+            const sort = self.sort || self.defaultSort;
+            const search = self.keywords;
+            const select = self.selectFields;
+            const page = self.page;
+            const filter = self.combinedFilter;
+            const rolodexPrimary = self.roloPrimary;
+            const rolodexSecondary = self.roloSecondary;
+
 
 
 
@@ -824,6 +852,8 @@ export default {
                 select,
                 page,
                 filter,
+                rolodexPrimary,
+                rolodexSecondary,
             }
         },
         fieldEnabled() {
@@ -1029,6 +1059,8 @@ export default {
             actualFilter: this.filter,
             sort: this.defaultSort,
             keywords: this.search,
+            roloPrimary: this.rolodexPrimary,
+            roloSecondary: this.roloSecondary,
             dateRangeFilter: {
                 dateRange: this.dateRange
             },
@@ -1043,10 +1075,10 @@ export default {
     position: relative;
 }
 
-.browser-body {
-    &.loading {
-        opacity: 0.5;
-    }
+.browser-body {}
+
+.loading {
+    opacity: 0.5;
 }
 
 .filter-column {
