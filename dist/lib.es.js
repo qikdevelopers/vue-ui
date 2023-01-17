@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createVNode, withCtx, renderList, toDisplayString, withDirectives, createBlock, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, h, mergeProps, toHandlers, vModelSelect, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, withKeys, TransitionGroup, defineComponent, nextTick, vModelDynamic, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.46";
+const version$1 = "0.2.48";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -844,6 +844,14 @@ const _sfc_main$1c = {
     type() {
       var _a, _b;
       return (_b = (_a = this.row) == null ? void 0 : _a.meta) == null ? void 0 : _b.type;
+    },
+    label() {
+      const button = this.button;
+      if (typeof button.text === "function") {
+        return button.text(this);
+      }
+      console.log("BUTTON", button.text, typeof button.text);
+      return button.text;
     }
   },
   methods: {
@@ -866,8 +874,8 @@ function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: withModifiers($options.clicked, ["stop", "prevent"])
     }, {
       default: withCtx(() => [
-        $options.button.text ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
-          createTextVNode(toDisplayString($options.button.text), 1)
+        $options.label ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
+          createTextVNode(toDisplayString($options.label), 1)
         ], 64)) : createCommentVNode("", true),
         $options.button.icon ? (openBlock(), createBlock(_component_ux_icon, {
           key: 1,
@@ -879,7 +887,7 @@ function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["color", "size", "loading", "onClick"])
   ]);
 }
-var ButtonCell = /* @__PURE__ */ _export_sfc(_sfc_main$1c, [["render", _sfc_render$1c], ["__scopeId", "data-v-36768853"]]);
+var ButtonCell = /* @__PURE__ */ _export_sfc(_sfc_main$1c, [["render", _sfc_render$1c], ["__scopeId", "data-v-ac248c56"]]);
 class LuxonError extends Error {
 }
 class InvalidDateTimeError extends LuxonError {

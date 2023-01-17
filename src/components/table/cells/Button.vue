@@ -1,7 +1,7 @@
 <template>
 	<td class="table-button-cell">
 		<ux-button :color="button.color" :size="button.size" :loading="processing" @click.stop.prevent="clicked">
-			<template v-if="button.text">{{button.text}}</template><ux-icon v-if="button.icon" :icon="button.icon" right/>
+			<template v-if="label">{{label}}</template><ux-icon v-if="button.icon" :icon="button.icon" right/>
 		</ux-button>
     </td>
 </template>
@@ -22,6 +22,18 @@ export default {
 		},
 		type() {
 			return this.row?.meta?.type
+		},
+		label() {
+
+			const button = this.button;
+
+			if(typeof button.text === 'function') {
+				return button.text(this);
+			}
+
+			console.log('BUTTON', button.text, typeof button.text)
+
+			return button.text;
 		}
 	},
 	methods:{
