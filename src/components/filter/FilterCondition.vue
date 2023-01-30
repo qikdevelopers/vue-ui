@@ -17,9 +17,16 @@
                     </template>
                 </div>
                 <div v-if="inputType == 'range'">
-                    <text-field :field="normalField" v-model="model.value" />
-                    And
-                    <text-field :field="normalField" v-model="model.value2" />
+                    <template v-if="fieldWidget == 'currency'">
+                        <currency-field :field="normalField" v-model="model.value" />
+                        And
+                        <currency-field :field="normalField" v-model="model.value2" />
+                    </template>
+                    <template v-else>
+                        <text-field :field="normalField" v-model="model.value" />
+                        And
+                        <text-field :field="normalField" v-model="model.value2" />
+                    </template>
                 </div>
                 <div v-if="inputType == 'daterelative'">
                     <flex-row>
@@ -54,14 +61,16 @@
                         <flex-cell>
                             {{model.value ? 'True' : 'False'}}
                         </flex-cell>
-                    
-                </flex-row>
-                   <!--  <input type="checkbox" v-model="model.value" /> -->
+                    </flex-row>
+                    <!--  <input type="checkbox" v-model="model.value" /> -->
                 </div>
                 <div v-if="inputType == 'none'">
                 </div>
                 <div v-if="inputType == 'number'">
-                    <text-field :field="normalField" v-model="model.value" />
+                    <template v-if="fieldWidget == 'currency'">
+                        <currency-field :field="normalField" v-model="model.value" />
+                    </template>
+                    <text-field v-else :field="normalField" v-model="model.value" />
                 </div>
                 <div v-if="inputType == 'normal'">
                     <template v-if="hasOptions">
@@ -71,10 +80,7 @@
                         <text-field :field="normalField" v-model="model.value" />
                     </template>
                 </div>
-                
-
                 <!-- <pre>{{field}}</pre> -->
-
             </flex-cell>
             <flex-cell shrink v-if="enableRemove">
                 <ux-button size="sm" icon @click="$emit('remove')">
@@ -87,6 +93,7 @@
 <script>
 import DateField from '../form/inputs/datefield.vue';
 import TextField from '../form/inputs/textfield.vue';
+import CurrencyField from '../form/inputs/currency.vue';
 import NativeSelect from '../form/inputs/select.vue';
 import ContentSelect from '../form/inputs/content-select.vue';
 
@@ -171,6 +178,19 @@ export default {
         field() {
             return this.fieldHash[this.model.key];
         },
+        fieldWidget() {
+
+            if (this.comparator?.inputWidget) {
+                return this.comparator.inputWidget;
+            }
+
+            switch (this.field?.widget) {
+                case 'currency':
+                    return this.field.widget;
+                    break;
+            }
+
+        },
         fieldType() {
             if (!this.field) {
                 return;
@@ -191,12 +211,12 @@ export default {
                 case 'daterange':
                 case 'daterelative':
 
-                // If it's specified it's a number
+                    // If it's specified it's a number
                 case 'integer':
                 case 'decimal':
                 case 'float':
                 case 'number':
-                        // Keep it the same as specified
+                    // Keep it the same as specified
                     break;
                 case 'array':
                     switch (this.fieldType) {
@@ -305,13 +325,13 @@ export default {
             }
         },
         inputPlaceholder() {
-            switch(this.model.comparator) {
-            case 'valuesgreater':
-            case 'valuesgreaterequal':
-            case 'valueslesser':
-            case 'valueslesserequal':
-                return '0'
-                break;
+            switch (this.model.comparator) {
+                case 'valuesgreater':
+                case 'valuesgreaterequal':
+                case 'valueslesser':
+                case 'valueslesserequal':
+                    return '0'
+                    break;
             }
             return this.field.title;
         },
@@ -320,7 +340,7 @@ export default {
                 type: this.fieldType,
                 maximum: 1,
                 minimum: 1,
-                placeholder:this.inputPlaceholder,
+                placeholder: this.inputPlaceholder,
             }
         },
         multiOptionsField() {
@@ -331,30 +351,34 @@ export default {
                 type: this.fieldType,
                 maximum: 0,
                 minimum: 1,
-                placeholder:this.inputPlaceholder,
+                placeholder: this.inputPlaceholder,
             }
         },
         singleOptionsField() {
             return {
-                title:`Select ${this.field.title}`,
+                title: `Select ${this.field.title}`,
                 options: this.field.options,
                 widget: 'select',
                 type: this.fieldType,
                 maximum: 1,
                 minimum: 0,
-                placeholder:this.inputPlaceholder,
+                placeholder: this.inputPlaceholder,
             }
         },
         normalField() {
 
+            const settings = {}
+            const extras = {}
+            extras.currency = this.field?.currency;
+            extras.syntax = this.field?.syntax;
 
-
-            return {
+            return Object.assign(settings, {
                 type: this.fieldType,
                 maximum: 1,
                 minimum: 1,
-                placeholder:this.inputPlaceholder,
-            }
+                placeholder: this.inputPlaceholder,
+                widget: this.fieldWidget,
+            }, extras);
 
         },
         arrayField() {
@@ -368,21 +392,21 @@ export default {
         singleReferenceField() {
             return {
                 type: 'reference',
-                referenceType:this.referenceType,
+                referenceType: this.referenceType,
                 maximum: 1,
                 minimum: 1,
-                create:false,
-                list:false,
+                create: false,
+                list: false,
             }
         },
         multiReferenceField() {
             return {
                 type: 'reference',
-                referenceType:this.referenceType,
+                referenceType: this.referenceType,
                 maximum: 0,
                 minimum: 1,
-                create:false,
-                list:false,
+                create: false,
+                list: false,
             }
         },
     },
@@ -390,6 +414,7 @@ export default {
 
     components: {
         TextField,
+        CurrencyField,
         DateField,
         NativeSelect,
         ContentSelect,

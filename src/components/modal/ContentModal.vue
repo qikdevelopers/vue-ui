@@ -15,7 +15,7 @@
                                 <span class="font-muted font-sm">({{model.length}} of {{maximum}})</span>
                             </flex-cell>
                             <flex-cell v-if="!showFilters">
-                                <search v-model="search" :loading="searching" :debounce="500" placeholder="Search" />
+                                <search v-model="search" :loading="searching" :debounce="500" placeholder="Keyword Search" />
                             </flex-cell>
                             <flex-cell shrink>
                                 <ux-button :icon="$device.breakpoint.mobile" @click="showFilters = !showFilters">
@@ -34,6 +34,7 @@
                     <template #abovecontent>
                         <flex-header v-if="rolodexEnabled">
                             <div class="rolodex">
+                                <ux-button size="sm" @click="toggleRolodex('')" icon :color="!rolodexPrimary ? 'primary' : ''" >All</ux-button>
                                 <ux-button size="sm" @click="toggleRolodex(letter)" icon :color="rolodexPrimary === letter ? 'primary' : ''" v-for="letter in letters">{{letter}}</ux-button>
                             </div>
                         </flex-header>

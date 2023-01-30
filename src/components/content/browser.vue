@@ -4,9 +4,18 @@
             <flex-row>
                 <flex-row :class="{loading}">
                     <flex-column>
+                        <flex-column>
                         <template v-if="dataSource">
                             <slot name="abovecontent" />
-                            <flex-column v-if="items.length">
+                            <flex-column class="empty" v-if="boundaryMessage">
+                                <ux-panel>
+                                    <ux-panel-body>
+                                        <ux-icon class="large-icon" icon="fa-database"/>
+                                        <div>{{boundaryMessage}}</div>
+                                    </ux-panel-body>
+                                </ux-panel>
+                            </flex-column>
+                            <flex-column v-else-if="items.length">
                                 <template v-if="viewMode && viewMode.component">
                                     <component :cacheKey="viewModeCacheKey" :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
                                 </template>
@@ -57,8 +66,17 @@
                             </flex-column>
                         </template>
                     </flex-column>
+
+                        <flex-footer v-if="dataSource && !boundaryMessage">
+            <slot name="footera"></slot>
+            <div class="footer">
+                <pager v-model:page="page" :total="totalItems" />
+            </div>
+            <slot name="footerb"></slot>
+        </flex-footer>
+                    </flex-column>
                 </flex-row>
-                <flex-column class="filter-column" v-if="showFilters">
+                <flex-column class="filter-column" v-if="showFilterSidebar">
                     <slot name="abovefilter" />
                     <flex-body>
                         <search v-model="keywords" :loading="searching" :debounce="500" placeholder="Keyword Search" />
@@ -73,13 +91,7 @@
                 </flex-column>
             </flex-row>
         </flex-column>
-        <flex-footer v-if="dataSource">
-            <slot name="footera"></slot>
-            <div class="footer">
-                <pager v-model:page="page" :total="totalItems" />
-            </div>
-            <slot name="footerb"></slot>
-        </flex-footer>
+        
         <spinner large v-if="loading" />
     </flex-column>
 </template>
@@ -301,7 +313,7 @@ function emptyFilter() {
 
 //////////////////////////////////////////////
 
-let cancelInflight;
+let inflightRequest;
 let cancelledUnmount;
 let typeCacheKey;
 
@@ -396,9 +408,9 @@ export default {
     deactivated() {
         typeCacheKey = this.$sdk.global.cacheKeys[this.type];
 
-        if (cancelInflight) {
-            cancelInflight();
-            cancelInflight = null;
+        if (inflightRequest) {
+            inflightRequest.cancel();
+            inflightRequest = null;
             cancelledUnmount = true;
         }
     },
@@ -489,6 +501,15 @@ export default {
         }
     },
     computed: {
+        showFilterSidebar() {
+            return this.showFilters;
+             // || this.boundaryMessage;
+        },
+        boundaryMessage() {
+            if(this.dataSource?.boundary) {
+                return this.dataSource.message || 'Limit was reached. Please provide more selective criteria';
+            }
+        },
         viewModeCacheKey() {
             return `${this.cacheKey}-${this.loadKey}`
         },
@@ -966,10 +987,13 @@ export default {
         async load(includeAll) {
             var self = this;
             self.loading = true;
-            if (cancelInflight) {
-                cancelInflight();
-                cancelInflight = null;
+            if (inflightRequest) {
+                inflightRequest.cancel();
+                inflightRequest = null;
+                // console.log('Close inflight browser.list request')
             }
+
+                // console.log('New browser.list request')
 
             var loadCriteria = Object.assign({}, self.loadCriteria);
             loadCriteria.includeAll = includeAll;
@@ -1004,20 +1028,24 @@ export default {
                 }
             }
 
-
+            const id = Math.random();
             const { promise, cancel } = await self.$sdk.content.list(self.type, loadCriteria, { cancellable: true })
-
-            cancelInflight = cancel;
+            inflightRequest = {id,cancel};
 
             promise.then(function(res) {
-                cancelInflight = null;
-                self.loading = false;
-                self.loadKey++;
-
+                if(inflightRequest?.id === id) {
+                    inflightRequest = null;
+                    self.loading = false;
+                    self.loadKey++;
+                    // console.log('Cleaned up browser.list request', id)
+                }
             })
             promise.catch(function(err) {
-                cancelInflight = null;
-                // self.loading = false;
+                if(inflightRequest?.id === id) {
+                    inflightRequest = null;
+                    // self.loading = false;
+                    // console.log('Remove error inflight browser.list request', id)
+                }
             });
 
 
@@ -1091,10 +1119,21 @@ export default {
     font-size: clamp(13px, 0.9em, 17px);
 }
 
+.large-icon {
+    font-size:6em;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
 .empty {
     background: rgba(#000, 0.05);
+    text-align: center;
+    white-space: pre-line;
+    align-items: center;
+    justify-content: center;
 
     .panel {
+        max-width:400px;
         background: #fff;
     }
 }

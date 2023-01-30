@@ -142,6 +142,9 @@ const _sfc_main$1g = {
   props: {
     vertical: {
       type: Boolean
+    },
+    inline: {
+      type: Boolean
     }
   },
   data() {
@@ -162,7 +165,8 @@ const _sfc_main$1g = {
         if (!child.props) {
           return;
         }
-        if (((_a = child.props) == null ? void 0 : _a.enabled) === false) {
+        const disabled = ((_a = child.props) == null ? void 0 : _a.enabled) === false;
+        if (disabled) {
           return;
         }
         return child;
@@ -179,7 +183,7 @@ function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_flex_row = resolveComponent("flex-row");
   const _component_flex_header = resolveComponent("flex-header");
   return openBlock(), createElementBlock("div", {
-    class: normalizeClass(["ux-tabset", { vertical: $props.vertical, horizontal: !$props.vertical }])
+    class: normalizeClass(["ux-tabset", { vertical: $props.vertical, horizontal: !$props.vertical, inline: $props.inline, block: !$props.inline }])
   }, [
     $props.vertical ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
       createVNode(_component_flex_column, { class: "tabset-menu" }, {
@@ -254,7 +258,7 @@ function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ], 2);
 }
-var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$1g, [["render", _sfc_render$1g], ["__scopeId", "data-v-621f2a2f"]]);
+var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$1g, [["render", _sfc_render$1g], ["__scopeId", "data-v-fc1e48c4"]]);
 const _sfc_main$1f = {
   props: {
     heading: {
@@ -13425,6 +13429,16 @@ const _sfc_main$x = {
     field() {
       return this.fieldHash[this.model.key];
     },
+    fieldWidget() {
+      var _a, _b;
+      if ((_a = this.comparator) == null ? void 0 : _a.inputWidget) {
+        return this.comparator.inputWidget;
+      }
+      switch ((_b = this.field) == null ? void 0 : _b.widget) {
+        case "currency":
+          return this.field.widget;
+      }
+    },
     fieldType() {
       if (!this.field) {
         return;
@@ -13586,12 +13600,18 @@ const _sfc_main$x = {
       };
     },
     normalField() {
-      return {
+      var _a, _b;
+      const settings = {};
+      const extras = {};
+      extras.currency = (_a = this.field) == null ? void 0 : _a.currency;
+      extras.syntax = (_b = this.field) == null ? void 0 : _b.syntax;
+      return Object.assign(settings, {
         type: this.fieldType,
         maximum: 1,
         minimum: 1,
-        placeholder: this.inputPlaceholder
-      };
+        placeholder: this.inputPlaceholder,
+        widget: this.fieldWidget
+      }, extras);
     },
     arrayField() {
       return {
@@ -13625,6 +13645,7 @@ const _sfc_main$x = {
   methods: {},
   components: {
     TextField,
+    CurrencyField,
     DateField,
     NativeSelect,
     ContentSelect
@@ -13649,6 +13670,7 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_native_select = resolveComponent("native-select");
   const _component_flex_cell = resolveComponent("flex-cell");
   const _component_text_field = resolveComponent("text-field");
+  const _component_currency_field = resolveComponent("currency-field");
   const _component_flex_row = resolveComponent("flex-row");
   const _component_date_field = resolveComponent("date-field");
   const _component_content_select = resolveComponent("content-select");
@@ -13699,17 +13721,31 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
               }, null, 8, ["field", "modelValue"]))
             ])) : createCommentVNode("", true),
             $options.inputType == "range" ? (openBlock(), createElementBlock("div", _hoisted_3$m, [
-              createVNode(_component_text_field, {
-                field: $options.normalField,
-                modelValue: $data.model.value,
-                "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => $data.model.value = $event)
-              }, null, 8, ["field", "modelValue"]),
-              createTextVNode(" And "),
-              createVNode(_component_text_field, {
-                field: $options.normalField,
-                modelValue: $data.model.value2,
-                "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => $data.model.value2 = $event)
-              }, null, 8, ["field", "modelValue"])
+              $options.fieldWidget == "currency" ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
+                createVNode(_component_currency_field, {
+                  field: $options.normalField,
+                  modelValue: $data.model.value,
+                  "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => $data.model.value = $event)
+                }, null, 8, ["field", "modelValue"]),
+                createTextVNode(" And "),
+                createVNode(_component_currency_field, {
+                  field: $options.normalField,
+                  modelValue: $data.model.value2,
+                  "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => $data.model.value2 = $event)
+                }, null, 8, ["field", "modelValue"])
+              ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
+                createVNode(_component_text_field, {
+                  field: $options.normalField,
+                  modelValue: $data.model.value,
+                  "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => $data.model.value = $event)
+                }, null, 8, ["field", "modelValue"]),
+                createTextVNode(" And "),
+                createVNode(_component_text_field, {
+                  field: $options.normalField,
+                  modelValue: $data.model.value2,
+                  "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => $data.model.value2 = $event)
+                }, null, 8, ["field", "modelValue"])
+              ], 64))
             ])) : createCommentVNode("", true),
             $options.inputType == "daterelative" ? (openBlock(), createElementBlock("div", _hoisted_4$g, [
               createVNode(_component_flex_row, null, {
@@ -13719,7 +13755,7 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
                       createVNode(_component_text_field, {
                         field: $options.relativeNumberField,
                         modelValue: $data.model.value,
-                        "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => $data.model.value = $event)
+                        "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => $data.model.value = $event)
                       }, null, 8, ["field", "modelValue"])
                     ]),
                     _: 1
@@ -13728,7 +13764,7 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
                     default: withCtx(() => [
                       createVNode(_component_native_select, {
                         modelValue: $data.model.value2,
-                        "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => $data.model.value2 = $event),
+                        "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $data.model.value2 = $event),
                         field: $options.relativePeriodField
                       }, null, 8, ["modelValue", "field"])
                     ]),
@@ -13742,34 +13778,34 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
               createVNode(_component_date_field, {
                 field: $options.dateField,
                 modelValue: $data.model.value,
-                "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => $data.model.value = $event)
+                "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => $data.model.value = $event)
               }, null, 8, ["field", "modelValue"]),
               createTextVNode(" And "),
               createVNode(_component_date_field, {
                 field: $options.dateField,
                 modelValue: $data.model.value2,
-                "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $data.model.value2 = $event)
+                "onUpdate:modelValue": _cache[11] || (_cache[11] = ($event) => $data.model.value2 = $event)
               }, null, 8, ["field", "modelValue"])
             ])) : createCommentVNode("", true),
             $options.inputType == "date" ? (openBlock(), createElementBlock("div", _hoisted_6$9, [
               createVNode(_component_date_field, {
                 field: $options.dateField,
                 modelValue: $data.model.value,
-                "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => $data.model.value = $event)
+                "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event) => $data.model.value = $event)
               }, null, 8, ["field", "modelValue"])
             ])) : createCommentVNode("", true),
             $options.inputType == "reference" ? (openBlock(), createElementBlock("div", _hoisted_7$5, [
               createVNode(_component_content_select, {
                 field: $options.singleReferenceField,
                 modelValue: $data.model.value,
-                "onUpdate:modelValue": _cache[11] || (_cache[11] = ($event) => $data.model.value = $event)
+                "onUpdate:modelValue": _cache[13] || (_cache[13] = ($event) => $data.model.value = $event)
               }, null, 8, ["field", "modelValue"])
             ])) : createCommentVNode("", true),
             $options.inputType == "multireference" ? (openBlock(), createElementBlock("div", _hoisted_8$3, [
               createVNode(_component_content_select, {
                 field: $options.multiReferenceField,
                 modelValue: $data.model.values,
-                "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event) => $data.model.values = $event)
+                "onUpdate:modelValue": _cache[14] || (_cache[14] = ($event) => $data.model.values = $event)
               }, null, 8, ["field", "modelValue"])
             ])) : createCommentVNode("", true),
             $options.inputType == "boolean" ? (openBlock(), createElementBlock("div", _hoisted_9$3, [
@@ -13781,7 +13817,7 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
                   createVNode(_component_flex_cell, { shrink: "" }, {
                     default: withCtx(() => [
                       createVNode(_component_ux_switch, {
-                        onClick: _cache[13] || (_cache[13] = ($event) => $data.model.value = !$data.model.value),
+                        onClick: _cache[15] || (_cache[15] = ($event) => $data.model.value = !$data.model.value),
                         value: $data.model.value
                       }, null, 8, ["value"])
                     ]),
@@ -13799,23 +13835,29 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
             ])) : createCommentVNode("", true),
             $options.inputType == "none" ? (openBlock(), createElementBlock("div", _hoisted_10$2)) : createCommentVNode("", true),
             $options.inputType == "number" ? (openBlock(), createElementBlock("div", _hoisted_11$2, [
-              createVNode(_component_text_field, {
+              $options.fieldWidget == "currency" ? (openBlock(), createBlock(_component_currency_field, {
+                key: 0,
                 field: $options.normalField,
                 modelValue: $data.model.value,
-                "onUpdate:modelValue": _cache[14] || (_cache[14] = ($event) => $data.model.value = $event)
-              }, null, 8, ["field", "modelValue"])
+                "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => $data.model.value = $event)
+              }, null, 8, ["field", "modelValue"])) : (openBlock(), createBlock(_component_text_field, {
+                key: 1,
+                field: $options.normalField,
+                modelValue: $data.model.value,
+                "onUpdate:modelValue": _cache[17] || (_cache[17] = ($event) => $data.model.value = $event)
+              }, null, 8, ["field", "modelValue"]))
             ])) : createCommentVNode("", true),
             $options.inputType == "normal" ? (openBlock(), createElementBlock("div", _hoisted_12$2, [
               $options.hasOptions ? (openBlock(), createBlock(_component_native_select, {
                 key: 0,
                 modelValue: $data.model.value,
-                "onUpdate:modelValue": _cache[15] || (_cache[15] = ($event) => $data.model.value = $event),
+                "onUpdate:modelValue": _cache[18] || (_cache[18] = ($event) => $data.model.value = $event),
                 field: $options.singleOptionsField
               }, null, 8, ["modelValue", "field"])) : (openBlock(), createBlock(_component_text_field, {
                 key: 1,
                 field: $options.normalField,
                 modelValue: $data.model.value,
-                "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => $data.model.value = $event)
+                "onUpdate:modelValue": _cache[19] || (_cache[19] = ($event) => $data.model.value = $event)
               }, null, 8, ["field", "modelValue"]))
             ])) : createCommentVNode("", true)
           ]),
@@ -13829,7 +13871,7 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
             createVNode(_component_ux_button, {
               size: "sm",
               icon: "",
-              onClick: _cache[17] || (_cache[17] = ($event) => _ctx.$emit("remove"))
+              onClick: _cache[20] || (_cache[20] = ($event) => _ctx.$emit("remove"))
             }, {
               default: withCtx(() => [
                 createVNode(_component_ux_icon, { icon: "fa-times" })
@@ -20721,7 +20763,7 @@ function emptyFilter() {
     filters: []
   };
 }
-let cancelInflight;
+let inflightRequest;
 let cancelledUnmount;
 let typeCacheKey;
 const _sfc_main$6 = {
@@ -20813,9 +20855,9 @@ const _sfc_main$6 = {
   },
   deactivated() {
     typeCacheKey = this.$sdk.global.cacheKeys[this.type];
-    if (cancelInflight) {
-      cancelInflight();
-      cancelInflight = null;
+    if (inflightRequest) {
+      inflightRequest.cancel();
+      inflightRequest = null;
       cancelledUnmount = true;
     }
   },
@@ -20893,6 +20935,15 @@ const _sfc_main$6 = {
     }
   },
   computed: {
+    showFilterSidebar() {
+      return this.showFilters;
+    },
+    boundaryMessage() {
+      var _a;
+      if ((_a = this.dataSource) == null ? void 0 : _a.boundary) {
+        return this.dataSource.message || "Limit was reached. Please provide more selective criteria";
+      }
+    },
     viewModeCacheKey() {
       return `${this.cacheKey}-${this.loadKey}`;
     },
@@ -21228,9 +21279,9 @@ const _sfc_main$6 = {
       var _a, _b, _c, _d;
       var self2 = this;
       self2.loading = true;
-      if (cancelInflight) {
-        cancelInflight();
-        cancelInflight = null;
+      if (inflightRequest) {
+        inflightRequest.cancel();
+        inflightRequest = null;
       }
       var loadCriteria = Object.assign({}, self2.loadCriteria);
       loadCriteria.includeAll = includeAll;
@@ -21258,15 +21309,20 @@ const _sfc_main$6 = {
           };
         }
       }
+      const id = Math.random();
       const { promise, cancel } = await self2.$sdk.content.list(self2.type, loadCriteria, { cancellable: true });
-      cancelInflight = cancel;
+      inflightRequest = { id, cancel };
       promise.then(function(res) {
-        cancelInflight = null;
-        self2.loading = false;
-        self2.loadKey++;
+        if ((inflightRequest == null ? void 0 : inflightRequest.id) === id) {
+          inflightRequest = null;
+          self2.loading = false;
+          self2.loadKey++;
+        }
       });
       promise.catch(function(err) {
-        cancelInflight = null;
+        if ((inflightRequest == null ? void 0 : inflightRequest.id) === id) {
+          inflightRequest = null;
+        }
       });
       const { data } = await promise;
       data.items.forEach(self2.ensureMeta);
@@ -21304,28 +21360,28 @@ const _sfc_main$6 = {
     };
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-510c624f"), n2 = n2(), popScopeId(), n2);
-const _hoisted_1$6 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
-const _hoisted_2$5 = { key: 0 };
-const _hoisted_3$5 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
-const _hoisted_4$1 = { class: "footer" };
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-ebe5f108"), n2 = n2(), popScopeId(), n2);
+const _hoisted_1$6 = { class: "footer" };
+const _hoisted_2$5 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
+const _hoisted_3$5 = { key: 0 };
+const _hoisted_4$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_ux_icon = resolveComponent("ux-icon");
+  const _component_ux_panel_body = resolveComponent("ux-panel-body");
+  const _component_ux_panel = resolveComponent("ux-panel");
+  const _component_flex_column = resolveComponent("flex-column");
   const _component_ux_button = resolveComponent("ux-button");
   const _component_ux_list_item = resolveComponent("ux-list-item");
   const _component_ux_list = resolveComponent("ux-list");
   const _component_ux_menu = resolveComponent("ux-menu");
   const _component_native_table = resolveComponent("native-table");
-  const _component_flex_column = resolveComponent("flex-column");
-  const _component_ux_panel_body = resolveComponent("ux-panel-body");
-  const _component_ux_panel = resolveComponent("ux-panel");
+  const _component_pager = resolveComponent("pager");
+  const _component_flex_footer = resolveComponent("flex-footer");
   const _component_flex_row = resolveComponent("flex-row");
   const _component_search = resolveComponent("search");
   const _component_ux_field = resolveComponent("ux-field");
   const _component_filter_builder = resolveComponent("filter-builder");
   const _component_flex_body = resolveComponent("flex-body");
-  const _component_pager = resolveComponent("pager");
-  const _component_flex_footer = resolveComponent("flex-footer");
   const _component_spinner = resolveComponent("spinner");
   return $data.definition ? (openBlock(), createBlock(_component_flex_column, {
     key: 0,
@@ -21342,64 +21398,24 @@ function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
                 default: withCtx(() => [
                   createVNode(_component_flex_column, null, {
                     default: withCtx(() => [
-                      $data.dataSource ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
-                        renderSlot(_ctx.$slots, "abovecontent", {}, void 0, true),
-                        $options.items.length ? (openBlock(), createBlock(_component_flex_column, { key: 0 }, {
-                          default: withCtx(() => [
-                            $options.viewMode && $options.viewMode.component ? (openBlock(), createBlock(resolveDynamicComponent($options.viewMode.component), {
+                      createVNode(_component_flex_column, null, {
+                        default: withCtx(() => [
+                          $data.dataSource ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
+                            renderSlot(_ctx.$slots, "abovecontent", {}, void 0, true),
+                            $options.boundaryMessage ? (openBlock(), createBlock(_component_flex_column, {
                               key: 0,
-                              cacheKey: $options.viewModeCacheKey,
-                              selection: $data.manager.items,
-                              items: $options.items,
-                              "onClick:actions": $options.actionsClicked,
-                              "onSelect:item:toggle": $options.rowToggled,
-                              "onClick:item": $options.rowClicked
-                            }, null, 40, ["cacheKey", "selection", "items", "onClick:actions", "onSelect:item:toggle", "onClick:item"])) : (openBlock(), createBlock(_component_native_table, {
-                              key: 1,
-                              sort: $data.sort,
-                              "onUpdate:sort": _cache[0] || (_cache[0] = ($event) => $data.sort = $event),
-                              enableSelection: $props.enableSelection,
-                              enableActions: $props.enableActions,
-                              total: $options.totalItems,
-                              selectAll: $options.selectAll,
-                              deselectAll: $options.deselectAllFunction,
-                              selection: $data.manager.items,
-                              "onClick:row": $options.rowClicked,
-                              "onClick:actions": $options.actionsClicked,
-                              "onSelect:row:toggle": $options.rowToggled,
-                              "onSelect:multiple": $options.selectMultiple,
-                              "onDeselect:multiple": $options.deselectMultiple,
-                              rows: $options.items,
-                              columns: $options.columns
+                              class: "empty"
                             }, {
-                              corner: withCtx(() => [
-                                createVNode(_component_ux_menu, { right: "" }, {
-                                  activator: withCtx(({ on: on2 }) => [
-                                    createVNode(_component_ux_button, mergeProps({ icon: "" }, toHandlers(on2)), {
-                                      default: withCtx(() => [
-                                        createVNode(_component_ux_icon, { icon: "fa-cog" })
-                                      ]),
-                                      _: 2
-                                    }, 1040)
-                                  ]),
+                              default: withCtx(() => [
+                                createVNode(_component_ux_panel, null, {
                                   default: withCtx(() => [
-                                    createVNode(_component_ux_list, null, {
+                                    createVNode(_component_ux_panel_body, null, {
                                       default: withCtx(() => [
-                                        (openBlock(true), createElementBlock(Fragment, null, renderList($options.fields, (field) => {
-                                          return openBlock(), createBlock(_component_ux_list_item, {
-                                            onClick: ($event) => $options.toggleField(field),
-                                            key: field.path
-                                          }, {
-                                            default: withCtx(() => [
-                                              createVNode(_component_ux_icon, {
-                                                icon: $options.fieldEnabled[field.path] ? "fa-check-square" : "fa-regular fa-square",
-                                                left: ""
-                                              }, null, 8, ["icon"]),
-                                              createTextVNode(" " + toDisplayString(field.title), 1)
-                                            ]),
-                                            _: 2
-                                          }, 1032, ["onClick"]);
-                                        }), 128))
+                                        createVNode(_component_ux_icon, {
+                                          class: "large-icon",
+                                          icon: "fa-database"
+                                        }),
+                                        createElementVNode("div", null, toDisplayString($options.boundaryMessage), 1)
                                       ]),
                                       _: 1
                                     })
@@ -21408,41 +21424,122 @@ function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
                                 })
                               ]),
                               _: 1
-                            }, 8, ["sort", "enableSelection", "enableActions", "total", "selectAll", "deselectAll", "selection", "onClick:row", "onClick:actions", "onSelect:row:toggle", "onSelect:multiple", "onDeselect:multiple", "rows", "columns"]))
-                          ]),
-                          _: 1
-                        })) : !$data.loading ? (openBlock(), createBlock(_component_flex_column, {
-                          key: 1,
-                          class: "empty",
-                          center: ""
-                        }, {
-                          default: withCtx(() => [
-                            createVNode(_component_ux_panel, null, {
+                            })) : $options.items.length ? (openBlock(), createBlock(_component_flex_column, { key: 1 }, {
                               default: withCtx(() => [
-                                createVNode(_component_ux_panel_body, null, {
+                                $options.viewMode && $options.viewMode.component ? (openBlock(), createBlock(resolveDynamicComponent($options.viewMode.component), {
+                                  key: 0,
+                                  cacheKey: $options.viewModeCacheKey,
+                                  selection: $data.manager.items,
+                                  items: $options.items,
+                                  "onClick:actions": $options.actionsClicked,
+                                  "onSelect:item:toggle": $options.rowToggled,
+                                  "onClick:item": $options.rowClicked
+                                }, null, 40, ["cacheKey", "selection", "items", "onClick:actions", "onSelect:item:toggle", "onClick:item"])) : (openBlock(), createBlock(_component_native_table, {
+                                  key: 1,
+                                  sort: $data.sort,
+                                  "onUpdate:sort": _cache[0] || (_cache[0] = ($event) => $data.sort = $event),
+                                  enableSelection: $props.enableSelection,
+                                  enableActions: $props.enableActions,
+                                  total: $options.totalItems,
+                                  selectAll: $options.selectAll,
+                                  deselectAll: $options.deselectAllFunction,
+                                  selection: $data.manager.items,
+                                  "onClick:row": $options.rowClicked,
+                                  "onClick:actions": $options.actionsClicked,
+                                  "onSelect:row:toggle": $options.rowToggled,
+                                  "onSelect:multiple": $options.selectMultiple,
+                                  "onDeselect:multiple": $options.deselectMultiple,
+                                  rows: $options.items,
+                                  columns: $options.columns
+                                }, {
+                                  corner: withCtx(() => [
+                                    createVNode(_component_ux_menu, { right: "" }, {
+                                      activator: withCtx(({ on: on2 }) => [
+                                        createVNode(_component_ux_button, mergeProps({ icon: "" }, toHandlers(on2)), {
+                                          default: withCtx(() => [
+                                            createVNode(_component_ux_icon, { icon: "fa-cog" })
+                                          ]),
+                                          _: 2
+                                        }, 1040)
+                                      ]),
+                                      default: withCtx(() => [
+                                        createVNode(_component_ux_list, null, {
+                                          default: withCtx(() => [
+                                            (openBlock(true), createElementBlock(Fragment, null, renderList($options.fields, (field) => {
+                                              return openBlock(), createBlock(_component_ux_list_item, {
+                                                onClick: ($event) => $options.toggleField(field),
+                                                key: field.path
+                                              }, {
+                                                default: withCtx(() => [
+                                                  createVNode(_component_ux_icon, {
+                                                    icon: $options.fieldEnabled[field.path] ? "fa-check-square" : "fa-regular fa-square",
+                                                    left: ""
+                                                  }, null, 8, ["icon"]),
+                                                  createTextVNode(" " + toDisplayString(field.title), 1)
+                                                ]),
+                                                _: 2
+                                              }, 1032, ["onClick"]);
+                                            }), 128))
+                                          ]),
+                                          _: 1
+                                        })
+                                      ]),
+                                      _: 1
+                                    })
+                                  ]),
+                                  _: 1
+                                }, 8, ["sort", "enableSelection", "enableActions", "total", "selectAll", "deselectAll", "selection", "onClick:row", "onClick:actions", "onSelect:row:toggle", "onSelect:multiple", "onDeselect:multiple", "rows", "columns"]))
+                              ]),
+                              _: 1
+                            })) : !$data.loading ? (openBlock(), createBlock(_component_flex_column, {
+                              key: 2,
+                              class: "empty",
+                              center: ""
+                            }, {
+                              default: withCtx(() => [
+                                createVNode(_component_ux_panel, null, {
                                   default: withCtx(() => [
-                                    createElementVNode("div", null, "No " + toDisplayString($data.definition.plural) + " found.", 1)
+                                    createVNode(_component_ux_panel_body, null, {
+                                      default: withCtx(() => [
+                                        createElementVNode("div", null, "No " + toDisplayString($data.definition.plural) + " found.", 1)
+                                      ]),
+                                      _: 1
+                                    })
                                   ]),
                                   _: 1
                                 })
                               ]),
                               _: 1
-                            })
+                            })) : (openBlock(), createBlock(_component_flex_column, {
+                              key: 3,
+                              class: "empty",
+                              center: ""
+                            }))
+                          ], 64)) : createCommentVNode("", true)
+                        ]),
+                        _: 3
+                      }),
+                      $data.dataSource && !$options.boundaryMessage ? (openBlock(), createBlock(_component_flex_footer, { key: 0 }, {
+                        default: withCtx(() => [
+                          renderSlot(_ctx.$slots, "footera", {}, void 0, true),
+                          createElementVNode("div", _hoisted_1$6, [
+                            createVNode(_component_pager, {
+                              page: $data.page,
+                              "onUpdate:page": _cache[1] || (_cache[1] = ($event) => $data.page = $event),
+                              total: $options.totalItems
+                            }, null, 8, ["page", "total"])
                           ]),
-                          _: 1
-                        })) : (openBlock(), createBlock(_component_flex_column, {
-                          key: 2,
-                          class: "empty",
-                          center: ""
-                        }))
-                      ], 64)) : createCommentVNode("", true)
+                          renderSlot(_ctx.$slots, "footerb", {}, void 0, true)
+                        ]),
+                        _: 3
+                      })) : createCommentVNode("", true)
                     ]),
                     _: 3
                   })
                 ]),
                 _: 3
               }, 8, ["class"]),
-              $props.showFilters ? (openBlock(), createBlock(_component_flex_column, {
+              $options.showFilterSidebar ? (openBlock(), createBlock(_component_flex_column, {
                 key: 0,
                 class: "filter-column"
               }, {
@@ -21452,24 +21549,24 @@ function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
                     default: withCtx(() => [
                       createVNode(_component_search, {
                         modelValue: $data.keywords,
-                        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $data.keywords = $event),
+                        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => $data.keywords = $event),
                         loading: $options.searching,
                         debounce: 500,
                         placeholder: "Keyword Search"
                       }, null, 8, ["modelValue", "loading"]),
-                      _hoisted_1$6,
-                      $props.dateFilterEnabled ? (openBlock(), createElementBlock("div", _hoisted_2$5, [
+                      _hoisted_2$5,
+                      $props.dateFilterEnabled ? (openBlock(), createElementBlock("div", _hoisted_3$5, [
                         createVNode(_component_ux_field, {
                           field: $options.dateRangeField,
                           modelValue: $data.dateRangeFilter,
-                          "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => $data.dateRangeFilter = $event)
+                          "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => $data.dateRangeFilter = $event)
                         }, null, 8, ["field", "modelValue"])
                       ])) : createCommentVNode("", true),
-                      _hoisted_3$5,
+                      _hoisted_4$1,
                       createVNode(_component_filter_builder, {
                         definition: $data.definition,
                         modelValue: $data.actualFilter,
-                        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => $data.actualFilter = $event)
+                        "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => $data.actualFilter = $event)
                       }, null, 8, ["definition", "modelValue"])
                     ]),
                     _: 1
@@ -21484,29 +21581,15 @@ function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
         ]),
         _: 3
       }),
-      $data.dataSource ? (openBlock(), createBlock(_component_flex_footer, { key: 0 }, {
-        default: withCtx(() => [
-          renderSlot(_ctx.$slots, "footera", {}, void 0, true),
-          createElementVNode("div", _hoisted_4$1, [
-            createVNode(_component_pager, {
-              page: $data.page,
-              "onUpdate:page": _cache[4] || (_cache[4] = ($event) => $data.page = $event),
-              total: $options.totalItems
-            }, null, 8, ["page", "total"])
-          ]),
-          renderSlot(_ctx.$slots, "footerb", {}, void 0, true)
-        ]),
-        _: 3
-      })) : createCommentVNode("", true),
       $data.loading ? (openBlock(), createBlock(_component_spinner, {
-        key: 1,
+        key: 0,
         large: ""
       })) : createCommentVNode("", true)
     ]),
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$6], ["__scopeId", "data-v-510c624f"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$6], ["__scopeId", "data-v-ebe5f108"]]);
 var ModalMixin = {
   props: {
     options: {
@@ -22018,7 +22101,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
                           "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $data.search = $event),
                           loading: $data.searching,
                           debounce: 500,
-                          placeholder: "Search"
+                          placeholder: "Keyword Search"
                         }, null, 8, ["modelValue", "loading"])
                       ]),
                       _: 1
@@ -22065,14 +22148,14 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
           }),
           createVNode(_component_content_browser, {
             rolodexPrimary: $options.rolodexPrimary,
-            "onUpdate:rolodexPrimary": _cache[2] || (_cache[2] = ($event) => $options.rolodexPrimary = $event),
+            "onUpdate:rolodexPrimary": _cache[3] || (_cache[3] = ($event) => $options.rolodexPrimary = $event),
             showFilters: $data.showFilters,
             ref: "browser",
             search: $data.search,
             "onClick:row": $options.rowClicked,
             maximum: _ctx.options.maximum,
             modelValue: $data.model,
-            "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => $data.model = $event),
+            "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => $data.model = $event),
             type: _ctx.options.type,
             options: $options.browserOptions
           }, {
@@ -22080,6 +22163,17 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
               $options.rolodexEnabled ? (openBlock(), createBlock(_component_flex_header, { key: 0 }, {
                 default: withCtx(() => [
                   createElementVNode("div", _hoisted_3$1, [
+                    createVNode(_component_ux_button, {
+                      size: "sm",
+                      onClick: _cache[2] || (_cache[2] = ($event) => $options.toggleRolodex("")),
+                      icon: "",
+                      color: !$options.rolodexPrimary ? "primary" : ""
+                    }, {
+                      default: withCtx(() => [
+                        createTextVNode("All")
+                      ]),
+                      _: 1
+                    }, 8, ["color"]),
                     (openBlock(true), createElementBlock(Fragment, null, renderList($options.letters, (letter) => {
                       return openBlock(), createBlock(_component_ux_button, {
                         size: "sm",
@@ -22106,7 +22200,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var UxContentModal = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-0eebffb8"]]);
+var UxContentModal = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-46991808"]]);
 var ScopeModal_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main = {
   components: {

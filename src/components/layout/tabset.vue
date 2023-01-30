@@ -1,5 +1,5 @@
 <template>
-    <div class="ux-tabset" :class="{vertical, horizontal:!vertical}">
+    <div class="ux-tabset" :class="{vertical, horizontal:!vertical, inline, block:!inline}">
         <template v-if="vertical">
             <flex-column class="tabset-menu">
                 <flex-body>
@@ -35,6 +35,9 @@ export default {
     props: {
         vertical: {
             type: Boolean,
+        },
+        inline: {
+            type: Boolean,
         }
     },
     data() {
@@ -53,16 +56,15 @@ export default {
             const slotChildren = self.$slots.default()
                 .map(function(child) {
 
-                     if (!child.props) {
-                        return;
-                    }
-                    
-                    if (child.props?.enabled === false) {
+                    if (!child.props) {
                         return;
                     }
 
+                    const disabled = child.props?.enabled === false;
 
-                   
+                    if (disabled) {
+                        return;
+                    }
 
                     // child.guid = self.$sdk.utils.guid()
 
@@ -82,57 +84,80 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.tabset-menu {
-    background: rgba(#000, 0.05);
-}
 
 
 .ux-tabset {
-    flex:1;
+    flex: 1;
     overflow: hidden;
-
-    a {
-        display: block;
-        padding: 1em;
-        cursor: pointer;
-        color: rgba(#000, 0.5);
-        font-weight: bold;
-    }
-
 
     &.horizontal {
         display: flex;
         flex-direction: column;
 
+        &.block {
+            >.tabset-menu {
+                background: rgba(#000, 0.05);
 
-        >.tabset-menu {
-            a {
-                border-top: 3px solid transparent;
-                text-align: center;
-                flex: 1;
-                align-items: center;
+                a {
+                    display: block;
+                    padding: 1em;
+                    cursor: pointer;
+                    color: rgba(#000, 0.5);
+                    font-weight: bold;
+                    border-top: 3px solid transparent;
+                    text-align: center;
+                    flex: 1;
+                    align-items: center;
 
-                &.active {
-                    background: #fff;
-                    color: var(--primary);
-                    border-top: 3px solid var(--primary);
+                    &.active {
+                        background: #fff;
+                        color: var(--primary);
+                        border-top: 3px solid var(--primary);
+                    }
+                }
+            }
+        }
+
+        &.inline {
+            >.tabset-menu {
+                a {
+                    display: block;
+                    padding: 1em 0;
+                    margin: 0 1.5em 0 0;
+                    cursor: pointer;
+                    opacity: 0.5;
+                    font-weight: bold;
+                    border-bottom: 3px solid transparent;
+                    text-align: center;
+                    display: inline-block;
+
+                    &.active {
+                        opacity: 1;
+                        border-bottom: 3px solid var(--primary);
+                    }
                 }
             }
         }
     }
 
-    &.vertical {
 
+
+    &.vertical {
         display: flex;
         flex-direction: row;
-
 
         >.tabset-menu {
             max-width: 200px;
             min-width: 100px;
+            background: rgba(#000, 0.05);
 
 
             a {
+                display: block;
+                padding: 1em;
+                cursor: pointer;
+                color: rgba(#000, 0.5);
+                font-weight: bold;
                 border-left: 3px solid transparent;
 
                 &.active {
