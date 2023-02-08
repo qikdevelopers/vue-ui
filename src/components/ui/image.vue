@@ -152,14 +152,18 @@ export default {
             return params;
         },
         src() {
-            return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, this.params, {file:true});
+
+            const mediaType = 'image';
+            return this.$sdk.api.generateEndpointURL(`/${mediaType}/${this.id}`, this.params, {file:true});
         },
         previewSrc() {
 
             var params = Object.assign({}, this.params);
             params.w = 50;
             delete params.h;
-            return this.$sdk.api.generateEndpointURL(`/${this.type}/${this.id}`, params, {file:true});
+
+            const mediaType = 'image';
+            return this.$sdk.api.generateEndpointURL(`/${mediaType}/${this.id}`, params, {file:true});
         },
         imageStyle() {
             var style = {}
