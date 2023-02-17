@@ -1,7 +1,7 @@
 <template>
     <div class="ux-tabset" :class="{vertical, horizontal:!vertical, inline, block:!inline}">
         <template v-if="vertical">
-            <flex-column class="tabset-menu">
+            <flex-column v-if="menuRequired" class="tabset-menu">
                 <flex-body>
                     <a :class="{active:index === activeIndex}" :key="`tab-link-${tab.props.heading}`" v-for="(tab, index) in tabs" @click="select(index)">{{tab.props.heading}}</a>
                 </flex-body>
@@ -15,7 +15,7 @@
             </flex-column>
         </template>
         <template v-else>
-            <flex-header class="tabset-menu">
+            <flex-header v-if="menuRequired" class="tabset-menu">
                 <flex-row>
                     <a :class="{active:index === activeIndex}" :key="`tab-link-${tab.props.heading}`" v-for="(tab, index) in tabs" @click="select(index)">{{tab.props.heading}}</a>
                 </flex-row>
@@ -51,6 +51,9 @@ export default {
         },
     },
     computed: {
+        menuRequired() {
+            return this.tabs.length > 1;
+        },
         tabs() {
             const self = this;
             const slotChildren = self.$slots.default()

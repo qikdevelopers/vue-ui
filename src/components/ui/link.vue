@@ -20,6 +20,9 @@ export default {
         },
         disabled: {
             type: Boolean,
+        },
+        active: {
+            type: Boolean,
         }
     },
     methods:{
@@ -69,6 +72,10 @@ export default {
 
             if(this.disabled) {
                 array.push('disabled');
+            }
+
+            if(this.active) {
+                array.push('active');
             }
 
             if(this.href || this.to) {

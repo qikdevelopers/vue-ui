@@ -644,10 +644,10 @@ export default {
                 return this.cleanOutput(this.model[this.key]);
             },
             set(value) {
-
                 var cleaned = this.cleanInput(value);
+                const existing = this.model[this.key];
 
-                if (this.model[this.key] != cleaned) {
+                if (existing != cleaned) {
                     this.model[this.key] = cleaned
                     this.isDirty = true;
                     this.$emit('update:modelValue', this.model);

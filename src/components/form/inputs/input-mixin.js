@@ -28,16 +28,30 @@ export default {
     },
     data() {
         return {
-            value: this.modelValue,
+            value:this.modelValue,
         }
     },
     watch: {
         modelValue(val, old) {
-            var cleanedValue = this.cleanInput(val);
-            var cleanedModel = this.cleanInput(this.model);
-            if (safeJsonStringify(cleanedValue) != safeJsonStringify(cleanedModel)) {
-                this.model = cleanedValue
-            }
+            this.model = val;
+            // var cleanedValue = this.cleanInput(val);
+            // var cleanedModel = this.cleanInput(this.model);
+
+            // // let dispatched = false;
+            // // 
+            // // this.model = cleanedValue
+            // // console.log('updated value', this.field.title, cleanedValue);
+            // // if(!this.isGroup) {
+            // //     this.model = cleanedValue
+            // //     console.log('updated value', this.field.title, cleanedValue);
+            // // } else 
+            // // console.log('NEW CHANGE', this.field.title, safeJsonStringify(cleanedValue), safeJsonStringify(cleanedModel));
+
+            // if (safeJsonStringify(cleanedValue) != safeJsonStringify(cleanedModel)) {
+            //     this.model = cleanedValue
+            //     console.log('Updated', field.title)
+            // }
+
         },
     },
     mounted() {
@@ -65,11 +79,37 @@ export default {
                 return cleaned
             },
             set(val) {
-                this.value = this.cleanInput(val);
 
+                let force;
 
-                this.checkAutofocus();
-                this.dispatch();
+                if(this.isGroup || this.widget === 'form') {
+                    // Check if this is a proxy and if it's been updated
+                    // console.log('CURRENT GROUP', val, this.value);
+                    if(val === this.value) {
+                        force = false;
+                    } else {
+                        force = true;
+                    }
+                }
+                
+                const cleanedValue = this.cleanInput(val);
+                const cleanedModel = this.cleanInput(this.value);
+                const contentHasChanged = safeJsonStringify(cleanedValue) != safeJsonStringify(cleanedModel);
+                
+                // Check if there has actually been a change
+                 if (contentHasChanged || force) {
+
+                    this.value = cleanedValue;
+                    this.checkAutofocus();
+                    this.dispatch();
+                 }
+                
+                
+                // if(this.value != cleaned) {
+                //     this.value = cleaned;
+                //     this.checkAutofocus();
+                //     this.dispatch();
+                // }
             }
         },
         options() {
@@ -331,6 +371,7 @@ export default {
         },
         dispatch() {
             this.$emit('update:modelValue', this.value);
+            console.log('Update', this.field.title)
         },
         cleanInputValue(val) {
             return val;

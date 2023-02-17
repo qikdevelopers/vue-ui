@@ -33,10 +33,10 @@ export default {
 
     computed: {
         mediaType() {
-            return this.model.mediaIntegrationType || 'upload';
+            return this.model?.mediaIntegrationType || 'upload';
         },
         mimetype() {
-            return this.model.fileMime || 'video/mp4';
+            return this.model?.fileMime || 'video/mp4';
         },
         actualWidth() {
             return (parseInt(this.width) || this.modelWidth || 1920)

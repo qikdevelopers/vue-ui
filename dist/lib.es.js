@@ -30,9 +30,9 @@ var __objRest = (source, exclude) => {
     }
   return target;
 };
-import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createVNode, withCtx, renderList, toDisplayString, withDirectives, createBlock, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createCommentVNode, createElementVNode, h, mergeProps, toHandlers, vModelSelect, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, withKeys, TransitionGroup, defineComponent, nextTick, vModelDynamic, reactive, watch } from "vue";
+import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createBlock, withCtx, createVNode, renderList, toDisplayString, createCommentVNode, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createElementVNode, h, mergeProps, toHandlers, vModelSelect, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, withKeys, TransitionGroup, defineComponent, nextTick, vModelDynamic, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.53";
+const version$1 = "0.2.55";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -158,6 +158,9 @@ const _sfc_main$1h = {
     }
   },
   computed: {
+    menuRequired() {
+      return this.tabs.length > 1;
+    },
     tabs() {
       const self2 = this;
       const slotChildren = self2.$slots.default().map(function(child) {
@@ -186,7 +189,10 @@ function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
     class: normalizeClass(["ux-tabset", { vertical: $props.vertical, horizontal: !$props.vertical, inline: $props.inline, block: !$props.inline }])
   }, [
     $props.vertical ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
-      createVNode(_component_flex_column, { class: "tabset-menu" }, {
+      $options.menuRequired ? (openBlock(), createBlock(_component_flex_column, {
+        key: 0,
+        class: "tabset-menu"
+      }, {
         default: withCtx(() => [
           createVNode(_component_flex_body, null, {
             default: withCtx(() => [
@@ -202,7 +208,7 @@ function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
           })
         ]),
         _: 1
-      }),
+      })) : createCommentVNode("", true),
       createVNode(_component_flex_column, null, {
         default: withCtx(() => [
           (openBlock(true), createElementBlock(Fragment, null, renderList($options.tabs, (tab, index2) => {
@@ -221,7 +227,10 @@ function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
       })
     ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
-      createVNode(_component_flex_header, { class: "tabset-menu" }, {
+      $options.menuRequired ? (openBlock(), createBlock(_component_flex_header, {
+        key: 0,
+        class: "tabset-menu"
+      }, {
         default: withCtx(() => [
           createVNode(_component_flex_row, null, {
             default: withCtx(() => [
@@ -237,7 +246,7 @@ function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
           })
         ]),
         _: 1
-      }),
+      })) : createCommentVNode("", true),
       createVNode(_component_flex_column, null, {
         default: withCtx(() => [
           (openBlock(true), createElementBlock(Fragment, null, renderList($options.tabs, (tab, index2) => {
@@ -258,7 +267,7 @@ function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ], 2);
 }
-var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$1h, [["render", _sfc_render$1h], ["__scopeId", "data-v-fc1e48c4"]]);
+var UXTabset = /* @__PURE__ */ _export_sfc(_sfc_main$1h, [["render", _sfc_render$1h], ["__scopeId", "data-v-99e2c0be"]]);
 const _sfc_main$1g = {
   props: {
     heading: {
@@ -5765,11 +5774,7 @@ var InputMixin = {
   },
   watch: {
     modelValue(val, old) {
-      var cleanedValue = this.cleanInput(val);
-      var cleanedModel = this.cleanInput(this.model);
-      if (safeJsonStringify(cleanedValue) != safeJsonStringify(cleanedModel)) {
-        this.model = cleanedValue;
-      }
+      this.model = val;
     }
   },
   mounted() {
@@ -5797,9 +5802,22 @@ var InputMixin = {
         return cleaned;
       },
       set(val) {
-        this.value = this.cleanInput(val);
-        this.checkAutofocus();
-        this.dispatch();
+        let force;
+        if (this.isGroup || this.widget === "form") {
+          if (val === this.value) {
+            force = false;
+          } else {
+            force = true;
+          }
+        }
+        const cleanedValue = this.cleanInput(val);
+        const cleanedModel = this.cleanInput(this.value);
+        const contentHasChanged = safeJsonStringify(cleanedValue) != safeJsonStringify(cleanedModel);
+        if (contentHasChanged || force) {
+          this.value = cleanedValue;
+          this.checkAutofocus();
+          this.dispatch();
+        }
       }
     },
     options() {
@@ -6029,6 +6047,7 @@ var InputMixin = {
     },
     dispatch() {
       this.$emit("update:modelValue", this.value);
+      console.log("Update", this.field.title);
     },
     cleanInputValue(val) {
       return val;
@@ -6733,6 +6752,9 @@ const _sfc_main$Y = {
     },
     disabled: {
       type: Boolean
+    },
+    active: {
+      type: Boolean
     }
   },
   methods: {
@@ -6774,6 +6796,9 @@ const _sfc_main$Y = {
       if (this.disabled) {
         array.push("disabled");
       }
+      if (this.active) {
+        array.push("active");
+      }
       if (this.href || this.to) {
         array.push("haslink");
       }
@@ -6807,7 +6832,7 @@ function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["onClick", "to", "href", "target", "class"]);
 }
-var UXLink = /* @__PURE__ */ _export_sfc(_sfc_main$Y, [["render", _sfc_render$Y], ["__scopeId", "data-v-8b82829a"]]);
+var UXLink = /* @__PURE__ */ _export_sfc(_sfc_main$Y, [["render", _sfc_render$Y], ["__scopeId", "data-v-f100ab44"]]);
 var icon_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$X = {
   props: {
@@ -7338,10 +7363,12 @@ const _sfc_main$T = {
   },
   computed: {
     mediaType() {
-      return this.model.mediaIntegrationType || "upload";
+      var _a;
+      return ((_a = this.model) == null ? void 0 : _a.mediaIntegrationType) || "upload";
     },
     mimetype() {
-      return this.model.fileMime || "video/mp4";
+      var _a;
+      return ((_a = this.model) == null ? void 0 : _a.fileMime) || "video/mp4";
     },
     actualWidth() {
       return parseInt(this.width) || this.modelWidth || 1920;
@@ -7415,7 +7442,7 @@ function _sfc_render$T(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 6);
 }
-var UXVideo = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["render", _sfc_render$T], ["__scopeId", "data-v-c85ee2a2"]]);
+var UXVideo = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["render", _sfc_render$T], ["__scopeId", "data-v-1f51798b"]]);
 var progressbar_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$S = {
   props: {
@@ -15141,11 +15168,8 @@ const _sfc_main$q = {
       return `${this.label} ${index2 + 1}`;
     },
     enterPress(event) {
-      if (this.canAddValue) {
-        event.stopImmediatePropagation();
-        event.preventDefault();
-        this.add();
-      }
+      console.log("Enter", event);
+      return;
     },
     refocus() {
       this.$nextTick(function() {
@@ -15578,7 +15602,7 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64))
   ], 64));
 }
-var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-66c6137b"]]);
+var FieldGroup$1 = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-f616ab46"]]);
 const _sfc_main$p = {
   props: {
     option: {
@@ -18554,7 +18578,8 @@ const _sfc_main$e = {
       },
       set(value) {
         var cleaned = this.cleanInput(value);
-        if (this.model[this.key] != cleaned) {
+        const existing = this.model[this.key];
+        if (existing != cleaned) {
           this.model[this.key] = cleaned;
           this.isDirty = true;
           this.$emit("update:modelValue", this.model);
@@ -18931,7 +18956,7 @@ function _sfc_render$e(_ctx, _cache, $props, $setup, $data, $options) {
     $options.error && $data.validateResults.message ? (openBlock(), createElementBlock("div", _hoisted_1$b, toDisplayString($data.validateResults.message), 1)) : createCommentVNode("", true)
   ], 34)) : createCommentVNode("", true);
 }
-var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["render", _sfc_render$e], ["__scopeId", "data-v-5b27e0f0"]]);
+var UXFormField = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["render", _sfc_render$e], ["__scopeId", "data-v-353dd59e"]]);
 function arrayReduce$1(array, iteratee, accumulator, initAccum) {
   var index2 = -1, length = array == null ? 0 : array.length;
   if (initAccum && length) {
