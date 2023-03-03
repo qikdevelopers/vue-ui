@@ -32,7 +32,7 @@ var __objRest = (source, exclude) => {
 };
 import { openBlock, createElementBlock, renderSlot, resolveComponent, normalizeClass, Fragment, createBlock, withCtx, createVNode, renderList, toDisplayString, createCommentVNode, withDirectives, resolveDynamicComponent, vShow, withModifiers, createTextVNode, createElementVNode, h, mergeProps, toHandlers, vModelSelect, pushScopeId, popScopeId, normalizeStyle, Teleport, vModelText, withKeys, TransitionGroup, defineComponent, nextTick, vModelDynamic, reactive, watch } from "vue";
 import { EventDispatcher } from "@qikdev/sdk";
-const version$1 = "0.2.56";
+const version$1 = "0.2.57";
 var flexColumn_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
@@ -109,7 +109,7 @@ function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
     renderSlot(_ctx.$slots, "default", {}, void 0, true)
   ]);
 }
-var Panel = /* @__PURE__ */ _export_sfc(_sfc_main$1l, [["render", _sfc_render$1l], ["__scopeId", "data-v-50ae77fc"]]);
+var Panel = /* @__PURE__ */ _export_sfc(_sfc_main$1l, [["render", _sfc_render$1l], ["__scopeId", "data-v-31dd6811"]]);
 var panelBody_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1k = {};
 const _hoisted_1$_ = { class: "panel-body" };
@@ -863,7 +863,6 @@ const _sfc_main$1d = {
       if (typeof button.text === "function") {
         return button.text(this);
       }
-      console.log("BUTTON", button.text, typeof button.text);
       return button.text;
     }
   },
@@ -900,7 +899,7 @@ function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["color", "size", "loading", "onClick"])
   ]);
 }
-var ButtonCell = /* @__PURE__ */ _export_sfc(_sfc_main$1d, [["render", _sfc_render$1d], ["__scopeId", "data-v-ac248c56"]]);
+var ButtonCell = /* @__PURE__ */ _export_sfc(_sfc_main$1d, [["render", _sfc_render$1d], ["__scopeId", "data-v-24957486"]]);
 class LuxonError extends Error {
 }
 class InvalidDateTimeError extends LuxonError {
@@ -4769,7 +4768,7 @@ function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
     ])) : createCommentVNode("", true)
   ]);
 }
-var DateCell = /* @__PURE__ */ _export_sfc(_sfc_main$1c, [["render", _sfc_render$1c], ["__scopeId", "data-v-3687693f"]]);
+var DateCell = /* @__PURE__ */ _export_sfc(_sfc_main$1c, [["render", _sfc_render$1c], ["__scopeId", "data-v-18716d82"]]);
 var BooleanCell_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1b = {
   mixins: [TableCellMixin],
@@ -6285,7 +6284,7 @@ function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 2);
 }
-var NativeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$13, [["render", _sfc_render$13], ["__scopeId", "data-v-a06c20f2"]]);
+var NativeSelect = /* @__PURE__ */ _export_sfc(_sfc_main$13, [["render", _sfc_render$13], ["__scopeId", "data-v-13291034"]]);
 var Pager_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$12 = {
   props: {
@@ -6658,7 +6657,7 @@ function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["active", "loading", "to", "href", "target", "style", "class", "disabled"]);
 }
-var UXButton = /* @__PURE__ */ _export_sfc(_sfc_main$$, [["render", _sfc_render$$], ["__scopeId", "data-v-56c95efc"]]);
+var UXButton = /* @__PURE__ */ _export_sfc(_sfc_main$$, [["render", _sfc_render$$], ["__scopeId", "data-v-75edf72d"]]);
 var checkbox_vue_vue_type_style_index_0_scoped_true_lang$1 = "";
 const _sfc_main$_ = {
   props: {
@@ -12935,7 +12934,7 @@ function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
     ]))
   ], 64);
 }
-var TextField = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["render", _sfc_render$D], ["__scopeId", "data-v-d9e8503e"]]);
+var TextField = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["render", _sfc_render$D], ["__scopeId", "data-v-33318d34"]]);
 var textarea_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$C = {
   props: {
@@ -13189,7 +13188,7 @@ function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 64);
 }
-var DateField = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["render", _sfc_render$B], ["__scopeId", "data-v-1c86b484"]]);
+var DateField = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["render", _sfc_render$B], ["__scopeId", "data-v-2e4bcb71"]]);
 var daterange_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$A = {
   components: {
@@ -21146,6 +21145,7 @@ const _sfc_main$6 = {
         case "audio":
         case "file":
         case "submission":
+        case "export":
         case "log":
           defaultSort = {
             key: "meta.created",
@@ -21454,6 +21454,10 @@ const _sfc_main$6 = {
         }
       });
       const { data } = await promise;
+      if (!data) {
+        console.log("No data returned");
+        return;
+      }
       data.items.forEach(self2.ensureMeta);
       return data;
     }
@@ -21489,7 +21493,7 @@ const _sfc_main$6 = {
     };
   }
 };
-const _withScopeId$1 = (n2) => (pushScopeId("data-v-ebe5f108"), n2 = n2(), popScopeId(), n2);
+const _withScopeId$1 = (n2) => (pushScopeId("data-v-6a5fdde1"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$6 = { class: "footer" };
 const _hoisted_2$5 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("p", null, null, -1));
 const _hoisted_3$5 = { key: 0 };
@@ -21718,7 +21722,7 @@ function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   })) : createCommentVNode("", true);
 }
-var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$6], ["__scopeId", "data-v-ebe5f108"]]);
+var ContentBrowser = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$6], ["__scopeId", "data-v-6a5fdde1"]]);
 var ModalMixin = {
   props: {
     options: {
@@ -22616,6 +22620,15 @@ const QikUI = {
         sdk.modals.splice(modal.id, 0, modal);
       });
     };
+    sdk.prompt = function(fields, options) {
+      options = options || {};
+      options.model = options.model || {};
+      options.fields = fields;
+      return sdk.modal({
+        component: UxPromptModal,
+        options
+      });
+    };
     sdk.browse = function(type, options) {
       options = options || {};
       options.type = type;
@@ -22633,6 +22646,14 @@ const QikUI = {
         options
       });
     };
+    sdk.confirm = function(title, options) {
+      options = options || {};
+      options.title = title;
+      return sdk.modal({
+        component: UxConfirmModal,
+        options
+      });
+    };
     sdk.options = function(choices, title, description) {
       return sdk.modal({
         component: UxOptionsModal,
@@ -22641,23 +22662,6 @@ const QikUI = {
           description,
           choices
         }
-      });
-    };
-    sdk.prompt = function(fields, options) {
-      options = options || {};
-      options.model = options.model || {};
-      options.fields = fields;
-      return sdk.modal({
-        component: UxPromptModal,
-        options
-      });
-    };
-    sdk.confirm = function(title, options) {
-      options = options || {};
-      options.title = title;
-      return sdk.modal({
-        component: UxConfirmModal,
-        options
       });
     };
     sdk.closeModal = function(id) {

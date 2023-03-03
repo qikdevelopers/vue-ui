@@ -124,6 +124,7 @@ input {
     appearance: none;
     line-height: 1;
     height: 2.5em;
+    color:inherit;
 
     &:focus {
         background: none;

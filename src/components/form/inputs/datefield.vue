@@ -108,6 +108,7 @@ input {
     font-family:inherit;
     line-height: 1;
     height: 2.5em;
+    color:inherit;
 
     &:focus {
         background: none;

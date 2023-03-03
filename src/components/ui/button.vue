@@ -188,9 +188,13 @@ export default {
 .ux-btn-color-default {
     background: rgba(#000,0.05);
     color: #555;
-
     &:hover {
         background: rgba(#000, 0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        background: rgba(#000,0.1);
+        color: inherit;
     }
 }
 

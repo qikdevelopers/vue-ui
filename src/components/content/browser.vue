@@ -258,6 +258,7 @@ function defaultColumns(self, type) {
 
     //Suffix Columns
     switch (type) {
+        
         case 'file':
         case 'audio':
         case 'image':
@@ -604,6 +605,7 @@ export default {
                 case 'audio':
                 case 'file':
                 case 'submission':
+                case 'export':
                 case 'log':
                     defaultSort = {
                         key: 'meta.created',
@@ -1050,6 +1052,12 @@ export default {
 
 
             const { data } = await promise;
+
+            if(!data) {
+                console.log('No data returned');
+                return;
+            }
+
             data.items.forEach(self.ensureMeta);
 
             return data;

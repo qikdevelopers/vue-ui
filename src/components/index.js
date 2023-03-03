@@ -203,7 +203,8 @@ const QikUI = {
         //Create an array for our modal stack
         sdk.modals = reactive([]);
 
-        //Base modal function
+        //Base modal function that can be used
+        //to render a custom component inside a modal popup
         sdk.modal = function(modal) {
 
             return new Promise(function(resolve, reject) {
@@ -216,6 +217,25 @@ const QikUI = {
             });
 
         }
+
+        //Prompt the user to input data into a form
+        sdk.prompt = function(fields, options) {
+            options = options || {};
+            options.model = options.model || {}
+
+
+            //Append the fields
+            options.fields = fields;
+
+            return sdk.modal({
+                component: UxPromptModal,
+                options,
+            })
+
+        }
+
+
+        
 
         //Quick function for asking the user to select an option
         sdk.browse = function(type, options) {
@@ -244,6 +264,21 @@ const QikUI = {
 
         }
 
+        
+
+        
+        //Prompt the user to confirm an action
+        sdk.confirm = function(title, options) {
+            options = options || {};
+
+            options.title = title;
+
+            return sdk.modal({
+                component: UxConfirmModal,
+                options,
+            })
+        }
+
         //Quick function for asking the user to select an option
         sdk.options = function(choices, title, description) {
 
@@ -256,34 +291,6 @@ const QikUI = {
                 }
             })
 
-        }
-
-        //Prompt the user to input data into a form
-        sdk.prompt = function(fields, options) {
-            options = options || {};
-            options.model = options.model || {}
-
-
-            //Append the fields
-            options.fields = fields;
-
-            return sdk.modal({
-                component: UxPromptModal,
-                options,
-            })
-
-        }
-
-        //Prompt the user to confirm an action
-        sdk.confirm = function(title, options) {
-            options = options || {};
-
-            options.title = title;
-
-            return sdk.modal({
-                component: UxConfirmModal,
-                options,
-            })
         }
 
         sdk.closeModal = function(id) {

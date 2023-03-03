@@ -31,8 +31,6 @@ export default {
 				return button.text(this);
 			}
 
-			console.log('BUTTON', button.text, typeof button.text)
-
 			return button.text;
 		}
 	},

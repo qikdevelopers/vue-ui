@@ -49,7 +49,7 @@ td {
     div {
         padding: 0.5em 1em;
         margin: 0.1em;
-        background: rgba(#000, 0.05);
+        background: rgba(#555, 0.1);
         border-radius: 5em;
         display: block;
         line-height: 1;
@@ -61,7 +61,7 @@ td {
         text-align: center;
         position:relative;
         // min-width: 100px;
-        color: rgba(#000, 0.8);
+        //color: rgba(#666, 0.8);
 
         .spacer {
             visibility: hidden !important;
