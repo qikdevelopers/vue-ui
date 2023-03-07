@@ -94,7 +94,6 @@
         <div v-if="error && validateResults.message" class="ux-field-message">
             {{validateResults.message}}
         </div>
-
         <!-- __________ -->
         <!-- <pre>{{field.title}} Touched: {{touched}}</pre> -->
         <!-- <pre>Has Data: {{hasData}}</pre> -->
@@ -519,6 +518,16 @@ export default {
                 actual = Object.assign({}, actual, { syntax:this.getExpressionSyntax });
             }
 
+            if (this.getExpressionMinValue) {
+
+                actual = Object.assign({}, actual, { minValue:this.getExpressionMinValue });
+            }
+
+            if (this.getExpressionMaxValue) {
+
+                actual = Object.assign({}, actual, { maxValue:this.getExpressionMaxValue });
+            }
+
             if (this.getExpressionCurrency) {
 
                 actual = Object.assign({}, actual, { currency:this.getExpressionCurrency });
@@ -584,6 +593,8 @@ export default {
         getExpressionOptions:computedExpression('options'),
         getExpressionSyntax:computedExpression('syntax'),
         getExpressionCurrency:computedExpression('currency'),
+        getExpressionMinValue:computedExpression('minValue'),
+        getExpressionMaxValue:computedExpression('maxValue'),
         getExpressionVisualHide: computedExpression('visualHide'),
         // hasExpressionDefaultValue: hasExpression('defaultValue'), // Not sure what this is for
         expressions() {

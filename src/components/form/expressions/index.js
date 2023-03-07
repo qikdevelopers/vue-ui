@@ -121,6 +121,7 @@ service.evaluateExpression = function(expression, context) {
     	Boolean:Boolean,
     	parseInt:parseInt,
     	parseFloat:parseFloat,
+      now:new Date(),
       array:{
           filter:arrayFilter,
           extract:arrayExtract,

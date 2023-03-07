@@ -125,6 +125,7 @@ export default {
                 var output = {
                     title,
                     value,
+                    none:option.none,
                     source: option,
                 }
 

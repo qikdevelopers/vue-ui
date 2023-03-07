@@ -11,7 +11,7 @@
             </slot>
         </div>
         <select @focus="touch" :multiple="multiValue" v-model="model">
-            <option value="" v-if="singleValue && !minimum">None</option>
+            <option value="" v-if="showNoneOption">None</option>
             <option :value="option.value" v-for="option in selectableOptions">{{option.title}}</option>
         </select>
     </div>
@@ -114,7 +114,24 @@ export default {
         },
     },
     computed: {
+        showNoneOption() {
+            const shouldShow = (this.singleValue && !this.minimum);
 
+            if(!shouldShow) {
+                return false;
+            }
+
+            const hasNoneOption = this.selectableOptions.find(function(i) {
+                return i.none;
+            });
+
+            if(hasNoneOption) {
+                console.log('has custom none option')
+                return false;
+            }
+
+            return true;
+        },
         fields() {
 
             const self = this;
@@ -204,6 +221,7 @@ export default {
                 return {
                     title:field.title,
                     value:field.path,
+                    none:field.none,
                 }
             });
         },

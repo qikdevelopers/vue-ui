@@ -150,22 +150,26 @@ export default {
         },
         keyOptions() {
             return this.fields.reduce(function(set, entry) {
-                switch (entry.type) {
-                    case 'object':
-                    case 'group':
-                        break;
-                    default:
-                        set.push({
-                            title: entry.titles.join(' → '),
-                            value: entry.path || entry.key,
-                        })
-                        break;
-                }
+                    switch (entry.type) {
+                        case 'object':
+                        case 'group':
+                            break;
+                        default:
+
+                            if (!entry.filterDisabled) {
+                                set.push({
+                                    title: entry.filterTitle || entry.titles.join(' → '),
+                                    value: entry.path || entry.key,
+                                })
+                            }
+                            break;
+                    }
 
 
-                return set;
+                    return set;
 
-            }, [])
+                }, [])
+               
         },
 
         keyField() {
@@ -173,6 +177,7 @@ export default {
                 minimum: 1,
                 maximum: 1,
                 options: this.keyOptions,
+                sorted:true,
             }
         },
         field() {
@@ -352,6 +357,7 @@ export default {
                 maximum: 0,
                 minimum: 1,
                 placeholder: this.inputPlaceholder,
+                sorted:true,
             }
         },
         singleOptionsField() {
@@ -363,6 +369,7 @@ export default {
                 maximum: 1,
                 minimum: 0,
                 placeholder: this.inputPlaceholder,
+                sorted:true,
             }
         },
         normalField() {

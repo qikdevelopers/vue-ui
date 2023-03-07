@@ -52,7 +52,9 @@
             </template>
             <template v-if="type == 'string'">
                 <template v-if="multiValue">
-                    <compile :template="value" v-for="(value, index) in fieldModel"/>
+                    <div v-for="(value, index) in fieldModel">
+                        <compile :template="value" />
+                    </div>
                 </template>
                 <template v-else>
                     <!-- <compile :html="fieldModel"/> -->
