@@ -33,6 +33,7 @@ import SecurityCell from './cells/SecurityCell.vue';
 import URLCell from './cells/URLCell.vue';
 import ComputedCell from './cells/ComputedCell.vue';
 import ValueRenderer from './cells/Value.vue';
+import StatusCell from './cells/StatusCell.vue';
 
 
 
@@ -113,6 +114,9 @@ export default {
             case 'date':
             case 'datetime':
                 component = DateCell;
+                break;
+            case 'status':
+                component = StatusCell
                 break;
             case 'computed':
                 component = ComputedCell

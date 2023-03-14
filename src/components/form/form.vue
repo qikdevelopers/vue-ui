@@ -1,7 +1,7 @@
 <template>
     <div class="ux-form" :class="formClass">
         <slot name="fields" :fields="renderFields" :hash="fieldHash">
-            <ux-field ref="field" :trail="currentTrail" :submission="submission" :includeOfficeOnly="includeOfficeOnly" @field:mount="fieldMounted" @field:unmount="fieldUnmounted" @field:dirty="fieldDirty" @field:invalid="fieldInvalid" @field:valid="fieldValid" @field:error="fieldError" @field:focus="fieldFocus" @field:blur="fieldBlur" @field:touched="fieldTouch" :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="[fieldClass, {'ux-field-clear':field.clear}]" :key="`ux-form-field-${getFieldKey(field)}-${index}`" v-for="(field, index) in renderFields" />
+            <ux-field ref="field" :trail="currentTrail" :sandbox="sandbox" :submission="submission" :paymentConfiguration="paymentConfiguration" :includeOfficeOnly="includeOfficeOnly" @field:mount="fieldMounted" @field:unmount="fieldUnmounted" @field:dirty="fieldDirty" @field:invalid="fieldInvalid" @field:valid="fieldValid" @field:error="fieldError" @field:focus="fieldFocus" @field:blur="fieldBlur" @field:touched="fieldTouch" :field="field" v-model="formModel" :parentModel="parentModel || formModel" :class="[fieldClass, {'ux-field-clear':field.clear}]" :key="`ux-form-field-${getFieldKey(field)}-${index}`" v-for="(field, index) in renderFields" />
         </slot>
     </div>
 </template>
@@ -43,6 +43,13 @@ export default {
         submission: {
             type: Boolean,
             default: false,
+        },
+        sandbox: {
+            type: Boolean,
+            default: false,
+        },
+        paymentConfiguration: {
+            type: Object,
         },
         includeOfficeOnly:{
             type:Boolean,

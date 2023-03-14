@@ -10,7 +10,11 @@ export default {
     mixins:[TableCellMixin],
     computed: {
         string() {
-            return this.amount.toFixed(2);
+            if(isNaN(this.amount)) {
+                return  '';
+            } else {
+                return this.amount.toFixed(2);
+            }
             // return this.$sdk.utils.formatCurrency(this.amount, this.currency);
         },
         amount() {

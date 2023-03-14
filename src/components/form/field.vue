@@ -26,14 +26,14 @@
         </template>
         <template v-if="widget == 'group'">
             <template v-if="asObject">
-                <field-group :trail="currentTrail" :includeOfficeOnly="includeOfficeOnly" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
+                <field-group :trail="currentTrail" :paymentConfiguration="paymentConfiguration" :includeOfficeOnly="includeOfficeOnly" :submission="submission" :sandbox="sandbox" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
             </template>
             <template v-else>
-                <field-group :trail="trail" :includeOfficeOnly="includeOfficeOnly" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="sourceModel" />
+                <field-group :trail="trail" :paymentConfiguration="paymentConfiguration"  :includeOfficeOnly="includeOfficeOnly" :submission="submission" :sandbox="sandbox" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="sourceModel" />
             </template>
         </template>
         <template v-if="widget == 'form'">
-            <field-group :trail="currentTrail" :includeOfficeOnly="includeOfficeOnly" :submission="submission" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
+            <field-group :trail="currentTrail" :paymentConfiguration="paymentConfiguration"  :includeOfficeOnly="includeOfficeOnly" :submission="submission" :sandbox="sandbox" @form:state="groupStateAltered" ref="group" @touched="touch" :field="actualField" :parentModel="parentModel" v-model="fieldModel" />
         </template>
         <template v-if="widget == 'field-select'">
             <field-select @touched="touch" :field="actualField" v-model="fieldModel"/>
@@ -82,6 +82,9 @@
         <template v-if="widget == 'object'">
             <object-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
+        <template v-if="widget == 'payment'">
+            <payment-field :sandbox="sandbox" :configuration="paymentConfiguration" @form:state="groupStateAltered" :field="actualField" @touched="touch" :parentModel="parentModel" v-model="fieldModel"/>
+        </template>
         <template v-if="widget == 'options'">
             <options-manager @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -129,6 +132,7 @@ import OptionsManager from './inputs/options-manager.vue';
 import CodeEditorField from './inputs/code-editor-field.vue';
 import ExpressionField from './inputs/expression-field.vue';
 import RichTextField from './inputs/richtext-field.vue';
+import PaymentField from './inputs/payment.vue';
 
 ////////////////
 
@@ -212,6 +216,7 @@ export default {
         CodeEditorField,
         ExpressionField,
         RichTextField,
+        PaymentField,
     },
     props: {
         trail:{
@@ -223,6 +228,13 @@ export default {
         submission:{
             type:Boolean,
             default:false,
+        },
+        sandbox:{
+            type:Boolean,
+            default:false,
+        },
+        paymentConfiguration:{
+            type:Object,
         },
         field: {
             type: Object,
@@ -283,11 +295,16 @@ export default {
     },
     methods: {
         fieldDefaultValue() {
+
+            var expressionForceValue = this.expressions && this.expressions.value ? this.getExpressionValue : undefined;
+            if(expressionForceValue) {
+                return expressionForceValue;
+            }
+
+            // If there is no expression
             var expressionDefaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : undefined;
             var normalDefaultValue =  getDefaultValue(this.actualField);
-
             var defaultValue =  this.cleanInput(expressionDefaultValue || normalDefaultValue);
-            // console.log('GET DEFAULT VALUE', expressionDefaultValue, normalDefaultValue, defaultValue);
             return defaultValue;
         },
         checkDirtyState() {
@@ -733,6 +750,7 @@ export default {
                 case 'form':
                     widget = this.submission ? 'form' : 'content-select';
                 break;
+                case 'payment':
                 case 'internal-menu':
                 case 'internal-route':
                 case 'content-select':

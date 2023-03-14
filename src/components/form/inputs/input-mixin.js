@@ -372,7 +372,6 @@ export default {
         },
         dispatch() {
             this.$emit('update:modelValue', this.value);
-            console.log('Update', this.field.title)
         },
         cleanInputValue(val) {
             return val;

@@ -587,6 +587,11 @@ vite@^4.1.4:
   optionalDependencies:
     fsevents "~2.3.2"
 
+vue-stripe-js@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-stripe-js/-/vue-stripe-js-1.0.1.tgz#7eba90a279d4ef466a5beb16d8ffe0633b62e52a"
+  integrity sha512-f2u+YkN42uHrUZbYiiqEQ+DtCyPQgJ/BdzU35EwhFqJghS6k2n8tw/VhYm35TjLsxJE+tYO7/pBUdTS+Xu5Rrw==
+
 vue3-runtime-template@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/vue3-runtime-template/-/vue3-runtime-template-1.0.2.tgz#0b27306d39481dad57276243ab7538050bc134aa"

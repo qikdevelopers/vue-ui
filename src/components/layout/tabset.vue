@@ -3,92 +3,148 @@
         <template v-if="vertical">
             <flex-column v-if="menuRequired" class="tabset-menu">
                 <flex-body>
-                    <a :class="{active:index === activeIndex}" :key="`tab-link-${tab.props.heading}`" v-for="(tab, index) in tabs" @click="select(index)">{{tab.props.heading}}</a>
+                    <a :class="{active:activeHeading === title}" :key="`tab-link-${title}`" v-for="(title, index) in titles" @click="select(title)">{{title}}</a>
                 </flex-body>
             </flex-column>
-            <flex-column>
-                <flex-column v-show="index === activeIndex" :key="`tab-panel-${tab.props.heading}`" v-for="(tab, index) in tabs">
-                    <component :is="tab" />
-                </flex-column>
-                <!--  -->
-                <!-- <slot/> -->
-            </flex-column>
+            
         </template>
         <template v-else>
             <flex-header v-if="menuRequired" class="tabset-menu">
                 <flex-row>
-                    <a :class="{active:index === activeIndex}" :key="`tab-link-${tab.props.heading}`" v-for="(tab, index) in tabs" @click="select(index)">{{tab.props.heading}}</a>
+                    <a :class="{active:activeHeading === title}" :key="`tab-link-${title}`" v-for="(title, index) in titles" @click="select(title)">{{title}}</a>
                 </flex-row>
             </flex-header>
-            <flex-column>
-                <flex-column v-show="index === activeIndex" :key="`tab-panel-${tab.props.heading}`" v-for="(tab, index) in tabs">
-                    <component :is="tab" />
-                </flex-column>
-                <!--  -->
-                <!-- <slot/> -->
-            </flex-column>
+            
         </template>
+        <flex-column>
+                <slot/>
+            </flex-column>
     </div>
 </template>
-<script>
-export default {
-    props: {
-        vertical: {
-            type: Boolean,
-        },
-        inline: {
-            type: Boolean,
-        }
-    },
-    data() {
-        return {
-            activeIndex: 0,
-        }
-    },
-    methods: {
-        select(i) {
-            this.activeIndex = i;
-        },
-    },
-    computed: {
-        menuRequired() {
-            return this.tabs.length > 1;
-        },
-        tabs() {
-            const self = this;
-            const slotChildren = self.$slots.default()
-                .map(function(child) {
+<script setup>
+import { useSlots, ref, computed, reactive, provide } from 'vue'
+import _debounce from 'lodash/debounce';
 
-                    if (!child.props) {
-                        return;
-                    }
+const slots = useSlots()
 
-                    const disabled = child.props?.enabled === false;
+const props = defineProps({
+    vertical: Boolean,
+    inline: Boolean,
+})
 
-                    if (disabled) {
-                        return;
-                    }
 
-                    // child.guid = self.$sdk.utils.guid()
+const tabset = reactive({
+    tabs:[]
+})
+provide('tabset', tabset)
 
-                    return child;
-                })
-                .filter(Boolean);
+const activeHeading = ref();
+provide('activeHeading', activeHeading);
 
-            // .map(function(t) {
-            //     return t.children;
-            // });
-            return slotChildren;
-
-            // 
-            // return [];
-        }
-    },
+const select = function(heading) {
+    activeHeading.value = heading;
 }
+
+const rebuild = _debounce(function() {
+
+    // console.log('rebuild tabs')
+
+    const items = slots.default();
+    const filtered = items
+    .reduce(function(memo, tab) {
+
+        if(tab.type?.name === 'tab') {
+            memo.push(tab);
+        } else if(tab.children) {
+            memo = [...memo, ...tab.children];
+        }
+
+         return memo;
+    }, [])
+    .filter(function(tab) {
+        return tab.type?.name === 'tab' && (tab.props.enabled !== false);
+    })
+    .map(function(tab, index) {
+        const heading = tab.props.heading;
+        return {
+            heading,
+            index,
+        }
+    })
+
+    tabset.tabs = filtered;
+
+    const lookup = filtered.reduce(function(memo, t) {
+        memo[t.heading] = true;
+        return memo
+    }, {})
+
+    const existingSelectedHeading = activeHeading.value;
+
+    if(!existingSelectedHeading || !lookup[existingSelectedHeading]) {
+        if(filtered.length) {
+            activeHeading.value = filtered[0].heading;
+        }
+    }
+})
+provide('rebuild', rebuild)
+
+const titles = computed(function() {
+    return tabset.tabs.map(function(tab) {
+        if(!tab) {
+            return;
+        }
+        return tab.heading;
+    }).filter(Boolean);
+})
+
+const menuRequired = computed(function() {
+    return titles.value.length > 1;
+})
+
+// const slotItems = computed(function() {
+//     const slots =  slots.default().filter(function(tab) {
+//         return tab.type?.name === 'tab';
+//     }).map(function(tab) {
+//         return {
+//             title: tab.props?.heading || tab.props?.title || 'Untitled Tab',
+//             self: tab,
+//             //         active:(tab.props?.active !== undefined),
+//             //         enabled:tab.props?.enabled,
+//         }
+//     })
+
+
+//     return slots;
+// })
+
+
+// // Get all of the tab titles
+// slotItems.map(function(slot) {
+
+//     console.log('SLOT', slot);
+//     return slot?.heading;
+// }))
+
+
+
+
+// const defaultTab = slotItems[0];
+// const activeKey = defaultTab?.title;
+
+// const activeTitle = ref(activeKey);
+// provide('activeTitle', activeTitle)
+
+// const select = function(title) {
+    // activeTitle.value = title;
+// }
+// provide('select', select)
+
+
+rebuild();
+
 </script>
 <style lang="scss" scoped>
-
-
 .ux-tabset {
     flex: 1;
     overflow: hidden;
