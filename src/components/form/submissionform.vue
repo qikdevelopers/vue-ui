@@ -27,17 +27,19 @@
                         Total: {{formattedTotal}}
                     </ux-panel-body>
                 </ux-panel>
-                <ux-panel>
-                    <ux-panel-body>
+                <!-- <ux-panel> -->
+                    <!-- <ux-panel-body> -->
                         <StripeElements v-if="stripeIntent" v-slot="{ elements, instance }" ref="elms" :stripe-key="stripeIntent.key" :instance-options="stripeIntent.instanceOptions" :elements-options="stripeIntent.elementOptions">
                             <StripeElement ref="stripePayment" type="payment" :elements="elements">
                             </StripeElement>
                         </StripeElements>
-                        <ux-button color="primary" @click="confirmIntention" :loading="processing">
+                        <div class="intent-submit">
+                        <ux-button color="primary" @click="confirmIntention">
                             Confirm Payment
                         </ux-button>
-                    </ux-panel-body>
-                </ux-panel>
+                    </div>
+                    <!-- </ux-panel-body> -->
+                <!-- </ux-panel> -->
             </template>
         </template>
         <template v-else>
@@ -526,6 +528,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+    .intent-submit {
+        margin-top: 1em;
+    }
+    
 [tooltip] {
     position: relative;
     cursor: help

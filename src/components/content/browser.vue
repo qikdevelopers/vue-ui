@@ -1,5 +1,5 @@
 <template>
-    <flex-column class="content-browser" v-if="definition">
+    <flex-column class="content-browser" v-if="actualDefinition">
         <flex-column class="browser-body">
             <flex-row>
                 <flex-row :class="{loading}">
@@ -53,14 +53,14 @@
                             <flex-column class="empty" v-else-if="!loading" center>
                                 <ux-panel>
                                     <ux-panel-body>
-                                        <div>No {{definition.plural}} found.</div>
+                                        <div>No {{plural}} found.</div>
                                     </ux-panel-body>
                                 </ux-panel>
                             </flex-column>
                             <flex-column class="empty" v-else center>
                                 <!-- <ux-panel>
                                 <ux-panel-body>
-                                    <div>No {{definition.plural}} found.</div>
+                                    <div>No {{plural}} found.</div>
                                 </ux-panel-body>
                             </ux-panel> -->
                             </flex-column>
@@ -85,7 +85,7 @@
                             <ux-field :field="dateRangeField" v-model="dateRangeFilter" />
                         </div>
                         <p></p>
-                        <filter-builder :definition="definition" v-model="actualFilter" />
+                        <filter-builder :definition="actualDefinition" v-model="actualFilter" />
                     </flex-body>
                     <slot name="belowfilter" />
                 </flex-column>
@@ -502,6 +502,9 @@ export default {
         }
     },
     computed: {
+        actualDefinition() {
+            return this.definition || this.options?.definition;
+        },
         showFilterSidebar() {
             return this.showFilters;
              // || this.boundaryMessage;
@@ -620,9 +623,9 @@ export default {
         fields() {
 
             const self = this
-            const isFormSubmission = self.definition.definesType === 'submission';
-            var allFields = [...self.definition.fields];
-            var definedFields = self.definition.definedFields || [];
+            const isFormSubmission = self.actualDefinition.definesType === 'submission';
+            var allFields = [...self.actualDefinition.fields];
+            var definedFields = self.actualDefinition.definedFields || [];
 
 
 
@@ -667,7 +670,7 @@ export default {
                 } else {
 
                     var dataFields = {
-                        title: `${self.definition.title}`,
+                        title: `${self.actualDefinition.title}`,
                         minimum: 1,
                         maximum: 1,
                         key: 'data',
@@ -728,10 +731,10 @@ export default {
             return this.loading && this.keywords.length;
         },
         title() {
-            return this.definition.title;
+            return this.actualDefinition.title;
         },
         plural() {
-            return this.definition.plural;
+            return this.actualDefinition.plural;
         },
         selectFields() {
             const self = this;
@@ -851,7 +854,7 @@ export default {
             return this.dataSource.total;
         },
         basicType() {
-            return this.definition ? this.definition.definesType || this.definition.key : this.type;
+            return this.actualDefinition ? this.actualDefinition.definesType || this.actualDefinition.key : this.type;
         },
         loadCriteria() {
 
@@ -916,7 +919,7 @@ export default {
             }
 
             if (!row.meta.definition) {
-                row.meta.definition = this.definition.key;
+                row.meta.definition = this.definition?.key;
             }
 
             if (this.trash) {
@@ -1031,7 +1034,7 @@ export default {
             }
 
             const id = Math.random();
-            const { promise, cancel } = await self.$sdk.content.list(self.type, loadCriteria, { cancellable: true })
+            const { promise, cancel } = await self.$sdk.content.list(self.type, loadCriteria, { remoteURL:self.actualOptions.remoteURL, cancellable: true })
             inflightRequest = {id,cancel};
 
             promise.then(function(res) {

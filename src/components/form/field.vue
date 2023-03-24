@@ -595,11 +595,14 @@ export default {
             let hideExpression = this.expressions.hide;
             let context = this.expressionsContext;
 
+            let result;
             if (showExpression) {
-                return !!!Expressions.evaluateExpression(showExpression, context);
+                result =  !!!Expressions.evaluateExpression(showExpression, context);
             } else if (hideExpression) {
-                return Expressions.evaluateExpression(hideExpression, context);
+                result =  Expressions.evaluateExpression(hideExpression, context);
             }
+
+            return result;
         },
         getExpressionRequired: computedExpression('required'),
         getExpressionDefaultValue: computedExpression('defaultValue'),

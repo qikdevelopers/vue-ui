@@ -5,28 +5,30 @@
     <template v-else>
         <ux-form ref="form" :trail="trail" :paymentConfiguration="configuration" :includeOfficeOnly="includeOfficeOnly" :submission="submission" @form:state="stateChange" :parentModel="parentModel" v-model="model" :flex="sameLine" :fields="calculatedTotalFields" />
         <template v-if="requiresPayment">
-            <h3>Payment</h3>
+            <h2>Payment Summary</h2>
             <ux-panel>
                 <ux-panel-body>
                     <!-- <pre>Sandbox: {{sandbox}}</pre> -->
                     <table class="calculations">
                         <tbody>
-                            <tr v-if="baseAmount">
-                                <td><strong>Amount</strong></td>
-                                <td></td>
-                                <td><strong>{{formattedBaseAmount}}</strong></td>
+                            <tr class="calculation-modifier" :class="[`modifier-set`, `modifier-visible-${baseAmountVisible}`]" v-if="baseAmount">
+                                <td>Amount</td>
+                                <td>{{formattedBaseAmount}}</td>
+                                <td class="running-total">{{formattedBaseAmount}}</td>
                             </tr>
-                            <tr v-for="modifier in calculations.modifications">
+                            <tr class="calculation-modifier" :class="[`modifier-${modifier.modifier}`, `modifier-visible-${modifier.visible}`]" v-for="modifier in visibleModifications">
                                 <td>{{modifier.title}}</td>
                                 <td>{{modifier.summary}}</td>
-                                <td>{{modifier.result}}</td>
+                                <td class="running-total">{{modifier.result}}</td>
                             </tr>
+                        </tbody>
+                        <tfoot>
                             <tr class="grand-total" v-if="baseAmount">
                                 <td><strong>Total</strong></td>
                                 <td></td>
                                 <td><strong>{{formattedTotal}}</strong></td>
                             </tr>
-                        </tbody>
+                        </tfoot>
                     </table>
                 </ux-panel-body>
             </ux-panel>
@@ -151,7 +153,18 @@ export default {
         },
     },
     computed: {
+        baseAmountVisible() {
+            return this.baseAmount && !this.visibleModifications.some(function(modifier) {
+                return modifier.modifier === 'set';
+            })
+        },
+        visibleModifications() {
+            const modifiers = this.calculations.modifications || [];
 
+            console.log('MODIFIERS', modifiers);
+
+            return modifiers;
+        },
         // stripeApiKey() {
         //     const self = this;
         //     if (self.calculatedTotal) {
@@ -223,7 +236,7 @@ export default {
         },
         calculations() {
             const self = this;
-            const modifications = [];
+            let modifications = [];
 
             let total = 0;
 
@@ -261,7 +274,7 @@ export default {
                         break;
                     case 'set':
                         total = Math.max(0, amount);
-                        summary = `${formatted}`;
+                        summary = '';//`${formatted}`;
                         break;
                 }
 
@@ -274,9 +287,28 @@ export default {
                         summary,
                         total,
                         result,
+                        modifier:modifier.modifier,
+                        visible:true,
                     })
                 }
             })
+
+            const lastSetIndex = modifications.findLastIndex(function(modifier) {
+                return modifier.modifier === 'set';
+            })
+
+            if(lastSetIndex != -1) {
+
+                modifications = modifications.map(function(mod, i) {
+                    if(i < lastSetIndex) {
+                        mod.visible = false;
+                    }
+                    return mod;
+                })
+
+                console.log('modifications', lastSetIndex, modifications)
+            //     modifications = modifications.slice(lastSetIndex-1);
+            }
 
             return {
                 modifications,
@@ -436,8 +468,44 @@ export default {
     width: 100%;
 }
 
+.calculation-modifier {
+    font-style: italic;
+    opacity: 0.5;
+
+    
+}
+
+.modifier-set {
+    font-weight: bold;
+    opacity: 1;
+    font-style: normal;
+}
+
+.modifier-visible-false {
+    text-decoration: line-through;
+    font-style: italic;
+    font-weight: normal;
+    opacity: 0.5;
+}
+
+
+
 .grand-total {
+    td {
+        padding-top: 0.5em;
+    }
     font-size: 2em;
+}
+
+tfoot {
+    border-top:2px solid rgba(#000, 0.1);
+}
+
+td {
+    text-align: right;
+    &:first-child {
+        text-align: left;
+    }
 }
 
 // .ux-multi-group,

@@ -6,6 +6,10 @@ const versionName = `qik vue ui ${version}`;
 
 ////////////////////////////////////////////
 
+export { StripeElements, StripeElement } from 'vue-stripe-js'
+
+////////////////////////////////////////////
+
 export { default as FlexColumn } from './layout/flex-column.vue';
 export { default as FlexBody } from './layout/flex-body.vue';
 export { default as FlexHeader } from './layout/flex-header.vue';
@@ -28,7 +32,7 @@ export { default as UXTable } from './table/Table.vue';
 export { default as Pager } from './ui/Pager.vue';
 
 
-
+export { default as Info } from './ui/info.vue';
 export { default as Avatar } from './ui/avatar.vue';
 export { default as UXButton } from './ui/button.vue';
 export { default as UXCheckbox } from './ui/checkbox.vue';
@@ -107,6 +111,7 @@ import UXTable from './table/Table.vue';
 import UXTabset from './layout/tabset.vue';
 import UXTab from './layout/tab.vue';
 
+import Info from './ui/info.vue';
 import Avatar from './ui/avatar.vue';
 import UXButton from './ui/button.vue';
 import UXSwitch from './ui/switch.vue';
@@ -157,6 +162,7 @@ const defaultComponents = {
     FlexCell,
     FlexSpacer,
     FlexRow,
+    UxInfo:Info,
     UxPanel:Panel,
     UxPanelBody:PanelBody,
     UxPanelHeader:PanelHeader,

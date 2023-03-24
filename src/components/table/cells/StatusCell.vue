@@ -32,6 +32,7 @@ td {
 }
 
     &.success,
+    &.paid,
     &.active {
         .pill {
         background: #e0f3bf;
@@ -47,6 +48,7 @@ td {
     }
 
     &.error,
+    &.unpaid,
     &.failed {
         .pill {
         background: #ffdddd;
