@@ -242,7 +242,7 @@ export default function getDefaultValue(fieldData, currentValue) {
 
                 output = ensureMinimum(fieldData, output, minimum, ask, maximum, function() {
                     return '';
-                })
+                }).filter(Boolean);
             } else {
                 output = isUndefined(firstDefaultValue) ? '' : firstDefaultValue;
             }

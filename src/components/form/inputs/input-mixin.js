@@ -28,6 +28,8 @@ export default {
     },
     data() {
         return {
+            dynamicOptions:[],
+            asyncOptionsAreLoading:this.field.asyncOptions,
             value:this.modelValue,
         }
     },
@@ -57,8 +59,21 @@ export default {
     mounted() {
         this.checkAutofocus();
     },
+    async created() {
+        const self = this;
+
+        if(self.hasAsyncOptions) {
+            await self.reloadAsyncOptions();
+        }
+    },
     inject:['form', 'fieldPath'],
     computed: {
+        hasAsyncOptions() {
+            return this.field.asyncOptions;
+        },
+        loadingAsyncOptions() {
+            return this.hasAsyncOptions && this.asyncOptionsAreLoading;
+        },
         optionLookup() {
             var self = this;
             return self.options.reduce(function(set, option) {
@@ -114,7 +129,13 @@ export default {
         },
         options() {
             var self = this;
-            return (this.field.options || []).reduce(function(set, option) {
+
+            if(self.hasAsyncOptions) {
+                return self.dynamicOptions;
+            }
+
+
+            return (self.field.options || []).reduce(function(set, option) {
                 if (!option) {
                     return set;
                 }
@@ -267,6 +288,19 @@ export default {
         },
     },
     methods: {
+        async reloadAsyncOptions() {
+            const self = this;
+
+            if(!self.hasAsyncOptions) {
+                self.asyncOptionsAreLoading = false;
+                return;
+            }
+
+            self.asyncOptionsAreLoading = true;
+            const {data} = await self.$sdk.api.get(self.field.asyncOptions);
+            self.dynamicOptions = data;
+            self.asyncOptionsAreLoading = false;
+        },
         cleanTextInput(val, type, instance) {
             switch (type) {
                 case 'url':
@@ -427,6 +461,7 @@ export default {
                 }
 
                 /////////////////////////////////
+
 
                 if (self.maximum) {
                     if (val.length > self.maximum) {

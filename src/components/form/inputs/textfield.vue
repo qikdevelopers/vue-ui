@@ -6,10 +6,20 @@
             <flex-cell>
                 <div class="ux-text-wrap">
                     <span class="ux-text-prefix" v-if="prefix">{{prefix}}</span>
-                    <input :type="inputType" v-if="lazy" class="ux-field-focus ux-text-input-multiple" :placeholder="actualPlaceholder" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model.lazy="model[index]" />
-                    <input :type="inputType" v-if="!lazy" class="ux-field-focus ux-text-input-multiple" :placeholder="actualPlaceholder" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model="model[index]" />
+                    <input :type="getInput(index)" v-if="lazy" :class="inputClasses" class="ux-field-focus ux-text-input-multiple" :placeholder="actualPlaceholder" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model.lazy="model[index]" />
+                    <input :type="getInput(index)" v-if="!lazy" :class="inputClasses" class="ux-field-focus ux-text-input-multiple" :placeholder="actualPlaceholder" @focus="touch" ref="input" @keydown.enter.stop.prevent="add()" v-model="model[index]" />
                     <span class="ux-text-suffix" v-if="suffix">{{suffix}}</span>
                 </div>
+            </flex-cell>
+            <flex-cell shrink vcenter v-if="sensitive">
+                <ux-button tag="a" icon @click="toggleMask(index)">
+                    <ux-icon :icon="unmaskedLookup[`${index}`] ? 'fa-eye' : 'fa-eye-slash'" />
+                </ux-button>
+            </flex-cell>
+            <flex-cell shrink vcenter v-if="copyable">
+                <ux-button tag="a" icon @click="copy(index)">
+                    <ux-icon icon="fa-copy" />
+                </ux-button>
             </flex-cell>
             <flex-cell shrink vcenter>
                 <ux-button tag="a" icon v-if="canRemoveValue" @click="remove(entry)">
@@ -17,17 +27,32 @@
                 </ux-button>
             </flex-cell>
         </flex-row>
-        <ux-button v-if="canAddValue" @click="add()">{{addLabel}} <ux-icon icon="fa-plus" right/></ux-button>
+        <ux-button v-if="canAddValue" @click="add()">{{addLabel}}
+            <ux-icon icon="fa-plus" right />
+        </ux-button>
     </div>
     <template v-else>
-        <div class="ux-text-wrap">
-            <span class="ux-text-prefix" v-if="prefix">{{prefix}}</span>
-            <input :type="inputType" v-if="lazy" ref="input" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model.lazy="model" />
-            <input :type="inputType" v-if="!lazy" ref="input" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model="model" />
-            <span class="ux-text-suffix" v-if="suffix">{{suffix}}</span>
-        </div>
+        <flex-row>
+            <flex-cell>
+                <div class="ux-text-wrap">
+                    <span class="ux-text-prefix" v-if="prefix">{{prefix}}</span>
+                    <input :type="actualInputType" v-if="lazy" ref="input" :class="inputClasses" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model.lazy="model" />
+                    <input :type="actualInputType" v-if="!lazy" ref="input" :class="inputClasses" class="ux-field-focus ux-text-input-single" :placeholder="actualPlaceholder" @focus="touch" v-model="model" />
+                    <span class="ux-text-suffix" v-if="suffix">{{suffix}}</span>
+                </div>
+            </flex-cell>
+            <flex-cell shrink vcenter v-if="sensitive">
+                <ux-button tag="a" icon @click="toggleMask">
+                <ux-icon :icon="unmasked ? 'fa-eye' : 'fa-eye-slash'" />
+            </ux-button>
+            </flex-cell>
+            <flex-cell shrink vcenter v-if="copyable">
+                <ux-button tag="a" icon @click="copy">
+                    <ux-icon icon="fa-copy" />
+                </ux-button>
+            </flex-cell>
+        </flex-row>
     </template>
-
 </template>
 <script>
 import InputMixin from './input-mixin';
@@ -41,25 +66,46 @@ export default {
             type: [String, Array],
         },
     },
+    data() {
+        return {
+            unmasked:false,
+            unmaskedLookup:{},
+        }
+    },
     mixins: [InputMixin],
     computed: {
+        copyable() {
+            return this.$sdk.global.copyText && this.field.copyable;
+        },
+        inputClasses() {
+            const array = [];
+
+            array.push(`ux-text-input-${this.inputType}`);
+            return array.join(' ');
+        },
+        actualInputType() {
+            return this.unmasked ? 'text' : this.inputType;
+        },
+        sensitive() {
+            return this.inputType === 'password';
+        },
         inputType() {
-            switch(this.field.widget) {
+            switch (this.field.widget) {
                 case 'password':
                 case 'email':
                     return this.field.widget;
-                break;
+                    break;
                 default:
 
-                    switch(this.field.type) {
+                    switch (this.field.type) {
                         case 'email':
                             return 'email';
-                        break;
+                            break;
                         default:
                             return 'text';
-                        break;
+                            break;
                     }
-                break;
+                    break;
             }
         },
         lazy() {
@@ -75,11 +121,11 @@ export default {
             }
         },
         actualPlaceholder() {
-            if(this.field.placeholder) {
+            if (this.field.placeholder) {
                 return this.field.placeholder;
             }
 
-            switch(this.type) {
+            switch (this.type) {
                 case 'integer':
                 case 'number':
                 case 'decimal':
@@ -88,14 +134,37 @@ export default {
                     break;
                 case 'url':
                     return 'https://www.website.com'
-                break;
+                    break;
                 case 'email':
                     return 'you@youremail.com'
-                break;
+                    break;
             }
         }
     },
     methods: {
+        copy(index) {
+
+            let value;
+            if(this.maximum === 1) {
+                value = this.model;
+            } else {
+                 value = this.model[index];
+            }
+
+            this.$sdk.global.copyText(value);
+        },
+        getInput(index) {
+             return this.unmaskedLookup[`${index}`] ? 'text' : this.inputType;
+        },
+        toggleMask(index) {
+            
+
+            if(this.maximum === 1) {
+                this.unmasked = !this.unmasked;
+            } else {
+                this.unmaskedLookup[`${index}`] = !this.unmaskedLookup[`${index}`];
+            }
+        },
         cleanOutputValue(v) {
             var cleaned = this.cleanTextInput(v, this.type, this);
             return cleaned ? String(cleaned) : '';
@@ -124,7 +193,7 @@ input {
     appearance: none;
     line-height: 1;
     height: 2.5em;
-    color:inherit;
+    color: inherit;
 
     &:focus {
         background: none;
@@ -172,6 +241,10 @@ input {
 
 .ux-text-row .ux-btn {
     margin-left: 0.25em;
+}
+
+.ux-text-input-password {
+    font-family: monospace;
 }
 
 .ux-text-input-multiple {

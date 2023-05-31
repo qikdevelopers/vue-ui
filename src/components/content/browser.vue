@@ -596,6 +596,13 @@ export default {
                         type: 'string',
                     }
                     break;
+                case 'event':
+                    defaultSort = {
+                        key: 'startDate',
+                        direction: 'asc',
+                        type: 'date',
+                    }
+                    break;
                 case 'email':
                 case 'notification':
                 case 'transaction':

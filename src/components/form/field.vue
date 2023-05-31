@@ -65,6 +65,9 @@
         <template v-if="widget == 'scope-select'">
             <scope-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
+        <template v-if="widget == 'system-select'">
+            <system-event-select @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <template v-if="widget == 'richtext'">
             <rich-text-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -304,6 +307,7 @@ export default {
             // If there is no expression
             var expressionDefaultValue = this.expressions && this.expressions.defaultValue ? this.getExpressionDefaultValue : undefined;
             var normalDefaultValue =  getDefaultValue(this.actualField);
+
             var defaultValue =  this.cleanInput(expressionDefaultValue || normalDefaultValue);
             return defaultValue;
         },
@@ -622,7 +626,9 @@ export default {
         },
         expressionsContext() {
 
+
             var additionalContext = this.additionalContext?.value || {}
+
             const context = {
                 this: this.model,
                 self: this.model,
@@ -789,6 +795,7 @@ export default {
                 case 'phonenumber':
                     return 'phone'
                     break;
+               
 
                 default:
                     switch (this.type) {

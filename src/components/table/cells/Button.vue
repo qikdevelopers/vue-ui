@@ -17,6 +17,7 @@ export default {
 	},
 	mixins:[TableCellMixin],
 	computed:{
+
 		button() {
 			return this.column.button;
 		},
@@ -32,7 +33,7 @@ export default {
 			}
 
 			return button.text;
-		}
+		},
 	},
 	methods:{
 		async clicked() {

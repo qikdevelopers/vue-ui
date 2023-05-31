@@ -41,6 +41,34 @@
                     </div>
                 </template>
         </template>
+        <template v-else-if="widget === 'password'">
+            <div class="ux-password-render">
+             <template v-if="multiValue">
+                <flex-row  gap center v-for="(value, index) in fieldModel">
+                   <flex-cell>
+                        <input :type="unmaskedLookup[`${index}`] ? 'text' : 'password'" :value="value"/>
+                   </flex-cell>
+                   <flex-cell shrink>
+                        <ux-button icon @click="toggleMask(index)">
+                            <ux-icon :icon="unmaskedLookup[`${index}`] ? 'fa-eye' : 'fa-eye-slash'"/>
+                        </ux-button>
+                   </flex-cell>
+                </flex-row>
+            </template>
+            <template v-else>
+                <flex-row gap center >
+                    <flex-cell>
+                        <input :type="unmasked ? 'text' : 'password'" :value="fieldModel"/>
+                    </flex-cell>
+                    <flex-cell shrink>
+                            <ux-button icon @click="toggleMask">
+                                <ux-icon :icon="unmasked ? 'fa-eye' : 'fa-eye-slash'"/>
+                            </ux-button>
+                    </flex-cell>
+                </flex-row>
+            </template>
+        </div>
+        </template>
         <template v-else>
             <template v-if="type === 'reference'">
                 <template v-if="multiValue">
@@ -57,10 +85,10 @@
                     </div>
                 </template>
                 <template v-else>
-                    <!-- <compile :html="fieldModel"/> -->
                     <compile :template="fieldModel"/>
                 </template>
             </template>
+
             <template v-if="type == 'boolean'">
                 <template v-if="multiValue">
                     <div v-for="(value, index) in fieldModel">
@@ -200,6 +228,8 @@ export default {
     data() {
         return {
             model: this.modelValue,
+            unmaskedLookup:{},
+            unmasked:false,
         }
     },
     // created() {
@@ -216,6 +246,13 @@ export default {
 
     // },
     methods: {
+        toggleMask(index) {
+            if(this.multiValue) {
+                this.unmaskedLookup[`${index}`] = !this.unmaskedLookup[`${index}`];
+            } else {
+                this.unmasked = !this.unmasked;
+            }
+        },
         renderDate(d) {
             return DateTime.fromJSDate(new Date(d)).toFormat('h:mma - ccc, DD');
         },
@@ -389,6 +426,7 @@ export default {
                 case 'typeselect':
                 case 'upload':
                 case 'code':
+                case 'password':
                     break;
                 default:
                     switch (this.type) {
@@ -432,6 +470,29 @@ export default {
         }
 
     }
+}
+
+.ux-password-render {
+    input {
+        font-family: monospace;
+        width:100%;
+    border-radius: 0.1em;
+    padding: 0.5em;
+    box-sizing: border-box;
+    background: rgba(#000, 0.05);
+    border: 1px solid rgba(#000, 0.1);
+    font-size: inherit;
+    appearance: none;
+    line-height: 1;
+    height: 2.5em;
+    color: inherit;
+
+    &:focus {
+        background: none;
+        border: 1px solid var(--primary);
+        outline: none;
+    }
+}
 }
 
 .currency {
