@@ -212,7 +212,6 @@ export default {
             return `${this.label} ${index+1}`
         },
         enterPress(event) {
-            console.log('Enter', event);
             return;
             if (this.canAddValue) {
                 event.stopImmediatePropagation();

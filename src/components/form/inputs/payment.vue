@@ -331,7 +331,7 @@ export default {
                 type: 'integer',
                 key: 'total',
                 widget: 'value',
-                minimum: 1,
+                minimum: parseInt(self.calculatedTotal) ? 1 : 0,
                 maximum: 1,
                 expressions: {
                     value() {

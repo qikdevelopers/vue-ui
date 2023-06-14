@@ -76,9 +76,12 @@ export default {
     },
     provide() {
         const parentFormElement = this.parentFormElement || this;
+        const directFormElement = this;
+        //TODO: Test if this is necessary
+        // = this.parentFormElement || this;
         return {
             parentFormElement,
-            // :computed(() => parentFormElement),
+            directFormElement,
         }
     },
     mounted() {
@@ -203,7 +206,8 @@ export default {
                 self.touched = touched;
                 self.focussed = focussed;
                 self.invalid = invalid;
-                self.$emit('form:state', {
+
+                const formStateEventData = {
                     dirty,
                     error,
                     focussed,
@@ -211,7 +215,12 @@ export default {
                     invalid,
                     valid: !invalid,
                     invalidFields,
-                });
+                }
+
+                self.$emit('form:state', formStateEventData);
+
+                            
+
             })
 
 

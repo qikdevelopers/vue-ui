@@ -6,9 +6,11 @@
             <div class="padder">
                 <h5>{{options.title}}</h5>
                 <p v-if="options.description">{{options.description}}</p>
-                <ux-form ref="form" v-model="model" :fields="fields" />
+                <ux-form ref="form" @form:state="formStateUpdated" v-model="model" :fields="fields" />
 
             </div>
+            
+            
         </flex-body>
         <flex-footer>
             <div class="padder">
@@ -18,7 +20,8 @@
                     </flex-cell>
                     <flex-spacer/>
                     <flex-cell shrink>
-                        <ux-button color="primary" type="submit" @click="close(model)">Confirm</ux-button>
+
+                        <ux-button :disabled="invalid" color="primary" type="submit" @click="close(model)">Confirm</ux-button>
                     </flex-cell>
                 </flex-row>
             </div>
@@ -36,12 +39,23 @@ export default {
     data() {
         return {
             model:{},
+            formState:null,
+
         }
     },
     methods:{
-        
+        formStateUpdated(state) {
+            this.formState = state;
+        },
     },
     computed:{
+        invalid() {
+            var formInvalid = this.formState?.invalid;
+            if(formInvalid) {
+                return true;
+            }
+                
+        },
         fields() {
             return this.options.fields || [];
         }

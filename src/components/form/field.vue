@@ -97,6 +97,7 @@
         <template v-if="widget == 'expression'">
             <expression-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
+
         <div v-if="error && validateResults.message" class="ux-field-message">
             {{validateResults.message}}
         </div>
@@ -271,7 +272,7 @@ export default {
             isDirtyBeforeInput: false,
         }
     },
-    inject:['parentFormElement', 'additionalContext'],
+    inject:['parentFormElement', 'directFormElement', 'additionalContext'],
     provide() {
         return {
             fieldPath:this.fieldPath,
@@ -283,6 +284,10 @@ export default {
     mounted() {
         const self = this;
         self.mounted = true;
+
+        if(self.directFormElement && self.directFormElement.childFormElements) {
+            self.directFormElement.childFormElements.push(self);
+        }
         if(self.parentFormElement && self.parentFormElement.childFormElements) {
             self.parentFormElement.childFormElements.push(self);
         }
@@ -290,6 +295,11 @@ export default {
     beforeUnmount() {
         const self = this;
         self.mounted = false;
+
+        if(self.directFormElement) {
+            var index = self.directFormElement.childFormElements.indexOf(self);
+            self.directFormElement.childFormElements.splice(index, 1);
+        }
 
         if(self.parentFormElement) {
             var index = self.parentFormElement.childFormElements.indexOf(self);
@@ -313,31 +323,38 @@ export default {
         },
         checkDirtyState() {
 
+            const self = this;
+
             //What is the value for this field right now?
-            var existingData = this.fieldModel;
+            var existingData = self.fieldModel;
             var hasExistingData = existingData || existingData === false || existingData === 0;
-            var proposedDefaultValue = this.fieldDefaultValue();
+            var proposedDefaultValue = self.fieldDefaultValue();
 
 
             ///////////////////////////////////////////
 
-            var existingString = JSON.stringify(this.cleanOutput(existingData));
-            var proposedString = JSON.stringify(this.cleanOutput(proposedDefaultValue));
+            var existingString = JSON.stringify(self.cleanOutput(existingData));
+            var proposedString = JSON.stringify(self.cleanOutput(proposedDefaultValue));
 
             //We already have data
             if (hasExistingData && (existingString != proposedString)) {
-                this.isDirty = true;
-                this.isDirtyBeforeInput = true;
+                self.isDirty = true;
+                self.isDirtyBeforeInput = true;
                 //May as well put it in anyway so it can clean itself if need be
-                this.fieldModel = existingData;
+                self.fieldModel = existingData;
             } else {
                 //The field is untouched
-                this.isDirty = false;
-                this.isDirtyBeforeInput = false;
+                self.isDirty = false;
+                self.isDirtyBeforeInput = false;
 
                 //Use the default
-                this.fieldModel = proposedDefaultValue;
+                self.fieldModel = proposedDefaultValue;
             }
+
+
+        // Validate when we're first mounted
+        self.validateResults = self.$sdk.content.validateField(self.fieldModel, self.actualField);
+
         },
         groupStateAltered(details) {
             this.subFormState = details;
@@ -570,6 +587,7 @@ export default {
             return !this.focussed && this.touched && this.invalid;
         },
         invalid() {
+
             //Check the subform
             var invalidSubForm = this.subFormState && this.subFormState.invalid;
             if (invalidSubForm) {
@@ -689,6 +707,7 @@ export default {
                     this.isDirty = true;
                     this.$emit('update:modelValue', this.model);
                 }
+
             }
         },
         sourceModel: {

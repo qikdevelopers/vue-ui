@@ -1,6 +1,7 @@
 <template>
     <flex-column v-if="mounted">
-        <v-ace-editor @blur="format" :readonly="readonly" class="editor-wrap" v-model:value="model" :options="{ useWorker: true }" @init="editorInit" :lang="lang" theme="tomorrow_night_eighties" style="height: 300px" />
+        <div v-for="token in tokens" @click.stop.prevent="injectToken(token.value)">{{token.title}}</div>
+        <v-ace-editor @blur="blur" :readonly="readonly" class="editor-wrap" v-model:value="model" :options="{ useWorker: true }" @init="editorInit" :lang="lang" theme="tomorrow_night_eighties" style="height: 300px" />
     </flex-column>
 </template>
 <script>
@@ -11,7 +12,47 @@ export default {
         // VAceEditor,
     },
     methods: {
-        editorInit() {
+        injectToken(value) {
+            const editor = this.editor;
+
+            if (!editor) {
+                return;
+            }
+
+            const session = editor.session;
+
+            if (!session) {
+
+                return;
+            }
+
+
+
+
+            const position = editor.getCursorPosition();
+            const range = editor.selection.getRange();
+            session.replace(range, value);
+
+
+
+        },
+        updateCursorSelection(e) {
+            const position = this.editor.getCursorPosition();
+            const range = this.editor.selection.getRange();
+
+            console.log('Selection changed', { position, range });
+        },
+        editorInit(editor) {
+            this.editor = editor;
+            editor.session.selection.on('changeSelection', this.updateCursorSelection)
+            editor.session.selection.on('changeCursor', this.updateCursorSelection);
+        },
+        blur() {
+
+
+
+            console.log('Format now');
+            this.format();
 
         },
         format() {
@@ -22,7 +63,7 @@ export default {
 
             var code = this.model;
 
-            if(!code) {
+            if (!code) {
                 return;
             }
 
@@ -46,10 +87,9 @@ export default {
                     break;
                 default:
                     return;
-                break;
+                    break;
             }
 
-            console.log('Formatted');
             this.model = code;
 
 
@@ -62,11 +102,17 @@ export default {
                 return '';
             }
         },
+        tokens: {
+            type: Array,
+            default () {
+                return [];
+            }
+        },
         lang: {
             type: String,
         },
-        readonly:{
-            type:Boolean,
+        readonly: {
+            type: Boolean,
         },
     },
     watch: {
@@ -76,6 +122,9 @@ export default {
         model(v) {
             this.$emit('update:modelValue', v);
         }
+    },
+    unmounted() {
+        this.editor = null;
     },
     async mounted() {
         this.mounted = true;
@@ -92,6 +141,7 @@ export default {
         return {
             mounted: false,
             model: this.modelValue,
+            editor: null,
         }
     },
 }

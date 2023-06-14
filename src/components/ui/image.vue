@@ -59,7 +59,7 @@ export default {
     
     computed: {
         altText() {
-            return this.alt || this.model.title;
+            return this.alt || this.model?.title;
         },
         className() {
 
