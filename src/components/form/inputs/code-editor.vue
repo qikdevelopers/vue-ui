@@ -1,10 +1,28 @@
 <template>
     <flex-column v-if="mounted">
-        <div v-for="token in tokens" @click.stop.prevent="injectToken(token.value)">{{token.title}}</div>
-        <v-ace-editor @blur="blur" :readonly="readonly" class="editor-wrap" v-model:value="model" :options="{ useWorker: true }" @init="editorInit" :lang="lang" theme="tomorrow_night_eighties" style="height: 300px" />
+        <template v-if="tokens.length">
+            <div class="tokens">
+                <div class="tokens-header" @click="showTokens = !showTokens">
+                    <flex-row gap center>
+                        <flex-cell>
+                        {{showTokens ? 'Hide' : 'Show'}} Tokens 
+                        </flex-cell>
+                        <flex-cell shrink>
+                            <ux-icon :icon="showTokens ? 'fa-angle-up' : 'fa-angle-right'"/>
+                        </flex-cell>
+                    </flex-row>
+                </div>
+                <div class="tokens-body" v-if="showTokens">
+                <ux-button size="xs" v-for="token in tokens" @click.stop.prevent="injectToken(token.value)">
+                    <ux-icon icon="fa-asterisk" /> {{token.title}}</ux-button>
+                </div>
+            </div>
+        </template>
+        <v-ace-editor @blur="blur" @focus="focussed" :readonly="readonly" class="editor-wrap" v-model:value="model" :options="{ useWorker: true }" @init="editorInit" :lang="lang" theme="tomorrow_night_eighties" style="height: 300px" />
     </flex-column>
 </template>
 <script>
+import _debounce from 'lodash/debounce';
 // import { VAceEditor } from 'vue3-ace-editor';
 
 export default {
@@ -28,31 +46,42 @@ export default {
 
 
 
-
-            const position = editor.getCursorPosition();
-            const range = editor.selection.getRange();
-            session.replace(range, value);
-
-
-
-        },
-        updateCursorSelection(e) {
-            const position = this.editor.getCursorPosition();
             const range = this.editor.selection.getRange();
+            // const selectedRange = this.selectionContext?.range;
+            if (range) {
 
-            console.log('Selection changed', { position, range });
+                const start = range.start;
+                const end = range.end;
+
+                const result = session.replace(range, value);
+
+                // editor.moveCursorTo(result.row, result.column)
+                editor.focus();
+
+            }
+
+
         },
+
         editorInit(editor) {
             this.editor = editor;
-            editor.session.selection.on('changeSelection', this.updateCursorSelection)
-            editor.session.selection.on('changeCursor', this.updateCursorSelection);
+        },
+        focussed() {
+            const self = this;
+            if (self.timer) {
+                clearTimeout(self.timer);
+                self.timer = null;
+            }
         },
         blur() {
 
+            const self = this;
+            self.timer = setTimeout(function() {
+                self.format();
+            }, 100)
 
 
-            console.log('Format now');
-            this.format();
+
 
         },
         format() {
@@ -90,7 +119,11 @@ export default {
                     break;
             }
 
+            // const {row, column} = this.editor.getCursorPosition();
             this.model = code;
+            // this.editor.moveCursorTo(row, column)
+
+
 
 
         }
@@ -139,9 +172,12 @@ export default {
     },
     data() {
         return {
+            showTokens:false,
+            timer: null,
             mounted: false,
             model: this.modelValue,
             editor: null,
+            selectionContext: {},
         }
     },
 }
@@ -150,5 +186,22 @@ export default {
 .editor-wrap {
     flex: 1;
 
+}
+
+.tokens-header {
+    cursor: pointer;
+    padding: 0.5em 1em;
+    background: rgba(#000, 0.05);
+
+    &:hover {
+        background: rgba(#000, 0.1);
+    }
+}
+.tokens-body {
+    padding: 1em;
+
+    .ux-btn {
+        margin-bottom: 0.4em;
+    }
 }
 </style>
