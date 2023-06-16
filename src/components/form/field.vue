@@ -65,9 +65,6 @@
         <template v-if="widget == 'scope-select'">
             <scope-select @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
-        <template v-if="widget == 'system-select'">
-            <system-event-select @touched="touch" :field="actualField" v-model="fieldModel" />
-        </template>
         <template v-if="widget == 'richtext'">
             <rich-text-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>

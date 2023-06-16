@@ -18,7 +18,7 @@
                 </div>
             </div>
         </template>
-        <v-ace-editor @blur="blur" @focus="focussed" :readonly="readonly" class="editor-wrap" v-model:value="model" :options="{ useWorker: true }" @init="editorInit" :lang="lang" theme="tomorrow_night_eighties" style="height: 300px" />
+        <v-ace-editor @blur="blurred" @focus="focussed" :readonly="readonly" class="editor-wrap" v-model:value="model" :options="{ useWorker: true }" @init="editorInit" :lang="lang" theme="tomorrow_night_eighties" style="height: 300px" />
     </flex-column>
 </template>
 <script>
@@ -71,12 +71,17 @@ export default {
             if (self.timer) {
                 clearTimeout(self.timer);
                 self.timer = null;
+                 console.log('Remove ticked');
             }
         },
-        blur() {
+        blurred() {
+
+            console.log('Blurred')
 
             const self = this;
+             console.log('Start timer');
             self.timer = setTimeout(function() {
+                console.log('Timer ticked');
                 self.format();
             }, 100)
 
