@@ -3,7 +3,7 @@
         <flex-row gap vcenter>
             <flex-cell shrink v-if="hasImage">
                 <div class="image-wrapper" :class="basicType">
-                <ux-image :item="item" :width="100" :height="100"/>
+                <ux-image :item="model" :width="100" :height="100"/>
             </div>
             </flex-cell>
             <flex-cell vcenter>
@@ -27,9 +27,19 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {
+            model:this.item,
+        }
+    },
+    watch:{
+        item(m) {
+            this.model = m;
+        }
+    },
     computed: {
         basicType() {
-            return this.item?.meta?.type
+            return this.model?.meta?.type
         },
         hasImage() {
             switch(this.basicType) {
@@ -41,12 +51,12 @@ export default {
             }
         },
         title() {
-            return this.item.title || this.item.name || this.item.label || (this.item.firstName ? `${this.item.firstName} ${this.item.lastName}` : '(Title unknown)');
+            return this.model.title || this.model.name || this.model.label || (this.model.firstName ? `${this.model.firstName} ${this.model.lastName}` : '(Title unknown)');
         }
     },
     methods:{
         clicked() {
-            this.$sdk.dispatch('item:view', this.item);
+            this.$sdk.dispatch('item:view', this.model);
         }
     }
 }

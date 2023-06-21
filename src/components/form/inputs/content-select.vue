@@ -18,6 +18,7 @@
                         </ux-button>
                     </template>
                 </item>
+           
             </template>
         </draggable>
     </template>
@@ -235,7 +236,7 @@ export default {
                 if (this.model && this.model.length) {
 
 
-
+                    var summary = `Click to select`;
                     var length = this.model.length;
 
                     if(!this.showList) {
@@ -244,25 +245,30 @@ export default {
                         } else {
                             return `${length} selected`;
                         }
-                    }
+                    } 
+
+
 
 
                     var difference = Math.max(length - 3, 0);
-
-                    var summary;
-                    var cropped = this.model.slice(0, 3);
-                    summary = cropped.map(function(item) {
-                        return item.firstName || item.name || item.title;
-                    }).join(', ');
-
-                    if (difference) {
-                        summary = `${summary}... +${difference} more...`
+                    if(length) {
+                        summary = `Adjust selection (${length})`
                     }
 
+                    
+                    // var cropped = this.model.slice(0, 3);
+                    // summary = cropped.map(function(item) {
+                    //     return item.firstName || item.name || item.title;
+                    // }).join(', ');
 
-                    if(!summary) {
-                        return `Click to select`;
-                    }
+                    // if (difference) {
+                    //     summary = `${summary}... +${difference} more...`
+                    // }
+
+
+                    // if(!summary) {
+                    //     return `Click to select`;
+                    // }
 
                     return summary;
 

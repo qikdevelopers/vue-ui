@@ -1,7 +1,7 @@
 import './style.css';
 import { defineComponent as ki, ref as Wt, toRefs as la, onMounted as oa, onBeforeUnmount as wo, watch as xi, computed as ai, openBlock as o, createElementBlock as d, renderSlot as G, createCommentVNode as _, useSlots as So, reactive as kr, provide as Fr, resolveComponent as y, normalizeClass as P, Fragment as S, unref as jn, createBlock as k, withCtx as h, createVNode as m, renderList as N, toDisplayString as b, withModifiers as W, createTextVNode as O, createElementVNode as w, h as li, resolveDynamicComponent as It, mergeProps as wi, toHandlers as ua, withDirectives as X, vModelSelect as kt, pushScopeId as it, popScopeId as st, normalizeStyle as xt, Teleport as Oo, vModelText as ge, withKeys as ve, TransitionGroup as To, nextTick as da, vModelDynamic as Rn, vShow as qi } from "vue";
 import { EventDispatcher as Eo } from "@qikdev/sdk";
-const Co = "0.2.70", lr = {
+const Co = "0.2.72", lr = {
   STRIPE_NOT_LOADED: "Stripe v3 library is not loaded",
   INSTANCE_NOT_DEFINED: "Instance object is not defined. Make sure you initialized Stripe before creating elements",
   ELEMENTS_NOT_DEFINED: "Elements object is not defined. You can't create stripe element without it",
@@ -7444,7 +7444,7 @@ function __(e, t, n, i, s, r) {
     _: 3
   }, 8, ["active", "loading", "to", "href", "target", "style", "class", "disabled"]);
 }
-const g_ = /* @__PURE__ */ E(p_, [["render", __], ["__scopeId", "data-v-2048752e"]]);
+const g_ = /* @__PURE__ */ E(p_, [["render", __], ["__scopeId", "data-v-66b9c2a8"]]);
 const v_ = {
   props: {
     value: {
@@ -7883,6 +7883,11 @@ const N_ = {
       model: this.item
     };
   },
+  watch: {
+    item(e) {
+      this.model = e;
+    }
+  },
   computed: {
     altText() {
       var e;
@@ -7973,7 +7978,7 @@ function U_(e, t, n, i, s, r) {
     }, null, 12, P_))
   ], 6);
 }
-const j_ = /* @__PURE__ */ E(N_, [["render", U_], ["__scopeId", "data-v-089b6795"]]);
+const j_ = /* @__PURE__ */ E(N_, [["render", U_], ["__scopeId", "data-v-03c1a2af"]]);
 const R_ = {
   props: {
     item: {
@@ -9058,10 +9063,20 @@ const Pg = {
       required: !0
     }
   },
+  data() {
+    return {
+      model: this.item
+    };
+  },
+  watch: {
+    item(e) {
+      this.model = e;
+    }
+  },
   computed: {
     basicType() {
       var e, t;
-      return (t = (e = this.item) == null ? void 0 : e.meta) == null ? void 0 : t.type;
+      return (t = (e = this.model) == null ? void 0 : e.meta) == null ? void 0 : t.type;
     },
     hasImage() {
       switch (this.basicType) {
@@ -9072,12 +9087,12 @@ const Pg = {
       }
     },
     title() {
-      return this.item.title || this.item.name || this.item.label || (this.item.firstName ? `${this.item.firstName} ${this.item.lastName}` : "(Title unknown)");
+      return this.model.title || this.model.name || this.model.label || (this.model.firstName ? `${this.model.firstName} ${this.model.lastName}` : "(Title unknown)");
     }
   },
   methods: {
     clicked() {
-      this.$sdk.dispatch("item:view", this.item);
+      this.$sdk.dispatch("item:view", this.model);
     }
   }
 };
@@ -9101,7 +9116,7 @@ function Ug(e, t, n, i, s, r) {
               class: P(["image-wrapper", r.basicType])
             }, [
               m(a, {
-                item: n.item,
+                item: s.model,
                 width: 100,
                 height: 100
               }, null, 8, ["item"])
@@ -9130,7 +9145,7 @@ function Ug(e, t, n, i, s, r) {
     })
   ]);
 }
-const wl = /* @__PURE__ */ E(Pg, [["render", Ug], ["__scopeId", "data-v-923011b3"]]);
+const wl = /* @__PURE__ */ E(Pg, [["render", Ug], ["__scopeId", "data-v-805b5945"]]);
 /**!
  * Sortable 1.14.0
  * @author	RubaXa   <trash@rubaxa.org>
@@ -10958,13 +10973,8 @@ const Dv = {
     summary() {
       if (this.multiValue)
         if (this.model && this.model.length) {
-          var e = this.model.length;
-          if (!this.showList)
-            return e === 1 ? this.model[0].title || this.model[0].name || this.model[0].firstName : `${e} selected`;
-          var t = Math.max(e - 3, 0), n, i = this.model.slice(0, 3);
-          return n = i.map(function(s) {
-            return s.firstName || s.name || s.title;
-          }).join(", "), t && (n = `${n}... +${t} more...`), n || "Click to select";
+          var e = "Click to select", t = this.model.length;
+          return this.showList ? (t && (e = `Adjust selection (${t})`), e) : t === 1 ? this.model[0].title || this.model[0].name || this.model[0].firstName : `${t} selected`;
         } else
           return "Click to select";
       else
@@ -11121,7 +11131,7 @@ function Uv(e, t, n, i, s, r) {
     })) : _("", !0)
   ], 64);
 }
-const ql = /* @__PURE__ */ E(Dv, [["render", Uv], ["__scopeId", "data-v-aaba4058"]]);
+const ql = /* @__PURE__ */ E(Dv, [["render", Uv], ["__scopeId", "data-v-5f830d28"]]);
 function jv(e) {
   return e === void 0 || typeof e > "u" || e === null || String(e) === "null" || String(e) === "undefined";
 }
@@ -18605,7 +18615,7 @@ function WO(e, t, n, i, s, r) {
     ])
   ]);
 }
-const ho = /* @__PURE__ */ E(HO, [["render", WO], ["__scopeId", "data-v-d88923bc"]]), KO = {
+const ho = /* @__PURE__ */ E(HO, [["render", WO], ["__scopeId", "data-v-9cf5026c"]]), KO = {
   props: {
     field: {
       type: Object,
@@ -20749,18 +20759,19 @@ function oE(e, t, n, i, s, r) {
                       ]),
                       _: 1
                     })) : _("", !0),
-                    s.showFilters ? _("", !0) : (o(), k(l, { key: 1 }, {
+                    m(l, null, {
                       default: h(() => [
-                        m(u, {
+                        s.showFilters ? _("", !0) : (o(), k(u, {
+                          key: 0,
                           modelValue: s.search,
                           "onUpdate:modelValue": t[0] || (t[0] = (x) => s.search = x),
                           loading: s.searching,
                           debounce: 500,
                           placeholder: "Keyword Search"
-                        }, null, 8, ["modelValue", "loading"])
+                        }, null, 8, ["modelValue", "loading"]))
                       ]),
                       _: 1
-                    })),
+                    }),
                     m(l, { shrink: "" }, {
                       default: h(() => [
                         m(f, {
@@ -20853,7 +20864,7 @@ function oE(e, t, n, i, s, r) {
     _: 1
   });
 }
-const uE = /* @__PURE__ */ E(iE, [["render", oE], ["__scopeId", "data-v-09ee3a9e"]]);
+const uE = /* @__PURE__ */ E(iE, [["render", oE], ["__scopeId", "data-v-7eedb824"]]);
 const dE = {
   components: {
     ScopeSelect: ib

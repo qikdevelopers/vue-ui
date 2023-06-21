@@ -244,7 +244,6 @@ export default {
 
 .ux-btn-icon {
     border-radius: 50%;
-    
 
     position:relative;
     width:2.4em;
@@ -259,7 +258,15 @@ export default {
         left: 50%;
         top: 50%;
         transform: translateX(-50%) translateY(-50%);
+
+
     }
+
+    :deep(i) {
+            line-height: inherit !important;
+        }
+
+
 }
 
 .ux-btn-disabled {

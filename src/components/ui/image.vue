@@ -56,7 +56,11 @@ export default {
             model: this.item,
         }
     },
-    
+    watch:{
+        item(m) {
+            this.model = m;
+        }
+    },
     computed: {
         altText() {
             return this.alt || this.model?.title;

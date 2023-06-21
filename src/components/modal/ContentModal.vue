@@ -14,8 +14,10 @@
                             <flex-cell v-if="maximum">
                                 <span class="font-muted font-sm">({{model.length}} of {{maximum}})</span>
                             </flex-cell>
-                            <flex-cell v-if="!showFilters">
+                            <flex-cell >
+                                <template v-if="!showFilters">
                                 <search v-model="search" :loading="searching" :debounce="500" placeholder="Keyword Search" />
+                                </template>
                             </flex-cell>
                             <flex-cell shrink>
                                 <ux-button :icon="$device.breakpoint.mobile" @click="showFilters = !showFilters">

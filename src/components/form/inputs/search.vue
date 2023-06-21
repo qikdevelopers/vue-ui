@@ -100,7 +100,7 @@ export default {
     input {
         width:100%;
         border-radius: 5em;
-        padding: 0.7em 1em;
+        padding: 0.6em 1em;
         box-sizing: border-box;
         background: rgba(#000, 0.05);
         border: 1px solid transparent;
