@@ -1,7 +1,7 @@
 import './style.css';
 import { defineComponent as ki, ref as Wt, toRefs as la, onMounted as oa, onBeforeUnmount as wo, watch as xi, computed as ai, openBlock as o, createElementBlock as d, renderSlot as G, createCommentVNode as _, useSlots as So, reactive as kr, provide as Fr, resolveComponent as y, normalizeClass as P, Fragment as S, unref as jn, createBlock as k, withCtx as h, createVNode as m, renderList as N, toDisplayString as b, withModifiers as W, createTextVNode as O, createElementVNode as w, h as li, resolveDynamicComponent as It, mergeProps as wi, toHandlers as ua, withDirectives as X, vModelSelect as kt, pushScopeId as it, popScopeId as st, normalizeStyle as xt, Teleport as Oo, vModelText as ge, withKeys as ve, TransitionGroup as To, nextTick as da, vModelDynamic as Rn, vShow as qi } from "vue";
 import { EventDispatcher as Eo } from "@qikdev/sdk";
-const Co = "0.2.73", lr = {
+const Co = "0.2.74", lr = {
   STRIPE_NOT_LOADED: "Stripe v3 library is not loaded",
   INSTANCE_NOT_DEFINED: "Instance object is not defined. Make sure you initialized Stripe before creating elements",
   ELEMENTS_NOT_DEFINED: "Elements object is not defined. You can't create stripe element without it",
@@ -181,7 +181,7 @@ function ou(e, t, n, i, s, r) {
     G(e.$slots, "default", {}, void 0, !0)
   ]);
 }
-const uu = /* @__PURE__ */ E(au, [["render", ou], ["__scopeId", "data-v-45182a00"]]);
+const uu = /* @__PURE__ */ E(au, [["render", ou], ["__scopeId", "data-v-5b12efd6"]]);
 const du = {}, cu = { class: "flex-spacer" };
 function fu(e, t, n, i, s, r) {
   return o(), d("div", cu);

@@ -13,6 +13,7 @@ export default {
 .flex-row {
     display: flex;
     // overflow: hidden;
+    min-height: 0;
     flex: 1;
     flex-direction: row;
 
