@@ -107,8 +107,6 @@ export default {
         },
         model: {
             handler: debounce(function(v) {
-
-                 console.log('MODEL HAS CHANGED')
                 this.$emit('update:modelValue', v);
             }, 300),
             deep: true,

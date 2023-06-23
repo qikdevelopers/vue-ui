@@ -13720,7 +13720,7 @@ const n0 = {
     },
     model: {
       handler: Vn(function(e) {
-        console.log("MODEL HAS CHANGED"), this.$emit("update:modelValue", e);
+        this.$emit("update:modelValue", e);
       }, 300),
       deep: !0,
       immediate: !0
@@ -13802,7 +13802,7 @@ function a0(e, t, n, i, s, r) {
     _: 1
   });
 }
-const Zl = /* @__PURE__ */ E(n0, [["render", a0], ["__scopeId", "data-v-e8d5612d"]]);
+const Zl = /* @__PURE__ */ E(n0, [["render", a0], ["__scopeId", "data-v-833f09b6"]]);
 const l0 = {
   mixins: [re],
   components: {
