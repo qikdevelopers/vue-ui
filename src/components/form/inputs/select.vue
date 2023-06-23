@@ -221,7 +221,13 @@ export default {
                 return 'Select an option'
             }
 
-            return this.model ? this.getLabel(this.optionLookup[this.model]) : this.title || 'Click to select';
+            const noneOption = this.selectableOptions.find(function(i) {
+                return i.none;
+            });
+
+            const noneValue = noneOption?.title || noneOption?.label; 
+
+            return this.model ? this.getLabel(this.optionLookup[this.model]) : noneValue || this.title || 'Click to select';
         },
 
         grouped() {
@@ -283,7 +289,6 @@ export default {
             });
 
             if (hasNoneOption) {
-                console.log('has custom none option')
                 return false;
             }
 

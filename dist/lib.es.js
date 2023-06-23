@@ -1,7 +1,7 @@
 import './style.css';
 import { defineComponent as ki, ref as Wt, toRefs as la, onMounted as oa, onBeforeUnmount as wo, watch as xi, computed as ai, openBlock as o, createElementBlock as d, renderSlot as G, createCommentVNode as _, useSlots as So, reactive as kr, provide as Fr, resolveComponent as y, normalizeClass as P, Fragment as S, unref as jn, createBlock as k, withCtx as h, createVNode as m, renderList as N, toDisplayString as b, withModifiers as W, createTextVNode as O, createElementVNode as w, h as li, resolveDynamicComponent as It, mergeProps as wi, toHandlers as ua, withDirectives as X, vModelSelect as kt, pushScopeId as it, popScopeId as st, normalizeStyle as xt, Teleport as Oo, vModelText as ge, withKeys as ve, TransitionGroup as To, nextTick as da, vModelDynamic as Rn, vShow as qi } from "vue";
 import { EventDispatcher as Eo } from "@qikdev/sdk";
-const Co = "0.2.72", lr = {
+const Co = "0.2.73", lr = {
   STRIPE_NOT_LOADED: "Stripe v3 library is not loaded",
   INSTANCE_NOT_DEFINED: "Instance object is not defined. Make sure you initialized Stripe before creating elements",
   ELEMENTS_NOT_DEFINED: "Elements object is not defined. You can't create stripe element without it",
@@ -174,14 +174,14 @@ function iu(e, t, n, i, s, r) {
     G(e.$slots, "default", {}, void 0, !0)
   ]);
 }
-const su = /* @__PURE__ */ E(nu, [["render", iu], ["__scopeId", "data-v-c7bb49df"]]);
+const su = /* @__PURE__ */ E(nu, [["render", iu], ["__scopeId", "data-v-ceefef08"]]);
 const au = {}, lu = { class: "flex-row" };
 function ou(e, t, n, i, s, r) {
   return o(), d("div", lu, [
     G(e.$slots, "default", {}, void 0, !0)
   ]);
 }
-const uu = /* @__PURE__ */ E(au, [["render", ou], ["__scopeId", "data-v-b6434689"]]);
+const uu = /* @__PURE__ */ E(au, [["render", ou], ["__scopeId", "data-v-45182a00"]]);
 const du = {}, cu = { class: "flex-spacer" };
 function fu(e, t, n, i, s, r) {
   return o(), d("div", cu);
@@ -6912,7 +6912,12 @@ const Dy = {
       return this.multiValue ? e.push("multiple") : e.push("single"), e;
     },
     summary() {
-      return this.multiValue ? "Select an option" : this.model ? this.getLabel(this.optionLookup[this.model]) : this.title || "Click to select";
+      if (this.multiValue)
+        return "Select an option";
+      const e = this.selectableOptions.find(function(n) {
+        return n.none;
+      }), t = (e == null ? void 0 : e.title) || (e == null ? void 0 : e.label);
+      return this.model ? this.getLabel(this.optionLookup[this.model]) : t || this.title || "Click to select";
     },
     grouped() {
       const e = this, { values: t } = e.selectableOptions.reduce(function(n, i) {
@@ -6937,12 +6942,12 @@ const Dy = {
       }) : this.options;
     },
     showNoneOption() {
-      return this.singleValue && !this.minimum ? this.selectableOptions.find(function(n) {
+      return !(!(this.singleValue && !this.minimum) || this.selectableOptions.find(function(n) {
         return n.none;
-      }) ? (console.log("has custom none option"), !1) : !0 : !1;
+      }));
     }
   }
-}, $y = (e) => (it("data-v-271e784a"), e = e(), st(), e), Ny = {
+}, $y = (e) => (it("data-v-9772b96a"), e = e(), st(), e), Ny = {
   key: 0,
   class: "ux-field-title"
 }, Ly = {
@@ -7061,7 +7066,7 @@ function Qy(e, t, n, i, s, r) {
     ]))
   ], 2);
 }
-const Nt = /* @__PURE__ */ E(Dy, [["render", Qy], ["__scopeId", "data-v-271e784a"]]);
+const Nt = /* @__PURE__ */ E(Dy, [["render", Qy], ["__scopeId", "data-v-9772b96a"]]);
 const e_ = {
   props: {
     total: {
@@ -7768,20 +7773,60 @@ const I_ = /* @__PURE__ */ E(A_, [["render", M_], ["__scopeId", "data-v-db935124
       default: "none"
     }
   },
+  mounted() {
+    this.mounted = !0;
+  },
+  beforeUnmount() {
+    this.mounted = !1, this.removeListeners();
+  },
   computed: {
     filteredItems() {
-      return this.items.filter(function(e) {
+      return this.tree.filter(function(e) {
         return !e.disabled;
       });
-    }
-  },
-  methods: {
-    toggle(e) {
-      e.expanded = !e.expanded, e.collapsed = !e.expanded;
+    },
+    expandedItem: {
+      get() {
+        return this.currentExpandedItem;
+      },
+      set(e) {
+        this.currentExpandedItem && (this.currentExpandedItem.expanded = !1, this.currentExpandedItem.collapsed = !0), this.currentExpandedItem = e, this.currentExpandedItem ? (this.currentExpandedItem.expanded = !0, this.currentExpandedItem.collapsed = !1, this.addListeners()) : this.removeListeners();
+      }
     }
   },
   data() {
-    return {};
+    return {
+      currentExpandedItem: null,
+      tree: JSON.parse(JSON.stringify(this.items))
+    };
+  },
+  methods: {
+    globalClick(e) {
+      this.expandedItem = null;
+    },
+    addListeners() {
+      var t;
+      this.$sdk.addEventListener("route:change", this.globalClick);
+      const e = (t = this.$el) == null ? void 0 : t.ownerDocument;
+      e && e.body.addEventListener("click", this.globalClick);
+    },
+    removeListeners() {
+      var t;
+      this.$sdk.removeEventListener("route:change", this.globalClick);
+      const e = (t = this.$el) == null ? void 0 : t.ownerDocument;
+      e && e.body.removeEventListener("click", this.globalClick);
+    },
+    toggle(e) {
+      this.currentExpandedItem === e ? this.expandedItem = null : this.expandedItem = e;
+    }
+  },
+  watch: {
+    items: {
+      handler(e) {
+        this.tree = JSON.parse(JSON.stringify(e));
+      },
+      deep: !0
+    }
   }
 };
 function D_(e, t, n, i, s, r) {

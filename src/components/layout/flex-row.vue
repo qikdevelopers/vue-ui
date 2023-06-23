@@ -12,7 +12,7 @@ export default {
 <style scoped lang="scss">
 .flex-row {
     display: flex;
-    overflow: hidden;
+    // overflow: hidden;
     flex: 1;
     flex-direction: row;
 
