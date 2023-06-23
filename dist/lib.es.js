@@ -1,7 +1,7 @@
 import './style.css';
 import { defineComponent as ki, ref as Wt, toRefs as la, onMounted as oa, onBeforeUnmount as wo, watch as xi, computed as ai, openBlock as o, createElementBlock as d, renderSlot as G, createCommentVNode as _, useSlots as So, reactive as kr, provide as Fr, resolveComponent as y, normalizeClass as P, Fragment as S, unref as jn, createBlock as k, withCtx as h, createVNode as m, renderList as N, toDisplayString as b, withModifiers as W, createTextVNode as O, createElementVNode as w, h as li, resolveDynamicComponent as It, mergeProps as wi, toHandlers as ua, withDirectives as X, vModelSelect as kt, pushScopeId as it, popScopeId as st, normalizeStyle as xt, Teleport as Oo, vModelText as ge, withKeys as ve, TransitionGroup as To, nextTick as da, vModelDynamic as Rn, vShow as qi } from "vue";
 import { EventDispatcher as Eo } from "@qikdev/sdk";
-const Co = "0.2.74", lr = {
+const Co = "0.2.75", lr = {
   STRIPE_NOT_LOADED: "Stripe v3 library is not loaded",
   INSTANCE_NOT_DEFINED: "Instance object is not defined. Make sure you initialized Stripe before creating elements",
   ELEMENTS_NOT_DEFINED: "Elements object is not defined. You can't create stripe element without it",
@@ -6947,7 +6947,7 @@ const Dy = {
       }));
     }
   }
-}, $y = (e) => (it("data-v-9772b96a"), e = e(), st(), e), Ny = {
+}, $y = (e) => (it("data-v-f286e26c"), e = e(), st(), e), Ny = {
   key: 0,
   class: "ux-field-title"
 }, Ly = {
@@ -7066,7 +7066,7 @@ function Qy(e, t, n, i, s, r) {
     ]))
   ], 2);
 }
-const Nt = /* @__PURE__ */ E(Dy, [["render", Qy], ["__scopeId", "data-v-9772b96a"]]);
+const Nt = /* @__PURE__ */ E(Dy, [["render", Qy], ["__scopeId", "data-v-f286e26c"]]);
 const e_ = {
   props: {
     total: {
@@ -13720,7 +13720,7 @@ const n0 = {
     },
     model: {
       handler: Vn(function(e) {
-        this.$emit("update:modelValue", e);
+        console.log("MODEL HAS CHANGED"), this.$emit("update:modelValue", e);
       }, 300),
       deep: !0,
       immediate: !0
@@ -13802,7 +13802,7 @@ function a0(e, t, n, i, s, r) {
     _: 1
   });
 }
-const Zl = /* @__PURE__ */ E(n0, [["render", a0], ["__scopeId", "data-v-51e57070"]]);
+const Zl = /* @__PURE__ */ E(n0, [["render", a0], ["__scopeId", "data-v-e8d5612d"]]);
 const l0 = {
   mixins: [re],
   components: {

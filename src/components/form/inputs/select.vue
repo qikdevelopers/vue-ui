@@ -321,9 +321,9 @@ export default {
                 cursor: pointer;
             }
 
-            &:last-child {
-                border-bottom: none;
-            }
+            // &:last-child {
+            //     border-bottom: none;
+            // }
         }
     }
 
