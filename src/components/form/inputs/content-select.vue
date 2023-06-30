@@ -57,6 +57,24 @@ import Item from '../../content/item.vue';
 import InputMixin from './input-mixin';
 import draggable from 'vuedraggable/src/vuedraggable'
 
+function sortFunction(a, b) {
+
+    let nameA = a.title.toUpperCase(); // ignore upper and lowercase
+    let nameB = b.title.toUpperCase(); // ignore upper and lowercase
+
+
+    if (nameA < nameB) {
+        return -1;
+    }
+    if (nameA > nameB) {
+        return 1;
+    }
+
+    // names must be equal
+    return 0;
+}
+
+
 export default {
     components: {
         Item,
@@ -132,7 +150,7 @@ export default {
                 item[prop] = result[prop];
             }
         },
-        open() {
+        async open() {
             var self = this;
             self.touch();
 
@@ -148,7 +166,17 @@ export default {
                 }
             }
 
-            self.$sdk.browse(this.field.referenceType, modalOptions)
+            let referenceType = this.field.referenceType;
+
+            if(!referenceType) {
+
+                const choices = await self.$sdk.content.glossary();
+                const sorted = choices.sort(sortFunction)
+                const {key:selectedKey} = await self.$sdk.options(sorted, 'Select content type', 'What type of content are you wanting to select');
+                referenceType = selectedKey;
+            }
+
+            self.$sdk.browse(referenceType, modalOptions)
                 .then(function(newSelection) {
                     self.model = self.multiValue ? newSelection : newSelection[0];
                 })

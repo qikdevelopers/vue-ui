@@ -5,34 +5,34 @@
                 <flex-row :class="{loading}">
                     <flex-column>
                         <flex-column>
-                        <template v-if="dataSource">
-                            <slot name="abovecontent" />
-                            <flex-column class="empty" v-if="boundaryMessage">
-                                <ux-panel>
-                                    <ux-panel-body>
-                                        <ux-icon class="large-icon" icon="fa-database"/>
-                                        <div>{{boundaryMessage}}</div>
-                                    </ux-panel-body>
-                                </ux-panel>
-                            </flex-column>
-                            <flex-column v-else-if="items.length">
-                                <template v-if="viewMode && viewMode.component">
-                                    <component :cacheKey="viewModeCacheKey" :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
-                                </template>
-                                <template v-else>
-                                    <native-table v-model:sort="sort" :enableSelection="enableSelection" :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
-                                        <template #corner>
-                                            <ux-menu right>
-                                                <template #activator="{ on }">
-                                                    <ux-button icon v-on="on">
-                                                        <ux-icon icon="fa-cog" />
-                                                    </ux-button>
-                                                </template>
-                                                <ux-list>
-                                                    <ux-list-item @click="toggleField(field)" :key="field.path" v-for="field in fields">
-                                                        <ux-icon :icon="fieldEnabled[field.path] ? 'fa-check-square' : 'fa-regular fa-square' " left /> {{field.title}}
-                                                    </ux-list-item>
-                                                    <!-- <ux-list-item @click="selectPage()">
+                            <template v-if="dataSource">
+                                <slot name="abovecontent" />
+                                <flex-column class="empty" v-if="boundaryMessage">
+                                    <ux-panel>
+                                        <ux-panel-body>
+                                            <ux-icon class="large-icon" icon="fa-database" />
+                                            <div>{{boundaryMessage}}</div>
+                                        </ux-panel-body>
+                                    </ux-panel>
+                                </flex-column>
+                                <flex-column v-else-if="items.length">
+                                    <template v-if="viewMode && viewMode.component">
+                                        <component @reload="debounceReload" :cacheKey="viewModeCacheKey" :definition="actualDefinition" :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
+                                    </template>
+                                    <template v-else>
+                                        <native-table v-model:sort="sort" :enableSelection="enableSelection" :enableActions="enableActions" :total="totalItems" :selectAll="selectAll" :deselectAll="deselectAllFunction" :selection="manager.items" @click:row="rowClicked" @click:actions="actionsClicked" @select:row:toggle="rowToggled" @select:multiple="selectMultiple" @deselect:multiple="deselectMultiple" :rows="items" :columns="columns">
+                                            <template #corner>
+                                                <ux-menu right>
+                                                    <template #activator="{ on }">
+                                                        <ux-button icon v-on="on">
+                                                            <ux-icon icon="fa-cog" />
+                                                        </ux-button>
+                                                    </template>
+                                                    <ux-list>
+                                                        <ux-list-item @click="toggleField(field)" :key="field.path" v-for="field in fields">
+                                                            <ux-icon :icon="fieldEnabled[field.path] ? 'fa-check-square' : 'fa-regular fa-square' " left /> {{field.title}}
+                                                        </ux-list-item>
+                                                        <!-- <ux-list-item @click="selectPage()">
                                                 Select Page
                                             </ux-list-item>
                                             <ux-list-item v-if="someSelectedOnPage" @click="deselectPage()">
@@ -44,36 +44,35 @@
                                             <ux-list-item v-if="deselectAll" @click="deselectAll()">
                                                 Deselect All
                                             </ux-list-item> -->
-                                                </ux-list>
-                                            </ux-menu>
-                                        </template>
-                                    </native-table>
-                                </template>
-                            </flex-column>
-                            <flex-column class="empty" v-else-if="!loading" center>
-                                <ux-panel>
-                                    <ux-panel-body>
-                                        <div>No {{plural}} found.</div>
-                                    </ux-panel-body>
-                                </ux-panel>
-                            </flex-column>
-                            <flex-column class="empty" v-else center>
-                                <!-- <ux-panel>
+                                                    </ux-list>
+                                                </ux-menu>
+                                            </template>
+                                        </native-table>
+                                    </template>
+                                </flex-column>
+                                <flex-column class="empty" v-else-if="!loading" center>
+                                    <ux-panel>
+                                        <ux-panel-body>
+                                            <div>No {{plural}} found.</div>
+                                        </ux-panel-body>
+                                    </ux-panel>
+                                </flex-column>
+                                <flex-column class="empty" v-else center>
+                                    <!-- <ux-panel>
                                 <ux-panel-body>
                                     <div>No {{plural}} found.</div>
                                 </ux-panel-body>
                             </ux-panel> -->
-                            </flex-column>
-                        </template>
-                    </flex-column>
-
+                                </flex-column>
+                            </template>
+                        </flex-column>
                         <flex-footer v-if="dataSource && !boundaryMessage">
-            <slot name="footera"></slot>
-            <div class="footer">
-                <pager v-model:page="page" :total="totalItems" />
-            </div>
-            <slot name="footerb"></slot>
-        </flex-footer>
+                            <slot name="footera"></slot>
+                            <div class="footer">
+                                <pager v-model:page="page" :total="totalItems" />
+                            </div>
+                            <slot name="footerb"></slot>
+                        </flex-footer>
                     </flex-column>
                 </flex-row>
                 <flex-column class="filter-column" v-if="showFilterSidebar">
@@ -91,7 +90,6 @@
                 </flex-column>
             </flex-row>
         </flex-column>
-        
         <spinner large v-if="loading" />
     </flex-column>
 </template>
@@ -258,7 +256,7 @@ function defaultColumns(self, type) {
 
     //Suffix Columns
     switch (type) {
-        
+
         case 'file':
         case 'audio':
         case 'image':
@@ -476,9 +474,7 @@ export default {
             this.roloSecondary = r;
         },
         change: {
-            handler: _debounce(async function() {
-                this.dataSource = await this.load();
-            }),
+            handler: 'debounceReload',
             immediate: true,
         },
         loading() {
@@ -507,10 +503,10 @@ export default {
         },
         showFilterSidebar() {
             return this.showFilters;
-             // || this.boundaryMessage;
+            // || this.boundaryMessage;
         },
         boundaryMessage() {
-            if(this.dataSource?.boundary) {
+            if (this.dataSource?.boundary) {
                 return this.dataSource.message || 'Limit was reached. Please provide more selective criteria';
             }
         },
@@ -602,6 +598,14 @@ export default {
                         direction: 'asc',
                         type: 'date',
                     }
+                    break;
+                case 'workflowcard':
+                    defaultSort = {
+                        key: 'due',
+                        direction: 'dsc',
+                        type: 'date',
+                    }
+
                     break;
                 case 'email':
                 case 'notification':
@@ -866,7 +870,6 @@ export default {
         loadCriteria() {
 
             const self = this;
-
             const sort = self.sort || self.defaultSort;
             const search = self.keywords;
             const select = self.selectFields;
@@ -900,7 +903,12 @@ export default {
         },
     },
     methods: {
-
+        debounceReload:_debounce(function() {
+            this.reload();
+        }),
+        async reload() {
+            this.dataSource = await this.load();
+        },
         toggleField(field) {
 
             var key = field.path || field.key;
@@ -1005,7 +1013,7 @@ export default {
                 // console.log('Close inflight browser.list request')
             }
 
-                // console.log('New browser.list request')
+            // console.log('New browser.list request')
 
             var loadCriteria = Object.assign({}, self.loadCriteria);
             loadCriteria.includeAll = includeAll;
@@ -1041,11 +1049,11 @@ export default {
             }
 
             const id = Math.random();
-            const { promise, cancel } = await self.$sdk.content.list(self.type, loadCriteria, { remoteURL:self.actualOptions.remoteURL, cancellable: true })
-            inflightRequest = {id,cancel};
+            const { promise, cancel } = await self.$sdk.content.list(self.type, loadCriteria, { remoteURL: self.actualOptions.remoteURL, cancellable: true })
+            inflightRequest = { id, cancel };
 
             promise.then(function(res) {
-                if(inflightRequest?.id === id) {
+                if (inflightRequest?.id === id) {
                     inflightRequest = null;
                     self.loading = false;
                     self.loadKey++;
@@ -1053,7 +1061,7 @@ export default {
                 }
             })
             promise.catch(function(err) {
-                if(inflightRequest?.id === id) {
+                if (inflightRequest?.id === id) {
                     inflightRequest = null;
                     // self.loading = false;
                     // console.log('Remove error inflight browser.list request', id)
@@ -1063,7 +1071,7 @@ export default {
 
             const { data } = await promise;
 
-            if(!data) {
+            if (!data) {
                 // TODO: Maybe retry here?
                 return;
             }
@@ -1138,7 +1146,7 @@ export default {
 }
 
 .large-icon {
-    font-size:6em;
+    font-size: 6em;
     margin-bottom: 1rem;
     opacity: 0.5;
 }
@@ -1151,7 +1159,7 @@ export default {
     justify-content: center;
 
     .panel {
-        max-width:400px;
+        max-width: 400px;
         background: #fff;
     }
 }

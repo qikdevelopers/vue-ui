@@ -50,6 +50,9 @@
         <template v-if="widget == 'currency'">
             <currency-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
+        <template v-if="widget == 'timefield'">
+            <time-field @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <template v-if="widget == 'datefield'">
             <date-field @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -98,6 +101,8 @@
         <div v-if="error && validateResults.message" class="ux-field-message">
             {{validateResults.message}}
         </div>
+
+
         <!-- __________ -->
         <!-- <pre>{{field.title}} Touched: {{touched}}</pre> -->
         <!-- <pre>Has Data: {{hasData}}</pre> -->
@@ -119,6 +124,7 @@ import CurrencyField from './inputs/currency.vue';
 import TextField from './inputs/textfield.vue';
 import TextArea from './inputs/textarea.vue';
 import DateField from './inputs/datefield.vue';
+import TimeField from './inputs/timefield.vue';
 import DateRange from './inputs/daterange.vue';
 import Checkbox from './inputs/checkbox.vue';
 import CustomHTML from './inputs/html.vue';
@@ -196,6 +202,7 @@ export default {
         ButtonSelect,
         NativeSelect,
         DateField,
+        TimeField,
         DateRange,
         TextField,
         CurrencyField,
@@ -528,6 +535,10 @@ export default {
                 actual = Object.assign({}, actual, { minimum: 1 });
             }
 
+            if(this.getExpressionTitle) {
+                actual = Object.assign({}, actual, { title:this.getExpressionTitle });
+            }
+
             if (this.getExpressionReferenceType) {
                 actual = Object.assign({}, actual, { referenceType:this.getExpressionReferenceType });
             }
@@ -623,6 +634,7 @@ export default {
 
             return result;
         },
+        getExpressionTitle: computedExpression('title'),
         getExpressionRequired: computedExpression('required'),
         getExpressionDefaultValue: computedExpression('defaultValue'),
         getExpressionValue: computedExpression('value'),
@@ -782,7 +794,6 @@ export default {
                 case 'select':
                 case 'checkbox':
                 case 'daterange':
-                case 'datefield':
                 case 'richtext':
                 case 'textarea':
                 case 'switch':
@@ -802,7 +813,14 @@ export default {
                 case 'html':
                 case 'filter':
                 case 'value':
-                
+                    break;
+                case 'datefield':
+                case 'datepicker':
+                    return 'datefield';
+                    break;
+                case 'timefield':
+                case 'timepicker':
+                    return 'timefield';
                     break;
                 case 'password':
                     return 'textfield';

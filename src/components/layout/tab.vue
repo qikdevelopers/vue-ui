@@ -78,7 +78,8 @@ export default {
     // },
     computed: {
         active() {
-            return this.heading === this.activeHeading.value;
+            const active = String(this.heading) === String(this.activeHeading?.value || this.activeHeading);
+            return active;
         }
         // active:{
         // 	get() {

@@ -14,6 +14,7 @@ export default {
     display: flex;
     // overflow: hidden;
     min-height: 0;
+    min-width: 0;
     flex: 1;
     flex-direction: row;
 
