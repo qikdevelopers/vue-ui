@@ -19,27 +19,36 @@
             <ux-icon icon="fa-spinner" spin left /> Loading Options
         </div>
         <div v-else class="select-input-wrapper">
-            <div class="ui-select-button">
-                <slot>
-                    <ux-button tag="div">
-                        {{summary}}
-                    </ux-button>
-                </slot>
-            </div>
-            <template v-if="multiValue && canAddValue">
-                <select @focus="touch" v-model="candidate">
-                    <option value="">Select an option</option>
-                    <template v-if="grouped">
-                        <optgroup :label="group.title" :key="group.title" v-for="group in grouped">
-                            <option :value="option.value" v-for="option in group.options">{{option.title}}</option>
-                        </optgroup>
-                    </template>
-                    <template v-else>
+            <template v-if="multiValue">
+                <template v-if="canAddValue">
+                    <div class="ui-select-button">
+                        <slot>
+                            <ux-button tag="div">
+                                {{summary}}
+                            </ux-button>
+                        </slot>
+                    </div>
+                    <select @focus="touch" v-model="candidate">
+                        <option value="">Select an option</option>
+                        <template v-if="grouped">
+                            <optgroup :label="group.title" :key="group.title" v-for="group in grouped">
+                                <option :value="option.value" v-for="option in group.options">{{option.title}}</option>
+                            </optgroup>
+                        </template>
+                        <template v-else>
                             <option :value="option.value" v-for="option in selectableOptions">{{option.title}}</option>
-                    </template>
-                </select>
+                        </template>
+                    </select>
+                </template>
             </template>
             <template v-else>
+                <div class="ui-select-button">
+                    <slot>
+                        <ux-button tag="div">
+                            {{summary}}
+                        </ux-button>
+                    </slot>
+                </div>
                 <select @focus="touch" :multiple="multiValue" v-model="model">
                     <option value="" v-if="showNoneOption">None</option>
                     <template v-if="grouped">
@@ -48,7 +57,7 @@
                         </optgroup>
                     </template>
                     <template v-else>
-                            <option :value="option.value" v-for="option in selectableOptions">{{option.title}}</option>
+                        <option :value="option.value" v-for="option in selectableOptions">{{option.title}}</option>
                     </template>
                 </select>
             </template>
@@ -87,7 +96,7 @@ export default {
     methods: {
         displayLabelFromValue(value) {
 
-            if(!value) {
+            if (!value) {
                 return;
             }
 
@@ -225,7 +234,7 @@ export default {
                 return i.none;
             });
 
-            const noneValue = noneOption?.title || noneOption?.label; 
+            const noneValue = noneOption?.title || noneOption?.label;
 
             return this.model ? this.getLabel(this.optionLookup[this.model]) : noneValue || this.title || 'Click to select';
         },
@@ -233,15 +242,15 @@ export default {
         grouped() {
             const self = this;
 
-            const {values} = self.selectableOptions.reduce(function(memo, option) {
+            const { values } = self.selectableOptions.reduce(function(memo, option) {
 
                 const groupName = option.group || '';
 
                 let existingEntry = memo.hash[groupName];
-                if(!existingEntry) {
+                if (!existingEntry) {
                     existingEntry = memo.hash[groupName] = {
-                        title:groupName,
-                        options:[],
+                        title: groupName,
+                        options: [],
                     }
 
                     memo.values.push(existingEntry);
@@ -251,20 +260,44 @@ export default {
 
                 return memo;
             }, {
-                hash:{},
-                values:[],
+                hash: {},
+                values: [],
             })
 
-            if(values.length <= 1) {
+            if (values.length <= 1) {
                 return
             }
 
             return values
         },
+        modelLookup() {
+            var self = this;
+            if (self.multiValue) {
+                return self.model.reduce(function(memo, option) {
+                    const key = self.getValue(option);
+                    memo[key] = option;
+                    return memo;
+                }, {})
+            }
+
+            return {}
+
+
+        },
         selectableOptions() {
 
-            if (this.field?.sorted) {
-                return this.options.sort(function(a, b) {
+            const self = this;
+            let options = self.options;
+
+            // Filter out any values that are already selected
+            if (self.multiValue) {
+                options = options.filter(function(opt) {
+                    return !self.modelLookup[self.getValue(opt)];
+                })
+            }
+
+            if (self.field?.sorted) {
+                return options.sort(function(a, b) {
                     var nA = (a.title || a).toLowerCase();
                     var nB = (b.title || b).toLowerCase();
 
@@ -274,7 +307,7 @@ export default {
                 });
             }
 
-            return this.options;
+            return options;
 
         },
         showNoneOption() {

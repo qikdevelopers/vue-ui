@@ -186,6 +186,12 @@ export default {
                 return;
             }
 
+            if(this.options.length) {
+                if(this.selectableOptions.length === 0) {
+                    return;
+                }
+            }
+
             return this.maximum === 0 || this.numValues < this.maximum;
         },
         canRemoveValue() {
