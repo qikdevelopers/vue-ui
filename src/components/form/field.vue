@@ -156,6 +156,7 @@ import parseBoolean from './parseBoolean';
 ////////////////////////////////////////
 
 import safeJsonStringify from 'safe-json-stringify';
+import {ref} from 'vue';
 
 ////////////////////////////////////////
 
@@ -188,6 +189,7 @@ function computedExpression(key) {
         }
 
         let context = self.expressionsContext;
+
         let result = Expressions.evaluateExpression(expression, context);
 
         return result;
@@ -276,10 +278,11 @@ export default {
             isDirtyBeforeInput: false,
         }
     },
-    inject:['parentFormElement', 'directFormElement', 'additionalContext'],
+    inject:['parentFormElement', 'directParentModel', 'directFormElement', 'additionalContext'],
     provide() {
         return {
             fieldPath:this.fieldPath,
+            directParentModel:this.model,
         }
     },
     created() {
@@ -289,12 +292,16 @@ export default {
         const self = this;
         self.mounted = true;
 
+
+
         if(self.directFormElement && self.directFormElement.childFormElements) {
             self.directFormElement.childFormElements.push(self);
         }
         if(self.parentFormElement && self.parentFormElement.childFormElements) {
             self.parentFormElement.childFormElements.push(self);
         }
+
+
     },
     beforeUnmount() {
         const self = this;
@@ -509,6 +516,7 @@ export default {
 
     },
     computed: {
+
         fieldPath() {
             return this.currentTrail.join('.');
         },
@@ -653,14 +661,17 @@ export default {
         },
         expressionsContext() {
 
+            const self = this;
+            var additionalContext = self.additionalContext?.value || {}
 
-            var additionalContext = this.additionalContext?.value || {}
-
+            const parent = self.directParentModel;
+        
             const context = {
-                this: this.model,
-                self: this.model,
-                model: this.model,
-                data: this.parentModel || this.model,
+                this: self.model,
+                self: self.model,
+                model: self.model,
+                data: self.parentModel || self.model,
+                parent,
                 additional:{
                     ...additionalContext,
                 }
@@ -728,6 +739,7 @@ export default {
                 this.$emit('update:modelValue', this.model);
             }
         },
+
         classes() {
             var array = [];
             array.push(`ux-field-${this.type}`)

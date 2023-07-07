@@ -6,10 +6,11 @@
     </div>
 </template>
 <script>
+
 import UXField from './field.vue';
 import debounce from 'lodash/debounce';
 import _kebabCase from 'lodash/kebabCase';
-import { computed } from 'vue';
+import { ref } from 'vue';
 export default {
     props: {
         parentModel: {
@@ -75,10 +76,11 @@ export default {
         }
     },
     provide() {
+        
         const parentFormElement = this.parentFormElement || this;
         const directFormElement = this;
-        //TODO: Test if this is necessary
-        // = this.parentFormElement || this;
+        
+
         return {
             parentFormElement,
             directFormElement,

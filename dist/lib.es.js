@@ -1,7 +1,7 @@
 import './style.css';
 import { defineComponent as ki, ref as Kt, toRefs as oa, onMounted as ua, onBeforeUnmount as So, watch as xi, computed as ai, openBlock as o, createElementBlock as d, renderSlot as q, createCommentVNode as _, useSlots as Oo, reactive as kr, provide as Fr, resolveComponent as y, normalizeClass as P, Fragment as S, unref as jn, createBlock as k, withCtx as h, createVNode as m, renderList as $, toDisplayString as b, withModifiers as W, createTextVNode as O, createElementVNode as w, h as li, resolveDynamicComponent as Ft, mergeProps as wi, toHandlers as da, withDirectives as K, vModelSelect as xt, pushScopeId as st, popScopeId as at, normalizeStyle as wt, Teleport as To, vModelText as pe, withKeys as ge, TransitionGroup as Eo, nextTick as ca, vModelDynamic as Rn, vShow as qi } from "vue";
 import { EventDispatcher as Co } from "@qikdev/sdk";
-const Vo = "0.2.77", lr = {
+const Vo = "0.2.78", lr = {
   STRIPE_NOT_LOADED: "Stripe v3 library is not loaded",
   INSTANCE_NOT_DEFINED: "Instance object is not defined. Make sure you initialized Stripe before creating elements",
   ELEMENTS_NOT_DEFINED: "Elements object is not defined. You can't create stripe element without it",
@@ -17357,10 +17357,11 @@ const C2 = {
       isDirtyBeforeInput: !1
     };
   },
-  inject: ["parentFormElement", "directFormElement", "additionalContext"],
+  inject: ["parentFormElement", "directParentModel", "directFormElement", "additionalContext"],
   provide() {
     return {
-      fieldPath: this.fieldPath
+      fieldPath: this.fieldPath,
+      directParentModel: this.model
     };
   },
   created() {
@@ -17538,15 +17539,18 @@ const C2 = {
       return this.field.expressions;
     },
     expressionsContext() {
-      var n;
-      var e = ((n = this.additionalContext) == null ? void 0 : n.value) || {};
+      var s;
+      const e = this;
+      var t = ((s = e.additionalContext) == null ? void 0 : s.value) || {};
+      const n = e.directParentModel;
       return {
-        this: this.model,
-        self: this.model,
-        model: this.model,
-        data: this.parentModel || this.model,
+        this: e.model,
+        self: e.model,
+        model: e.model,
+        data: e.parentModel || e.model,
+        parent: n,
         additional: {
-          ...e
+          ...t
         }
       };
     },
@@ -17931,7 +17935,7 @@ function A2(e, t, n, i, s, r) {
     r.error && s.validateResults.message ? (o(), d("div", V2, b(s.validateResults.message), 1)) : _("", !0)
   ], 34)) : _("", !0);
 }
-const Ui = /* @__PURE__ */ E(C2, [["render", A2], ["__scopeId", "data-v-3e17089a"]]);
+const Ui = /* @__PURE__ */ E(C2, [["render", A2], ["__scopeId", "data-v-9e40f6a3"]]);
 function M2(e, t, n, i) {
   var s = -1, r = e == null ? 0 : e.length;
   for (i && r && (n = e[++s]); ++s < r; )
@@ -18399,7 +18403,7 @@ function zO(e, t, n, i, s, r) {
     ], !0)
   ], 2);
 }
-const ho = /* @__PURE__ */ E(BO, [["render", zO], ["__scopeId", "data-v-3e8fe3c2"]]);
+const ho = /* @__PURE__ */ E(BO, [["render", zO], ["__scopeId", "data-v-3ad123e3"]]);
 const ri = "form.ready", HO = "form.processing", ra = "form.complete", ia = "form.error", qO = "form.intent", GO = {
   methods: {
     formStateUpdated(e) {
