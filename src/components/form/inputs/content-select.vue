@@ -7,13 +7,13 @@
             <template #item="{element, index}">
                 <item :key="element._id" :item="element">
                     <template #actions>
-                        <ux-button v-if="$actions" icon @click.stop.prevent="$actions.open([model])">
+                        <ux-button size="sm" v-if="$actions" icon @click.stop.prevent="$actions.open([model])">
                             <ux-icon icon="fa-ellipsis" />
                         </ux-button>
-                        <ux-button v-if="canEdit(element)" icon @click.stop.prevent="edit(element)">
+                        <ux-button size="sm" v-if="canEdit(element)" icon @click.stop.prevent="edit(element)">
                             <ux-icon icon="fa-pencil" />
                         </ux-button>
-                        <ux-button icon @click.stop.prevent="remove(element)">
+                        <ux-button size="sm" icon @click.stop.prevent="remove(element)">
                             <ux-icon icon="fa-times" />
                         </ux-button>
                     </template>
@@ -26,13 +26,13 @@
         <div class="items">
             <item :item="model">
                 <template #actions>
-                    <ux-button v-if="$actions" icon @click.stop.prevent="$actions.open([model])">
+                    <ux-button size="sm" v-if="$actions" icon @click.stop.prevent="$actions.open([model])">
                             <ux-icon icon="fa-ellipsis" />
                         </ux-button>
-                    <ux-button v-if="canEdit(model)" icon @click.stop.prevent="edit(model)">
+                    <ux-button size="sm" v-if="canEdit(model)" icon @click.stop.prevent="edit(model)">
                         <ux-icon icon="fa-pencil" />
                     </ux-button>
-                    <ux-button icon @click.stop.prevent="clear">
+                    <ux-button size="sm" icon @click.stop.prevent="clear">
                         <ux-icon icon="fa-times" />
                     </ux-button>
                 </template>

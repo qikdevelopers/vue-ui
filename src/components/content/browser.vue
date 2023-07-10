@@ -761,18 +761,11 @@ export default {
                 .map(function(string) {
                     return string.split('[]').join('');
                 })
-            // .map(function(field) {
-            //     return field.key || field
-            // })
-
-
-            // var fields =  self.columns.map(function(column) {
-            //     return column.key;
-            // }).flat()
 
             if (self.actualOptions.select) {
                 fields = [...fields, ...self.actualOptions.select];
             }
+
 
             return fields;
         },
@@ -903,7 +896,7 @@ export default {
         },
     },
     methods: {
-        debounceReload:_debounce(function() {
+        debounceReload: _debounce(function() {
             this.reload();
         }),
         async reload() {

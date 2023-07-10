@@ -1,7 +1,7 @@
 import './style.css';
 import { defineComponent as ki, ref as Kt, toRefs as oa, onMounted as ua, onBeforeUnmount as So, watch as xi, computed as ai, openBlock as o, createElementBlock as d, renderSlot as q, createCommentVNode as _, useSlots as Oo, reactive as kr, provide as Fr, resolveComponent as y, normalizeClass as P, Fragment as S, unref as jn, createBlock as k, withCtx as h, createVNode as m, renderList as $, toDisplayString as b, withModifiers as W, createTextVNode as O, createElementVNode as w, h as li, resolveDynamicComponent as Ft, mergeProps as wi, toHandlers as da, withDirectives as K, vModelSelect as xt, pushScopeId as st, popScopeId as at, normalizeStyle as wt, Teleport as To, vModelText as pe, withKeys as ge, TransitionGroup as Eo, nextTick as ca, vModelDynamic as Rn, vShow as qi } from "vue";
 import { EventDispatcher as Co } from "@qikdev/sdk";
-const Vo = "0.2.78", lr = {
+const Vo = "0.2.79", lr = {
   STRIPE_NOT_LOADED: "Stripe v3 library is not loaded",
   INSTANCE_NOT_DEFINED: "Instance object is not defined. Make sure you initialized Stripe before creating elements",
   ELEMENTS_NOT_DEFINED: "Elements object is not defined. You can't create stripe element without it",
@@ -9216,7 +9216,7 @@ function Rg(e, t, n, i, s, r) {
     })
   ]);
 }
-const Sl = /* @__PURE__ */ E(jg, [["render", Rg], ["__scopeId", "data-v-805b5945"]]);
+const Sl = /* @__PURE__ */ E(jg, [["render", Rg], ["__scopeId", "data-v-f1a20da8"]]);
 /**!
  * Sortable 1.14.0
  * @author	RubaXa   <trash@rubaxa.org>
@@ -11098,6 +11098,7 @@ function Bv(e, t, n, i, s, r) {
               actions: h(() => [
                 e.$actions ? (o(), k(l, {
                   key: 0,
+                  size: "sm",
                   icon: "",
                   onClick: t[0] || (t[0] = W((T) => e.$actions.open([e.model]), ["stop", "prevent"]))
                 }, {
@@ -11108,6 +11109,7 @@ function Bv(e, t, n, i, s, r) {
                 })) : _("", !0),
                 r.canEdit(v) ? (o(), k(l, {
                   key: 1,
+                  size: "sm",
                   icon: "",
                   onClick: W((T) => r.edit(v), ["stop", "prevent"])
                 }, {
@@ -11117,6 +11119,7 @@ function Bv(e, t, n, i, s, r) {
                   _: 2
                 }, 1032, ["onClick"])) : _("", !0),
                 m(l, {
+                  size: "sm",
                   icon: "",
                   onClick: W((T) => e.remove(v), ["stop", "prevent"])
                 }, {
@@ -11136,6 +11139,7 @@ function Bv(e, t, n, i, s, r) {
           actions: h(() => [
             e.$actions ? (o(), k(l, {
               key: 0,
+              size: "sm",
               icon: "",
               onClick: t[2] || (t[2] = W((v) => e.$actions.open([e.model]), ["stop", "prevent"]))
             }, {
@@ -11146,6 +11150,7 @@ function Bv(e, t, n, i, s, r) {
             })) : _("", !0),
             r.canEdit(e.model) ? (o(), k(l, {
               key: 1,
+              size: "sm",
               icon: "",
               onClick: t[3] || (t[3] = W((v) => r.edit(e.model), ["stop", "prevent"]))
             }, {
@@ -11155,6 +11160,7 @@ function Bv(e, t, n, i, s, r) {
               _: 1
             })) : _("", !0),
             m(l, {
+              size: "sm",
               icon: "",
               onClick: W(r.clear, ["stop", "prevent"])
             }, {
@@ -11211,7 +11217,7 @@ function Bv(e, t, n, i, s, r) {
     })) : _("", !0)
   ], 64);
 }
-const Gl = /* @__PURE__ */ E(Lv, [["render", Bv], ["__scopeId", "data-v-00c33b8b"]]);
+const Gl = /* @__PURE__ */ E(Lv, [["render", Bv], ["__scopeId", "data-v-c0d116a5"]]);
 function zv(e) {
   return e === void 0 || typeof e > "u" || e === null || String(e) === "null" || String(e) === "undefined";
 }
@@ -20329,7 +20335,7 @@ const LT = {
       actualOptions: this.options
     };
   }
-}, _o = (e) => (st("data-v-b5412074"), e = e(), at(), e), PT = { class: "footer" }, UT = /* @__PURE__ */ _o(() => /* @__PURE__ */ w("p", null, null, -1)), jT = { key: 0 }, RT = /* @__PURE__ */ _o(() => /* @__PURE__ */ w("p", null, null, -1));
+}, _o = (e) => (st("data-v-4f6cf2cc"), e = e(), at(), e), PT = { class: "footer" }, UT = /* @__PURE__ */ _o(() => /* @__PURE__ */ w("p", null, null, -1)), jT = { key: 0 }, RT = /* @__PURE__ */ _o(() => /* @__PURE__ */ w("p", null, null, -1));
 function BT(e, t, n, i, s, r) {
   const a = y("ux-icon"), l = y("ux-panel-body"), u = y("ux-panel"), c = y("flex-column"), f = y("ux-button"), p = y("ux-list-item"), g = y("ux-list"), v = y("ux-menu"), x = y("native-table"), T = y("pager"), A = y("flex-footer"), G = y("flex-row"), Q = y("search"), re = y("ux-field"), le = y("filter-builder"), oe = y("flex-body"), B = y("spinner");
   return r.actualDefinition ? (o(), k(c, {
@@ -20538,7 +20544,7 @@ function BT(e, t, n, i, s, r) {
     _: 3
   })) : _("", !0);
 }
-const zT = /* @__PURE__ */ E(LT, [["render", BT], ["__scopeId", "data-v-b5412074"]]), Ln = {
+const zT = /* @__PURE__ */ E(LT, [["render", BT], ["__scopeId", "data-v-4f6cf2cc"]]), Ln = {
   props: {
     options: {
       type: Object,

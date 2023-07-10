@@ -73,7 +73,8 @@ export default {
         width:50px;
 
         &.profile {
-            height:50px;
+            width:40px;
+            height:40px;
             background: rgba(#000, 0.1);
             border-radius:100%;
         }
