@@ -1,10 +1,12 @@
 <template>
     <div class="ux-image" :class="className" :style="style"> 
         <object :alt="altText" v-if="svg" type="image/svg+xml" :data="src"></object>
-        <img :alt="altText" v-else :style="imageStyle" :src="src"/>
+        <img ref="img" :alt="altText" v-else :style="imageStyle" :src="src"/>
     </div>
 </template>
 <script>
+
+import _debounce from 'lodash/debounce';
 export default {
     props: {
         item: {
@@ -54,12 +56,24 @@ export default {
     data() {
         return {
             model: this.item,
+            cacheBuster:0,
         }
     },
     watch:{
         item(m) {
             this.model = m;
         }
+    },
+    mounted() {
+        this.$refs.img.addEventListener('error', this.imageLoadError);
+    },
+    beforeUnmount() {
+        this.$refs.img.removeEventListener('error', this.imageLoadError);
+    },
+    methods:{
+        imageLoadError:_debounce(function(e) {
+            this.cacheBuster++;
+        }, 100),
     },
     computed: {
         altText() {
@@ -121,6 +135,7 @@ export default {
 
             var params = {};
             params.access_token = this.$sdk.auth.getCurrentToken();
+            params.cb = this.cacheBuster;
 
             /////////////////////////////////
 
