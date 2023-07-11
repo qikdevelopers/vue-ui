@@ -56,6 +56,7 @@ export default {
     data() {
         return {
             model: this.item,
+            retries:0,
             cacheBuster:0,
         }
     },
@@ -72,7 +73,12 @@ export default {
     },
     methods:{
         imageLoadError:_debounce(function(e) {
-            this.cacheBuster++;
+
+            if(this.retries < 3) {
+                this.cacheBuster++;
+                this.retries++;
+            }
+            
         }, 100),
     },
     computed: {
