@@ -65,7 +65,12 @@ export default {
             this.model = m;
         }
     },
+    beforeMount() {
+        this.$sdk.auth.ensureValidToken();
+    },
     mounted() {
+
+        // Ensure
         this.$refs.img.addEventListener('error', this.imageLoadError);
     },
     beforeUnmount() {

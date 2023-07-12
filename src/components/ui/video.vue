@@ -30,7 +30,9 @@ export default {
             model: this.item,
         }
     },
-
+    beforeMount() {
+        this.$sdk.auth.ensureValidToken();
+    },
     computed: {
         mediaType() {
             return this.model?.mediaIntegrationType || 'upload';
