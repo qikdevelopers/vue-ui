@@ -1,7 +1,7 @@
 import './style.css';
 import { defineComponent as ki, ref as Kt, toRefs as oa, onMounted as ua, onBeforeUnmount as So, watch as xi, computed as ai, openBlock as o, createElementBlock as d, renderSlot as q, createCommentVNode as _, useSlots as Oo, reactive as kr, provide as Fr, resolveComponent as y, normalizeClass as P, Fragment as S, unref as jn, createBlock as k, withCtx as h, createVNode as m, renderList as $, toDisplayString as b, withModifiers as W, createTextVNode as O, createElementVNode as w, h as li, resolveDynamicComponent as Ft, mergeProps as wi, toHandlers as da, withDirectives as K, vModelSelect as xt, pushScopeId as st, popScopeId as at, normalizeStyle as wt, Teleport as To, vModelText as pe, withKeys as ge, TransitionGroup as Eo, nextTick as ca, vModelDynamic as Rn, vShow as qi } from "vue";
 import { EventDispatcher as Co } from "@qikdev/sdk";
-const Vo = "0.2.84", lr = {
+const Vo = "0.2.85", lr = {
   STRIPE_NOT_LOADED: "Stripe v3 library is not loaded",
   INSTANCE_NOT_DEFINED: "Instance object is not defined. Make sure you initialized Stripe before creating elements",
   ELEMENTS_NOT_DEFINED: "Elements object is not defined. You can't create stripe element without it",
@@ -20355,7 +20355,7 @@ const LT = {
       actualOptions: this.options
     };
   }
-}, _o = (e) => (st("data-v-4f6cf2cc"), e = e(), at(), e), PT = { class: "footer" }, UT = /* @__PURE__ */ _o(() => /* @__PURE__ */ w("p", null, null, -1)), jT = { key: 0 }, RT = /* @__PURE__ */ _o(() => /* @__PURE__ */ w("p", null, null, -1));
+}, _o = (e) => (st("data-v-9c5677ad"), e = e(), at(), e), PT = { class: "footer" }, UT = /* @__PURE__ */ _o(() => /* @__PURE__ */ w("p", null, null, -1)), jT = { key: 0 }, RT = /* @__PURE__ */ _o(() => /* @__PURE__ */ w("p", null, null, -1));
 function BT(e, t, n, i, s, r) {
   const a = y("ux-icon"), l = y("ux-panel-body"), u = y("ux-panel"), c = y("flex-column"), f = y("ux-button"), p = y("ux-list-item"), g = y("ux-list"), v = y("ux-menu"), x = y("native-table"), T = y("pager"), A = y("flex-footer"), G = y("flex-row"), Q = y("search"), re = y("ux-field"), le = y("filter-builder"), oe = y("flex-body"), B = y("spinner");
   return r.actualDefinition ? (o(), k(c, {
@@ -20564,7 +20564,7 @@ function BT(e, t, n, i, s, r) {
     _: 3
   })) : _("", !0);
 }
-const zT = /* @__PURE__ */ E(LT, [["render", BT], ["__scopeId", "data-v-4f6cf2cc"]]), Ln = {
+const zT = /* @__PURE__ */ E(LT, [["render", BT], ["__scopeId", "data-v-9c5677ad"]]), Ln = {
   props: {
     options: {
       type: Object,

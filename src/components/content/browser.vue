@@ -778,6 +778,8 @@ export default {
 
             function addColumn(force) {
                 return function(col) {
+
+
                     var alreadySelected = columnHash[col.path || col.key];
                     if (force || !alreadySelected) {
                         columnHash[col.path || col.key] = 1;
@@ -795,12 +797,15 @@ export default {
 
             // If the interface is forcing to prefix columns
             var prefixColumns = (this.actualOptions.prefixColumns || []);
+
+
             prefixColumns.forEach(addColumn(true))
 
             /////////////////////////////////////
 
             //Add the default columns
             var optionColumns = this.actualOptions.columns;
+
             var basicColumns = optionColumns && optionColumns.length ? optionColumns : defaultColumns(this, this.basicType);
 
             if (!basicColumns.length) {
@@ -839,6 +844,8 @@ export default {
 
 
             activeFilters.forEach(addColumn())
+
+
             /////////////////////////////////////
 
             return columns;
