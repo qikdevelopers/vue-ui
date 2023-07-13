@@ -50,13 +50,18 @@
                                         </native-table>
                                     </template>
                                 </flex-column>
-                                <flex-column class="empty" v-else-if="!loading" center>
+                                <template v-else-if="!loading">
+                                    <template v-if="viewMode && viewMode.component && viewMode.customEmpty">
+                                        <component @reload="debounceReload" :cacheKey="viewModeCacheKey" :definition="actualDefinition" :is="viewMode.component" :selection="manager.items" :items="items" @click:actions="actionsClicked" @select:item:toggle="rowToggled" @click:item="rowClicked" />
+                                    </template>
+                                <flex-column class="empty" v-else center>
                                     <ux-panel>
                                         <ux-panel-body>
                                             <div>No {{plural}} found.</div>
                                         </ux-panel-body>
                                     </ux-panel>
                                 </flex-column>
+                            </template>
                                 <flex-column class="empty" v-else center>
                                     <!-- <ux-panel>
                                 <ux-panel-body>
