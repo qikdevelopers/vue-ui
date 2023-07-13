@@ -71,10 +71,16 @@ export default {
     mounted() {
 
         // Ensure
-        this.$refs.img.addEventListener('error', this.imageLoadError);
+        const img = this.$refs.img;
+        if(img) {
+            img.addEventListener('error', this.imageLoadError);
+        }
     },
     beforeUnmount() {
-        this.$refs.img.removeEventListener('error', this.imageLoadError);
+        const img = this.$refs.img;
+        if(img) {
+            img.removeEventListener('error', this.imageLoadError);
+        }
     },
     methods:{
         imageLoadError:_debounce(function(e) {

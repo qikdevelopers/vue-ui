@@ -1,7 +1,7 @@
 import './style.css';
 import { defineComponent as ki, ref as Kt, toRefs as oa, onMounted as ua, onBeforeUnmount as So, watch as xi, computed as ai, openBlock as o, createElementBlock as d, renderSlot as q, createCommentVNode as _, useSlots as Oo, reactive as kr, provide as Fr, resolveComponent as y, normalizeClass as P, Fragment as S, unref as jn, createBlock as k, withCtx as h, createVNode as m, renderList as $, toDisplayString as b, withModifiers as W, createTextVNode as O, createElementVNode as w, h as li, resolveDynamicComponent as xt, mergeProps as wi, toHandlers as da, withDirectives as K, vModelSelect as wt, pushScopeId as st, popScopeId as at, normalizeStyle as St, Teleport as To, vModelText as pe, withKeys as ge, TransitionGroup as Eo, nextTick as ca, vModelDynamic as Rn, vShow as qi } from "vue";
 import { EventDispatcher as Co } from "@qikdev/sdk";
-const Vo = "0.2.86", lr = {
+const Vo = "0.2.87", lr = {
   STRIPE_NOT_LOADED: "Stripe v3 library is not loaded",
   INSTANCE_NOT_DEFINED: "Instance object is not defined. Make sure you initialized Stripe before creating elements",
   ELEMENTS_NOT_DEFINED: "Elements object is not defined. You can't create stripe element without it",
@@ -7965,10 +7965,12 @@ const P_ = {
     this.$sdk.auth.ensureValidToken();
   },
   mounted() {
-    this.$refs.img.addEventListener("error", this.imageLoadError);
+    const e = this.$refs.img;
+    e && e.addEventListener("error", this.imageLoadError);
   },
   beforeUnmount() {
-    this.$refs.img.removeEventListener("error", this.imageLoadError);
+    const e = this.$refs.img;
+    e && e.removeEventListener("error", this.imageLoadError);
   },
   methods: {
     imageLoadError: en(function(e) {
@@ -8066,7 +8068,7 @@ function R_(e, t, n, i, s, r) {
     }, null, 12, j_))
   ], 6);
 }
-const B_ = /* @__PURE__ */ E(P_, [["render", R_], ["__scopeId", "data-v-1e45450d"]]);
+const B_ = /* @__PURE__ */ E(P_, [["render", R_], ["__scopeId", "data-v-258037a0"]]);
 const z_ = {
   props: {
     item: {
