@@ -58,6 +58,7 @@ export { default as NativeSelect } from './form/inputs/select.vue';
 export { default as CodeEditor } from './form/inputs/code-editor.vue';
 
 
+export { default as Item } from './content/item.vue';
 export { default as UXRender } from './content/render/render.vue';
 export { default as UXRenderField } from './content/render/field.vue';
 
