@@ -51,6 +51,7 @@ export default {
     },
     watch: {
         modelValue(val, old) {
+            console.log('Model value changed', val, old);
             this.value = val;
         },
     },

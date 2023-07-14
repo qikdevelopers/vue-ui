@@ -1,7 +1,7 @@
 import './style.css';
 import { defineComponent as ki, ref as Kt, toRefs as oa, onMounted as ua, onBeforeUnmount as So, watch as xi, computed as ai, openBlock as o, createElementBlock as d, renderSlot as q, createCommentVNode as _, useSlots as Oo, reactive as kr, provide as Fr, resolveComponent as y, normalizeClass as P, Fragment as S, unref as jn, createBlock as k, withCtx as h, createVNode as m, renderList as $, toDisplayString as b, withModifiers as W, createTextVNode as O, createElementVNode as w, h as li, resolveDynamicComponent as xt, mergeProps as wi, toHandlers as da, withDirectives as K, vModelSelect as wt, pushScopeId as st, popScopeId as at, normalizeStyle as St, Teleport as To, vModelText as pe, withKeys as ge, TransitionGroup as Eo, nextTick as ca, vModelDynamic as Rn, vShow as qi } from "vue";
 import { EventDispatcher as Co } from "@qikdev/sdk";
-const Vo = "0.2.88", lr = {
+const Vo = "0.2.90", lr = {
   STRIPE_NOT_LOADED: "Stripe v3 library is not loaded",
   INSTANCE_NOT_DEFINED: "Instance object is not defined. Make sure you initialized Stripe before creating elements",
   ELEMENTS_NOT_DEFINED: "Elements object is not defined. You can't create stripe element without it",
@@ -18803,7 +18803,7 @@ const tT = {
   },
   watch: {
     modelValue(e, t) {
-      this.value = e;
+      console.log("Model value changed", e, t), this.value = e;
     }
   },
   computed: {
@@ -18846,7 +18846,7 @@ function iT(e, t, n, i, s, r) {
     ])
   ]);
 }
-const po = /* @__PURE__ */ E(tT, [["render", iT], ["__scopeId", "data-v-9cf5026c"]]), sT = {
+const po = /* @__PURE__ */ E(tT, [["render", iT], ["__scopeId", "data-v-41858ddc"]]), sT = {
   props: {
     field: {
       type: Object,
