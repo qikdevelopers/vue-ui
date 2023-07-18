@@ -1,7 +1,7 @@
 import './style.css';
 import { defineComponent as ki, ref as Kt, toRefs as oa, onMounted as ua, onBeforeUnmount as So, watch as xi, computed as ai, openBlock as o, createElementBlock as d, renderSlot as q, createCommentVNode as _, useSlots as Oo, reactive as kr, provide as Fr, resolveComponent as y, normalizeClass as P, Fragment as S, unref as jn, createBlock as k, withCtx as h, createVNode as m, renderList as $, toDisplayString as b, withModifiers as W, createTextVNode as O, createElementVNode as w, h as li, resolveDynamicComponent as xt, mergeProps as wi, toHandlers as da, withDirectives as K, vModelSelect as wt, pushScopeId as st, popScopeId as at, normalizeStyle as St, Teleport as To, vModelText as pe, withKeys as ge, TransitionGroup as Eo, nextTick as ca, vModelDynamic as Rn, vShow as qi } from "vue";
 import { EventDispatcher as Co } from "@qikdev/sdk";
-const Vo = "0.2.90", lr = {
+const Vo = "0.2.91", lr = {
   STRIPE_NOT_LOADED: "Stripe v3 library is not loaded",
   INSTANCE_NOT_DEFINED: "Instance object is not defined. Make sure you initialized Stripe before creating elements",
   ELEMENTS_NOT_DEFINED: "Elements object is not defined. You can't create stripe element without it",
@@ -11595,7 +11595,8 @@ function ab(e, t, n, i, s, r) {
 const lb = /* @__PURE__ */ E(sb, [["render", ab], ["__scopeId", "data-v-5472184b"]]);
 const ob = {
   async created() {
-    this.scopeGlossary = await this.$sdk.content.scopeGlossary({ hash: !0 });
+    const e = await this.$sdk.content.scopeGlossary({ hash: !0 });
+    this.scopeGlossary = e, this.loadingScopeGlossary = !1;
   },
   props: {
     action: {
@@ -11614,7 +11615,8 @@ const ob = {
   data() {
     return {
       scopeGlossary: {},
-      loading: !0,
+      loadingScopeGlossary: !0,
+      loadingContentGlossary: !0,
       model: this.modelValue,
       definition: null
     };
@@ -11630,6 +11632,9 @@ const ob = {
     }
   },
   computed: {
+    loading() {
+      return this.loadingScopeGlossary || this.loadingContentGlossary;
+    },
     cacheKey() {
       return this.user.cacheKey;
     },
@@ -11644,8 +11649,12 @@ const ob = {
       }).join(", ") : "Select Scopes";
     },
     definitionDefaultScopes() {
-      var e;
-      return ((e = this.definition) == null ? void 0 : e.defaultScopes) || [];
+      var i;
+      const e = this, t = (i = e.definition) == null ? void 0 : i.defaultScopes;
+      if (t && t.length)
+        return [...t];
+      const n = Object.keys(e.scopeGlossary);
+      return n.length === 1 ? [...n] : [];
     },
     definitionRestrictScopes() {
       var e;
@@ -11673,7 +11682,7 @@ const ob = {
   watch: {
     availableDefaultScopes: {
       handler(e) {
-        !this.model.length && e.length && (this.model = [...e]);
+        this.model.length || e.length && (this.model = [...e]);
       },
       immediate: !0
     },
@@ -11685,27 +11694,36 @@ const ob = {
     },
     type: {
       async handler(e) {
-        const t = this, n = await this.$sdk.content.glossary({ hash: !0 });
-        t.definition = n[e];
+        const t = this;
+        t.loadingContentGlossary = !0;
+        const n = await this.$sdk.content.glossary({ hash: !0 });
+        t.definition = n[e], t.loadingContentGlossary = !1;
       },
       immediate: !0
     }
   }
 };
 function ub(e, t, n, i, s, r) {
-  const a = y("ux-button");
+  const a = y("ux-icon"), l = y("ux-button");
   return o(), d("div", null, [
-    m(a, { onClick: r.openSelection }, {
+    m(l, { onClick: r.openSelection }, {
       default: h(() => [
         w("span", {
           class: P({ "empty-text": r.empty })
-        }, b(r.summary), 3)
+        }, b(r.summary), 3),
+        O(),
+        r.loading ? (o(), k(a, {
+          key: 0,
+          right: "",
+          icon: "fa-spinner",
+          spin: ""
+        })) : _("", !0)
       ]),
       _: 1
     }, 8, ["onClick"])
   ]);
 }
-const db = /* @__PURE__ */ E(ob, [["render", ub], ["__scopeId", "data-v-b0704bf6"]]);
+const db = /* @__PURE__ */ E(ob, [["render", ub], ["__scopeId", "data-v-f83c09f7"]]);
 function cb(e) {
   return e === void 0 || typeof e > "u" || e === null || String(e) === "null" || String(e) === "undefined";
 }

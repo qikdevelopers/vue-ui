@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<ux-button @click="openSelection">
-			<span :class="{'empty-text':empty}">{{summary}}</span>
+			<span :class="{'empty-text':empty}">{{summary}}</span> <ux-icon right icon="fa-spinner" spin v-if="loading"/> 
 		</ux-button>
 	</div>
 </template>
@@ -11,8 +11,9 @@ import ScopeSelect from './ScopeSelect.vue';
 
 export default {
 	async created() {
-        this.scopeGlossary = await this.$sdk.content.scopeGlossary({ hash: true });
-
+        const s = await this.$sdk.content.scopeGlossary({ hash: true });    
+    	this.scopeGlossary = s;
+    	this.loadingScopeGlossary = false;
     },
     props:{
 		action:{
@@ -31,7 +32,8 @@ export default {
 	data() {
 		return {
 			scopeGlossary:{},
-			loading:true,
+			loadingScopeGlossary:true,
+			loadingContentGlossary:true,
 			model:this.modelValue,
 			definition:null,
 		}
@@ -50,6 +52,9 @@ export default {
 		}
 	},
 	computed:{
+		loading() {
+			return this.loadingScopeGlossary || this.loadingContentGlossary
+		},
 		cacheKey() {
 			return this.user.cacheKey;
 		},
@@ -72,7 +77,22 @@ export default {
 			}).join(', ');
 		},
 		definitionDefaultScopes() {
-			return this.definition?.defaultScopes || [];
+
+			const self = this;
+			const defaultDefinitionScopes = self.definition?.defaultScopes;
+
+			if(defaultDefinitionScopes && defaultDefinitionScopes.length) {
+				return [...defaultDefinitionScopes];
+			}
+
+			const allAvailableKeys = Object.keys(self.scopeGlossary);
+			if(allAvailableKeys.length === 1) {
+				return [...allAvailableKeys];
+			}
+
+			return [];
+
+
 		},
 		definitionRestrictScopes() {
 			return this.definition?.restrictScopes || [];
@@ -121,6 +141,8 @@ export default {
 				availableDefaultScopes = self.definitionRestrictScopes
 			}
 
+
+
 			// Return back the default scopes
 			return availableDefaultScopes;
 		},
@@ -128,9 +150,19 @@ export default {
 	watch:{
 		availableDefaultScopes:{
 			handler(s) {
-				if(!this.model.length && s.length) {
+
+				// there's already scopes selected
+				if(this.model.length) {
+					return;
+				}
+
+				// There are some default scopes available
+				// So let's add them in to the model to begin with
+				if(s.length) {
 					this.model = [...s]
 				}
+
+
 			},
 			immediate:true,
 		},
@@ -143,8 +175,10 @@ export default {
 		type:{
 			async handler(type) {
                 const self = this;
+                self.loadingContentGlossary = true;
                 const glossary = await this.$sdk.content.glossary({hash:true});
                 self.definition = glossary[type]
+                self.loadingContentGlossary = false;
             },
 			immediate:true,
 		},
