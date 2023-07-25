@@ -55,5 +55,6 @@ export default {
 .richtext-field-wrap {
     display: flex;
     min-height: 300px;
+    margin-bottom: 5px;
 }
 </style>

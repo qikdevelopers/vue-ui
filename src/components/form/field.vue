@@ -12,6 +12,9 @@
         <template v-if="widget == 'value'">
             <!-- Value in here -->
         </template>
+        <template v-if="widget == 'slider'">
+            <slider-input @touched="touch" :field="actualField" v-model="fieldModel" />
+        </template>
         <template v-if="widget == 'filter'">
             <filter-input @touched="touch" :field="actualField" v-model="fieldModel" />
         </template>
@@ -129,6 +132,7 @@ import DateRange from './inputs/daterange.vue';
 import Checkbox from './inputs/checkbox.vue';
 import CustomHTML from './inputs/html.vue';
 import FilterInput from './inputs/filter.vue';
+import SliderInput from './inputs/slider.vue';
 import Switch from './inputs/switch.vue';
 import Upload from './inputs/upload/upload.vue';
 import FieldGroup from './inputs/group.vue';
@@ -211,6 +215,7 @@ export default {
         TextArea,
         Checkbox,
         FilterInput,
+        SliderInput,
         CustomHtml: CustomHTML,
         BooleanSwitch: Switch,
         FieldGroup,
@@ -577,6 +582,11 @@ export default {
                 actual = Object.assign({}, actual, { minValue:this.getExpressionMinValue });
             }
 
+            if (this.getExpressionStepValue) {
+
+                actual = Object.assign({}, actual, { stepValue:this.getExpressionStepValue });
+            }
+
             if (this.getExpressionMaxValue) {
 
                 actual = Object.assign({}, actual, { maxValue:this.getExpressionMaxValue });
@@ -653,6 +663,7 @@ export default {
         getExpressionSyntax:computedExpression('syntax'),
         getExpressionCurrency:computedExpression('currency'),
         getExpressionMinValue:computedExpression('minValue'),
+        getExpressionStepValue:computedExpression('stepValue'),
         getExpressionMaxValue:computedExpression('maxValue'),
         getExpressionVisualHide: computedExpression('visualHide'),
         // hasExpressionDefaultValue: hasExpression('defaultValue'), // Not sure what this is for
@@ -825,6 +836,7 @@ export default {
                 case 'html':
                 case 'filter':
                 case 'value':
+                case 'slider':
                     break;
                 case 'datefield':
                 case 'datepicker':
