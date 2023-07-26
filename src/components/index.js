@@ -2,6 +2,8 @@
 
 //Import the pieces we need
 import { version } from './version';
+import DateService from './services/date';
+
 const versionName = `qik vue ui ${version}`;
 
 ////////////////////////////////////////////
@@ -199,11 +201,12 @@ const defaultComponents = {
 
 import { reactive, watchEffect } from 'vue'
 
+
 const QikUI = {
     install(Vue, sdk) {
         console.log(versionName)
 
-
+        sdk.date = DateService;
 
         //////////////////////////////
 

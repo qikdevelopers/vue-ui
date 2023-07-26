@@ -2,7 +2,7 @@
 
 
     <component v-if="component" :is="component" :column="column" :row="row" :value="value" />
-    <td v-else class="table-cell">
+    <td v-else class="table-cell" :class="{nowrap}">
         <template v-if="multiValue">
             <template v-if="complex">
                 <span class="value" v-for="(entry, index) in value">
@@ -34,6 +34,7 @@ import URLCell from './cells/URLCell.vue';
 import ComputedCell from './cells/ComputedCell.vue';
 import ValueRenderer from './cells/Value.vue';
 import StatusCell from './cells/StatusCell.vue';
+import TitleCell from './cells/TitleCell.vue';
 
 
 
@@ -115,6 +116,9 @@ export default {
             case 'datetime':
                 component = DateCell;
                 break;
+            case 'title':
+                component = TitleCell;
+                break;
             case 'status':
                 component = StatusCell
                 break;
@@ -160,6 +164,9 @@ export default {
         },
     },
     computed: {
+        nowrap() {
+            return this.column.wrap === false;
+        },
         multiValue() {
             return Array.isArray(this.value);
         },
@@ -195,5 +202,9 @@ export default {
     display: inline-block;
     margin: 0.05em;
 
+}
+
+.nowrap {
+    white-space: nowrap;
 }
 </style>

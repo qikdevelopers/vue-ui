@@ -291,14 +291,11 @@ export default {
         clickActions(row) {
             this.$emit('click:actions', row);
         },
-        clickSelect(row, index) {
-            // console.log('CLICK SELECT', index, row);
-            
+        clickSelect(row, index) {            
             const currentSelectedIndex = this.lastSelectedIndex;
 
             if(this.shift) {
                 if(currentSelectedIndex != index) {
-                    console.log('FROM', currentSelectedIndex, '-', index);
                     return this.selectRange(currentSelectedIndex, index);
                 }
             }

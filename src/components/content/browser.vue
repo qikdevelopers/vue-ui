@@ -107,6 +107,7 @@ import Search from '../form/inputs/search.vue';
 import Pager from '../ui/pager.vue';
 import UXFormField from '../form/field.vue';
 import _debounce from 'lodash/debounce';
+import _uniq from 'lodash/uniq';
 
 //////////////////////////////////////////////
 
@@ -707,7 +708,7 @@ export default {
                     return !isObject;
                 })
                 .map(function(field) {
-                    field.title = field.titles.join(' > ');
+                    field.title = field.titles.join(' › ');
                     return field;
                 })
                 .sort(function(a, b) {
@@ -772,7 +773,7 @@ export default {
             }
 
 
-            return fields;
+            return _uniq(fields);
         },
         columns() {
 

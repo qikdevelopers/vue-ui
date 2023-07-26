@@ -206,7 +206,7 @@ export default {
                     return !isObject;
                 })
                 .map(function(field) {
-                    field.title = field.titles.join(' > ');
+                    field.title = field.titles.join(' › ');
                     return field;
                 })
                 .sort(function(a, b) {
